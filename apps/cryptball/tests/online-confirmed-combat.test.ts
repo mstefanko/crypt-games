@@ -50,3 +50,15 @@ it('current checkpoint controller ownership reserves switched actors instead of 
   expect(targets).toEqual([]);
   expect(eligibleTouchTeammates(s,owners.slice(0,1),'me').map(p=>p.id)).toEqual([p0.id]);
 });
+
+it('Guardian attack danger timing and projectile lifecycle stay authoritative between HP changes',()=>{
+  const authority=createCryptballSession({sportId:'crypt-guardian'}).observe(),predicted=structuredClone(authority);
+  predicted.guardian!.projectiles.push({id:'unconfirmed',attackId:4,x:256,y:0,vx:256,vy:0,radius:10,lifeTicks:30,endX:1000,endY:0,rx:0,ry:0});
+  const draw=confirmedCombatPresentation(predicted,authority);
+  expect(draw.guardian!.attack).toEqual(authority.guardian!.attack);
+  expect(draw.guardian!.projectiles).toEqual([]);
+  authority.guardian!.projectiles.push({...predicted.guardian!.projectiles[0],x:0});
+  const confirmed=confirmedCombatPresentation(predicted,authority);
+  expect(confirmed.guardian!.projectiles[0].x).toBe(256);
+  expect(confirmed.guardian!.projectiles[0].lifeTicks).toBe(30);
+});

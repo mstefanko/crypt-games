@@ -9,7 +9,8 @@ import type {
 import type { CryptballSession } from "./sim/contract";
 import { isSportId } from "./sim/sports-spec";
 export { isSportId };
-export const PROTOCOL = 14;
+// v15 requires queued-switch revision admission and matching client replay semantics.
+export const PROTOCOL = 15;
 export function resolveSportId(value: unknown): SportId {
   if (value === undefined) return "cryptball";
   if (!isSportId(value))

@@ -120,7 +120,7 @@ describe("real Colyseus sockets", () => {
   it("isolates sport queues, discovers private-room sport by code, and rejects unknown or mismatched sport", async () => {
     const options = { build: BUILD, protocol: PROTOCOL };
     const groups = [];
-    for (const sportId of SPORT_IDS) {
+    for (const sportId of SPORT_IDS.filter(id => id !== "crypt-guardian")) {
       const a = track(
         await new Client(endpoint).joinOrCreate("cryptball", {
           ...options,
@@ -139,7 +139,12 @@ describe("real Colyseus sockets", () => {
       expect(a.snapshot!.checkpoint.state.sportId).toBe(sportId);
       groups.push(a.room.roomId);
     }
-    expect(new Set(groups).size).toBe(SPORT_IDS.length);
+    expect(new Set(groups).size).toBe(SPORT_IDS.length - 1);
+    await expect(new Client(endpoint).create("cryptball", { ...options, sportId: "crypt-guardian" })).rejects.toThrow("solo only");
+    const shuffle = track(await new Client(endpoint).joinOrCreate("cryptball", { ...options, shuffle: true }));
+    const shufflePeer = track(await new Client(endpoint).joinOrCreate("cryptball", { ...options, shuffle: true }));
+    expect(shuffle.room.roomId).toBe(shufflePeer.room.roomId);
+    expect(groups).not.toContain(shuffle.room.roomId);
     const defaultSport = track(
       await new Client(endpoint).joinOrCreate("cryptball", options),
     );
@@ -256,135 +261,30 @@ describe("real Colyseus sockets", () => {
     expect(a.snapshot!.generation).toBe(generation + 1);
     a.room.send("resume");
   }, 15000);
-  it("transports one team special to both peers and preserves its spent cooldown on reconnect", async () => {
+  it("keeps cosmetic-club specials disabled across both peers and reconnect", async () => {
     const options = { build: BUILD, protocol: PROTOCOL };
-    const a = track(
-      await new Client(endpoint).create("cryptball", {
-        ...options,
-        private: true,
-      }),
-    );
-    const b = track(
-      await new Client(endpoint).joinById(a.room.roomId, options),
-    );
+    const a = track(await new Client(endpoint).create("cryptball", { ...options, private: true }));
+    const b = track(await new Client(endpoint).joinById(a.room.roomId, options));
     for (const peer of [a, b]) peer.room.send("ready");
-    await until(() => a.lobby?.seats.every((seat) => seat.ready) === true);
+    await until(() => a.lobby?.seats.every(seat => seat.ready) === true);
     a.room.send("start");
-    const cursors = new Map<
-      Room,
-      { seq: number; seenTick: number; sentTick: number; at: number }
-    >();
-    let requestSpecial = false,
-      sentSpecial = false;
-    // Real neutral input keeps both seats active while the initial twelve live
-    // seconds charge. The special uses exactly the same socket packet path.
-    const timer = setInterval(() => {
-      for (const peer of [a, b]) {
-        const snapshot = peer.snapshot;
-        if (!snapshot || peer.lobby?.phase !== "playing") continue;
-        let cursor = cursors.get(peer.room);
-        if (!cursor) {
-          cursor = {
-            seq: 0,
-            seenTick: snapshot.tick,
-            sentTick: -1,
-            at: Date.now(),
-          };
-          cursors.set(peer.room, cursor);
-        }
-        if (cursor.seenTick !== snapshot.tick) {
-          cursor.seenTick = snapshot.tick;
-          cursor.at = Date.now();
-        }
-        const controller = snapshot.checkpoint.state.controllers.find(
-          (c) => c.id === peer.room.sessionId,
-        )!;
-        const target =
-          snapshot.tick +
-          Math.floor((Date.now() - cursor.at) / (1000 / 60)) +
-          3;
-        if (target <= cursor.sentTick) continue;
-        cursor.sentTick = target;
-        // A rejected/late input must not consume the test's only special edge.
-        // Retry until authority confirms admission; the spent cooldown prevents repeats.
-        const special =
-          peer === a &&
-          requestSpecial &&
-          snapshot.checkpoint.state.specials[0].cooldownTicks === 0;
-        if (special) sentSpecial = true;
-        peer.room.send("input", {
-          epoch: snapshot.epoch,
-          generation: snapshot.generation,
-          seq: ++cursor.seq,
-          tick: target,
-          revision: controller.revision,
-          command: special
-            ? { moveX: 0, moveY: 0, aim: 64, special: true }
-            : { moveX: 0, moveY: 0 },
-        });
-      }
-    }, 1000 / 60);
-    try {
-      await until(() => {
-        const state = a.snapshot?.checkpoint.state;
-        const controller = state?.controllers.find(
-          (c) => c.id === a.room.sessionId,
-        );
-        const player = state?.players.find(
-          (p) => p.id === controller?.playerId,
-        );
-        return (
-          state?.phase === "play" &&
-          state.specials[0].cooldownTicks === 0 &&
-          !!player &&
-          !player.action &&
-          !player.charging &&
-          !player.dashTicks &&
-          !player.slideTicks &&
-          !player.slideRecovery &&
-          !player.staggerTicks &&
-          state.tick >= player.actionReady
-        );
-      }, 25000);
-      const playerId = a.snapshot!.checkpoint.state.controllers.find(
-        (c) => c.id === a.room.sessionId,
-      )!.playerId;
-      requestSpecial = true;
-      await until(() =>
-        [a, b].every(
-          (peer) =>
-            peer.snapshot?.checkpoint.state.specials[0].active?.playerId ===
-            playerId,
-        ),
-      );
-      expect(sentSpecial).toBe(true);
-      for (const peer of [a, b]) {
-        const special = peer.snapshot!.checkpoint.state.specials[0];
-        expect(special.rechargeTicks).toBe(1440);
-        expect(special.cooldownTicks).toBeGreaterThan(1400);
-        expect(special.active!.heading).toBe(64);
-      }
-      const spentCooldown =
-        a.snapshot!.checkpoint.state.specials[0].cooldownTicks;
-      const generation = a.snapshot!.generation;
-      a.room.reconnection.minUptime = 0;
-      a.room.connection.close(4010, "special cooldown reconnect test");
-      await until(() => a.snapshot!.generation > generation);
-      const restored = a.snapshot!.checkpoint.state.specials[0];
-      expect(restored.rechargeTicks).toBe(1440);
-      expect(restored.cooldownTicks).toBeGreaterThan(720);
-      expect(restored.cooldownTicks).toBeLessThanOrEqual(spentCooldown);
-      expect(
-        a.snapshot!.checkpoint.state.controllers.find(
-          (c) => c.id === a.room.sessionId,
-        )?.playerId,
-      ).toBe(playerId);
-      a.room.send("resume");
-    } finally {
-      clearInterval(timer);
-      await Promise.allSettled([a.room.leave(), b.room.leave()]);
-    }
-  }, 35000);
+    await until(() => a.lobby?.phase === "playing" && !!a.snapshot && !!b.snapshot);
+    const snapshot = a.snapshot!, controller = snapshot.checkpoint.state.controllers.find(c => c.id === a.room.sessionId)!;
+    const before = snapshot.checkpoint.state.specials.map(s => ({ ...s }));
+    a.room.send("input", { epoch: snapshot.epoch, generation: snapshot.generation,
+      seq: 1, tick: snapshot.tick + 6, revision: controller.revision, command: { special: true } });
+    await until(() => (a.snapshot?.terminalSeq ?? 0) >= 1);
+    const executedAt = a.snapshot!.tick;
+    await until(() => !!b.snapshot && b.snapshot.tick >= executedAt);
+    for (const peer of [a, b]) expect(peer.snapshot!.checkpoint.state.specials).toEqual(before);
+    const generation = a.snapshot!.generation;
+    a.room.reconnection.minUptime = 0;
+    a.room.connection.close(4010, "cosmetic-club reconnect test");
+    await until(() => a.snapshot!.generation > generation);
+    expect(a.snapshot!.checkpoint.state.specials).toEqual(before);
+    expect(a.snapshot!.checkpoint.state.controllers.find(c => c.id === a.room.sessionId)?.playerId).toBe(controller.playerId);
+    a.room.send("resume");
+  }, 15000);
   it("bounds concurrent fifth arrival and allows a three-human private start", async () => {
     const options = { build: BUILD, protocol: PROTOCOL };
     const arrivals = await Promise.all(
@@ -570,38 +470,52 @@ it("runs four real browser adapters through an ordered 150ms RTT TCP proxy", asy
     setItem: () => {},
     removeItem: () => {},
   });
-  const adapters = Array.from({ length: 4 }, () =>
-    createOnlineSession({ endpoint: proxy.endpoint }),
+  const traceEnabled = globalThis.process.env.CRYPTBALL_SOCKET_TRACE === "1";
+  const traces: { kind: string; at: number; fields: Record<string, string | number | boolean | null> }[][] = Array.from({ length: 4 }, () => []);
+  const phases: unknown[] = [];
+  const metrics = async () => (await fetch(`${endpoint}/metrics`, { headers: { Authorization: "Bearer socket-test" } })).json();
+  const adapters = Array.from({ length: 4 }, (_, i) =>
+    createOnlineSession({ endpoint: proxy.endpoint,
+      onPerformance: traceEnabled ? event => { if (traces[i].length < 12_000) traces[i].push(event); } : undefined,
+    }),
   );
   let timer: ReturnType<typeof setInterval> | undefined;
   try {
     await Promise.all(adapters.map((adapter) => adapter.connect("quick")));
-    timer = setInterval(
-      () =>
-        adapters.forEach((adapter) =>
-          adapter.step({
-            moveX: 1,
-            aim: 0,
-            dash: Math.floor(performance.now() / 1000) % 2 === 0,
-          }),
-        ),
-      1000 / 60,
-    );
+    const { FixedScheduler } = await import("../../../packages/game-runtime/src/scheduler");
+    const clocks = adapters.map(adapter => {
+      let tick = 0;
+      const clock = new FixedScheduler(() => {
+        adapter.step({ moveX: 1, aim: 0, dash: tick++ % 120 === 0 });
+      }, () => { throw new Error("Socket adapter exceeded bounded catch-up work"); });
+      clock.resume();
+      return clock;
+    });
+    timer = setInterval(() => {
+      const now = performance.now();
+      adapters.forEach((adapter, i) => clocks[i].advance(now, adapter.predictionRate));
+    }, 8);
     await until(
       () => adapters.every((adapter) => adapter.lobby?.phase === "playing"),
       12000,
     );
+    if (traceEnabled) phases.push({ at: performance.now(), phase: "all-playing", metrics: await metrics(), diagnostics: adapters.map(a => a.diagnostics) });
     await pause(6000);
+    if (traceEnabled) phases.push({ at: performance.now(), phase: "measurement-end", metrics: await metrics(), diagnostics: adapters.map(a => a.diagnostics) });
     for (const adapter of adapters) {
       expect(adapter.status).toBe("joined");
       expect(adapter.lobby?.seats.every((seat) => seat.active)).toBe(true);
       expect(adapter.diagnostics.terminalSeq).toBeGreaterThan(150);
       expect(adapter.diagnostics.botTransitions).toBe(0);
       expect(adapter.diagnostics.resyncRequested).toBe(0);
-      expect(adapter.diagnostics.timingRejections).toBeLessThan(5);
+      expect(adapter.diagnostics.timingRejections, JSON.stringify(adapter.diagnostics)).toBeLessThan(5);
     }
   } finally {
     if (timer) clearInterval(timer);
+    if (traceEnabled) {
+      const { writeFile } = await import("node:fs/promises");
+      await writeFile("/tmp/crypt-four-adapter-trace.json", JSON.stringify({ phases, traces, diagnostics: adapters.map(a => a.diagnostics) }));
+    }
     await Promise.allSettled(adapters.map((adapter) => adapter.leave()));
     await proxy.close();
     vi.unstubAllGlobals();

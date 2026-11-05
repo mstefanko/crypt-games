@@ -10,6 +10,7 @@ import {
 import type { CommandFrame, SportId } from "../../sim/contract";
 import { NetworkClock } from "../../src/online/clock";
 import { InputScheduler } from "../../src/online/input-scheduler";
+import { FixedScheduler } from "../../../../packages/game-runtime/src/scheduler";
 /** Real SDK + production clock/scheduler, without 100 full-world predictors on the generator CPU. */
 export function createSocketLoadClient(endpoint: string, sportId: SportId = "cryptball") {
   let room: Room,
@@ -21,6 +22,15 @@ export function createSocketLoadClient(endpoint: string, sportId: SportId = "cry
     heartbeatAt = -Infinity;
   const clock = new NetworkClock(),
     scheduler = new InputScheduler();
+  const fixed = new FixedScheduler(() => {
+    if (!snapshot || status !== "joined" || lobby?.phase !== "playing") return;
+    const slot = scheduler.allocate(clock.fractionalTick, snapshot.tick, performance.now());
+    if (slot) room.send("input", {
+      epoch: snapshot.epoch, generation: snapshot.generation,
+      revision: snapshot.checkpoint.state.controllers.find(c => c.id === room.sessionId)?.revision ?? 0,
+      seq: ++seq, tick: slot.tick, command: slot.command,
+    });
+  }, () => fixed.resume());
   return {
     async connect(kind: "private" | "join", code?: string) {
       const client = new Client(endpoint),
@@ -30,7 +40,10 @@ export function createSocketLoadClient(endpoint: string, sportId: SportId = "cry
           ? await client.create("cryptball", { ...options, private: true })
           : await client.joinById(code!, options);
       room.onMessage("lobby", (value: Lobby) => {
+        const wasPlaying = lobby?.phase === "playing";
         lobby = value;
+        if (value.phase === "playing" && !wasPlaying) fixed.resume();
+        else if (value.phase !== "playing") fixed.pause();
       });
       room.onMessage("pong", (value) => {
         if (snapshot) clock.pong(value, performance.now(), snapshot.epoch);
@@ -46,6 +59,13 @@ export function createSocketLoadClient(endpoint: string, sportId: SportId = "cry
           clock.reset();
           scheduler.reset();
           seq = 0;
+          if (lobby?.phase === "playing") fixed.resume();
+        }
+        if (snapshot && next.epoch === snapshot.epoch && next.generation === snapshot.generation &&
+          next.checkpoint.state.controllers.find(c => c.id === room.sessionId)?.revision !==
+          snapshot.checkpoint.state.controllers.find(c => c.id === room.sessionId)?.revision) {
+          scheduler.reset();
+          fixed.resume();
         }
         snapshot = next;
         status = "joined";
@@ -90,17 +110,9 @@ export function createSocketLoadClient(endpoint: string, sportId: SportId = "cry
         });
       }
       if (lobby?.phase !== "playing") return;
-      scheduler.capture(quantizeCommand(command), now, false);
-      const slot = scheduler.allocate(clock.tick, snapshot.tick, now);
-      if (slot)
-        room.send("input", {
-          epoch: snapshot.epoch,
-          generation: snapshot.generation,
-          revision,
-          seq: ++seq,
-          tick: slot.tick,
-          command: slot.command,
-        });
+      scheduler.capture(quantizeCommand(command), now,
+        ["cryptcheck", "crypt-dodge", "crypt-guardian"].includes(sportId), sportId);
+      fixed.advance(now, scheduler.predictionRate(clock.fractionalTick));
     },
     ready() {
       room.send("ready");
@@ -109,6 +121,7 @@ export function createSocketLoadClient(endpoint: string, sportId: SportId = "cry
       room.send("start");
     },
     async leave() {
+      fixed.pause();
       await room?.leave();
     },
     get status() {

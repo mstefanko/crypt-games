@@ -76,6 +76,7 @@ export class CryptballRoom extends Room {
     this.seatReservationTimeout = 10;
     await this.setPrivate(options.private === true);
     await this.setMetadata({
+      shuffle: options.shuffle === true,
       sportId,
       build: BUILD,
       protocol: PROTOCOL,

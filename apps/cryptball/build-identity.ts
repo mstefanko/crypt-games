@@ -1,2 +1,2 @@
 // Generated from game authority, protocol, and transitive engine sources.
-export const BUILD = "cryptball-v1-01639ff2dd3ac997b8d18665";
+export const BUILD = "cryptball-v1-3d31d137e1f81a36ff1342b9";

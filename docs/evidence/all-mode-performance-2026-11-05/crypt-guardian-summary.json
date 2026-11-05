@@ -1,0 +1,154 @@
+{
+  "variant": "optimized",
+  "sport": "crypt-guardian",
+  "play": "solo",
+  "peerKind": "none",
+  "endpoint": "local",
+  "rttAdded": 0,
+  "cpu": 4,
+  "seconds": 120,
+  "rematch": false,
+  "restart": true,
+  "errors": [],
+  "limitations": [
+    "Synthetic input to render submission is not physical input-to-photon latency.",
+    "Ordered delay proxy models delay, not packet loss.",
+    "Desktop browser run; actual phone capture required separately.",
+    "Scripted actions do not establish every mode scenario occurred; inspect event annotations."
+  ],
+  "framesMs": {
+    "n": 7080,
+    "p50": 16.69999999999709,
+    "p95": 16.70000000001164,
+    "p99": 16.80000000000291,
+    "max": 16.80000000000291
+  },
+  "stepMs": {
+    "n": 7042,
+    "p50": 0.5,
+    "p95": 1,
+    "p99": 1.2999999523162842,
+    "max": 3.0999999046325684
+  },
+  "clientSummary": {
+    "status": "local",
+    "menu": "play",
+    "measurementFrom": 3281.5,
+    "measurementEnd": 121272.19999980927,
+    "droppedEvents": 0,
+    "retainedWindow": {
+      "firstAt": 398.3,
+      "lastAt": 121260,
+      "durationMs": 120861.7,
+      "coversMeasurementStart": true
+    },
+    "epochsObserved": [
+      0,
+      1
+    ],
+    "measuredFrames": 7080,
+    "activeFrames": 6982,
+    "activeFraction": 0.9861581920903955,
+    "framesMs": {
+      "n": 7080,
+      "p50": 16.69999999999709,
+      "p95": 16.70000000001164,
+      "p99": 16.80000000000291,
+      "max": 16.80000000000291
+    },
+    "stepMs": {
+      "n": 7042,
+      "p50": 0.5,
+      "p95": 1,
+      "p99": 1.2999999523162842,
+      "max": 3.0999999046325684
+    },
+    "replayMs": {
+      "n": 0
+    },
+    "appWorkMs": {
+      "n": 7080,
+      "p50": 1.7000000476837158,
+      "p95": 2.9000000953674316,
+      "p99": 3.700000047683716,
+      "max": 12.200000047683716
+    },
+    "captureToRenderSubmissionMs": {
+      "n": 7042,
+      "p50": 1.6999998092651367,
+      "p95": 2.8999998569488525,
+      "p99": 3.5999999046325684,
+      "max": 12.200000047683716
+    },
+    "inputCounts": {
+      "input-capture": 7042,
+      "input-allocated": 0,
+      "input-applied": 0,
+      "input-application": 7042,
+      "input-render-submission": 7042
+    },
+    "ownershipCancellations": null,
+    "healthBaseline": {
+      "at": 3281.5,
+      "counters": {}
+    },
+    "lastNetworkDiagnostics": {},
+    "rejectionMaxima": {
+      "Expired": 0,
+      "Future": 0,
+      "Cancelled": 0,
+      "SequenceGap": 0,
+      "Capacity": 0,
+      "Revision": 0
+    },
+    "metadata": {
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.8078.4 Safari/537.36",
+      "devicePixelRatio": 1,
+      "viewportWidth": 1280,
+      "viewportHeight": 800,
+      "timeOrigin": 1793919641942,
+      "clientBuild": "cryptball-v1-3d31d137e1f81a36ff1342b9",
+      "clientRevision": "767fca10ec2f28294f606531f3826bf73e5c66fc-dirty",
+      "mode": "crypt-guardian",
+      "online": false,
+      "refreshHz": 59.97221477462748,
+      "canvasWidth": 640,
+      "canvasHeight": 400,
+      "inputTiming": "Physical captures and command application are separate events; synthetic traces link command to submission."
+    },
+    "retainedSimulationEvents": {
+      "whistle": 2,
+      "guardian-catch": 45,
+      "guardian-tell": 55,
+      "guardian-lock": 54,
+      "guardian-release": 53,
+      "charge-ready": 27,
+      "swing": 44,
+      "guardian-throw": 35,
+      "guardian-block": 15,
+      "guardian-hit": 30,
+      "guardian-damage": 14,
+      "switch": 26,
+      "guardian-ball-reset-tell": 23,
+      "guardian-ball-reset": 22,
+      "guardian-catch-ready": 25,
+      "guardian-deflect-tell": 8,
+      "guardian-deflect": 8,
+      "guardian-cover-crack": 5,
+      "guardian-stagger": 3,
+      "guardian-cover-break": 2,
+      "pass-target": 8,
+      "guardian-pass": 6,
+      "guardian-down": 2,
+      "guardian-defeat": 1,
+      "match-end": 1
+    }
+  },
+  "peerSummary": null,
+  "acceptance": {
+    "requested": false,
+    "passed": null,
+    "failures": [],
+    "scope": "Counters from the captured post-warmup baseline to frozen measurement end; retained timing distributions may cover a shorter window when events were dropped."
+  }
+}

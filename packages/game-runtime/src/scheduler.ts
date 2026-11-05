@@ -22,14 +22,18 @@ export class FixedScheduler {
     this.debt = 0;
   }
 
-  advance(now: number): number {
+  advance(now: number, rate = 1): number {
     if (this.paused) return 0;
     if (!Number.isFinite(now)) throw new Error("Invalid animation timestamp");
+    if (!Number.isFinite(rate) || rate < 0.95 || rate > 1.05)
+      throw new RangeError("Clock rate must be within five percent of real time");
     if (this.previousTime === undefined) {
       this.previousTime = now;
       return 0;
     }
-    this.debt += Math.max(0, now - this.previousTime);
+    // Online clock alignment slews elapsed time, never the deterministic dt.
+    // Offline callers retain the original wall-clock rate.
+    this.debt += Math.max(0, now - this.previousTime) * rate;
     this.previousTime = now;
     let count = 0;
     while (this.debt + 1e-7 >= FixedScheduler.tickMs && count < 5) {

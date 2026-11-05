@@ -1,0 +1,23 @@
+{
+  "baseCommit": "767fca10ec2f28294f606531f3826bf73e5c66fc",
+  "note": "Modified runtime sources after the final full suite and passing soak; all-mode browser matrix preceded the final clock-only follow-up as documented.",
+  "files": {
+    "apps/cryptball-server/src/model.ts": "df92ccbeefcd4d7c99f11a8dd07cbb0082d172797f4cc2d575b4c52e871ff865",
+    "apps/cryptball-server/src/room.ts": "f12dad6dd4e582743131524d237d96b5fb875daa5a0fa4e021f4cf16ae2ea516",
+    "apps/cryptball/build-identity.ts": "f8dbd9e75173bd86c46a0e137d2bbf4052dc69dcda58744b74a080959b9bedab",
+    "apps/cryptball/protocol.ts": "5c8f7d3635a6b6a93d1c4aaa29a345a33f8a9d8802c4bdde1d90b1fbc6d18926",
+    "apps/cryptball/sim/contract.ts": "b5c4137e63d5149615f511e36f0d2d611b379328408f7024f68905ec25f1ea4c",
+    "apps/cryptball/sim/session.ts": "f0ba4ced30064948ea35a01a7ebd9a951eacaf8da12e14135db0ee0c0552bf3d",
+    "apps/cryptball/src/host.ts": "86f96624ab2a2b07869d30eedeaa8dc6772a271d7ae6cf04ac21a814948cbf7a",
+    "apps/cryptball/src/online/clock.ts": "047701b719b8eb9794e700740626860bfda19667f6d90f2c70dad7c48bbf4423",
+    "apps/cryptball/src/online/confirmed-combat.ts": "12610ed4455f4e8e44ec9987432b382384a079df207a034e50f93f6acb81097d",
+    "apps/cryptball/src/online/frame-interpolation.ts": "27430f843ea5424706fb86a7e500b72a4b9176831f25d0f71c710f172c837595",
+    "apps/cryptball/src/online/input-scheduler.ts": "ca7b4522b7b665d88e037857ad9f7aa41cbdd0f215dddca683d7251c3817947b",
+    "apps/cryptball/src/online/performance-diagnostics.ts": "a08fafbe276ef31007e1d80fe5e81f048363c07fa4845281f7827114a34a43ee",
+    "apps/cryptball/src/online/poses.ts": "af550c8256a04e0ad58e8cc0d0d49d59b8632836797af0060a72b5d306a280f9",
+    "apps/cryptball/src/online/session.ts": "79902e936b082d3a54068582b3542a9ad9ec4ae5ab11ee906d70ff2a68d23f47",
+    "apps/cryptball/src/presenter.ts": "743482bfd996bd5bdc05bb23f4899f1d4734c767067dcfeae7a60679274b820e",
+    "packages/game-runtime/src/scheduler.ts": "7ae1549899f4dcf9e5d1469551ceff0466f3f1cf192b9ecafdfa5d281b882844",
+    "packages/game-runtime/src/session/browser-lifecycle.ts": "07e9a604a580b3af40803e0396c2678edc229882125a89f171a0c8194df4ab45"
+  }
+}

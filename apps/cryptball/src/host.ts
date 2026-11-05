@@ -1,4 +1,6 @@
 import { FrameInterpolation } from "./online/frame-interpolation";
+import { installPerformanceDiagnostics } from "./online/performance-diagnostics";
+import { BUILD } from "../protocol";
 import { PixiStage } from "@onepage/game-runtime/pixi";
 import { BrowserLifecycle } from "@onepage/game-runtime/browser/lifecycle";
 import {
@@ -37,6 +39,8 @@ export async function mountCryptball() {
   let sportId: SportId = isSportId(requestedSport)
     ? requestedSport
     : "cryptball";
+  const performanceDiagnostics = installPerformanceDiagnostics({ clientBuild: BUILD,
+    clientRevision: import.meta.env.VITE_CRYPTBALL_REVISION ?? "unknown", mode: sportId });
   const sport = () => SPORTS[sportId];
   let guardianPractice: { weapon?: "cannon" | "hook" | "maul"; immortal?: boolean } = {};
   let guardianSeed = (Date.now() ^ 0xc7ba11) >>> 0;
@@ -170,6 +174,28 @@ export async function mountCryptball() {
     }
   }
   const frameInterpolation = new FrameInterpolation();
+  let diagnosticMetadataAt = 0;
+  let frameSteps = 0;
+  if (performanceDiagnostics.enabled) {
+    for (const type of ["keydown", "keyup", "pointerdown", "pointerup", "pointermove", "pointercancel"]) {
+      window.addEventListener(type, event => {
+        if (screen === "play") performanceDiagnostics.captureInput("physical-event", event.timeStamp);
+      }, { signal, capture: true, passive: true });
+    }
+  }
+  const capturePresentation = () => {
+    if (!online) { frameInterpolation.capture(observation); return; }
+    const correction = online.takePresentationCorrection();
+    if (correction) {
+      frameInterpolation.correct(correction.before, correction.after,
+        performance.now(), correction.key, correction.reset);
+      // Reconciliation may arrive between frames; preserve confirmed combat gates.
+      observation = online.observe();
+    }
+    const previousPrediction = online.takePreviousPrediction();
+    if (previousPrediction) frameInterpolation.capture(previousPrediction);
+    frameInterpolation.capture(observation);
+  };
   const lifecycle = new BrowserLifecycle({
     tick,
     interruptionPolicy: "suspend-input",
@@ -182,10 +208,13 @@ export async function mountCryptball() {
       }
     },
     frame(time) {
+      const frameStarted = performance.now();
+      frameSteps = 0;
       if (previousFrameTime && time > previousFrameTime)
         frameRate = frameRate * 0.9 + (1000 / (time - previousFrameTime)) * 0.1;
       if (import.meta.env.DEV) presenter.setFps(frameRate);
-      lifecycle.advance(time);
+      capturePresentation();
+      const alpha = lifecycle.advance(time, online?.predictionRate ?? 1);
       // Authority snapshots keep arriving even when a local frame-debt pause
       // stops input ticks. Keep the visible court/HUD current while bots cover.
       if (online && lifecycle.paused) {
@@ -194,13 +223,21 @@ export async function mountCryptball() {
         pendingEvents.push(...online.drainEvents());
         updateHud();
       }
-      const interpolateOnline = online && observation.sportId === "rift-volley" && screen === "play" && !lifecycle.paused;
-      if (!interpolateOnline) frameInterpolation.reset();
-      const state = interpolateOnline
-        ? frameInterpolation.draw(observation, time) : observation;
-      presenter.render(state, pendingEvents, prefs.reducedMotion, Object.fromEntries((online?.lobby?.seats ?? []).map(seat=>[online?.controllerOwners.find(controller=>controller.id===seat.id)?.playerId ?? seat.playerId,seat.name])));
+      const interpolateFrame = screen === "play" && !lifecycle.paused;
+      if (!interpolateFrame) frameInterpolation.reset();
+      const state = interpolateFrame
+        ? frameInterpolation.draw(observation, time, alpha) : observation;
+      presenter.render(state, pendingEvents, prefs.reducedMotion, Object.fromEntries((online?.lobby?.seats ?? []).map(seat=>[online?.controllerOwners.find(controller=>controller.id===seat.id)?.playerId ?? seat.playerId,seat.name])), interpolateFrame ? Math.max(0, observation.tick - 1 + alpha) : observation.tick);
       pendingEvents = [];
       stage.render(0);
+      performanceDiagnostics.submittedRender();
+      if (performanceDiagnostics.enabled && time - diagnosticMetadataAt >= 1000) {
+        diagnosticMetadataAt = time;
+        performanceDiagnostics.setMetadata({ mode: sportId, online: !!online,
+          refreshHz: frameRate, canvasWidth: canvas.width, canvasHeight: canvas.height,
+          inputTiming: "Physical captures and command application are separate events; synthetic traces link command to submission." });
+      }
+      performanceDiagnostics.frame(time, frameSteps, performance.now() - frameStarted);
       if (screen === "finishing") { finishingElapsed += Math.max(0,Math.min(50,time-previousFrameTime)); if(finishingElapsed>=1500) showResults(); }
       if (screen === "starting" && startingReady) {
         warmFrames = time - previousFrameTime < 50 ? warmFrames + 1 : 0;
@@ -463,6 +500,7 @@ export async function mountCryptball() {
   function renderLobby(lobby: Lobby) {
     if (!online || screen === "online-error") return;
     sportId = lobby.sportId;
+    if (performanceDiagnostics.enabled) performanceDiagnostics.setMetadata({ mode: sportId, serverBuild: lobby.build });
     shuffle = lobby.shuffle === true;
     canvas.setAttribute("aria-label", `${sport().label} court`);
     if (lobby.phase === "playing") {
@@ -592,6 +630,8 @@ export async function mountCryptball() {
         shuffle,
         sportId,
 
+        onPerformance: performanceDiagnostics.enabled
+          ? event => performanceDiagnostics.record(event.kind, event.fields, event.at) : undefined,
         onTeamError: (message) => { notice.textContent = message; },
         onLobby: (value) => {
           if (generation === onlineJoinGeneration) renderLobby(value);
@@ -909,6 +949,7 @@ export async function mountCryptball() {
   }
   let practicePrompt = "Move close to the orb. Hold J, then release to strike.";
   function tick() {
+    frameSteps++;
     if (online) {
       online.update();
       observation = online.observe();
@@ -962,6 +1003,7 @@ export async function mountCryptball() {
     game.dataset.passHeld=String(sportId === "crypt-guardian" && (keys.has("KeyK") || middleHeld || contextHeld || gesture.passHeld));
     edges = {};
     observation = session.observe();
+    capturePresentation();
     const events = session.drainEvents();
     if (ownControlSwitched(events, online?.participantId)) {
       touch.disarmAction(); touchFacing = undefined;
@@ -1296,6 +1338,7 @@ export async function mountCryptball() {
     if (online) online.disconnectForReload();
     lifecycle.dispose();
     abort.abort();
+    performanceDiagnostics.dispose();
     modeHud.remove();
     touchCues.remove();
     presenter.dispose();

@@ -422,20 +422,18 @@ it("interrupts explicitly when an encoded checkpoint exceeds the wire limit", as
   ]);
 });
 
-it("restores a real authority checkpoint during an origin-bearing active special", () => {
-  const m = fixture(),
-    cp = m.session.capture();
-  cp.state.specials[0].cooldownTicks = 0;
-  m.session.restore(cp);
+it("restores a real authority checkpoint during an origin-bearing charged strike", () => {
+  const m = fixture();
+  // Club specials are disabled; exercise the live charge-origin wire branch.
   expect(
-    m.receive("a", input(m, 1, m.session.getTick() + 1, { special: true })),
+    m.receive("a", input(m, 1, m.session.getTick() + 1, { strikePressed: true, strikeHeld: true })),
   ).toBe(true);
   m.advance();
   const snapshot = m.snapshot("a", m.session.drainEvents());
-  expect(snapshot.checkpoint.state.specials[0].active?.origin).toMatchObject({
-    participantId: "a",
-    seq: 1,
-  });
+  const controller = snapshot.checkpoint.state.controllers.find(c => c.id === "a")!;
+  const athlete = snapshot.checkpoint.state.players.find(p => p.id === controller.playerId)!;
+  expect(athlete.charging).toBe(true);
+  expect(athlete.chargeOrigin).toMatchObject({ participantId: "a", seq: 1 });
   const replica = fixture().session;
   replica.restore(decodeSnapshot(encodeSnapshot(snapshot)).checkpoint);
   expect(replica.capture()).toEqual(snapshot.checkpoint);
@@ -463,4 +461,34 @@ it("coalesces repeated resumes into one lifecycle revision and no immediate chec
   expect(m.session.getControllerRevision("a")).toBe(revision + 1);
   expect(m.lobbyRevision).toBe(dirty + 1);
   expect(m.peers.get("a")!.active).toBe(true);
+});
+
+it("admits predicted revisions only through an earlier queued manual switch", () => {
+  const m = fixture(), tick = m.session.getTick(), revision = m.session.getControllerRevision("a")!;
+  const ahead = { ...input(m, 1, tick + 4, { moveX: 1 }), revision: revision + 1 };
+  expect(m.receive("a", ahead)).toBe(false);
+  expect(m.peers.get("a")!.lastSeq).toBe(0);
+  expect(m.receive("a", input(m, 1, tick + 4, { switch: true }))).toBe(true);
+  expect(m.receive("a", { ...input(m, 2, tick + 5, { dash: true }), revision: revision + 2 })).toBe(false);
+  expect(m.peers.get("a")!.lastSeq).toBe(1);
+  expect(m.peers.get("a")!.queue).toHaveLength(1);
+  expect(m.receive("a", { ...input(m, 2, tick + 5, { moveX: 1, strikePressed: true, strikeHeld: true }), revision: revision + 1 })).toBe(true);
+  expect(m.receive("a", { ...input(m, 3, tick + 6, { strikeReleased: true }), revision: revision + 1 })).toBe(true);
+  for (let n = 0; n < 6; n++) m.advance();
+  expect(m.session.getControllerRevision("a")).toBe(revision + 1);
+  expect(m.peers.get("a")!.ack).toBe(3);
+  expect(m.peers.get("a")!.feedback.rejections).toBe(0);
+});
+
+it("failed queued switches never execute commands for their speculative revision", () => {
+  const m = fixture(), tick = m.session.getTick(), revision = m.session.getControllerRevision("a")!;
+  const controlledId = m.session.observeFor("a").controlledId;
+  expect(m.receive("a", input(m, 1, tick + 2, { switch: true, switchTarget: controlledId }))).toBe(true);
+  expect(m.receive("a", { ...input(m, 2, tick + 3, { strikePressed: true, strikeHeld: true }), revision: revision + 1 })).toBe(true);
+  for (let n = 0; n < 3; n++) m.advance();
+  expect(m.session.getControllerRevision("a")).toBe(revision);
+  expect(m.session.observeFor("a").controlledId).toBe(controlledId);
+  expect(m.session.observeFor("a").players.find(p => p.id === controlledId)!.charging).toBe(false);
+  expect(m.peers.get("a")!.feedback.rejectionReasons.revision).toBe(1);
+  expect(m.peers.get("a")!.feedback.rejectionReasons["sequence-gap"]).toBe(0);
 });

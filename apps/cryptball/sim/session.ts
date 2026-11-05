@@ -486,6 +486,13 @@ export function createCryptballSession(
     getTick() {
       return state.tick;
     },
+    getControllerTransfer(id) {
+      const controller = state.controllers.find(c => c.id === id);
+      if (!controller) return undefined;
+      const player = state.players.find(p => p.id === controller.playerId);
+      return { canSwitch: controller.canSwitch, pending: !!controller.pendingSwitch ||
+        (controller.canSwitch && ["cryptball", "cryptkick", "cryptcheck"].includes(state.sportId) && player?.action?.kind === "pass") };
+    },
     getControllerRevision(id) {
       return state.controllers.find((c) => c.id === id)?.revision;
     },

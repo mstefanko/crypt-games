@@ -2,7 +2,6 @@ import { Client, type Room } from "@colyseus/sdk";
 import { NetworkClock } from "./clock";
 import { InputScheduler, replaySchedule } from "./input-scheduler";
 import { Recovery } from "./recovery";
-import { PresentationCorrections } from "./corrections";
 import { confirmedCombatPresentation } from "./confirmed-combat";
 import { CosmeticLedger } from "./cosmetics";
 import {
@@ -42,6 +41,7 @@ export interface OnlineOptions {
   onTeamError?: (message: string) => void;
   endpoint?: string;
   onStatus?: (status: OnlineStatus) => void;
+  onPerformance?: (event: { kind: string; at: number; fields: Record<string, string | number | boolean | null> }) => void;
   onLobby?: (lobby: Lobby) => void;
   onError?: (message: string) => void;
 }
@@ -66,17 +66,20 @@ export function createOnlineSession(options: OnlineOptions = {}) {
     seq = 0,
     lastTick = -1,
     suspended = false,
+    playingCheckpoint = false,
     neutralLatch = true,
     joinedAt = 0,
     lastPing = -Infinity,
     lastHeartbeat = -Infinity,
     lastSnapshotSeq = -1,
-    lastSnapshotAt = 0;
+    lastSnapshotAt = 0,
+    lastFeedbackSampleSeq = -1;
   const clock = new NetworkClock();
   const scheduler = new InputScheduler();
   const recovery = new Recovery();
-  const corrections = new PresentationCorrections();
+  let presentationCorrection: { before: Observation; after: Observation; reset: boolean; key: string } | null = null;
   const cosmetics = new CosmeticLedger();
+  let previousPrediction: Observation | null = null;
   let remote: Record<string, CommandFrame> = {};
   let localHeld: CommandFrame = {};
   let authority: Observation | null = null;
@@ -99,10 +102,24 @@ export function createOnlineSession(options: OnlineOptions = {}) {
     receivedSeq: 0,
     terminalSeq: 0,
     timingRejections: 0,
+    rejectedExpired: 0,
+    rejectedFuture: 0,
+    rejectedCancelled: 0,
+    rejectedSequenceGap: 0,
+    rejectedCapacity: 0,
+    rejectedRevision: 0,
     botTransitions: 0,
     serverDebtMs: 0,
     cosmeticConfirmed: 0,
     cosmeticExpired: 0,
+    capturedInputs: 0,
+    predictedSteps: 0,
+    allocatedInputs: 0,
+    allocationSkips: 0,
+    historySkips: 0,
+    lastAppliedSeq: 0,
+    lastAppliedTick: 0,
+    lastAppliedAt: 0,
   };
   const storageBase = `cryptball-reconnect:v${PROTOCOL}:${BUILD}:${endpoint}`;
   const saved = (code?: string) => {
@@ -147,32 +164,53 @@ export function createOnlineSession(options: OnlineOptions = {}) {
   }
   function adopt(snapshot: Snapshot) {
     acceptSport(snapshot.sportId);
+    const hadAuthority = epoch > 0;
     const reset =
       snapshot.epoch !== epoch || snapshot.generation !== generation;
     if (!reset && snapshot.snapshotSeq <= lastSnapshotSeq) return;
     if (!reset && snapshot.tick < lastTick) return;
+    previousPrediction = null;
     const started = performance.now();
     const previous = id ? session.observeFor(id) : session.observe();
     const previousRevision = id ? session.getControllerRevision(id) : undefined;
     const target = reset ? snapshot.tick : session.getTick();
     // restore() validates into a detached value before mutating live state.
+    const restoreStarted = performance.now();
     session.restore(snapshot.checkpoint);
+    options.onPerformance?.({ kind: "snapshot-restore", at: performance.now(), fields: { durationMs: performance.now() - restoreStarted, snapshotSeq: snapshot.snapshotSeq } });
     authority = session.observeFor(snapshot.participantId);
     authoritativeControllers = snapshot.checkpoint.state.controllers.map(({id,team,playerId})=>({id,team,playerId}));
     remote = snapshot.remote ?? {};
     if (reset) {
-      clock.reset();
+      clock.resetTimeline();
       scheduler.reset();
+      if (hadAuthority) scheduler.seed(diagnostics.rttMs);
       recovery.reset();
     }
     clock.checkpoint(snapshot.tick, snapshot.serverTime, snapshot.phase);
     recovery.satisfy(snapshot.snapshotSeq);
+    playingCheckpoint = snapshot.phase === "playing";
     lastSnapshotSeq = snapshot.snapshotSeq;
     lastSnapshotAt = performance.now();
     diagnostics.serverDebtMs = snapshot.serverDebt;
     diagnostics.receivedSeq = snapshot.receivedSeq;
     diagnostics.terminalSeq = snapshot.terminalSeq;
     diagnostics.timingRejections = snapshot.feedback.rejections;
+    diagnostics.rejectedExpired = snapshot.feedback.rejectionReasons.expired;
+    diagnostics.rejectedFuture = snapshot.feedback.rejectionReasons.future;
+    diagnostics.rejectedCancelled = snapshot.feedback.rejectionReasons.cancelled;
+    diagnostics.rejectedSequenceGap = snapshot.feedback.rejectionReasons["sequence-gap"];
+    diagnostics.rejectedCapacity = snapshot.feedback.rejectionReasons.capacity;
+    diagnostics.rejectedRevision = snapshot.feedback.rejectionReasons.revision;
+    if (reset || snapshot.feedback.sampleSeq !== lastFeedbackSampleSeq) {
+      lastFeedbackSampleSeq = snapshot.feedback.sampleSeq;
+      options.onPerformance?.({ kind: "input-feedback", at: performance.now(), fields: {
+        sampleSeq: lastFeedbackSampleSeq, receivedSeq: snapshot.receivedSeq,
+        rejectedExpired: diagnostics.rejectedExpired, rejectedFuture: diagnostics.rejectedFuture,
+        rejectedCancelled: diagnostics.rejectedCancelled, rejectedSequenceGap: diagnostics.rejectedSequenceGap,
+        rejectedCapacity: diagnostics.rejectedCapacity, rejectedRevision: diagnostics.rejectedRevision,
+      } });
+    }
     diagnostics.botTransitions = snapshot.feedback.botTransitions;
     if (snapshot.feedback) {
       const f = snapshot.feedback;
@@ -191,10 +229,26 @@ export function createOnlineSession(options: OnlineOptions = {}) {
     const nextRevision = snapshot.checkpoint.state.controllers.find(
       (c) => c.id === id,
     )?.revision;
-    if (previousRevision !== nextRevision) {
+    // A checkpoint may precede our queued predicted switch. Only a genuinely
+    // new, unmatched authoritative ownership revision invalidates local intent.
+    const rejectedSequences = new Set(snapshot.dispositions
+      .filter(disposition => disposition.status === "rejected").map(disposition => disposition.seq));
+    const restoredTransfer = session.getControllerTransfer(id);
+    const supportsPassTransfer = ["cryptball", "cryptkick", "cryptcheck"].includes(sportId);
+    let replayRevision = nextRevision === undefined ? undefined : nextRevision + (restoredTransfer?.pending ? 1 : 0);
+    for (const packet of history)
+      if (packet.seq > snapshot.terminalSeq && !rejectedSequences.has(packet.seq) &&
+          (packet.command.switch || (supportsPassTransfer && restoredTransfer?.canSwitch && packet.command.pass)) &&
+          packet.revision === replayRevision)
+        replayRevision = replayRevision! + 1;
+    const pendingOwnership = replayRevision === previousRevision;
+    const ownershipReset = (previousRevision === nextRevision && previous.controlledId !== authority.controlledId) ||
+      (previousRevision !== nextRevision && !pendingOwnership);
+    if (ownershipReset) {
       localHeld = {};
       neutralLatch = true;
       scheduler.reset();
+      if (hadAuthority) scheduler.seed(diagnostics.rttMs);
       history = [];
     }
     if (reset) {
@@ -207,19 +261,24 @@ export function createOnlineSession(options: OnlineOptions = {}) {
       neutralLatch = true;
     } else {
       history = history.filter(
-        (p) => p.seq > snapshot.terminalSeq && p.revision === nextRevision,
+        (p) => p.seq > snapshot.terminalSeq && p.revision >= (nextRevision ?? 0),
       );
     }
-    const timeline = replaySchedule(history, snapshot.dispositions);
+    // Index once, preserving the earliest sequence at any colliding requested
+    // tick until authority supplies its ordered execution assignment.
+    const timeline = new Map<number, InputPacket>();
+    for (const packet of replaySchedule(history, snapshot.dispositions))
+      if (!timeline.has(packet.tick)) timeline.set(packet.tick, packet);
     let replayHeld = remote[id] ?? {};
     const replayTarget = Math.min(
       target,
       snapshot.tick + NETWORK_LIMITS.replayTicks,
     );
     diagnostics.predictionDegraded = target > replayTarget;
+    const replayStarted = performance.now();
     for (let tick = snapshot.tick + 1; tick <= replayTarget; tick++) {
-      const packet = timeline.find((p) => p.tick === tick);
-      if (packet)
+      const packet = timeline.get(tick);
+      if (packet && packet.revision === session.getControllerRevision(id))
         replayHeld = {
           ...packet.command,
           origin: {
@@ -232,6 +291,7 @@ export function createOnlineSession(options: OnlineOptions = {}) {
       session.stepParticipants({ ...remote, [id]: replayHeld }, { automaticSwitches: !["crypt-dodge", "crypt-guardian"].includes(sportId) });
       replayHeld = heldCommand(replayHeld, sportId);
     }
+    options.onPerformance?.({ kind: "snapshot-replay", at: performance.now(), fields: { durationMs: performance.now() - replayStarted, snapshotSeq: snapshot.snapshotSeq, fromTick: snapshot.tick, toTick: session.getTick(), history: history.length } });
     localHeld = heldCommand(replayHeld, sportId);
     session.drainEvents();
     const current = session.observeFor(id);
@@ -247,13 +307,19 @@ export function createOnlineSession(options: OnlineOptions = {}) {
       Math.hypot(previous.ball.x - current.ball.x,
         previous.ball.y - current.ball.y,
         previous.ball.z - current.ball.z) / 256;
-    corrections.correct(
-      current,
-      performance.now(),
-      `${epoch}:${generation}:${id}:${nextRevision}`,
-      reset || previousRevision !== nextRevision,
-    );
+    const correctionKey = `${epoch}:${generation}:${id}`;
+    const pendingCorrection = presentationCorrection;
+    const canCompose = pendingCorrection?.key === correctionKey &&
+      pendingCorrection.after.tick === current.tick;
+    presentationCorrection = {
+      before: canCompose ? pendingCorrection!.before : confirmedObservation(previous),
+      after: confirmedObservation(current),
+      key: correctionKey,
+      reset: reset || ownershipReset || target !== session.getTick() ||
+        (pendingCorrection !== null && (!canCompose || pendingCorrection.reset)),
+    };
     diagnostics.replayMs = performance.now() - started;
+    options.onPerformance?.({ kind: "snapshot-reconcile", at: performance.now(), fields: { durationMs: diagnostics.replayMs, snapshotSeq: snapshot.snapshotSeq, fromTick: snapshot.tick, toTick: session.getTick(), history: history.length, epoch, generation, authorityRevision: nextRevision ?? -1, controlledId: authority.controlledId, ownershipReset } });
     diagnostics.replayedTicks = Math.max(
       0,
       Math.min(NETWORK_LIMITS.replayTicks, target - snapshot.tick),
@@ -289,6 +355,7 @@ export function createOnlineSession(options: OnlineOptions = {}) {
     next.onMessage("pong", (v: unknown) => {
       if (clock.pong(v, performance.now(), epoch)) {
         diagnostics.rttMs = clock.rtt;
+        options.onPerformance?.({ kind: "rtt", at: performance.now(), fields: { rttMs: clock.rtt } });
         if (performance.now() - joinedAt < 2000) scheduler.seed(clock.rtt);
       }
     });
@@ -317,7 +384,10 @@ export function createOnlineSession(options: OnlineOptions = {}) {
     next.onMessage("snapshot", (bytes: Uint8Array) => {
       try {
         diagnostics.snapshotBytes = bytes.byteLength;
-        adopt(decodeSnapshot(bytes));
+        const decodeStarted = performance.now();
+        const snapshot = decodeSnapshot(bytes);
+        options.onPerformance?.({ kind: "snapshot-decode", at: performance.now(), fields: { durationMs: performance.now() - decodeStarted, bytes: bytes.byteLength, snapshotSeq: snapshot.snapshotSeq } });
+        adopt(snapshot);
       } catch {
         fail("The match could not be synchronized. Please rejoin.");
         void next.leave();
@@ -335,8 +405,10 @@ export function createOnlineSession(options: OnlineOptions = {}) {
       history = [];
       scheduler.reset();
       clock.reset();
+      playingCheckpoint = false;
       recovery.reset();
-      corrections.reset();
+      presentationCorrection = null;
+      previousPrediction = null;
       cosmetics.reset();
       localHeld = {};
       neutralLatch = true;
@@ -352,6 +424,27 @@ export function createOnlineSession(options: OnlineOptions = {}) {
         fail("Match interrupted. Please join again or play Solo.");
     });
     if (options.autoReady !== false) next.send("ready");
+  }
+  function confirmedObservation(observation: Observation): Observation {
+      // A predicted point must not reveal the next serve before authority confirms it.
+      const awaitingTransition =
+        authority &&
+        (observation.phase !== authority.phase ||
+          observation.volley?.rally !== authority.volley?.rally ||
+          observation.score[0] !== authority.score[0] ||
+          observation.score[1] !== authority.score[1]);
+      if (awaitingTransition) observation = structuredClone(authority!);
+      if (authority) {
+        observation = confirmedCombatPresentation(observation, authority);
+        observation.score = [...authority.score];
+        observation.phase = authority.phase;
+        observation.phaseTicks = authority.phaseTicks;
+        observation.winner = authority.winner;
+        observation.remainingTicks = authority.remainingTicks;
+        observation.overtime = authority.overtime;
+        observation.stats = { ...authority.stats };
+      }
+      return observation;
   }
   function update() {
     if (!room || status !== "joined" || suspended) return;
@@ -442,6 +535,8 @@ export function createOnlineSession(options: OnlineOptions = {}) {
         status !== "joined" ||
         suspended ||
         lobby?.phase !== "playing" ||
+        lobby.epoch !== epoch ||
+        !playingCheckpoint ||
         !room ||
         !id
       )
@@ -462,6 +557,7 @@ export function createOnlineSession(options: OnlineOptions = {}) {
         command = {};
       }
       const now = performance.now();
+      diagnostics.capturedInputs++;
       scheduler.capture(
         quantizeCommand(command),
         now,
@@ -474,11 +570,13 @@ export function createOnlineSession(options: OnlineOptions = {}) {
       // The SDK transport exposes no supported browser bufferedAmount accessor. Keep app
       // work bounded and rely on lifecycle/socket close rather than inspecting private ws.
       if (history.length >= HISTORY_LIMIT) {
+        diagnostics.historySkips++;
         diagnostics.predictionDegraded = true;
         return;
       }
-      const allocation = scheduler.allocate(clock.tick, lastTick, now);
+      const allocation = scheduler.allocate(clock.fractionalTick, lastTick, now, session.getTick());
       if (!allocation) {
+        diagnostics.allocationSkips++;
         diagnostics.predictionDegraded =
           clock.tick + scheduler.lead > lastTick + NETWORK_LIMITS.replayTicks;
         return;
@@ -492,10 +590,13 @@ export function createOnlineSession(options: OnlineOptions = {}) {
         revision: session.getControllerRevision(id) ?? 0,
         command: outgoing,
       };
+      diagnostics.allocatedInputs++;
+      options.onPerformance?.({ kind: "input-allocated", at: now, fields: { seq: packet.seq, tick, epoch, generation, revision: packet.revision, queuedEdges: scheduler.queuedEdges } });
       history.push(packet);
       room.send("input", packet);
       diagnostics.actualLead = tick - clock.tick;
       diagnostics.predictionDegraded = false;
+      previousPrediction = null;
       const predicted = {
         ...outgoing,
         origin: { epoch, generation, participantId: id, seq: packet.seq },
@@ -509,6 +610,14 @@ export function createOnlineSession(options: OnlineOptions = {}) {
           ...remote,
           [id]: t === tick ? predicted : localHeld,
         }, { automaticSwitches: !["crypt-dodge", "crypt-guardian"].includes(sportId) });
+        if (t === tick - 1) previousPrediction = confirmedObservation(session.observeFor(id));
+        diagnostics.predictedSteps++;
+        if (t === tick) {
+          diagnostics.lastAppliedSeq = packet.seq;
+          diagnostics.lastAppliedTick = tick;
+          diagnostics.lastAppliedAt = performance.now();
+          options.onPerformance?.({ kind: "input-applied", at: diagnostics.lastAppliedAt, fields: { seq: packet.seq, tick } });
+        }
         if (t !== tick) localHeld = heldCommand(localHeld, sportId);
       }
       localHeld = heldCommand(outgoing, sportId);
@@ -517,31 +626,12 @@ export function createOnlineSession(options: OnlineOptions = {}) {
           events.push({ ...event, predicted: true });
     },
     observe(): Observation {
-      let observation = id ? session.observeFor(id) : session.observe();
-      // A predicted point must not reveal the next serve before authority confirms it.
-      const awaitingTransition =
-        authority &&
-        (observation.phase !== authority.phase ||
-          observation.volley?.rally !== authority.volley?.rally ||
-          observation.score[0] !== authority.score[0] ||
-          observation.score[1] !== authority.score[1]);
-      if (awaitingTransition) observation = structuredClone(authority!);
-      observation = corrections.draw(
-        observation,
-        performance.now(),
-        !!awaitingTransition,
-      );
-      if (authority) {
-        observation = confirmedCombatPresentation(observation, authority);
-        observation.score = [...authority.score];
-        observation.phase = authority.phase;
-        observation.phaseTicks = authority.phaseTicks;
-        observation.winner = authority.winner;
-        observation.remainingTicks = authority.remainingTicks;
-        observation.overtime = authority.overtime;
-        observation.stats = { ...authority.stats };
-      }
-      return observation;
+      return confirmedObservation(id ? session.observeFor(id) : session.observe());
+    },
+    takePreviousPrediction() {
+      const previous = previousPrediction;
+      previousPrediction = null;
+      return previous;
     },
     /** Detached authority only: music must never consume replayed prediction.
      * Lobby packets may lead checkpoints during rematch/Shuffle. Wait for the
@@ -554,6 +644,14 @@ export function createOnlineSession(options: OnlineOptions = {}) {
       const controlledTeam = state.players.find(player => player.id === state.controlledId)?.team ?? null;
       return { state, stamp: { matchId: `${endpoint}:${room.roomId}:${epoch}`, epoch, generation, snapshotSeq: lastSnapshotSeq }, controlledTeam };
     },
+    /** Consumed once at the render boundary by the sole presentation owner. */
+    takePresentationCorrection() {
+      const correction = presentationCorrection;
+      presentationCorrection = null;
+      return correction;
+    },
+    get predictionRate() { return scheduler.predictionRate(clock.fractionalTick); },
+    get simulationTick() { return session.getTick(); },
     rawObserve(): Observation {
       return id ? session.observeFor(id) : session.observe();
     },
@@ -579,9 +677,11 @@ export function createOnlineSession(options: OnlineOptions = {}) {
     },
     suspend() {
       suspended = true;
+      playingCheckpoint = false;
       scheduler.reset();
       recovery.reset();
-      corrections.reset();
+      presentationCorrection = null;
+      previousPrediction = null;
       cosmetics.reset();
       localHeld = {};
       neutralLatch = true;
@@ -592,8 +692,10 @@ export function createOnlineSession(options: OnlineOptions = {}) {
       suspended = false;
       scheduler.reset();
       clock.reset();
+      playingCheckpoint = false;
       recovery.reset();
-      corrections.reset();
+      presentationCorrection = null;
+      previousPrediction = null;
       cosmetics.reset();
       localHeld = {};
       neutralLatch = true;
@@ -612,7 +714,8 @@ export function createOnlineSession(options: OnlineOptions = {}) {
       setStatus("left");
       scheduler.reset();
       recovery.reset();
-      corrections.reset();
+      presentationCorrection = null;
+      previousPrediction = null;
       cosmetics.reset();
       save(null);
       history = [];

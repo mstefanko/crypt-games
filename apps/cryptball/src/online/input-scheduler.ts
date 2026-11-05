@@ -21,7 +21,7 @@ export class InputScheduler {
   private held: CommandFrame = {};
   private safetyCancel = false;
   private lastTick = -1;
-  private lastSent = -Infinity;
+  private allocatedLead = 2;
   private lastFeedback = -1;
   private feedbackAfterCount = 0;
   private healthySince = 0;
@@ -33,7 +33,7 @@ export class InputScheduler {
     this.held = {};
     this.safetyCancel = false;
     this.lastTick = -1;
-    this.lastSent = -Infinity;
+    this.allocatedLead = 2;
     this.lastFeedback = -1;
     this.feedbackAfterCount = 0;
     this.healthySince = 0;
@@ -103,11 +103,18 @@ export class InputScheduler {
   allocate(
     serverTick: number,
     checkpointTick: number,
-    now: number,
+    _now: number,
+    predictionTick = -1,
   ): { tick: number; command: CommandFrame } | null {
-    // One send per wall-clock slot, including host accumulator catch-up bursts.
-    if (now - this.lastSent < TICK_MS - 0.5) return null;
-    const tick = Math.floor(serverTick) + this.lead;
+    // The host fixed-step accumulator owns cadence. A second elapsed-time gate
+    // loses alternate inputs on ordinary 16/17ms RAF schedules and catch-up.
+    // Safety lead increases move the target forward once, with intermediate held
+    // ticks simulated by the predictor. Decreases slew the host accumulator;
+    // they never drop progress or duplicate an action tick.
+    const scheduledTick = this.lastTick < 0
+      ? Math.floor(serverTick) + this.lead
+      : Math.max(this.lastTick + 1 + Math.max(0, this.lead - this.allocatedLead), Math.floor(serverTick) + 1);
+    const tick = Math.max(scheduledTick, predictionTick + 1);
     if (
       tick <= this.lastTick ||
       tick > checkpointTick + NETWORK_LIMITS.replayTicks ||
@@ -115,7 +122,7 @@ export class InputScheduler {
     )
       return null;
     this.lastTick = tick;
-    this.lastSent = now;
+    this.allocatedLead = this.lead;
     if (this.safetyCancel) {
       this.safetyCancel = false;
       return {
@@ -127,6 +134,12 @@ export class InputScheduler {
     const command = edge?.command ?? { ...this.held };
     delete this.held.cancel;
     return { tick, command };
+  }
+  /** Bounded clock correction; never changes authoritative simulation dt. */
+  predictionRate(serverTick: number) {
+    if (this.lastTick < 0) return 1;
+    const error = serverTick + this.lead - this.lastTick;
+    return Math.abs(error) <= 1 ? 1 : error > 0 ? 1.02 : 0.98;
   }
   get queuedEdges() {
     return this.edges.length;

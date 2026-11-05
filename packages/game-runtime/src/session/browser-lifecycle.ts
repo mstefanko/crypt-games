@@ -146,8 +146,8 @@ export class BrowserLifecycle {
       if (!this.disposed) this.options.frame(time);
     });
   }
-  advance(time: number): number {
-    return this.disposed ? 0 : this.scheduler.advance(time);
+  advance(time: number, rate = 1): number {
+    return this.disposed ? 0 : this.scheduler.advance(time, rate);
   }
   /** Stop semantic time without interrupting held device controls. */
   stopClock(): void {

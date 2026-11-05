@@ -1,0 +1,284 @@
+{
+  "case": "Pre-guard failed startup: playing lobby precedes matching live checkpoint",
+  "scope": "Four production online adapters, fixed accumulators, 150ms ordered TCP delay proxy; local Node test, not physical devices.",
+  "source": "CRYPTBALL_SOCKET_TRACE=1 targeted four-adapter socket test; captured before matching-playing-checkpoint guard.",
+  "finding": "All four clients allocated the first input at tick 7 from a countdown tick-zero clock. Their first live checkpoint was tick 3; one-way uplink delay made initial inputs expire. Already measured RTT was about 155ms.",
+  "clients": [
+    {
+      "clientIndex": 0,
+      "lastCountdownCheckpoint": {
+        "kind": "snapshot-reconcile",
+        "at": 3882.842167,
+        "fields": {
+          "durationMs": 0.26195899999993344,
+          "snapshotSeq": 253,
+          "fromTick": 0,
+          "toTick": 0,
+          "history": 0,
+          "epoch": 1,
+          "generation": 1,
+          "authorityRevision": 0,
+          "controlledId": "player-0",
+          "ownershipReset": false
+        }
+      },
+      "firstInput": {
+        "kind": "input-allocated",
+        "at": 3913.98525,
+        "fields": {
+          "seq": 1,
+          "tick": 7,
+          "epoch": 1,
+          "generation": 1,
+          "revision": 0,
+          "queuedEdges": 0
+        }
+      },
+      "firstLiveCheckpoint": {
+        "kind": "snapshot-reconcile",
+        "at": 3946.763167,
+        "fields": {
+          "durationMs": 1.11200000000008,
+          "snapshotSeq": 257,
+          "fromTick": 3,
+          "toTick": 8,
+          "history": 2,
+          "epoch": 1,
+          "generation": 1,
+          "authorityRevision": 0,
+          "controlledId": "player-0",
+          "ownershipReset": false
+        }
+      },
+      "firstExpiryFeedback": {
+        "kind": "input-feedback",
+        "at": 4078.543334,
+        "fields": {
+          "sampleSeq": 1,
+          "receivedSeq": 1,
+          "rejectedExpired": 1,
+          "rejectedFuture": 0,
+          "rejectedCancelled": 0,
+          "rejectedSequenceGap": 0,
+          "rejectedCapacity": 0,
+          "rejectedRevision": 0
+        }
+      },
+      "lastMeasuredRttBeforeInput": {
+        "kind": "rtt",
+        "at": 3668.875167,
+        "fields": {
+          "rttMs": 154.71589739407145
+        }
+      },
+      "finalExpiredInputs": 11
+    },
+    {
+      "clientIndex": 1,
+      "lastCountdownCheckpoint": {
+        "kind": "snapshot-reconcile",
+        "at": 3881.649667,
+        "fields": {
+          "durationMs": 0.3678330000002461,
+          "snapshotSeq": 254,
+          "fromTick": 0,
+          "toTick": 0,
+          "history": 0,
+          "epoch": 1,
+          "generation": 1,
+          "authorityRevision": 0,
+          "controlledId": "player-2",
+          "ownershipReset": false
+        }
+      },
+      "firstInput": {
+        "kind": "input-allocated",
+        "at": 3915.307709,
+        "fields": {
+          "seq": 1,
+          "tick": 7,
+          "epoch": 1,
+          "generation": 1,
+          "revision": 0,
+          "queuedEdges": 0
+        }
+      },
+      "firstLiveCheckpoint": {
+        "kind": "snapshot-reconcile",
+        "at": 3943.966542,
+        "fields": {
+          "durationMs": 7.160832999999911,
+          "snapshotSeq": 258,
+          "fromTick": 3,
+          "toTick": 8,
+          "history": 2,
+          "epoch": 1,
+          "generation": 1,
+          "authorityRevision": 0,
+          "controlledId": "player-2",
+          "ownershipReset": false
+        }
+      },
+      "firstExpiryFeedback": {
+        "kind": "input-feedback",
+        "at": 4079.670125,
+        "fields": {
+          "sampleSeq": 1,
+          "receivedSeq": 1,
+          "rejectedExpired": 1,
+          "rejectedFuture": 0,
+          "rejectedCancelled": 0,
+          "rejectedSequenceGap": 0,
+          "rejectedCapacity": 0,
+          "rejectedRevision": 0
+        }
+      },
+      "lastMeasuredRttBeforeInput": {
+        "kind": "rtt",
+        "at": 3668.780875,
+        "fields": {
+          "rttMs": 154.17651429934523
+        }
+      },
+      "finalExpiredInputs": 11
+    },
+    {
+      "clientIndex": 2,
+      "lastCountdownCheckpoint": {
+        "kind": "snapshot-reconcile",
+        "at": 3882.09,
+        "fields": {
+          "durationMs": 0.29987500000015643,
+          "snapshotSeq": 255,
+          "fromTick": 0,
+          "toTick": 0,
+          "history": 0,
+          "epoch": 1,
+          "generation": 1,
+          "authorityRevision": 0,
+          "controlledId": "player-1",
+          "ownershipReset": false
+        }
+      },
+      "firstInput": {
+        "kind": "input-allocated",
+        "at": 3915.552875,
+        "fields": {
+          "seq": 1,
+          "tick": 7,
+          "epoch": 1,
+          "generation": 1,
+          "revision": 0,
+          "queuedEdges": 0
+        }
+      },
+      "firstLiveCheckpoint": {
+        "kind": "snapshot-reconcile",
+        "at": 3945.482917,
+        "fields": {
+          "durationMs": 1.277625000000171,
+          "snapshotSeq": 259,
+          "fromTick": 3,
+          "toTick": 8,
+          "history": 2,
+          "epoch": 1,
+          "generation": 1,
+          "authorityRevision": 0,
+          "controlledId": "player-1",
+          "ownershipReset": false
+        }
+      },
+      "firstExpiryFeedback": {
+        "kind": "input-feedback",
+        "at": 4080.815,
+        "fields": {
+          "sampleSeq": 1,
+          "receivedSeq": 1,
+          "rejectedExpired": 1,
+          "rejectedFuture": 0,
+          "rejectedCancelled": 0,
+          "rejectedSequenceGap": 0,
+          "rejectedCapacity": 0,
+          "rejectedRevision": 0
+        }
+      },
+      "lastMeasuredRttBeforeInput": {
+        "kind": "rtt",
+        "at": 3670.200917,
+        "fields": {
+          "rttMs": 154.28050415348548
+        }
+      },
+      "finalExpiredInputs": 11
+    },
+    {
+      "clientIndex": 3,
+      "lastCountdownCheckpoint": {
+        "kind": "snapshot-reconcile",
+        "at": 3882.478834,
+        "fields": {
+          "durationMs": 0.2861660000003212,
+          "snapshotSeq": 256,
+          "fromTick": 0,
+          "toTick": 0,
+          "history": 0,
+          "epoch": 1,
+          "generation": 1,
+          "authorityRevision": 0,
+          "controlledId": "player-3",
+          "ownershipReset": false
+        }
+      },
+      "firstInput": {
+        "kind": "input-allocated",
+        "at": 3915.740292,
+        "fields": {
+          "seq": 1,
+          "tick": 7,
+          "epoch": 1,
+          "generation": 1,
+          "revision": 0,
+          "queuedEdges": 0
+        }
+      },
+      "firstLiveCheckpoint": {
+        "kind": "snapshot-reconcile",
+        "at": 3947.945209,
+        "fields": {
+          "durationMs": 1.0240420000000086,
+          "snapshotSeq": 260,
+          "fromTick": 3,
+          "toTick": 8,
+          "history": 2,
+          "epoch": 1,
+          "generation": 1,
+          "authorityRevision": 0,
+          "controlledId": "player-3",
+          "ownershipReset": false
+        }
+      },
+      "firstExpiryFeedback": {
+        "kind": "input-feedback",
+        "at": 4081.821625,
+        "fields": {
+          "sampleSeq": 1,
+          "receivedSeq": 1,
+          "rejectedExpired": 1,
+          "rejectedFuture": 0,
+          "rejectedCancelled": 0,
+          "rejectedSequenceGap": 0,
+          "rejectedCapacity": 0,
+          "rejectedRevision": 0
+        }
+      },
+      "lastMeasuredRttBeforeInput": {
+        "kind": "rtt",
+        "at": 3670.298875,
+        "fields": {
+          "rttMs": 154.26101340098384
+        }
+      },
+      "finalExpiredInputs": 11
+    }
+  ]
+}

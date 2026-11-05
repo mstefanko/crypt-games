@@ -531,6 +531,7 @@ export class CryptballPresenter {
     events: readonly CryptballEvent[] = [],
     reducedMotion = false,
     playerNames: Readonly<Record<string,string>> = {},
+    presentationTick = s.tick,
   ) {
     if (!this.loaded || this.disposed || s.sportId === "cryptcheck" && !this.hockeyLoaded || isNewMode(s.sportId) && !this.newLoaded) return;
     for (const [key,label] of this.labels) if (key.startsWith("player-name.")) label.visible = false;
@@ -731,7 +732,7 @@ export class CryptballPresenter {
       if (p.charging && p.chargeTicks >= 24) {
         // A small silhouette halo stays attached to the actual pose and is
         // visible to both teams from replicated charge state. No extra events.
-        const pulse = reducedMotion ? 0.4 : 0.32 + 0.12 * Math.sin(s.tick * 0.12);
+        const pulse = reducedMotion ? 0.4 : 0.32 + 0.12 * Math.sin(presentationTick * 0.12);
         for (const [j, offset] of [[-1, 0], [1, 0], [0, -1], [0, 1]].entries()) {
           const key = `charge.glow.${p.id}.${j}`;
           let glow = this.sprites.get(key);
@@ -750,7 +751,7 @@ export class CryptballPresenter {
           glow.visible = true;
         }
         for (let j = 0; j < 3; j++) {
-          const rise = reducedMotion ? j * 5 : (Math.floor(s.tick / 3) + j * 7) % 18;
+          const rise = reducedMotion ? j * 5 : (Math.floor(presentationTick / 3) + j * 7) % 18;
           this.polish.rect(foot.x + (j - 1) * 10, foot.y - 25 - rise, 1, 2)
             .fill({ color: 0xffe7a0, alpha: 0.8 });
         }
@@ -780,7 +781,7 @@ export class CryptballPresenter {
       if (p.id === s.controlledId) {
         const offset = reducedMotion
           ? 0
-          : (Math.floor(s.tick / 8) * Math.PI) / 3;
+          : (Math.floor(presentationTick / 8) * Math.PI) / 3;
         for (let segment = 0; segment < 6; segment++) {
           const start = offset + (segment * Math.PI) / 3;
           for (let n = 0; n <= 4; n++) {
@@ -803,7 +804,7 @@ export class CryptballPresenter {
           foot.x,
           foot.y -
             44 -
-            (reducedMotion ? 0 : Math.round(Math.sin(s.tick * 0.2))),
+            (reducedMotion ? 0 : Math.round(Math.sin(presentationTick * 0.2))),
         ).zIndex = 1000;
         if (p.dashCooldown > 0)
           this.marks
@@ -833,7 +834,7 @@ export class CryptballPresenter {
       }
       if (p.staggerTicks > 0)
         for (let j = 0; j < 3; j++) {
-          const angle = s.tick * 0.25 + (j * Math.PI * 2) / 3;
+          const angle = presentationTick * 0.25 + (j * Math.PI * 2) / 3;
           this.polish
             .rect(
               foot.x + Math.cos(angle) * 6,
@@ -849,7 +850,7 @@ export class CryptballPresenter {
             p.x / 256 + Math.cos(h) * 13,
             p.y / 256 + Math.sin(h) * 13,
           );
-        const size = reducedMotion ? 1 : 1 + (Math.floor(s.tick / 3) % 2);
+        const size = reducedMotion ? 1 : 1 + (Math.floor(presentationTick / 3) % 2);
         this.polish
           .moveTo(tip.x - size, tip.y - 12)
           .lineTo(tip.x + size, tip.y - 12)
@@ -891,7 +892,7 @@ export class CryptballPresenter {
     this.stage.canvas.dataset.poweredPlayers = String(
       [...this.sprites.entries()].filter(([key, sprite]) => key.startsWith("charge.glow.") && key.endsWith(".0") && sprite.visible).length,
     );
-    const visual = ballVisual(s.sportId, this.orbTravel, s.tick, this.ballContact, reducedMotion);
+    const visual = ballVisual(s.sportId, this.orbTravel, presentationTick, this.ballContact, reducedMotion);
     const height = Math.max(0, s.ball.z / 256);
     this.paintNewMode(s, reducedMotion);
     const speed = Math.hypot(s.ball.vx, s.ball.vy) / 256,
@@ -961,7 +962,7 @@ export class CryptballPresenter {
     const extraBalls = s.dodge?.balls.slice(1) ?? s.guardian?.orbs.slice(1).map(orb=>({id:orb.id,physical:orb.ball,retired:false,mode:{state:orb.possessionId?'held':s.tick<orb.hostileUntil?'hostile-flight':'dead-loose',holderId:orb.possessionId,powered:(orb.ballToken?.damage ?? 0)>=10}})) ?? [];
     for (const entry of extraBalls) {
       if (entry.retired) continue;
-      const extraVisual=ballVisual(s.sportId,this.orbTravel,s.tick,this.ballContacts.get(entry.id),reducedMotion);
+      const extraVisual=ballVisual(s.sportId,this.orbTravel,presentationTick,this.ballContacts.get(entry.id),reducedMotion);
       const b = entry.physical, pos = projectCourt(b.x / 256, b.y / 256);
       const sprite = this.image(`ball.extra.${entry.id}`, extraVisual.frame, this.actors, pos.x, pos.y - b.z / 256);
       const holder = entry.mode.state === 'held' && entry.mode.holderId ? this.clips.get(entry.mode.holderId) : undefined;
@@ -980,8 +981,8 @@ export class CryptballPresenter {
       }
     }
     this.stage.canvas.dataset.renderedBalls = String(s.dodge?.balls.filter(b => !b.retired).length ?? s.guardian?.orbs.length ?? 1);
-    this.animateStadium(s.tick, reducedMotion);
-    this.fx.render(s.tick, reducedMotion);
+    this.animateStadium(presentationTick, reducedMotion);
+    this.fx.render(presentationTick, reducedMotion);
     renderSpecialEffects(this.specialMarks, s, reducedMotion);
     this.spriteEffects = this.spriteEffects.filter((e) => {
       const age = s.tick - e.born;

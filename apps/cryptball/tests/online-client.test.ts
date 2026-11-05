@@ -359,7 +359,7 @@ it.each(SPORT_IDS)(
   },
 );
 
-it("clamps height correction while a falling ball is still above the floor", async () => {
+it("hands height correction to the presentation owner without smoothing observation", async () => {
   const authority = new MatchAuthority("room", true, "rift-volley");
   authority.join("p0", "Guest");
   authority.phase = "playing";
@@ -388,9 +388,11 @@ it("clamps height correction while a falling ball is still above the floor", asy
   expect(client.rawObserve().phase).toBe("play");
   expect(client.rawObserve().ball.z).toBeGreaterThan(0);
   expect(client.rawObserve().ball.z).toBeLessThan(next.state.ball.z);
-  // Presentation corrections cannot pull a center-height volleyball below its
-  // radius, including when an older corrected position was below the floor.
-  expect(client.observe().ball.z).toBe(6 * 256);
+  expect(client.observe().ball.z).toBe(client.rawObserve().ball.z);
+  const correction = client.takePresentationCorrection();
+  expect(correction).not.toBeNull();
+  expect(correction!.reset).toBe(true); // The checkpoint advanced the logical tick.
+  expect(client.takePresentationCorrection()).toBeNull();
 });
 
 it("sends a team preference and restricts team changes to waiting lobbies", async () => {
@@ -640,4 +642,313 @@ it('adopts the authoritative next shuffle activity across a new match epoch',asy
  fake.messages.get('snapshot')!(encodeSnapshot(authority.snapshot('p0',[])));
  expect(client.rawObserve().sportId).toBe(authority.sportId);
  expect(client.rawObserve().sportId).not.toBe('cryptball');
+});
+
+it("preserves intermediate prediction when host consumes an absent correction first", async () => {
+  const authority = new MatchAuthority("room", true);
+  authority.join("p0", "Guest");
+  authority.phase = "playing";
+  const client = createOnlineSession({endpoint:"ws://test"});
+  await client.connect("quick");
+  fake.messages.get("lobby")!(authority.lobby());
+  fake.messages.get("snapshot")!(encodeSnapshot(authority.snapshot("p0", [])));
+  client.takePresentationCorrection();
+  client.step({});
+  expect(client.takePresentationCorrection()).toBeNull();
+  const previous = client.takePreviousPrediction();
+  expect(previous).not.toBeNull();
+  expect(previous!.tick).toBe(client.simulationTick - 1);
+  expect(client.takePreviousPrediction()).toBeNull();
+});
+
+it("composes multiple same-tick reconciliations against the earliest pending baseline", async () => {
+  const authority = new MatchAuthority("room", true);
+  authority.join("p0", "Guest");
+  authority.phase = "playing";
+  const client = createOnlineSession({endpoint:"ws://test"});
+  await client.connect("quick");
+  fake.messages.get("lobby")!(authority.lobby());
+  const send = () => fake.messages.get("snapshot")!(encodeSnapshot(authority.snapshot("p0", [])));
+  send();
+  client.takePresentationCorrection();
+  const baseline = client.rawObserve();
+  for (let n = 0; n < 2; n++) {
+    const checkpoint = authority.session.capture();
+    checkpoint.state.players[0].x += 256;
+    authority.session.restore(checkpoint);
+    send();
+  }
+  const correction = client.takePresentationCorrection()!;
+  expect(correction.reset).toBe(false);
+  expect(correction.before.players[0].x).toBe(baseline.players[0].x);
+  expect(correction.after.players[0].x).toBe(baseline.players[0].x + 512);
+});
+
+it.each(["manual", "pass", "forced"] as const)("preserves a predicted %s switch and following press/release across 150ms RTT checkpoints", async (kind) => {
+  const sportId = kind === "pass" ? "cryptball" : "crypt-dodge";
+  const switchFrame = kind === "pass" ? 30 : 180;
+  const authority = new MatchAuthority("room", true, sportId);
+  for (const id of ["p0", "p1"]) { authority.join(id, "Guest"); authority.ready(id); }
+  authority.start();
+  for (let n = 0; n < 180; n++) authority.advance();
+  const initial = authority.session.capture(); initial.state.phase = "play"; initial.state.phaseTicks = 0;
+  if (kind === "pass") {
+    const controller = initial.state.controllers.find(c => c.id === "p0")!;
+    const player = initial.state.players.find(p => p.id === controller.playerId)!;
+    for (const other of initial.state.players) { other.x = (other.team === 0 ? -160 : 160) * 256; other.y = (Number(other.id.slice(-1)) % 3 - 1) * 90 * 256; }
+    player.x = -80 * 256; player.y = 0;
+    player.heading = 128;
+    initial.state.ball.x = player.x - 16 * 256; initial.state.ball.y = player.y;
+    initial.state.ball.vx = initial.state.ball.vy = 0;
+  }
+  authority.session.restore(initial);
+  const client = createOnlineSession({endpoint:"ws://test", sportId});
+  await client.connect("quick");
+  fake.messages.get("lobby")!(authority.lobby());
+  fake.messages.get("snapshot")!(encodeSnapshot(authority.snapshot("p0", [], undefined, now)));
+  const deliveries: {at:number;run:()=>void}[] = [];
+  let sent = 0;
+  const executed = new Set<number>();
+  const originalTerminal = (authority as any).terminal.bind(authority);
+  vi.spyOn(authority as any, "terminal").mockImplementation((...args:any[]) => {
+    if (args[0].id === "p0" && args[2] === undefined) executed.add(args[1]);
+    return originalTerminal(...args);
+  });
+  let switchSeq = 0, pressSeq = 0, releaseSeq = 0;
+  let switchedId = "";
+  const oldId = client.rawObserve().controlledId;
+  for (let frame = 0; frame < 360; frame++) {
+    now = frame * (1000 / 60);
+    for (let i = 0; i < deliveries.length;) {
+      if (deliveries[i]!.at <= now) deliveries.splice(i, 1)[0]!.run(); else i++;
+    }
+    if (kind === "forced" && frame === switchFrame) {
+      const checkpoint = authority.session.capture();
+      const controlled = checkpoint.state.controllers.find(c => c.id === "p0")!.playerId;
+      checkpoint.state.dodge!.athletes[controlled].lives = 0;
+      for (const ball of checkpoint.state.dodge!.balls) if (ball.mode.holderId === controlled) {
+        ball.mode.holderId = null;
+        ball.mode.state = "dead-loose";
+      }
+      checkpoint.state.dodge!.ball = checkpoint.state.dodge!.balls[0].mode;
+      checkpoint.state.possessionId = checkpoint.state.dodge!.ball.holderId;
+      authority.session.restore(checkpoint);
+    }
+    authority.advance();
+    if (kind === "forced" && frame === switchFrame) {
+      expect(authority.peers.get("p0")!.held).toEqual({});
+      expect(authority.peers.get("p0")!.effective).toEqual({});
+    }
+    if (kind === "forced" && frame > switchFrame && frame < switchFrame+20) {
+      const observation = authority.session.observeFor("p0");
+      const replacement = observation.players.find(player => player.id === observation.controlledId)!;
+      expect(replacement.charging).toBe(false);
+      expect(replacement.action).toBeNull();
+      expect(replacement.dashTicks).toBe(0);
+    }
+    // Keep the second human alive without adding another predictor to this test.
+    if (frame % 6 === 0) authority.heartbeat("p1", {epoch:authority.epoch,generation:authority.peers.get("p1")!.generation,revision:authority.session.getControllerRevision("p1")!});
+    if (frame % 3 === 0) {
+      const bytes = encodeSnapshot(authority.snapshot("p0", [], undefined, now));
+      deliveries.push({at:now+75,run:()=>fake.messages.get("snapshot")!(bytes)});
+    }
+    client.step({moveX:kind === "pass" && frame < switchFrame+19 ? 0 : 1,
+      switch:kind === "manual" && frame===switchFrame,
+      pass:kind === "pass" && frame===switchFrame,
+      dash:kind === "forced" && frame===switchFrame,
+      strikePressed:frame===switchFrame+20 || (kind === "forced" && frame===switchFrame-10),
+      strikeHeld:frame===switchFrame+20 || (kind === "forced" && frame>=switchFrame-10 && frame<switchFrame+19),
+      strikeReleased:frame===switchFrame+21});
+    if (frame === switchFrame+19) switchedId = client.rawObserve().controlledId;
+    while (sent < fake.sent.length) {
+      const [type, value] = fake.sent[sent++]!;
+      const packet = value as import("../protocol").InputPacket;
+      if (type === "input") {
+        if (packet.command.switch || packet.command.pass || (kind === "forced" && packet.command.dash)) switchSeq = packet.seq;
+        if (packet.command.strikePressed) pressSeq = packet.seq;
+        if (packet.command.strikeReleased) releaseSeq = packet.seq;
+      }
+      deliveries.push({at:now+75,run:()=>{
+        if(type==="input") authority.receive("p0", packet);
+        else if(type==="heartbeat") authority.heartbeat("p0", value);
+        else if(type==="ping") {
+          const pong = {...value as object,serverTime:now,tick:authority.session.getTick(),epoch:authority.epoch,phase:authority.phase};
+          deliveries.push({at:now+75,run:()=>fake.messages.get("pong")!(pong)});
+        }
+      }});
+    }
+    if (frame > switchFrame+21 && frame < switchFrame+30) expect(client.rawObserve().controlledId).toBe(switchedId);
+  }
+  expect(switchedId).not.toBe(oldId);
+  expect(authority.session.observeFor("p0").controlledId).toBe(switchedId);
+  for (const seq of [pressSeq,releaseSeq]) { expect(seq).toBeGreaterThan(0); expect(executed.has(seq)).toBe(true); }
+  expect(switchSeq).toBeGreaterThan(0);
+  expect(executed.has(switchSeq)).toBe(kind !== "forced");
+  expect(authority.peers.get("p0")!.feedback.rejectionReasons["sequence-gap"]).toBe(0);
+  if (kind === "forced") expect(authority.peers.get("p0")!.feedback.rejectionReasons.revision).toBeGreaterThan(0);
+  else expect(authority.peers.get("p0")!.feedback.rejectionReasons.revision).toBe(0);
+});
+
+it.each([false, true])("handles an intermediate revision with the second predicted switch rejected=%s", async (rejected) => {
+  const authority = new MatchAuthority("room", true);
+  for (const id of ["p0", "p1"]) { authority.join(id,"Guest"); authority.ready(id); }
+  authority.start(); for (let n=0;n<180;n++) authority.advance();
+  const client = createOnlineSession({endpoint:"ws://test"});
+  await client.connect("quick");
+  fake.messages.get("lobby")!(authority.lobby());
+  fake.messages.get("snapshot")!(encodeSnapshot(authority.snapshot("p0",[],undefined,now)));
+  const originalId = client.rawObserve().controlledId;
+  for (let frame=0;frame<21;frame++) {
+    now=frame*1000/60;
+    client.step({switch:frame===1||frame===19,moveX:1});
+  }
+  expect(client.rawObserve().controlledId).toBe(originalId);
+  const packets=fake.sent.filter(([type])=>type==="input").map(([,p])=>p as import("../protocol").InputPacket);
+  const firstSwitch=packets.find(p=>p.command.switch)!;
+  expect(packets.filter(p=>p.command.switch)).toHaveLength(2);
+  for(const packet of packets) expect(authority.receive("p0",packet)).toBe(true);
+  while(authority.session.getTick()<firstSwitch.tick) authority.advance();
+  expect(authority.session.getControllerRevision("p0")).toBe(1);
+  expect(authority.session.observeFor("p0").controlledId).not.toBe(originalId);
+  const snapshot = authority.snapshot("p0",[],undefined,now);
+  if (rejected) {
+    const secondSwitch = packets.filter(packet => packet.command.switch)[1]!;
+    const disposition = snapshot.dispositions.find(d => d.seq === secondSwitch.seq)!;
+    disposition.status = "rejected";
+    disposition.reason = "revision";
+    expect(secondSwitch.seq).toBeGreaterThan(snapshot.terminalSeq);
+  }
+  fake.messages.get("snapshot")!(encodeSnapshot(snapshot));
+  expect(client.rawObserve().controlledId).toBe(rejected ? authority.session.observeFor("p0").controlledId : originalId);
+  expect(client.rawObserve().tick).toBe(packets.at(-1)!.tick);
+  if (rejected) {
+    const before = fake.sent.filter(([type]) => type === "input").length;
+    now += 1000/60;
+    client.step({strikePressed:true,strikeHeld:true});
+    expect(fake.sent.filter(([type]) => type === "input")).toHaveLength(before);
+  }
+});
+
+it("neutralizes unmatched authoritative player identity even at equal controller revision", async () => {
+  const authority = new MatchAuthority("room", true);
+  for (const id of ["p0", "p1"]) { authority.join(id,"Guest"); authority.ready(id); }
+  authority.start(); for(let n=0;n<180;n++) authority.advance();
+  const client=createOnlineSession({endpoint:"ws://test"}); await client.connect("quick");
+  fake.messages.get("lobby")!(authority.lobby());
+  fake.messages.get("snapshot")!(encodeSnapshot(authority.snapshot("p0",[])));
+  client.step({});
+  const checkpoint=authority.session.capture(), controller=checkpoint.state.controllers.find(c=>c.id==="p0")!;
+  const replacement=checkpoint.state.players.find(p=>p.team===controller.team && p.role!=="keeper" && !checkpoint.state.controllers.some(c=>c.playerId===p.id))!;
+  controller.playerId=replacement.id; checkpoint.state.controlledId=replacement.id;
+  authority.session.restore(checkpoint);
+  fake.messages.get("snapshot")!(encodeSnapshot(authority.snapshot("p0",[])));
+  const before=fake.sent.filter(([type])=>type==="input").length;
+  now+=1000/60; client.step({strikePressed:true,strikeHeld:true});
+  expect(client.rawObserve().controlledId).toBe(replacement.id);
+  expect(fake.sent.filter(([type])=>type==="input")).toHaveLength(before);
+});
+
+it("neutralizes a rejected first predicted switch while confirmed revision remains unchanged", async () => {
+  const authority = new MatchAuthority("room", true);
+  for (const id of ["p0","p1"]) { authority.join(id,"Guest"); authority.ready(id); }
+  authority.start(); for(let n=0;n<180;n++) authority.advance();
+  const client=createOnlineSession({endpoint:"ws://test"}); await client.connect("quick");
+  fake.messages.get("lobby")!(authority.lobby());
+  fake.messages.get("snapshot")!(encodeSnapshot(authority.snapshot("p0",[])));
+  const owner=client.rawObserve().controlledId;
+  client.step({}); now+=1000/60; client.step({switch:true,moveX:1});
+  expect(client.rawObserve().controlledId).not.toBe(owner);
+  const packets=fake.sent.filter(([type])=>type==="input").map(([,p])=>p as import("../protocol").InputPacket);
+  for(const packet of packets) expect(authority.receive("p0",packet)).toBe(true);
+  const snapshot=authority.snapshot("p0",[],undefined,now);
+  const pendingSwitch=snapshot.dispositions.find(d=>d.seq===packets.at(-1)!.seq)!;
+  pendingSwitch.status="rejected"; pendingSwitch.reason="revision";
+  expect(snapshot.terminalSeq).toBe(0);
+  fake.messages.get("snapshot")!(encodeSnapshot(snapshot));
+  expect(client.rawObserve().controlledId).toBe(owner);
+  const before=fake.sent.filter(([type])=>type==="input").length;
+  now+=1000/60; client.step({strikePressed:true,strikeHeld:true});
+  expect(fake.sent.filter(([type])=>type==="input")).toHaveLength(before);
+});
+
+it.each([false,true])("retains measured route lead across an unmatched handoff with rematch=%s", async (rematch) => {
+  const authority=new MatchAuthority("room",true); authority.join("p0","Guest"); authority.phase="playing";
+  const client=createOnlineSession({endpoint:"ws://test"}); await client.connect("quick");
+  fake.messages.get("lobby")!(authority.lobby());
+  fake.messages.get("snapshot")!(encodeSnapshot(authority.snapshot("p0",[],undefined,now)));
+  client.step({});
+  const ping=fake.sent.find(([type])=>type==="ping")![1] as {id:number;sent:number};
+  now=150;
+  fake.messages.get("pong")!({...ping,epoch:authority.epoch,serverTime:75,tick:authority.session.getTick(),phase:"playing"});
+  expect(client.diagnostics.rttMs).toBe(150);
+  if (rematch) authority.epoch++;
+  const checkpoint=authority.session.capture(); checkpoint.state.epoch=authority.epoch;
+  checkpoint.state.controllers.find(c=>c.id==="p0")!.revision++;
+  authority.session.restore(checkpoint);
+  fake.messages.get("lobby")!(authority.lobby());
+  fake.messages.get("snapshot")!(encodeSnapshot(authority.snapshot("p0",[],undefined,now)));
+  client.step({});
+  const packet=fake.sent.filter(([type])=>type==="input").at(-1)![1] as import("../protocol").InputPacket;
+  expect(packet.epoch).toBe(authority.epoch);
+  expect(packet.seq).toBe(rematch ? 1 : 2);
+  expect(packet.tick-authority.session.getTick()).toBeGreaterThanOrEqual(7);
+});
+
+it("waits for a matching playing checkpoint before assigning the first input after countdown", async () => {
+  const authority=new MatchAuthority("room",true); authority.join("p0","Guest");
+  authority.phase="countdown";
+  const client=createOnlineSession({endpoint:"ws://test"}); await client.connect("quick");
+  fake.messages.get("lobby")!(authority.lobby());
+  fake.messages.get("snapshot")!(encodeSnapshot(authority.snapshot("p0",[],undefined,now)));
+  client.update();
+  const ping=fake.sent.find(([type])=>type==="ping")![1] as {id:number;sent:number};
+  now=150;
+  fake.messages.get("pong")!({...ping,epoch:authority.epoch,serverTime:75,tick:0,phase:"countdown"});
+  expect(client.diagnostics.rttMs).toBe(150);
+  now=3000; authority.countdown=1;
+  for(let n=0;n<5;n++) authority.advance();
+  fake.messages.get("lobby")!(authority.lobby());
+  const liveSnapshot=encodeSnapshot(authority.snapshot("p0",[],undefined,now));
+  client.step({moveX:1});
+  expect(fake.sent.filter(([type])=>type==="input")).toHaveLength(0);
+  // The first playing checkpoint spends 75ms on the downlink. The remaining
+  // uplink delay must fit the target derived from its extrapolated server time.
+  now+=75; for(let n=0;n<4;n++) authority.advance();
+  fake.messages.get("snapshot")!(liveSnapshot);
+  client.step({moveX:1});
+  const packet=fake.sent.filter(([type])=>type==="input").at(-1)![1] as import("../protocol").InputPacket;
+  expect(packet.seq).toBe(1);
+  for(let n=0;n<5;n++) authority.advance();
+  expect(authority.receive("p0",packet)).toBe(true);
+  expect(authority.peers.get("p0")!.feedback.rejectionReasons.expired).toBe(0);
+});
+
+it.each(["cryptball","cryptkick","rift-volley","cryptcheck","crypt-dodge"] as const)("preserves connection clock offset across an aged %s rematch checkpoint without a fresh pong", async (sportId) => {
+  const authority=new MatchAuthority("room",true,sportId);
+  for(const id of ["p0","p1"]) { authority.join(id,"Guest"); authority.ready(id); }
+  authority.start(); for(let n=0;n<180;n++) authority.advance();
+  const client=createOnlineSession({endpoint:"ws://test",sportId}); await client.connect("quick");
+  fake.messages.get("lobby")!(authority.lobby());
+  fake.messages.get("snapshot")!(encodeSnapshot(authority.snapshot("p0",[],undefined,now)));
+  client.update();
+  const ping=fake.sent.find(([type])=>type==="ping")![1] as {id:number;sent:number};
+  now=150;
+  fake.messages.get("pong")!({...ping,epoch:authority.epoch,serverTime:75,tick:0,phase:"playing"});
+  expect(client.diagnostics.rttMs).toBe(150);
+  authority.epoch++;
+  const checkpoint=authority.session.capture(); checkpoint.state.epoch=authority.epoch; checkpoint.state.tick=0;
+  authority.session.restore(checkpoint);
+  const snapshot=encodeSnapshot(authority.snapshot("p0",[],undefined,now));
+  // Both directions take ~five fixed ticks. No new pong is delivered after the
+  // epoch changes, so admission depends on retaining the measured clock offset.
+  now+=75; for(let n=0;n<5;n++) authority.advance();
+  fake.messages.get("lobby")!(authority.lobby());
+  fake.messages.get("snapshot")!(snapshot);
+  client.step({});
+  const packet=fake.sent.filter(([type])=>type==="input").at(-1)![1] as import("../protocol").InputPacket;
+  expect(packet.seq).toBe(1);
+  expect(packet.tick).toBeGreaterThanOrEqual(11);
+  for(let n=0;n<5;n++) authority.advance();
+  expect(authority.receive("p0",packet)).toBe(true);
+  expect(authority.peers.get("p0")!.feedback.rejectionReasons.expired).toBe(0);
 });

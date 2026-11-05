@@ -2,13 +2,12 @@ import { expect, it } from "vitest";
 import { InputScheduler, replaySchedule } from "../src/online/input-scheduler";
 import { Recovery } from "../src/online/recovery";
 import { NetworkClock } from "../src/online/clock";
-it("paces accumulator catch-up while preserving ordered press and release", () => {
+it("accepts fixed-step catch-up while preserving ordered press and release", () => {
   const s = new InputScheduler();
   s.capture({ strikePressed: true, strikeHeld: true }, 0, false);
   expect(s.allocate(10, 10, 0)?.command.strikePressed).toBe(true);
   s.capture({ strikeReleased: true }, 0, false);
-  expect(s.allocate(10, 10, 0)).toBeNull();
-  expect(s.allocate(11, 11, 17)?.command.strikeReleased).toBe(true);
+  expect(s.allocate(10, 10, 0)?.command.strikeReleased).toBe(true);
   expect(s.queuedEdges).toBe(0);
 });
 it("increases and decreases lead without rewriting or duplicating slots", () => {
@@ -17,10 +16,13 @@ it("increases and decreases lead without rewriting or duplicating slots", () => 
   s.feedback(1, 1, -2, -2, 100);
   expect(s.lead).toBe(6);
   expect(s.allocate(11, 11, 100)?.tick).toBe(17);
+  expect(s.predictionRate(11)).toBe(1);
   s.feedback(2, 61, 6, 6, 1200);
   expect(s.lead).toBe(5);
-  expect(s.allocate(11, 11, 1200)).toBeNull();
-  expect(s.allocate(13, 13, 1217)?.tick).toBe(18);
+  expect(s.allocate(11, 11, 1200)?.tick).toBe(18);
+  expect(s.allocate(13, 13, 1217)?.tick).toBe(19);
+  s.lead = 1;
+  expect(s.predictionRate(10)).toBe(0.98);
 });
 it("expires stale edges and accounts for overflow with bounded storage", () => {
   const s = new InputScheduler();
@@ -98,4 +100,76 @@ it("does not repeatedly increase prediction lead from the same rolling receipt w
   s.reset();
   s.feedback(1, 1, 0, 0, 2600);
   expect(s.lead).toBe(4);
+});
+
+it("allocates all 600 alternating cadence logical steps with consecutive ticks", () => {
+  const s = new InputScheduler();
+  let now = 0;
+  const ticks: number[] = [];
+  for (let n = 0; n < 600; n++) {
+    now += n % 2 ? 1000 / 30 - 16 : 16;
+    const serverTick = now / (1000 / 60);
+    const slot = s.allocate(serverTick, Math.floor(serverTick), now);
+    expect(slot).not.toBeNull();
+    ticks.push(slot!.tick);
+  }
+  expect(ticks).toEqual(Array.from({ length: 600 }, (_, n) => ticks[0] + n));
+});
+
+for (const hz of [30, 59.94, 60, 90, 120, 144]) {
+  it(`uses a single fixed-step clock at ${hz}Hz display cadence`, () => {
+    const s = new InputScheduler();
+    let debt = 0, count = 0, last = -1;
+    const dt = 1000 / hz;
+    for (let frame = 1; frame <= Math.floor(hz * 10); frame++) {
+      const now = frame * dt;
+      debt += dt;
+      while (debt + 1e-8 >= 1000 / 60) {
+        const serverTick = now / (1000 / 60);
+        const slot = s.allocate(serverTick, Math.floor(serverTick), now);
+        expect(slot).not.toBeNull();
+        if (last >= 0) expect(slot!.tick).toBe(last + 1);
+        last = slot!.tick;
+        count++;
+        debt -= 1000 / 60;
+      }
+    }
+    expect(count).toBeGreaterThanOrEqual(599);
+    expect(count).toBeLessThanOrEqual(600);
+  });
+}
+
+it("bounds stalled authority and catch-up bursts without consuming queued release", () => {
+  const s = new InputScheduler();
+  s.capture({strikePressed:true,strikeHeld:true}, 0, false);
+  expect(s.allocate(10, 10, 0)?.command.strikePressed).toBe(true);
+  for (let n = 0; n < 22; n++) expect(s.allocate(10, 10, 0)).not.toBeNull();
+  s.capture({strikeReleased:true}, 1, false);
+  expect(s.allocate(10, 10, 1)).toBeNull();
+  expect(s.queuedEdges).toBe(1);
+  expect(s.allocate(11, 11, 17)?.command.strikeReleased).toBe(true);
+  s.reset();
+  expect(s.allocate(100, 100, 5000)?.tick).toBe(102);
+  expect(s.queuedEdges).toBe(0);
+});
+
+it("allocates after an already predicted world when controller reset clears scheduler slots", () => {
+  const s = new InputScheduler();
+  s.capture({dash:true}, 0, false);
+  const slot = s.allocate(10, 10, 0, 18);
+  expect(slot?.tick).toBe(19);
+  expect(slot?.command.dash).toBe(true);
+  expect(s.allocate(11, 11, 17, 19)?.tick).toBe(20);
+});
+
+it("resets an unsampled match timeline without inventing a measured connection clock", () => {
+  const clock=new NetworkClock();
+  clock.resetTimeline();
+  clock.checkpoint(5,100,"waiting");
+  expect(clock.tick).toBe(5);
+  expect(clock.rtt).toBe(80);
+  clock.resetTimeline();
+  expect(clock.tick).toBe(0);
+  clock.checkpoint(3,200,"waiting");
+  expect(clock.tick).toBe(3);
 });

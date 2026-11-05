@@ -14,6 +14,7 @@ import { createOnlineSession } from "../src/online/session";
 import { MatchAuthority } from "../../cryptball-server/src/model";
 import { encodeSnapshot, PROTOCOL } from "../protocol";
 import { SPORT_IDS } from "../sim/session";
+import { FixedScheduler } from "../../../packages/game-runtime/src/scheduler";
 afterEach(() => {
   vi.restoreAllMocks();
   vi.unstubAllGlobals();
@@ -56,7 +57,7 @@ const scenarios = [
 ];
 for (const sport of SPORT_IDS)
   for (const scenario of scenarios)
-    it(`${sport} ${scenario.name}: keeps four active adapters controllable`, async () => {
+    it(`${sport} ${scenario.name}: keeps every supported participant controllable`, async () => {
       let now = 0,
         accepted = 0,
         rejected = 0,
@@ -74,7 +75,7 @@ for (const sport of SPORT_IDS)
         removeItem: () => {},
       });
       const authority = new MatchAuthority("impairment", false, sport);
-      for (let i = 0; i < 4; i++) {
+      for (let i = 0; i < authority.capacity; i++) {
         authority.join(`p${i}`, "Guest");
         authority.ready(`p${i}`);
       }
@@ -97,7 +98,7 @@ for (const sport of SPORT_IDS)
       const clients: ReturnType<typeof createOnlineSession>[] = [],
         links: OrderedLink[] = [];
       const handlers: Map<string, (value: any) => void>[] = [];
-      for (let i = 0; i < 4; i++) {
+      for (let i = 0; i < authority.capacity; i++) {
         const id = `p${i}`,
           h = new Map<string, (value: any) => void>();
         handlers.push(h);
@@ -171,6 +172,17 @@ for (const sport of SPORT_IDS)
         h.get("lobby")!(authority.lobby());
         snapshot();
       }
+      const schedulers = clients.map(client => {
+        const scheduler = new FixedScheduler(() => client.step({
+          moveX: Math.floor(now / 1000) % 2 ? 1 : -1,
+          moveY: 0.5,
+          strikePressed: Math.floor(now) % 1000 < 17,
+          dash: Math.floor(now) % 1400 < 17,
+        }), () => { throw new Error("Unexpected client simulation debt"); });
+        scheduler.resume();
+        scheduler.advance(0);
+        return scheduler;
+      });
       let serverAt = 1000 / 60,
         clientAt = 1000 / 60;
       for (now = 0; now < 10000; now++) {
@@ -180,7 +192,7 @@ for (const sport of SPORT_IDS)
           authority.advance();
           if (authority.tick % 3 === 0) {
             const events = authority.session.drainEvents();
-            for (let i = 0; i < 4; i++) {
+            for (let i = 0; i < authority.capacity; i++) {
               const bytes = encodeSnapshot(
                 authority.snapshot(`p${i}`, events, undefined, now),
               );
@@ -196,13 +208,10 @@ for (const sport of SPORT_IDS)
         }
         if (now >= clientAt) {
           clientAt += 1000 / 60;
-          for (const client of clients)
-            client.step({
-              moveX: Math.floor(now / 1000) % 2 ? 1 : -1,
-              moveY: 0.5,
-              strikePressed: Math.floor(now) % 1000 < 17,
-              dash: Math.floor(now) % 1400 < 17,
-            });
+          for (let i = 0; i < clients.length; i++) {
+            clients[i]!.update();
+            schedulers[i]!.advance(now, clients[i]!.predictionRate);
+          }
         }
       }
       pendingAfterWarmup = [...authority.peers.values()].reduce(
@@ -221,6 +230,7 @@ for (const sport of SPORT_IDS)
         protocol: PROTOCOL,
         sport,
         scenario: scenario.name,
+        participants: authority.capacity,
         accepted,
         rejected,
         acceptedAfterWarmup,
@@ -241,7 +251,7 @@ for (const sport of SPORT_IDS)
         );
       if (scenario.up + scenario.down > 250) return;
       expect(actionExecuted, JSON.stringify(report)).toBeGreaterThan(0);
-      expect(accepted, JSON.stringify(report)).toBeGreaterThan(1000);
+      expect(accepted, JSON.stringify(report)).toBeGreaterThan(250 * authority.capacity);
       expect(inactive, JSON.stringify(report)).toBe(0);
       expect(botTransitions, JSON.stringify(report)).toBe(0);
       if (!scenario.stall && scenario.up + scenario.down <= 150)
@@ -261,5 +271,5 @@ for (const sport of SPORT_IDS)
         ).toBeGreaterThanOrEqual(0.99);
       if(!scenario.stall) expect(resyncAfterWarmup,JSON.stringify(report)).toBe(0);
       if(!scenario.stall && scenario.name !== "route-change") expect(clients.reduce((sum,client)=>sum+client.diagnostics.expiredEdges,0),JSON.stringify(report)).toBe(0);
-      expect(resync, JSON.stringify(report)).toBeLessThanOrEqual(4);
+      expect(resync, JSON.stringify(report)).toBeLessThanOrEqual(authority.capacity);
     }, 30000);

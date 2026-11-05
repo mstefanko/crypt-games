@@ -5,7 +5,8 @@ import { confirmedCombatPresentation } from '../src/online/confirmed-combat';
 const predictionPolicy={automaticSwitches:false};
 function guardian(){
   const s=createCryptballSession({sportId:'crypt-guardian'}),players=s.observe().players;
-  s.setParticipants([{id:'me',playerId:players[0].id,team:players[0].team},{id:'peer',playerId:players[2].id,team:players[2].team}]);
+  // Solo Guardian has two allies; leave the second available for survival/manual switches.
+  s.setParticipants([{id:'me',playerId:players[0].id,team:players[0].team}]);
   const cp=s.capture();cp.state.phase='play';cp.state.phaseTicks=0;s.restore(cp);return s;
 }
 it('predicted incoming damage never automatically changes controlled identity or packet revision before its checkpoint',()=>{

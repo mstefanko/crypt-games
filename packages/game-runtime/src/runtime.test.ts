@@ -4,6 +4,17 @@ import { InputQueue } from "./input.ts";
 import { interpolatePosition } from "./interpolation.ts";
 
 describe("single fixed scheduler", () => {
+  it("slews online clock elapsed time without changing fixed steps or offline cadence", () => {
+    for (const rate of [0.98, 1, 1.02]) {
+      let ticks = 0;
+      const runner = new FixedScheduler(() => ticks++, () => { throw Error("unexpected debt"); });
+      runner.resume();
+      for (let i = 0; i <= 600; i++) runner.advance(i * 1000 / 60, rate);
+      expect(ticks).toBe(Math.round(600 * rate));
+      expect(() => runner.advance(10001, NaN)).toThrow(RangeError);
+      expect(() => runner.advance(10001, 2)).toThrow(RangeError);
+    }
+  });
   it("produces identical explicit ticks across steady and uneven schedules", () => {
     const count = (schedule: number[]) => {
       let ticks = 0;

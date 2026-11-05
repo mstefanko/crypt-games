@@ -12,6 +12,14 @@ export class NetworkClock {
     this.clock.reset();
     this.requests.clear();
     this.sampled = false;
+    this.anchor = { tick: 0, serverTime: 0, phase: "waiting" };
+  }
+  /** A match epoch resets simulation ticks, not the connection's monotonic
+   * server-time axis. Keep measured offset/RTT; old-epoch replies cannot reanchor. */
+  resetTimeline() {
+    if (!this.sampled) this.clock.reset();
+    this.requests.clear();
+    this.anchor = { tick: 0, serverTime: 0, phase: "waiting" };
   }
   ping(now: number) {
     const request = { id: ++this.nextId, sent: now };
@@ -63,17 +71,16 @@ export class NetworkClock {
   get rtt() {
     return this.clock.smoothedRtt() || 80;
   }
-  get tick() {
+  get fractionalTick() {
     return (
       this.anchor.tick +
       (this.anchor.phase === "playing"
         ? Math.max(
             0,
-            Math.floor(
-              (this.clock.serverNow() - this.anchor.serverTime) / TICK_MS,
-            ),
+            (this.clock.serverNow() - this.anchor.serverTime) / TICK_MS,
           )
         : 0)
     );
   }
+  get tick() { return Math.floor(this.fractionalTick); }
 }

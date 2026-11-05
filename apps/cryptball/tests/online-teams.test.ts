@@ -5,6 +5,8 @@ import { SPORT_IDS } from "../sim/session";
 describe("authoritative club choice", () => {
   it("honors Foxes over an unclaimed default and preserves readiness for unchanged fallback", () => {
     const m = new MatchAuthority("foxes");
+    // Exercise an unclaimed opposing default explicitly; room defaults are seeded.
+    const cp = m.session.capture(); cp.state.teamIds = ["rams", "foxes"]; m.session.restore(cp);
     m.join("a", "a", "foxes");
     expect(m.teamIds).toEqual(["foxes", "rams"]);
     m.ready("a");
@@ -27,7 +29,9 @@ describe("authoritative club choice", () => {
     expect(m.teamIds).toEqual(["bats", "rams"]);
   });
   it.each(SPORT_IDS)("validates %s waiting selections and persists teams into snapshots and rematches", (sportId) => {
-    const m = new MatchAuthority("teams", false, sportId); m.join("a", "a"); m.join("b", "b");
+    const m = new MatchAuthority("teams", false, sportId);
+    const cp = m.session.capture(); cp.state.teamIds = ["rams", "foxes"]; m.session.restore(cp);
+    m.join("a", "a"); m.join("b", "b");
     m.ready("a");
     expect(m.selectTeam("a", "foxes")).toBe(false);
     expect(m.peers.get("a")!.ready).toBe(true);

@@ -316,6 +316,23 @@ export class MatchAuthority {
       p.received = 0;
     }
     if (++p.received > 90) return false;
+    const currentRevision = this.session.getControllerRevision(id);
+    const transfer = this.session.getControllerTransfer(id);
+    const supportsPassTransfer = ["cryptball", "cryptkick", "cryptcheck"].includes(this.sportId);
+    let queuedRevision = currentRevision === undefined ? undefined : currentRevision +
+      (transfer?.pending ? 1 : 0);
+    // Prediction can already own the next athlete while its ordered switch is
+    // still in flight. Admit only revisions justified by earlier queued switch
+    // intentions; exact ownership is checked again at execution. A failed switch
+    // therefore never authorizes the following command to control another player.
+    for (const queued of p.queue)
+      if (queued.revision === queuedRevision &&
+          (queued.command.switch || (supportsPassTransfer && transfer?.canSwitch && queued.command.pass)) &&
+          queued.epoch === this.epoch && queued.generation === p.generation)
+        queuedRevision = queuedRevision! + 1;
+    const staleRevision = currentRevision !== undefined && v.revision < currentRevision;
+    const admissibleRevision = currentRevision !== undefined &&
+      v.revision >= currentRevision && v.revision <= queuedRevision!;
     if (
       v.epoch !== this.epoch ||
       v.generation !== p.generation ||
@@ -323,7 +340,7 @@ export class MatchAuthority {
       v.seq <= p.lastSeq ||
       v.seq - p.lastSeq > NETWORK_LIMITS.historyFrames ||
       v.tick <= p.lastRequested ||
-      v.revision !== this.session.getControllerRevision(id)
+      (!admissibleRevision && !staleRevision)
     )
       return false;
     // Reactivation changes revision; let the client receive that revision before accepting commands.
@@ -351,6 +368,14 @@ export class MatchAuthority {
     p.lastSeq = v.seq;
     p.lastRequested = v.tick;
     p.lastInput = this.tick;
+    if (staleRevision) {
+      // This packet arrived reliably but belongs to an athlete no longer owned
+      // by this participant. Terminate its exact sequence without executing it;
+      // a later valid command must not misreport it as transport loss.
+      p.ledger.push({ seq: v.seq, requestedTick: v.tick, status: "accepted" });
+      this.terminal(p, v.seq, "revision");
+      return false;
+    }
     const margin = v.tick - next;
     p.margins.push(margin);
     if (p.margins.length > 60) p.margins.shift();
@@ -553,7 +578,17 @@ export class MatchAuthority {
         : heldCommand(cmd, this.sportId);
       commands[p.id] = cmd;
     }
+    const revisions = new Map([...this.peers.values()].map(peer =>
+      [peer.id, this.session.getControllerRevision(peer.id)]));
     this.session.stepParticipants(commands);
+    for (const peer of this.peers.values()) {
+      if (revisions.get(peer.id) !== this.session.getControllerRevision(peer.id)) {
+        // Held state belongs to the athlete/revision that admitted it. The new
+        // athlete receives only a fresh command bearing its exact revision.
+        peer.held = {};
+        peer.effective = {};
+      }
+    }
     if (this.session.getPhase() === "results") {
       this.phase = "results";
       this.resultsAt = this.tick;

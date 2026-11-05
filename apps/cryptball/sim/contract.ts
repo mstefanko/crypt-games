@@ -258,6 +258,7 @@ export interface CryptballSession {
   setParticipantActive(id: string, active: boolean): void;
   observeFor(participantId: string): Observation;
   getTick(): number;
+  getControllerTransfer(id: string): { canSwitch: boolean; pending: boolean } | undefined;
   getControllerRevision(id: string): number | undefined;
   getPhase(): "ready" | "play" | "goal" | "results";
   capture(): Checkpoint;
