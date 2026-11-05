@@ -1,0 +1,92 @@
+[
+  {
+    "seed": 0,
+    "weapon": "cannon",
+    "outcome": "victory",
+    "seconds": 51.65,
+    "hp": 0,
+    "downs": 1,
+    "hits": 18,
+    "blocks": 7
+  },
+  {
+    "seed": 1,
+    "weapon": "hook",
+    "outcome": "defeat",
+    "seconds": 43.916666666666664,
+    "hp": 138,
+    "downs": 2,
+    "hits": 11,
+    "blocks": 11
+  },
+  {
+    "seed": 2,
+    "weapon": "maul",
+    "outcome": "defeat",
+    "seconds": 37.11666666666667,
+    "hp": 120,
+    "downs": 2,
+    "hits": 12,
+    "blocks": 11
+  },
+  {
+    "seed": 9,
+    "weapon": "cannon",
+    "outcome": "victory",
+    "seconds": 66.76666666666667,
+    "hp": 0,
+    "downs": 2,
+    "hits": 20,
+    "blocks": 15
+  },
+  {
+    "seed": 10,
+    "weapon": "hook",
+    "outcome": "defeat",
+    "seconds": 45.233333333333334,
+    "hp": 180,
+    "downs": 2,
+    "hits": 8,
+    "blocks": 14
+  },
+  {
+    "seed": 11,
+    "weapon": "maul",
+    "outcome": "defeat",
+    "seconds": 35.86666666666667,
+    "hp": 216,
+    "downs": 2,
+    "hits": 5,
+    "blocks": 10
+  },
+  {
+    "seed": 18,
+    "weapon": "cannon",
+    "outcome": "defeat",
+    "seconds": 55,
+    "hp": 54,
+    "downs": 2,
+    "hits": 15,
+    "blocks": 12
+  },
+  {
+    "seed": 19,
+    "weapon": "hook",
+    "outcome": "defeat",
+    "seconds": 51.03333333333333,
+    "hp": 144,
+    "downs": 2,
+    "hits": 11,
+    "blocks": 13
+  },
+  {
+    "seed": 20,
+    "weapon": "maul",
+    "outcome": "defeat",
+    "seconds": 20.816666666666666,
+    "hp": 192,
+    "downs": 2,
+    "hits": 7,
+    "blocks": 5
+  }
+]

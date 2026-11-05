@@ -1,0 +1,14 @@
+{
+  "name": "@onepage/project",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Canonical TypeBox schemas, generated JSON Schema, validation, migrations and document commands. No browser or audio-node dependencies.",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "types": "./src/index.ts",
+  "dependencies": {
+    "@sinclair/typebox": "0.34.52"
+  }
+}

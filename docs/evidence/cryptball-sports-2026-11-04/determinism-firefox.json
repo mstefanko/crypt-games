@@ -1,0 +1,508 @@
+{
+  "engine": "firefox",
+  "scenarios": [
+    {
+      "sportId": "cryptkick",
+      "humans": false,
+      "eventCounts": {
+        "whistle": 8,
+        "trap": 213,
+        "possession-lost": 213,
+        "board": 104,
+        "slide": 32,
+        "pass-target": 29,
+        "swing:pass": 29,
+        "slide-contact": 26,
+        "check": 31,
+        "slide-recover": 32,
+        "pass": 11,
+        "swing:strike": 19,
+        "strike": 13,
+        "pass-complete": 9,
+        "special:rams": 4,
+        "special:foxes": 4,
+        "post": 7,
+        "goal": 7,
+        "whiff:strike": 2,
+        "whiff:pass": 3,
+        "match-end": 1
+      },
+      "maximumHeight": 0,
+      "phase": "results",
+      "score": [
+        3,
+        4
+      ],
+      "ticks": 6006
+    },
+    {
+      "sportId": "cryptkick",
+      "humans": true,
+      "eventCounts": {
+        "switch": 16,
+        "whistle": 4,
+        "pass-target": 24,
+        "swing:pass": 24,
+        "trap": 20,
+        "charge-ready": 18,
+        "whiff:pass": 16,
+        "swing:strike": 20,
+        "slide": 24,
+        "possession-lost": 20,
+        "slide-recover": 22,
+        "whiff:strike": 15,
+        "board": 37,
+        "check": 7,
+        "slide-contact": 6,
+        "strike": 4,
+        "goal": 3,
+        "dash": 12,
+        "pass": 3,
+        "pass-complete": 3,
+        "post": 1,
+        "special:foxes": 1,
+        "special:rams": 1
+      },
+      "maximumHeight": 0,
+      "phase": "play",
+      "score": [
+        2,
+        1
+      ],
+      "ticks": 2400
+    },
+    {
+      "sportId": "rift-volley",
+      "humans": false,
+      "eventCounts": {
+        "whistle": 12,
+        "swing:strike": 119,
+        "volley-contact:serve": 12,
+        "pass-target": 54,
+        "swing:pass": 54,
+        "volley-contact:set": 49,
+        "volley-contact:attack": 104,
+        "whiff:strike": 2,
+        "rally-point": 12,
+        "special:foxes": 3,
+        "special:rams": 3,
+        "whiff:pass": 5,
+        "match-end": 1
+      },
+      "maximumHeight": 16802,
+      "phase": "results",
+      "score": [
+        1,
+        11
+      ],
+      "ticks": 5711
+    },
+    {
+      "sportId": "rift-volley",
+      "humans": true,
+      "eventCounts": {
+        "switch": 15,
+        "whistle": 12,
+        "swing:strike": 15,
+        "volley-contact:serve": 11,
+        "pass-target": 22,
+        "swing:pass": 22,
+        "charge-ready": 13,
+        "whiff:pass": 12,
+        "slide": 17,
+        "slide-recover": 10,
+        "whiff:strike": 6,
+        "rally-point": 12,
+        "dash": 11,
+        "volley-contact:set": 6,
+        "special:foxes": 1
+      },
+      "maximumHeight": 16386,
+      "phase": "goal",
+      "score": [
+        8,
+        4
+      ],
+      "ticks": 2400
+    },
+    {
+      "sportId": "cryptball",
+      "humans": true,
+      "eventCounts": {
+        "special:rams": 1,
+        "pass-target": 1,
+        "swing:pass": 1,
+        "pass": 1,
+        "pass-complete": 1,
+        "slide": 1,
+        "slide-contact": 1,
+        "slide-recover": 1
+      },
+      "maximumHeight": 0,
+      "phase": "play",
+      "score": [
+        0,
+        0
+      ],
+      "ticks": 120
+    },
+    {
+      "sportId": "cryptball",
+      "humans": true,
+      "eventCounts": {
+        "special:foxes": 1,
+        "charge-ready": 1,
+        "swing:strike": 1,
+        "whiff:strike": 1,
+        "pass-target": 1,
+        "swing:pass": 1,
+        "pass": 1,
+        "slide": 1,
+        "slide-recover": 1,
+        "board": 1
+      },
+      "maximumHeight": 0,
+      "phase": "play",
+      "score": [
+        0,
+        0
+      ],
+      "ticks": 120
+    },
+    {
+      "sportId": "cryptball",
+      "humans": true,
+      "eventCounts": {
+        "special:owls": 1,
+        "charge-ready": 1,
+        "swing:strike": 1,
+        "pass-target": 2,
+        "swing:pass": 2,
+        "whiff:strike": 1,
+        "whiff:pass": 1,
+        "pass": 1,
+        "slide": 1,
+        "pass-complete": 1,
+        "slide-recover": 1,
+        "board": 1
+      },
+      "maximumHeight": 0,
+      "phase": "play",
+      "score": [
+        0,
+        0
+      ],
+      "ticks": 120
+    },
+    {
+      "sportId": "cryptball",
+      "humans": true,
+      "eventCounts": {
+        "special:gators": 1,
+        "slide-recover": 2,
+        "pass-target": 1,
+        "swing:pass": 1,
+        "pass": 1,
+        "slide": 1,
+        "pass-complete": 1,
+        "board": 1
+      },
+      "maximumHeight": 0,
+      "phase": "play",
+      "score": [
+        0,
+        0
+      ],
+      "ticks": 120
+    },
+    {
+      "sportId": "cryptball",
+      "humans": true,
+      "eventCounts": {
+        "special:bats": 1,
+        "pass-target": 2,
+        "swing:pass": 2,
+        "whiff:pass": 1,
+        "pass": 1,
+        "slide": 1,
+        "board": 1,
+        "slide-recover": 1
+      },
+      "maximumHeight": 0,
+      "phase": "play",
+      "score": [
+        0,
+        0
+      ],
+      "ticks": 120
+    },
+    {
+      "sportId": "cryptball",
+      "humans": true,
+      "eventCounts": {
+        "special:hornets": 1,
+        "charge-ready": 1,
+        "swing:strike": 1,
+        "whiff:strike": 1,
+        "pass-target": 1,
+        "swing:pass": 1,
+        "pass": 1,
+        "slide": 1,
+        "slide-recover": 1,
+        "board": 1
+      },
+      "maximumHeight": 0,
+      "phase": "play",
+      "score": [
+        0,
+        0
+      ],
+      "ticks": 120
+    },
+    {
+      "sportId": "cryptkick",
+      "humans": true,
+      "eventCounts": {
+        "special:rams": 1,
+        "trap": 2,
+        "possession-lost": 2,
+        "board": 1
+      },
+      "maximumHeight": 0,
+      "phase": "play",
+      "score": [
+        0,
+        0
+      ],
+      "ticks": 120
+    },
+    {
+      "sportId": "cryptkick",
+      "humans": true,
+      "eventCounts": {
+        "special:foxes": 1,
+        "trap": 3,
+        "possession-lost": 3,
+        "charge-ready": 1,
+        "swing:strike": 1,
+        "pass-target": 1,
+        "swing:pass": 1,
+        "pass": 1,
+        "whiff:strike": 1
+      },
+      "maximumHeight": 0,
+      "phase": "play",
+      "score": [
+        0,
+        0
+      ],
+      "ticks": 120
+    },
+    {
+      "sportId": "cryptkick",
+      "humans": true,
+      "eventCounts": {
+        "special:owls": 1,
+        "trap": 2,
+        "charge-ready": 1,
+        "swing:strike": 1,
+        "strike": 1,
+        "possession-lost": 1,
+        "board": 142
+      },
+      "maximumHeight": 0,
+      "phase": "play",
+      "score": [
+        0,
+        0
+      ],
+      "ticks": 120
+    },
+    {
+      "sportId": "cryptkick",
+      "humans": true,
+      "eventCounts": {
+        "special:gators": 1,
+        "trap": 2,
+        "possession-lost": 1,
+        "slide-recover": 1,
+        "board": 18
+      },
+      "maximumHeight": 0,
+      "phase": "play",
+      "score": [
+        0,
+        0
+      ],
+      "ticks": 120
+    },
+    {
+      "sportId": "cryptkick",
+      "humans": true,
+      "eventCounts": {
+        "special:bats": 1,
+        "trap": 3,
+        "possession-lost": 2,
+        "board": 115
+      },
+      "maximumHeight": 0,
+      "phase": "play",
+      "score": [
+        0,
+        0
+      ],
+      "ticks": 120
+    },
+    {
+      "sportId": "cryptkick",
+      "humans": true,
+      "eventCounts": {
+        "special:hornets": 1,
+        "trap": 2,
+        "charge-ready": 1,
+        "swing:strike": 1,
+        "strike": 1,
+        "possession-lost": 1,
+        "board": 68
+      },
+      "maximumHeight": 0,
+      "phase": "play",
+      "score": [
+        0,
+        0
+      ],
+      "ticks": 120
+    },
+    {
+      "sportId": "rift-volley",
+      "humans": true,
+      "eventCounts": {
+        "special:rams": 1,
+        "rally-point": 1,
+        "whistle": 1
+      },
+      "maximumHeight": 20470,
+      "phase": "play",
+      "score": [
+        0,
+        1
+      ],
+      "ticks": 120
+    },
+    {
+      "sportId": "rift-volley",
+      "humans": true,
+      "eventCounts": {
+        "special:foxes": 1,
+        "charge-ready": 1,
+        "rally-point": 1,
+        "whistle": 1
+      },
+      "maximumHeight": 20470,
+      "phase": "play",
+      "score": [
+        0,
+        1
+      ],
+      "ticks": 120
+    },
+    {
+      "sportId": "rift-volley",
+      "humans": true,
+      "eventCounts": {
+        "special:owls": 1,
+        "charge-ready": 1,
+        "rally-point": 1,
+        "whistle": 1
+      },
+      "maximumHeight": 20470,
+      "phase": "play",
+      "score": [
+        0,
+        1
+      ],
+      "ticks": 120
+    },
+    {
+      "sportId": "rift-volley",
+      "humans": true,
+      "eventCounts": {
+        "special:gators": 1,
+        "slide-recover": 1,
+        "rally-point": 1,
+        "whistle": 1
+      },
+      "maximumHeight": 20470,
+      "phase": "play",
+      "score": [
+        0,
+        1
+      ],
+      "ticks": 120
+    },
+    {
+      "sportId": "rift-volley",
+      "humans": true,
+      "eventCounts": {
+        "special:bats": 1,
+        "rally-point": 1,
+        "whistle": 1
+      },
+      "maximumHeight": 20470,
+      "phase": "play",
+      "score": [
+        0,
+        1
+      ],
+      "ticks": 120
+    },
+    {
+      "sportId": "rift-volley",
+      "humans": true,
+      "eventCounts": {
+        "special:hornets": 1,
+        "charge-ready": 1,
+        "rally-point": 1,
+        "whistle": 1
+      },
+      "maximumHeight": 20470,
+      "phase": "play",
+      "score": [
+        0,
+        1
+      ],
+      "ticks": 120
+    }
+  ],
+  "browserProfiles": [
+    {
+      "sportId": "cryptkick",
+      "fixtureTick": 302,
+      "fixtureHash": "2769140660:2435978378",
+      "p95Ms": 4
+    },
+    {
+      "sportId": "rift-volley",
+      "fixtureTick": 302,
+      "fixtureHash": "4272747280:3623194942",
+      "p95Ms": 2
+    }
+  ],
+  "nodeProfiles": [
+    {
+      "sportId": "cryptkick",
+      "fixtureTick": 302,
+      "fixtureHash": "2769140660:2435978378",
+      "p95Ms": 1.9987089999995078
+    },
+    {
+      "sportId": "rift-volley",
+      "fixtureTick": 302,
+      "fixtureHash": "4272747280:3623194942",
+      "p95Ms": 0.849541000001409
+    }
+  ],
+  "replayTicks": 12,
+  "warmupTrials": 20,
+  "measuredTrials": 40
+}

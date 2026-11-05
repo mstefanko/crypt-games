@@ -1,0 +1,61 @@
+{
+  "name": "crypt-games",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Crypt Games: browser sports arenas with authoritative online multiplayer.",
+  "license": "MIT",
+  "engines": {
+    "node": ">=24"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:cryptball": "vite --config vite.cryptball.config.ts --host 127.0.0.1",
+    "build:cryptball": "node apps/cryptball-server/identity.mjs && vite build --config vite.cryptball.config.ts",
+    "test:cryptball": "vitest run --config vitest.cryptball.config.ts",
+    "test:cryptball:browser": "playwright test --config playwright.cryptball.config.ts",
+    "assets:cryptball": "node scripts/game-assets/import-cryptball-team-icons.mjs && node scripts/game-assets/import-cryptball-banners.mjs && .venv-assets/bin/python scripts/game-assets/import-cryptball-polished.py && .venv-assets/bin/python scripts/game-assets/import-cryptball-sports.py && .venv-assets/bin/python scripts/game-assets/import-cryptball-balls.py && .venv-assets/bin/python scripts/game-assets/import-cryptball-hockey.py",
+    "test:cryptball:network-benchmark": "CRYPTBALL_BENCHMARK=1 vitest run --config vitest.cryptball-network.config.ts apps/cryptball/tests/online-benchmark.test.ts",
+    "test:cryptball:network-capacity": "CRYPTBALL_CAPACITY=1 vitest run --config vitest.cryptball-network.config.ts apps/cryptball/tests/online-socket.test.ts -t 'measures 1 then 25'",
+    "test:cryptball:network": "node apps/cryptball-server/identity.mjs && vitest run --config vitest.cryptball-network.config.ts",
+    "test:cryptball:determinism": "playwright test --config playwright.cryptball-determinism.config.ts",
+    "build:cryptball:server": "node apps/cryptball-server/build.mjs",
+    "dev:cryptball:server": "npm run build:cryptball:server && node dist/cryptball-server/main.mjs",
+    "dev:cryptball:online": "node apps/cryptball-server/online-dev.mjs",
+    "test:cryptball:online-browser": "playwright test --config playwright.cryptball-online.config.ts",
+    "dev": "npm run dev:cryptball:online",
+    "build": "npm run build:cryptball && npm run build:cryptball:server",
+    "test": "npm run test:cryptball && npm run test:cryptball:network",
+    "start": "node dist/cryptball-server/main.mjs",
+    "typecheck": "tsc --noEmit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mstefanko/crypt-games.git"
+  },
+  "devDependencies": {
+    "@babel/parser": "7.29.7",
+    "@playwright/test": "1.64.1",
+    "@types/node": "26.6.5",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@vitest/coverage-v8": "5.0.5",
+    "acorn": "8.15.0",
+    "beepbox": "4.2.0",
+    "esbuild": "0.28.2",
+    "fake-indexeddb": "6.2.6",
+    "pixi.js": "8.22.0",
+    "prettier": "3.6.2",
+    "typescript": "7.0.2",
+    "vite": "8.3.4",
+    "vitest": "5.0.5",
+    "@types/express": "5.0.6"
+  },
+  "dependencies": {
+    "spessasynth_core": "4.3.22",
+    "spessasynth_lib": "4.3.14"
+  }
+}

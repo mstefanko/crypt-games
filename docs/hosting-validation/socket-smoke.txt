@@ -1,0 +1,31 @@
+
+ RUN  v5.0.5 /Users/mstefanko/Documents/New project/crypt-games
+
+ ❯ apps/cryptball/tests/online-socket.test.ts (12 tests | 1 failed | 10 skipped) 646ms
+   ❯ real Colyseus sockets (10)
+     × isolates private rooms, joins 2 opposing humans, advances authority and resumes a dropped seat 27ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  apps/cryptball/tests/online-socket.test.ts > real Colyseus sockets > isolates private rooms, joins 2 opposing humans, advances authority and resumes a dropped seat
+AssertionError: expected '0V6_vfsUr' to be '77FjYphb-' // Object.is equality
+
+Expected: "77FjYphb-"
+Received: "0V6_vfsUr"
+
+ ❯ apps/cryptball/tests/online-socket.test.ts:234:27
+    232|       await new Client(endpoint).joinOrCreate("cryptball", options),
+    233|     );
+    234|     expect(a.room.roomId).toBe(b.room.roomId);
+       |                           ^
+    235|     expect(a.room.roomId).not.toBe(privateRoom.room.roomId);
+    236|     a.room.send("ready");
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 1 passed | 10 skipped (12)
+   Start at  14:40:25
+   Duration  1.28s (tests 62%, import 24%, transform 12%, worker 1%)
+

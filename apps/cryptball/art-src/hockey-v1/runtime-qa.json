@@ -1,0 +1,125 @@
+{
+  "status": "structural gates passed; targeted north and diagonal blade corrections",
+  "athletePoseCount": 128,
+  "facings": [
+    "E",
+    "SE",
+    "S",
+    "SW",
+    "W",
+    "NW",
+    "N",
+    "NE"
+  ],
+  "palettes": [
+    "ivory",
+    "ember",
+    "owls",
+    "gators",
+    "bats",
+    "hornets"
+  ],
+  "frameSize": [
+    112,
+    80
+  ],
+  "contactOverrideFrameSize": [
+    112,
+    96
+  ],
+  "contactOverridePoses": 12,
+  "pivot": [
+    56,
+    70
+  ],
+  "referenceBodyHeightPx": 44,
+  "binaryAthleteAlpha": true,
+  "noClippedFigures": true,
+  "atlasFrames": 781,
+  "atlasPages": 3,
+  "runtimeBytes": 2499873,
+  "atlasRgbaBytes": 12582912,
+  "sources": [
+    {
+      "file": "action-E.png",
+      "sha256": "d202671da7fd7278d8effbe821078bcf93d082d814c0247e7d8299b3e3a3d9ea"
+    },
+    {
+      "file": "action-SE.png",
+      "sha256": "7d48511f61971c3046d12fd0d6fcc7c513ecd52f8858399718483f597cff1ffe"
+    },
+    {
+      "file": "action-S.png",
+      "sha256": "30106c385afa728b6bebbbf406b13a9c0b4f8e29e2129addc75e89f9dd074464"
+    },
+    {
+      "file": "action-SW.png",
+      "sha256": "2a99b00efbe7426b7c34b4d597245244f7b47dbf899817485a3574a5e41e66f3"
+    },
+    {
+      "file": "action-W.png",
+      "sha256": "374da56085f618ef0251d2f221537db6c98778153c2e193f50a0d7172fc738fe"
+    },
+    {
+      "file": "action-NW.png",
+      "sha256": "1145f18aa3a05bd4565f85f0e64fbc341f9fe13041ced3ed0c389492082b2747"
+    },
+    {
+      "file": "action-N-grounded.png",
+      "sha256": "ead523fcb1fde4578303f5f5fc65095530777d8b63f8a96c691bc7e564a24d71"
+    },
+    {
+      "file": "action-NE.png",
+      "sha256": "c006c308b0b3f1c6d113483363cf9906a2f45e1b0f1f7afe5f355aeefa30f74c"
+    },
+    {
+      "file": "diagonal-contact-grounded.png",
+      "sha256": "a1cf8e1ef1d583fbd3408c24a10f74afd27df2a9b673e5b73e071636b556d75a"
+    },
+    {
+      "file": "contact-SE-grounded.png",
+      "sha256": "1684e7139e2ad24478f75c87a5783de03ea2f337651aa3584c663352739a02b2"
+    },
+    {
+      "file": "contact-SW-grounded.png",
+      "sha256": "02c5adb2e8c4c4c948b2ff4048017820de96f8289d4f7310ae61d8bc46a287d5"
+    },
+    {
+      "file": "arena-ice.png",
+      "sha256": "f8d1642ab9924ba97010bf21caa4774dfdc2728262238d0e3e7b93e1debf6ee2"
+    },
+    {
+      "file": "puck-effects.png",
+      "sha256": "18265b7eadd714f74830a12262a33f877c9c64754935ecd3d675a328b27b1e92"
+    }
+  ],
+  "visualEvidence": {
+    "path": "docs/evidence/cryptball-hockey-2026-11-04/visuals",
+    "contactCaptures": 48,
+    "normalCaptures": 24,
+    "reducedMotionCaptures": 24,
+    "debugCaptures": 3,
+    "nativeSize": [
+      640,
+      400
+    ],
+    "facings": [
+      "E",
+      "SE",
+      "S",
+      "SW",
+      "W",
+      "NW",
+      "N",
+      "NE"
+    ],
+    "contactKinds": [
+      "wrist",
+      "slap",
+      "poke"
+    ],
+    "review": "Representative all8directions reviewed; final front-diagonal corrections improve reach; far-side body occlusion and discrete keypose approximation documented in README."
+  },
+  "generatedSourcePngs": 14,
+  "consumedSourcePngs": 13
+}

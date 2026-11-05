@@ -1,0 +1,9 @@
+{
+  "url": "http://127.0.0.1:4224/games/cryptball/",
+  "privateRoomCreateLeave": true,
+  "tick": "171",
+  "health": {
+    "ok": true
+  },
+  "errors": []
+}

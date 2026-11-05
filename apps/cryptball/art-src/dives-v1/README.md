@@ -1,0 +1,9 @@
+# Hands-first volleyball dive source kit
+
+Original OpenAI built-in ImageGen sources generated 2026-11-04, referenced against the existing weapon-free teal athlete. The two transparent 4×4 sheets supply 32 distinct authored key poses: rows E/SE/S/SW in dive-front.png and W/NW/N/NE in dive-back.png; columns launch, hands-leading airborne dive, chest-low contact, prone push-up. The back source received a targeted generation correction because its first result faced east in the west row. Final directions were visually inspected. These are key poses, not hand-cleaned animation inbetweens.
+
+Rebuild with `.venv-assets/bin/python scripts/game-assets/import-cryptball-sports.py`. Connected components are extracted after alpha threshold210; common sheet scale uses reference standing height44px; each pose is centered above the existing (56,70) body-footprint pivot on112×80 canvas. Low dives are not stretched to standing height. `sports-v1/extraction.json` records source hashes, bounds and normalized placement. Six variants change only the constrained teal cloth material; skin, leather and neutral armor remain exact. `runtime-team-comparison.png` compares all six delivery palettes at native resolution. Original sports action sheets and polished weaponed source sheets remain independent.
+
+`dive` uses launch/flight/contact; `dive-recover` uses push-up then existing upright recovery. `dig` contact uses generated prone contact then push-up. Feet-first slides retain their original sources. The presenter samples authoritative slide/recovery ticks, so pausing freezes poses. Dive lift is contained in the generated pose rather than adding player jump physics.
+
+Final prompts are in prompts.json. Built-in ImageGen was used; no CLI image-generation fallback. Art has no weapons, ball, floor, text or painted shadow.

@@ -1,0 +1,22 @@
+{
+  "engine": "firefox",
+  "ticks": 7503,
+  "nodeReplayP95Ms": 3.661500000001979,
+  "browserReplayP95Ms": 6,
+  "warmupTrials": 20,
+  "measuredTrials": 40,
+  "targetP95Ms": 4,
+  "meetsTarget": false,
+  "frameBudgetMs": 16.67,
+  "hardware": {
+    "cpu": "Apple M4",
+    "logicalCpus": 10,
+    "memoryGiB": 16,
+    "platform": "darwin",
+    "arch": "arm64"
+  },
+  "aiReplanningForced": true,
+  "replayTicks": 12,
+  "scenario": "scripted-match-tick-501-moving-ball",
+  "ai": true
+}

@@ -1,0 +1,11 @@
+{
+  "halfLength": 166,
+  "halfWidth": 96,
+  "boardThickness": 10,
+  "goalHalfMouth": 30,
+  "goalLine": 169,
+  "postRadius": 3,
+  "netDepth": 12,
+  "creaseDepth": 44,
+  "creaseHalfWidth": 54
+}

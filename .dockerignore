@@ -1,0 +1,6 @@
+.git
+node_modules
+.local-game-tests
+docs/evidence
+apps/cryptball/art-src
+.env*

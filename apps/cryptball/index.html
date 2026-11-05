@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#111720" />
+    <title>Cryptball · Six Teams</title>
+  </head>
+  <body>
+    <main id="game" aria-label="Cryptball">
+      <div id="stage"></div>
+      <div id="hud" aria-label="Scoreboard">
+        <span id="ivory">RAMS 0</span><span id="clock">1:30</span
+        ><span id="ember">0 FOXES</span>
+      </div>
+      <div id="prompt"></div>
+      <section id="overlay" aria-label="Game menu"></section>
+      <p id="notice" role="status" aria-live="polite"></p>
+      <div id="tools">
+        <button id="pause-button" aria-label="Pause game">Ⅱ</button
+        ><button id="sound-button" aria-label="Mute sound">Sound on</button>
+      </div>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

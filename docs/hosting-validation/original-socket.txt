@@ -1,0 +1,31 @@
+
+ RUN  v5.0.5 /Users/mstefanko/Documents/New project/game-runtime-m5
+
+ ❯ apps/cryptball/tests/online-socket.test.ts (12 tests | 1 failed | 10 skipped) 489ms
+   ❯ real Colyseus sockets (10)
+     × isolates private rooms, joins 2 opposing humans, advances authority and resumes a dropped seat 26ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  apps/cryptball/tests/online-socket.test.ts > real Colyseus sockets > isolates private rooms, joins 2 opposing humans, advances authority and resumes a dropped seat
+AssertionError: expected 'cp9sNppFA' to be '-30-vVk_E' // Object.is equality
+
+Expected: "-30-vVk_E"
+Received: "cp9sNppFA"
+
+ ❯ apps/cryptball/tests/online-socket.test.ts:234:27
+    232|       await new Client(endpoint).joinOrCreate("cryptball", options),
+    233|     );
+    234|     expect(a.room.roomId).toBe(b.room.roomId);
+       |                           ^
+    235|     expect(a.room.roomId).not.toBe(privateRoom.room.roomId);
+    236|     a.room.send("ready");
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 1 passed | 10 skipped (12)
+   Start at  14:40:42
+   Duration  781ms (tests 79%, import 14%, transform 7%)
+

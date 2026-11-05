@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="480" viewBox="0 0 960 480">
+<defs>
+ <pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse"><path d="M0 8L8 0" stroke="#ffd166" opacity=".3"/></pattern>
+ <symbol id="life-full" viewBox="0 0 16 16"><path d="M8 1L15 8L8 15L1 8Z" fill="#79e0c5" stroke="#eee2c6" stroke-width="2"/></symbol>
+ <symbol id="life-empty" viewBox="0 0 16 16"><path d="M8 1L15 8L8 15L1 8Z" fill="none" stroke="#eee2c6" stroke-width="2"/></symbol>
+ <symbol id="out" viewBox="0 0 16 16"><path d="M2 2L14 14M14 2L2 14" stroke="#f28a89" stroke-width="3"/></symbol>
+ <symbol id="target" viewBox="0 0 32 32"><circle cx="16" cy="16" r="10" fill="none" stroke="#ffd166" stroke-width="2"/><path d="M16 0V10M16 22V32M0 16H10M22 16H32" stroke="#ffd166" stroke-width="2"/></symbol>
+ <symbol id="revive" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14" fill="#293e42" stroke="#79e0c5" stroke-width="2"/><path d="M16 7V25M7 16H25" stroke="#79e0c5" stroke-width="4"/></symbol>
+</defs>
+<rect width="960" height="480" fill="#181d28"/>
+<g fill="#eee2c6" font-family="monospace" font-size="16"><text x="28" y="36">CRYPT MODES / UI + TELEGRAPH KIT</text><text x="28" y="85">P1 · 2 LIVES</text><text x="250" y="85">P2 · OUT</text><text x="480" y="85">P3 · 4 HEALTH</text>
+<text x="28" y="188">OSSA, THE CHAINBOUND · HOOK</text><text x="28" y="273">SHOT LANE</text><text x="270" y="273">SLAM DISK</text><text x="510" y="273">SWEEP ARC</text><text x="738" y="273">RESCUE</text><text x="28" y="445">Shape + timing + sound convey danger; color is supplementary.</text></g>
+<use href="#life-full" x="28" y="101" width="20" height="20"/><use href="#life-full" x="55" y="101" width="20" height="20"/><use href="#life-empty" x="82" y="101" width="20" height="20"/>
+<use href="#out" x="250" y="101" width="20" height="20"/>
+<g fill="#79e0c5" stroke="#eee2c6"><rect x="480" y="101" width="14" height="14"/><rect x="502" y="101" width="14" height="14"/><rect x="524" y="101" width="14" height="14"/><rect x="546" y="101" width="14" height="14"/><rect x="568" y="101" width="14" height="14" fill="none"/></g>
+<rect x="28" y="202" width="660" height="18" fill="#353140" stroke="#eee2c6" stroke-width="2"/><rect x="30" y="204" width="440" height="14" fill="#bb8ed0"/><path d="M358 200V223" stroke="#eee2c6" stroke-width="3"/>
+<path d="M40 310L205 330L205 365L40 385Z" fill="url(#hatch)" stroke="#ffd166" stroke-width="2" stroke-dasharray="6 4"/><use href="#target" x="190" y="331" width="32" height="32"/>
+<ellipse cx="350" cy="345" rx="65" ry="35" fill="url(#hatch)" stroke="#ffd166" stroke-width="3"/><path d="M350 323V350M350 358V363" stroke="#fff1b7" stroke-width="4"/>
+<path d="M575 310L515 378Q575 407 635 378Z" fill="url(#hatch)" stroke="#ffd166" stroke-width="2"/>
+<use href="#revive" x="750" y="315" width="58" height="58"/><circle cx="779" cy="344" r="38" fill="none" stroke="#eee2c6" stroke-width="3" stroke-dasharray="180 240"/>
+<circle cx="865" cy="115" r="27" fill="none" stroke="#ffd166" stroke-width="4" stroke-dasharray="125 170"/><text x="855" y="121" fill="#eee2c6" font-family="monospace" font-size="18">2</text>
+</svg>

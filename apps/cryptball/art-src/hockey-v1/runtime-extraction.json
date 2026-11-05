@@ -1,0 +1,5165 @@
+{
+  "frames": [
+    {
+      "source": "action-E.png",
+      "direction": "E",
+      "pose": "ready",
+      "sourceRect": [
+        55,
+        47,
+        332,
+        269
+      ],
+      "sourceFootAnchor": [
+        140.87,
+        269
+      ],
+      "sourceBladeAnchor": [
+        315.38,
+        255.68
+      ],
+      "bladeAnchor": [
+        91.58,
+        67.24
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.20754716981132076,
+      "normalizedRect": [
+        38,
+        24,
+        57,
+        46
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-E.png",
+      "direction": "E",
+      "pose": "glide",
+      "sourceRect": [
+        407,
+        47,
+        678,
+        267
+      ],
+      "sourceFootAnchor": [
+        496.43,
+        267
+      ],
+      "sourceBladeAnchor": [
+        661.74,
+        253.8
+      ],
+      "bladeAnchor": [
+        89.64,
+        67.24
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.20754716981132076,
+      "normalizedRect": [
+        37,
+        24,
+        56,
+        46
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-E.png",
+      "direction": "E",
+      "pose": "push-left",
+      "sourceRect": [
+        763,
+        44,
+        1044,
+        267
+      ],
+      "sourceFootAnchor": [
+        858.54,
+        267
+      ],
+      "sourceBladeAnchor": [
+        1027.14,
+        253.62
+      ],
+      "bladeAnchor": [
+        90.52,
+        67.24
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.20754716981132076,
+      "normalizedRect": [
+        36,
+        24,
+        58,
+        46
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-E.png",
+      "direction": "E",
+      "pose": "push-right",
+      "sourceRect": [
+        1135,
+        47,
+        1420,
+        267
+      ],
+      "sourceFootAnchor": [
+        1240.45,
+        267
+      ],
+      "sourceBladeAnchor": [
+        1402.9,
+        253.8
+      ],
+      "bladeAnchor": [
+        89.46,
+        67.24
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.20754716981132076,
+      "normalizedRect": [
+        34,
+        24,
+        59,
+        46
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-E.png",
+      "direction": "E",
+      "pose": "wrist-windup",
+      "sourceRect": [
+        55,
+        310,
+        265,
+        535
+      ],
+      "sourceFootAnchor": [
+        149.5,
+        535
+      ],
+      "sourceBladeAnchor": null,
+      "bladeAnchor": null,
+      "bladeVisibleAtGround": false,
+      "scale": 0.20754716981132076,
+      "normalizedRect": [
+        36,
+        23,
+        44,
+        47
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-E.png",
+      "direction": "E",
+      "pose": "wrist-contact",
+      "sourceRect": [
+        395,
+        328,
+        691,
+        533
+      ],
+      "sourceFootAnchor": [
+        489.72,
+        533
+      ],
+      "sourceBladeAnchor": [
+        673.24,
+        520.7
+      ],
+      "bladeAnchor": [
+        93.34,
+        67.42
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.20754716981132076,
+      "normalizedRect": [
+        36,
+        27,
+        61,
+        43
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-E.png",
+      "direction": "E",
+      "pose": "wrist-follow",
+      "sourceRect": [
+        765,
+        328,
+        1062,
+        534
+      ],
+      "sourceFootAnchor": [
+        865.98,
+        534
+      ],
+      "sourceBladeAnchor": null,
+      "bladeAnchor": null,
+      "bladeVisibleAtGround": false,
+      "scale": 0.20754716981132076,
+      "normalizedRect": [
+        35,
+        27,
+        62,
+        43
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-E.png",
+      "direction": "E",
+      "pose": "receive",
+      "sourceRect": [
+        1130,
+        325,
+        1393,
+        531
+      ],
+      "sourceFootAnchor": [
+        1224.68,
+        531
+      ],
+      "sourceBladeAnchor": [
+        1377.22,
+        518.64
+      ],
+      "bladeAnchor": [
+        87.7,
+        67.42
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.20754716981132076,
+      "normalizedRect": [
+        36,
+        27,
+        55,
+        43
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-E.png",
+      "direction": "E",
+      "pose": "slap-windup",
+      "sourceRect": [
+        45,
+        567,
+        248,
+        795
+      ],
+      "sourceFootAnchor": [
+        150.56,
+        795
+      ],
+      "sourceBladeAnchor": null,
+      "bladeAnchor": null,
+      "bladeVisibleAtGround": false,
+      "scale": 0.20754716981132076,
+      "normalizedRect": [
+        34,
+        23,
+        42,
+        47
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-E.png",
+      "direction": "E",
+      "pose": "slap-downswing",
+      "sourceRect": [
+        401,
+        580,
+        666,
+        791
+      ],
+      "sourceFootAnchor": [
+        499.05,
+        791
+      ],
+      "sourceBladeAnchor": null,
+      "bladeAnchor": null,
+      "bladeVisibleAtGround": false,
+      "scale": 0.20754716981132076,
+      "normalizedRect": [
+        36,
+        26,
+        55,
+        44
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-E.png",
+      "direction": "E",
+      "pose": "slap-contact",
+      "sourceRect": [
+        743,
+        580,
+        1049,
+        789
+      ],
+      "sourceFootAnchor": [
+        853.16,
+        789
+      ],
+      "sourceBladeAnchor": [
+        1030.64,
+        776.46
+      ],
+      "bladeAnchor": [
+        93.16,
+        67.42
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.20754716981132076,
+      "normalizedRect": [
+        33,
+        27,
+        64,
+        43
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-E.png",
+      "direction": "E",
+      "pose": "slap-follow",
+      "sourceRect": [
+        1115,
+        575,
+        1410,
+        792
+      ],
+      "sourceFootAnchor": [
+        1241.85,
+        792
+      ],
+      "sourceBladeAnchor": null,
+      "bladeAnchor": null,
+      "bladeVisibleAtGround": false,
+      "scale": 0.20754716981132076,
+      "normalizedRect": [
+        30,
+        25,
+        61,
+        45
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-E.png",
+      "direction": "E",
+      "pose": "poke-check",
+      "sourceRect": [
+        35,
+        874,
+        367,
+        1058
+      ],
+      "sourceFootAnchor": [
+        137.92,
+        1058
+      ],
+      "sourceBladeAnchor": [
+        347.08,
+        1046.96
+      ],
+      "bladeAnchor": [
+        99.86,
+        67.72
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.20754716981132076,
+      "normalizedRect": [
+        35,
+        32,
+        69,
+        38
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-E.png",
+      "direction": "E",
+      "pose": "shoulder-check",
+      "sourceRect": [
+        413,
+        862,
+        676,
+        1055
+      ],
+      "sourceFootAnchor": [
+        512.94,
+        1055
+      ],
+      "sourceBladeAnchor": null,
+      "bladeAnchor": null,
+      "bladeVisibleAtGround": false,
+      "scale": 0.20754716981132076,
+      "normalizedRect": [
+        35,
+        30,
+        55,
+        40
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-E.png",
+      "direction": "E",
+      "pose": "stop",
+      "sourceRect": [
+        762,
+        837,
+        1038,
+        1064
+      ],
+      "sourceFootAnchor": [
+        875.16,
+        1064
+      ],
+      "sourceBladeAnchor": [
+        1021.44,
+        1050.38
+      ],
+      "bladeAnchor": [
+        86.58,
+        67.18
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.20754716981132076,
+      "normalizedRect": [
+        33,
+        23,
+        57,
+        47
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-E.png",
+      "direction": "E",
+      "pose": "recover",
+      "sourceRect": [
+        1142,
+        835,
+        1396,
+        1064
+      ],
+      "sourceFootAnchor": [
+        1238.52,
+        1064
+      ],
+      "sourceBladeAnchor": [
+        1380.76,
+        1050.26
+      ],
+      "bladeAnchor": [
+        85.82,
+        67.12
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.20754716981132076,
+      "normalizedRect": [
+        36,
+        22,
+        53,
+        48
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-SE.png",
+      "direction": "SE",
+      "pose": "ready",
+      "sourceRect": [
+        53,
+        41,
+        305,
+        257
+      ],
+      "sourceFootAnchor": [
+        133.64,
+        257
+      ],
+      "sourceBladeAnchor": [
+        289.88,
+        239.72
+      ],
+      "bladeAnchor": [
+        90.7,
+        66.24
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.21674876847290642,
+      "normalizedRect": [
+        39,
+        23,
+        55,
+        47
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-SE.png",
+      "direction": "SE",
+      "pose": "glide",
+      "sourceRect": [
+        398,
+        41,
+        672,
+        253
+      ],
+      "sourceFootAnchor": [
+        493.9,
+        253
+      ],
+      "sourceBladeAnchor": [
+        655.56,
+        236.04
+      ],
+      "bladeAnchor": [
+        90.46,
+        66.32
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.21674876847290642,
+      "normalizedRect": [
+        35,
+        24,
+        59,
+        46
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-SE.png",
+      "direction": "SE",
+      "pose": "push-left",
+      "sourceRect": [
+        753,
+        41,
+        1044,
+        254
+      ],
+      "sourceFootAnchor": [
+        854.85,
+        254
+      ],
+      "sourceBladeAnchor": [
+        1026.54,
+        236.96
+      ],
+      "bladeAnchor": [
+        93.22,
+        66.32
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.21674876847290642,
+      "normalizedRect": [
+        34,
+        24,
+        63,
+        46
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-SE.png",
+      "direction": "SE",
+      "pose": "push-right",
+      "sourceRect": [
+        1115,
+        41,
+        1417,
+        257
+      ],
+      "sourceFootAnchor": [
+        1226.74,
+        257
+      ],
+      "sourceBladeAnchor": [
+        1398.88,
+        239.72
+      ],
+      "bladeAnchor": [
+        93.1,
+        66.24
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.21674876847290642,
+      "normalizedRect": [
+        32,
+        23,
+        65,
+        47
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-SE.png",
+      "direction": "SE",
+      "pose": "wrist-windup",
+      "sourceRect": [
+        29,
+        306,
+        234,
+        528
+      ],
+      "sourceFootAnchor": [
+        131.5,
+        528
+      ],
+      "sourceBladeAnchor": null,
+      "bladeAnchor": null,
+      "bladeVisibleAtGround": false,
+      "scale": 0.21674876847290642,
+      "normalizedRect": [
+        34,
+        22,
+        44,
+        48
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "contact-SE-grounded.png",
+      "direction": "SE",
+      "pose": "wrist-contact",
+      "override": true,
+      "sourceCell": [
+        0,
+        0
+      ],
+      "sourceRect": [
+        213,
+        217,
+        477,
+        544
+      ],
+      "sourceFootAnchor": [
+        318.56,
+        503.17999999999995
+      ],
+      "sourceBladeAnchor": [
+        409.06,
+        571.055
+      ],
+      "bladeAnchor": [
+        70,
+        79
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": [
+        0.15469613259668508,
+        0.13259668508287292
+      ],
+      "normalizedRect": [
+        40,
+        32,
+        41,
+        43
+      ],
+      "frameSize": [
+        112,
+        96
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "anchorMethod": "Authored skate midpoint and contact target from per-direction guided correction"
+    },
+    {
+      "source": "action-SE.png",
+      "direction": "SE",
+      "pose": "wrist-follow",
+      "sourceRect": [
+        763,
+        312,
+        1058,
+        525
+      ],
+      "sourceFootAnchor": [
+        866.25,
+        525
+      ],
+      "sourceBladeAnchor": null,
+      "bladeAnchor": null,
+      "bladeVisibleAtGround": false,
+      "scale": 0.21674876847290642,
+      "normalizedRect": [
+        34,
+        24,
+        64,
+        46
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-SE.png",
+      "direction": "SE",
+      "pose": "receive",
+      "sourceRect": [
+        1127,
+        308,
+        1417,
+        520
+      ],
+      "sourceFootAnchor": [
+        1243.0,
+        520
+      ],
+      "sourceBladeAnchor": [
+        1399.6,
+        503.04
+      ],
+      "bladeAnchor": [
+        90.22,
+        66.32
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.21674876847290642,
+      "normalizedRect": [
+        31,
+        24,
+        63,
+        46
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-SE.png",
+      "direction": "SE",
+      "pose": "slap-windup",
+      "sourceRect": [
+        35,
+        555,
+        254,
+        797
+      ],
+      "sourceFootAnchor": [
+        146.69,
+        797
+      ],
+      "sourceBladeAnchor": null,
+      "bladeAnchor": null,
+      "bladeVisibleAtGround": false,
+      "scale": 0.21674876847290642,
+      "normalizedRect": [
+        32,
+        18,
+        47,
+        52
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-SE.png",
+      "direction": "SE",
+      "pose": "slap-downswing",
+      "sourceRect": [
+        402,
+        575,
+        678,
+        796
+      ],
+      "sourceFootAnchor": [
+        506.88,
+        796
+      ],
+      "sourceBladeAnchor": null,
+      "bladeAnchor": null,
+      "bladeVisibleAtGround": false,
+      "scale": 0.21674876847290642,
+      "normalizedRect": [
+        33,
+        22,
+        60,
+        48
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "contact-SE-grounded.png",
+      "direction": "SE",
+      "pose": "slap-contact",
+      "override": true,
+      "sourceCell": [
+        1,
+        0
+      ],
+      "sourceRect": [
+        926,
+        198,
+        1190,
+        537
+      ],
+      "sourceFootAnchor": [
+        1038.94,
+        489.42400000000004
+      ],
+      "sourceBladeAnchor": [
+        1129.44,
+        557.299
+      ],
+      "bladeAnchor": [
+        70,
+        79
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": [
+        0.15469613259668508,
+        0.13259668508287292
+      ],
+      "normalizedRect": [
+        39,
+        31,
+        41,
+        45
+      ],
+      "frameSize": [
+        112,
+        96
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "anchorMethod": "Authored skate midpoint and contact target from per-direction guided correction"
+    },
+    {
+      "source": "action-SE.png",
+      "direction": "SE",
+      "pose": "slap-follow",
+      "sourceRect": [
+        1115,
+        570,
+        1410,
+        791
+      ],
+      "sourceFootAnchor": [
+        1238.9,
+        791
+      ],
+      "sourceBladeAnchor": null,
+      "bladeAnchor": null,
+      "bladeVisibleAtGround": false,
+      "scale": 0.21674876847290642,
+      "normalizedRect": [
+        29,
+        22,
+        64,
+        48
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "contact-SE-grounded.png",
+      "direction": "SE",
+      "pose": "poke-check",
+      "override": true,
+      "sourceCell": [
+        2,
+        0
+      ],
+      "sourceRect": [
+        1641,
+        220,
+        1915,
+        537
+      ],
+      "sourceFootAnchor": [
+        1770.1799999999998,
+        514.764
+      ],
+      "sourceBladeAnchor": [
+        1860.6799999999998,
+        582.639
+      ],
+      "bladeAnchor": [
+        70,
+        79
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": [
+        0.15469613259668508,
+        0.13259668508287292
+      ],
+      "normalizedRect": [
+        36,
+        31,
+        42,
+        42
+      ],
+      "frameSize": [
+        112,
+        96
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "anchorMethod": "Authored skate midpoint and contact target from per-direction guided correction"
+    },
+    {
+      "source": "action-SE.png",
+      "direction": "SE",
+      "pose": "shoulder-check",
+      "sourceRect": [
+        409,
+        857,
+        653,
+        1065
+      ],
+      "sourceFootAnchor": [
+        499.28,
+        1065
+      ],
+      "sourceBladeAnchor": null,
+      "bladeAnchor": null,
+      "bladeVisibleAtGround": false,
+      "scale": 0.21674876847290642,
+      "normalizedRect": [
+        36,
+        25,
+        53,
+        45
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-SE.png",
+      "direction": "SE",
+      "pose": "stop",
+      "sourceRect": [
+        735,
+        838,
+        1032,
+        1060
+      ],
+      "sourceFootAnchor": [
+        856.77,
+        1060
+      ],
+      "sourceBladeAnchor": [
+        1014.18,
+        1042.24
+      ],
+      "bladeAnchor": [
+        90.16,
+        66.16
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.21674876847290642,
+      "normalizedRect": [
+        30,
+        22,
+        64,
+        48
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-SE.png",
+      "direction": "SE",
+      "pose": "recover",
+      "sourceRect": [
+        1124,
+        841,
+        1400,
+        1068
+      ],
+      "sourceFootAnchor": [
+        1237.16,
+        1068
+      ],
+      "sourceBladeAnchor": [
+        1383.44,
+        1049.84
+      ],
+      "bladeAnchor": [
+        87.4,
+        66.08
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.21674876847290642,
+      "normalizedRect": [
+        31,
+        21,
+        60,
+        49
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-S.png",
+      "direction": "S",
+      "pose": "ready",
+      "sourceRect": [
+        84,
+        42,
+        311,
+        259
+      ],
+      "sourceFootAnchor": [
+        183.88,
+        259
+      ],
+      "sourceBladeAnchor": [
+        213.39,
+        248.15
+      ],
+      "bladeAnchor": [
+        62.36,
+        67.7
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.21052631578947367,
+      "normalizedRect": [
+        35,
+        24,
+        48,
+        46
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-S.png",
+      "direction": "S",
+      "pose": "glide",
+      "sourceRect": [
+        445,
+        42,
+        655,
+        257
+      ],
+      "sourceFootAnchor": [
+        533.2,
+        257
+      ],
+      "sourceBladeAnchor": [
+        564.7,
+        246.25
+      ],
+      "bladeAnchor": [
+        62.08,
+        67.75
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.21052631578947367,
+      "normalizedRect": [
+        37,
+        25,
+        44,
+        45
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-S.png",
+      "direction": "S",
+      "pose": "push-left",
+      "sourceRect": [
+        794,
+        41,
+        1025,
+        258
+      ],
+      "sourceFootAnchor": [
+        893.33,
+        258
+      ],
+      "sourceBladeAnchor": [
+        925.67,
+        247.15
+      ],
+      "bladeAnchor": [
+        62.93,
+        67.7
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.21052631578947367,
+      "normalizedRect": [
+        35,
+        24,
+        49,
+        46
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-S.png",
+      "direction": "S",
+      "pose": "push-right",
+      "sourceRect": [
+        1172,
+        42,
+        1393,
+        260
+      ],
+      "sourceFootAnchor": [
+        1267.03,
+        260
+      ],
+      "sourceBladeAnchor": [
+        1297.97,
+        249.1
+      ],
+      "bladeAnchor": [
+        62.79,
+        67.7
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.21052631578947367,
+      "normalizedRect": [
+        36,
+        24,
+        47,
+        46
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-S.png",
+      "direction": "S",
+      "pose": "wrist-windup",
+      "sourceRect": [
+        47,
+        309,
+        258,
+        525
+      ],
+      "sourceFootAnchor": [
+        160.94,
+        525
+      ],
+      "sourceBladeAnchor": null,
+      "bladeAnchor": null,
+      "bladeVisibleAtGround": false,
+      "scale": 0.21052631578947367,
+      "normalizedRect": [
+        32,
+        25,
+        44,
+        45
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-S.png",
+      "direction": "S",
+      "pose": "wrist-contact",
+      "sourceRect": [
+        453,
+        313,
+        619,
+        536
+      ],
+      "sourceFootAnchor": [
+        532.68,
+        536
+      ],
+      "sourceBladeAnchor": [
+        547.62,
+        524.85
+      ],
+      "bladeAnchor": [
+        58.95,
+        67.65
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.21052631578947367,
+      "normalizedRect": [
+        39,
+        23,
+        35,
+        47
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-S.png",
+      "direction": "S",
+      "pose": "wrist-follow",
+      "sourceRect": [
+        808,
+        312,
+        1048,
+        526
+      ],
+      "sourceFootAnchor": [
+        913.6,
+        526
+      ],
+      "sourceBladeAnchor": null,
+      "bladeAnchor": null,
+      "bladeVisibleAtGround": false,
+      "scale": 0.21052631578947367,
+      "normalizedRect": [
+        34,
+        25,
+        51,
+        45
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-S.png",
+      "direction": "S",
+      "pose": "receive",
+      "sourceRect": [
+        1176,
+        310,
+        1398,
+        528
+      ],
+      "sourceFootAnchor": [
+        1271.46,
+        528
+      ],
+      "sourceBladeAnchor": [
+        1302.54,
+        517.1
+      ],
+      "bladeAnchor": [
+        62.79,
+        67.7
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.21052631578947367,
+      "normalizedRect": [
+        36,
+        24,
+        47,
+        46
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-S.png",
+      "direction": "S",
+      "pose": "slap-windup",
+      "sourceRect": [
+        53,
+        555,
+        268,
+        791
+      ],
+      "sourceFootAnchor": [
+        164.8,
+        791
+      ],
+      "sourceBladeAnchor": null,
+      "bladeAnchor": null,
+      "bladeVisibleAtGround": false,
+      "scale": 0.21052631578947367,
+      "normalizedRect": [
+        32,
+        20,
+        45,
+        50
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-S.png",
+      "direction": "S",
+      "pose": "slap-downswing",
+      "sourceRect": [
+        445,
+        568,
+        661,
+        795
+      ],
+      "sourceFootAnchor": [
+        531.4,
+        795
+      ],
+      "sourceBladeAnchor": null,
+      "bladeAnchor": null,
+      "bladeVisibleAtGround": false,
+      "scale": 0.21052631578947367,
+      "normalizedRect": [
+        38,
+        22,
+        45,
+        48
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-S.png",
+      "direction": "S",
+      "pose": "slap-contact",
+      "sourceRect": [
+        792,
+        564,
+        990,
+        802
+      ],
+      "sourceFootAnchor": [
+        885.06,
+        802
+      ],
+      "sourceBladeAnchor": [
+        904.86,
+        790.1
+      ],
+      "bladeAnchor": [
+        59.94,
+        67.5
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.21052631578947367,
+      "normalizedRect": [
+        36,
+        20,
+        42,
+        50
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-S.png",
+      "direction": "S",
+      "pose": "slap-follow",
+      "sourceRect": [
+        1157,
+        566,
+        1417,
+        792
+      ],
+      "sourceFootAnchor": [
+        1258.4,
+        792
+      ],
+      "sourceBladeAnchor": null,
+      "bladeAnchor": null,
+      "bladeVisibleAtGround": false,
+      "scale": 0.21052631578947367,
+      "normalizedRect": [
+        35,
+        22,
+        55,
+        48
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-S.png",
+      "direction": "S",
+      "pose": "poke-check",
+      "sourceRect": [
+        50,
+        856,
+        337,
+        1054
+      ],
+      "sourceFootAnchor": [
+        164.8,
+        1054
+      ],
+      "sourceBladeAnchor": [
+        213.59,
+        1044.1
+      ],
+      "bladeAnchor": [
+        66.2,
+        67.9
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.21052631578947367,
+      "normalizedRect": [
+        32,
+        28,
+        60,
+        42
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-S.png",
+      "direction": "S",
+      "pose": "shoulder-check",
+      "sourceRect": [
+        442,
+        853,
+        672,
+        1054
+      ],
+      "sourceFootAnchor": [
+        538.6,
+        1054
+      ],
+      "sourceBladeAnchor": null,
+      "bladeAnchor": null,
+      "bladeVisibleAtGround": false,
+      "scale": 0.21052631578947367,
+      "normalizedRect": [
+        36,
+        28,
+        48,
+        42
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-S.png",
+      "direction": "S",
+      "pose": "stop",
+      "sourceRect": [
+        776,
+        838,
+        1040,
+        1050
+      ],
+      "sourceFootAnchor": [
+        892.16,
+        1050
+      ],
+      "sourceBladeAnchor": [
+        926.48,
+        1039.4
+      ],
+      "bladeAnchor": [
+        63.92,
+        67.75
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.21052631578947367,
+      "normalizedRect": [
+        32,
+        25,
+        56,
+        45
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-S.png",
+      "direction": "S",
+      "pose": "recover",
+      "sourceRect": [
+        1174,
+        840,
+        1405,
+        1061
+      ],
+      "sourceFootAnchor": [
+        1271.02,
+        1061
+      ],
+      "sourceBladeAnchor": [
+        1305.67,
+        1049.95
+      ],
+      "bladeAnchor": [
+        63.93,
+        67.65
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.21052631578947367,
+      "normalizedRect": [
+        36,
+        23,
+        49,
+        47
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-SW.png",
+      "direction": "SW",
+      "pose": "ready",
+      "sourceRect": [
+        47,
+        42,
+        297,
+        269
+      ],
+      "sourceFootAnchor": [
+        204.5,
+        269
+      ],
+      "sourceBladeAnchor": [
+        62.0,
+        255.38
+      ],
+      "bladeAnchor": [
+        26.12,
+        67.18
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.20754716981132076,
+      "normalizedRect": [
+        23,
+        23,
+        52,
+        47
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-SW.png",
+      "direction": "SW",
+      "pose": "glide",
+      "sourceRect": [
+        405,
+        43,
+        664,
+        269
+      ],
+      "sourceFootAnchor": [
+        568.17,
+        269
+      ],
+      "sourceBladeAnchor": [
+        420.54,
+        255.44
+      ],
+      "bladeAnchor": [
+        25.24,
+        67.18
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.20754716981132076,
+      "normalizedRect": [
+        22,
+        23,
+        54,
+        47
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-SW.png",
+      "direction": "SW",
+      "pose": "push-left",
+      "sourceRect": [
+        773,
+        43,
+        1020,
+        266
+      ],
+      "sourceFootAnchor": [
+        933.55,
+        266
+      ],
+      "sourceBladeAnchor": [
+        787.82,
+        252.62
+      ],
+      "bladeAnchor": [
+        26.06,
+        67.24
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.20754716981132076,
+      "normalizedRect": [
+        23,
+        24,
+        51,
+        46
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-SW.png",
+      "direction": "SW",
+      "pose": "push-right",
+      "sourceRect": [
+        1136,
+        43,
+        1397,
+        270
+      ],
+      "sourceFootAnchor": [
+        1305.65,
+        270
+      ],
+      "sourceBladeAnchor": [
+        1151.66,
+        256.38
+      ],
+      "bladeAnchor": [
+        24.24,
+        67.18
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.20754716981132076,
+      "normalizedRect": [
+        21,
+        23,
+        54,
+        47
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-SW.png",
+      "direction": "SW",
+      "pose": "wrist-windup",
+      "sourceRect": [
+        75,
+        315,
+        287,
+        532
+      ],
+      "sourceFootAnchor": [
+        210.68,
+        532
+      ],
+      "sourceBladeAnchor": null,
+      "bladeAnchor": null,
+      "bladeVisibleAtGround": false,
+      "scale": 0.20754716981132076,
+      "normalizedRect": [
+        28,
+        25,
+        44,
+        45
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "contact-SW-grounded.png",
+      "direction": "SW",
+      "pose": "wrist-contact",
+      "override": true,
+      "sourceCell": [
+        0,
+        0
+      ],
+      "sourceRect": [
+        255,
+        209,
+        536,
+        548
+      ],
+      "sourceFootAnchor": [
+        401.82000000000005,
+        503.17999999999995
+      ],
+      "sourceBladeAnchor": [
+        311.32000000000005,
+        571.055
+      ],
+      "bladeAnchor": [
+        42,
+        79
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": [
+        0.15469613259668508,
+        0.13259668508287292
+      ],
+      "normalizedRect": [
+        33,
+        31,
+        43,
+        45
+      ],
+      "frameSize": [
+        112,
+        96
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "anchorMethod": "Authored skate midpoint and contact target from per-direction guided correction"
+    },
+    {
+      "source": "action-SW.png",
+      "direction": "SW",
+      "pose": "wrist-follow",
+      "sourceRect": [
+        757,
+        323,
+        1028,
+        526
+      ],
+      "sourceFootAnchor": [
+        919.6,
+        526
+      ],
+      "sourceBladeAnchor": null,
+      "bladeAnchor": null,
+      "bladeVisibleAtGround": false,
+      "scale": 0.20754716981132076,
+      "normalizedRect": [
+        22,
+        28,
+        56,
+        42
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-SW.png",
+      "direction": "SW",
+      "pose": "receive",
+      "sourceRect": [
+        1126,
+        317,
+        1403,
+        533
+      ],
+      "sourceFootAnchor": [
+        1297.74,
+        533
+      ],
+      "sourceBladeAnchor": [
+        1142.62,
+        520.04
+      ],
+      "bladeAnchor": [
+        23.42,
+        67.3
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.20754716981132076,
+      "normalizedRect": [
+        20,
+        25,
+        57,
+        45
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-SW.png",
+      "direction": "SW",
+      "pose": "slap-windup",
+      "sourceRect": [
+        71,
+        560,
+        298,
+        796
+      ],
+      "sourceFootAnchor": [
+        186.77,
+        796
+      ],
+      "sourceBladeAnchor": null,
+      "bladeAnchor": null,
+      "bladeVisibleAtGround": false,
+      "scale": 0.20754716981132076,
+      "normalizedRect": [
+        32,
+        21,
+        47,
+        49
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-SW.png",
+      "direction": "SW",
+      "pose": "slap-downswing",
+      "sourceRect": [
+        410,
+        574,
+        661,
+        795
+      ],
+      "sourceFootAnchor": [
+        568.13,
+        795
+      ],
+      "sourceBladeAnchor": null,
+      "bladeAnchor": null,
+      "bladeVisibleAtGround": false,
+      "scale": 0.20754716981132076,
+      "normalizedRect": [
+        23,
+        24,
+        52,
+        46
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "contact-SW-grounded.png",
+      "direction": "SW",
+      "pose": "slap-contact",
+      "override": true,
+      "sourceCell": [
+        1,
+        0
+      ],
+      "sourceRect": [
+        955,
+        209,
+        1241,
+        548
+      ],
+      "sourceFootAnchor": [
+        1114.236,
+        491.59600000000006
+      ],
+      "sourceBladeAnchor": [
+        1023.7360000000001,
+        559.471
+      ],
+      "bladeAnchor": [
+        42,
+        79
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": [
+        0.15469613259668508,
+        0.13259668508287292
+      ],
+      "normalizedRect": [
+        31,
+        33,
+        44,
+        45
+      ],
+      "frameSize": [
+        112,
+        96
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "anchorMethod": "Authored skate midpoint and contact target from per-direction guided correction"
+    },
+    {
+      "source": "action-SW.png",
+      "direction": "SW",
+      "pose": "slap-follow",
+      "sourceRect": [
+        1190,
+        571,
+        1400,
+        791
+      ],
+      "sourceFootAnchor": [
+        1322.3,
+        791
+      ],
+      "sourceBladeAnchor": null,
+      "bladeAnchor": null,
+      "bladeVisibleAtGround": false,
+      "scale": 0.20754716981132076,
+      "normalizedRect": [
+        29,
+        24,
+        44,
+        46
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "contact-SW-grounded.png",
+      "direction": "SW",
+      "pose": "poke-check",
+      "override": true,
+      "sourceCell": [
+        2,
+        0
+      ],
+      "sourceRect": [
+        1678,
+        237,
+        2023,
+        548
+      ],
+      "sourceFootAnchor": [
+        1847.6480000000001,
+        503.90399999999994
+      ],
+      "sourceBladeAnchor": [
+        1757.1480000000001,
+        571.779
+      ],
+      "bladeAnchor": [
+        42,
+        79
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": [
+        0.15469613259668508,
+        0.13259668508287292
+      ],
+      "normalizedRect": [
+        30,
+        35,
+        53,
+        41
+      ],
+      "frameSize": [
+        112,
+        96
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "anchorMethod": "Authored skate midpoint and contact target from per-direction guided correction"
+    },
+    {
+      "source": "action-SW.png",
+      "direction": "SW",
+      "pose": "shoulder-check",
+      "sourceRect": [
+        404,
+        856,
+        673,
+        1060
+      ],
+      "sourceFootAnchor": [
+        565.4,
+        1060
+      ],
+      "sourceBladeAnchor": null,
+      "bladeAnchor": null,
+      "bladeVisibleAtGround": false,
+      "scale": 0.20754716981132076,
+      "normalizedRect": [
+        23,
+        28,
+        56,
+        42
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-SW.png",
+      "direction": "SW",
+      "pose": "stop",
+      "sourceRect": [
+        751,
+        840,
+        1036,
+        1056
+      ],
+      "sourceFootAnchor": [
+        919.15,
+        1056
+      ],
+      "sourceBladeAnchor": [
+        768.1,
+        1043.04
+      ],
+      "bladeAnchor": [
+        24.54,
+        67.3
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.20754716981132076,
+      "normalizedRect": [
+        21,
+        25,
+        59,
+        45
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-SW.png",
+      "direction": "SW",
+      "pose": "recover",
+      "sourceRect": [
+        1116,
+        840,
+        1393,
+        1060
+      ],
+      "sourceFootAnchor": [
+        1282.2,
+        1060
+      ],
+      "sourceBladeAnchor": [
+        1132.62,
+        1046.8
+      ],
+      "bladeAnchor": [
+        25.42,
+        67.24
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.20754716981132076,
+      "normalizedRect": [
+        22,
+        24,
+        57,
+        46
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-W.png",
+      "direction": "W",
+      "pose": "ready",
+      "sourceRect": [
+        41,
+        40,
+        303,
+        264
+      ],
+      "sourceFootAnchor": [
+        216.54,
+        264
+      ],
+      "sourceBladeAnchor": [
+        56.72,
+        250.56
+      ],
+      "bladeAnchor": [
+        23.24,
+        67.24
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.20754716981132076,
+      "normalizedRect": [
+        20,
+        24,
+        54,
+        46
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-W.png",
+      "direction": "W",
+      "pose": "glide",
+      "sourceRect": [
+        408,
+        42,
+        682,
+        263
+      ],
+      "sourceFootAnchor": [
+        594.32,
+        263
+      ],
+      "sourceBladeAnchor": [
+        424.44,
+        249.74
+      ],
+      "bladeAnchor": [
+        20.42,
+        67.24
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.20754716981132076,
+      "normalizedRect": [
+        17,
+        24,
+        57,
+        46
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-W.png",
+      "direction": "W",
+      "pose": "push-left",
+      "sourceRect": [
+        784,
+        42,
+        1043,
+        263
+      ],
+      "sourceFootAnchor": [
+        957.53,
+        263
+      ],
+      "sourceBladeAnchor": [
+        799.54,
+        249.74
+      ],
+      "bladeAnchor": [
+        23.24,
+        67.24
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.20754716981132076,
+      "normalizedRect": [
+        20,
+        24,
+        54,
+        46
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-W.png",
+      "direction": "W",
+      "pose": "push-right",
+      "sourceRect": [
+        1119,
+        42,
+        1404,
+        264
+      ],
+      "sourceFootAnchor": [
+        1309.95,
+        264
+      ],
+      "sourceBladeAnchor": [
+        1136.1,
+        250.68
+      ],
+      "bladeAnchor": [
+        19.54,
+        67.24
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.20754716981132076,
+      "normalizedRect": [
+        16,
+        24,
+        59,
+        46
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-W.png",
+      "direction": "W",
+      "pose": "wrist-windup",
+      "sourceRect": [
+        129,
+        313,
+        305,
+        532
+      ],
+      "sourceFootAnchor": [
+        232.84,
+        532
+      ],
+      "sourceBladeAnchor": null,
+      "bladeAnchor": null,
+      "bladeVisibleAtGround": false,
+      "scale": 0.20754716981132076,
+      "normalizedRect": [
+        34,
+        25,
+        37,
+        45
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-W.png",
+      "direction": "W",
+      "pose": "wrist-contact",
+      "sourceRect": [
+        378,
+        330,
+        686,
+        532
+      ],
+      "sourceFootAnchor": [
+        568.96,
+        532
+      ],
+      "sourceBladeAnchor": [
+        396.48,
+        519.88
+      ],
+      "bladeAnchor": [
+        19.84,
+        67.48
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.20754716981132076,
+      "normalizedRect": [
+        16,
+        28,
+        64,
+        42
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-W.png",
+      "direction": "W",
+      "pose": "wrist-follow",
+      "sourceRect": [
+        755,
+        337,
+        1050,
+        532
+      ],
+      "sourceFootAnchor": [
+        937.9,
+        532
+      ],
+      "sourceBladeAnchor": null,
+      "bladeAnchor": null,
+      "bladeVisibleAtGround": false,
+      "scale": 0.20754716981132076,
+      "normalizedRect": [
+        18,
+        30,
+        61,
+        40
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-W.png",
+      "direction": "W",
+      "pose": "receive",
+      "sourceRect": [
+        1118,
+        321,
+        1396,
+        532
+      ],
+      "sourceFootAnchor": [
+        1295.92,
+        532
+      ],
+      "sourceBladeAnchor": [
+        1134.68,
+        519.34
+      ],
+      "bladeAnchor": [
+        22.48,
+        67.36
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.20754716981132076,
+      "normalizedRect": [
+        19,
+        26,
+        58,
+        44
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-W.png",
+      "direction": "W",
+      "pose": "slap-windup",
+      "sourceRect": [
+        115,
+        548,
+        309,
+        796
+      ],
+      "sourceFootAnchor": [
+        210.06,
+        796
+      ],
+      "sourceBladeAnchor": null,
+      "bladeAnchor": null,
+      "bladeVisibleAtGround": false,
+      "scale": 0.20754716981132076,
+      "normalizedRect": [
+        36,
+        19,
+        40,
+        51
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-W.png",
+      "direction": "W",
+      "pose": "slap-downswing",
+      "sourceRect": [
+        408,
+        577,
+        676,
+        794
+      ],
+      "sourceFootAnchor": [
+        576.84,
+        794
+      ],
+      "sourceBladeAnchor": null,
+      "bladeAnchor": null,
+      "bladeVisibleAtGround": false,
+      "scale": 0.20754716981132076,
+      "normalizedRect": [
+        21,
+        25,
+        56,
+        45
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-W.png",
+      "direction": "W",
+      "pose": "slap-contact",
+      "sourceRect": [
+        755,
+        577,
+        1040,
+        796
+      ],
+      "sourceFootAnchor": [
+        931.7,
+        796
+      ],
+      "sourceBladeAnchor": [
+        772.1,
+        782.86
+      ],
+      "bladeAnchor": [
+        22.54,
+        67.3
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.20754716981132076,
+      "normalizedRect": [
+        19,
+        25,
+        59,
+        45
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-W.png",
+      "direction": "W",
+      "pose": "slap-follow",
+      "sourceRect": [
+        1139,
+        576,
+        1403,
+        793
+      ],
+      "sourceFootAnchor": [
+        1294.76,
+        793
+      ],
+      "sourceBladeAnchor": null,
+      "bladeAnchor": null,
+      "bladeVisibleAtGround": false,
+      "scale": 0.20754716981132076,
+      "normalizedRect": [
+        24,
+        25,
+        55,
+        45
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-W.png",
+      "direction": "W",
+      "pose": "poke-check",
+      "sourceRect": [
+        17,
+        864,
+        350,
+        1060
+      ],
+      "sourceFootAnchor": [
+        236.78,
+        1060
+      ],
+      "sourceBladeAnchor": [
+        36.98,
+        1048.24
+      ],
+      "bladeAnchor": [
+        14.14,
+        67.54
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.20754716981132076,
+      "normalizedRect": [
+        10,
+        29,
+        69,
+        41
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-W.png",
+      "direction": "W",
+      "pose": "shoulder-check",
+      "sourceRect": [
+        405,
+        864,
+        687,
+        1059
+      ],
+      "sourceFootAnchor": [
+        579.84,
+        1059
+      ],
+      "sourceBladeAnchor": null,
+      "bladeAnchor": null,
+      "bladeVisibleAtGround": false,
+      "scale": 0.20754716981132076,
+      "normalizedRect": [
+        20,
+        30,
+        59,
+        40
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-W.png",
+      "direction": "W",
+      "pose": "stop",
+      "sourceRect": [
+        780,
+        849,
+        1042,
+        1057
+      ],
+      "sourceFootAnchor": [
+        942.44,
+        1057
+      ],
+      "sourceBladeAnchor": [
+        795.72,
+        1044.52
+      ],
+      "bladeAnchor": [
+        25.24,
+        67.42
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.20754716981132076,
+      "normalizedRect": [
+        22,
+        27,
+        54,
+        43
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-W.png",
+      "direction": "W",
+      "pose": "recover",
+      "sourceRect": [
+        1138,
+        841,
+        1381,
+        1062
+      ],
+      "sourceFootAnchor": [
+        1288.66,
+        1062
+      ],
+      "sourceBladeAnchor": [
+        1152.58,
+        1048.74
+      ],
+      "bladeAnchor": [
+        28.0,
+        67.24
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.20754716981132076,
+      "normalizedRect": [
+        25,
+        24,
+        50,
+        46
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-NW.png",
+      "direction": "NW",
+      "pose": "ready",
+      "sourceRect": [
+        28,
+        48,
+        299,
+        263
+      ],
+      "sourceFootAnchor": [
+        196.02,
+        263
+      ],
+      "sourceBladeAnchor": [
+        44.26,
+        237.2
+      ],
+      "bladeAnchor": [
+        23.48,
+        64.48
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.2146341463414634,
+      "normalizedRect": [
+        20,
+        24,
+        58,
+        46
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-NW.png",
+      "direction": "NW",
+      "pose": "glide",
+      "sourceRect": [
+        381,
+        48,
+        652,
+        260
+      ],
+      "sourceFootAnchor": [
+        549.02,
+        260
+      ],
+      "sourceBladeAnchor": [
+        397.26,
+        234.56
+      ],
+      "bladeAnchor": [
+        23.48,
+        64.48
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.2146341463414634,
+      "normalizedRect": [
+        20,
+        24,
+        58,
+        46
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-NW.png",
+      "direction": "NW",
+      "pose": "push-left",
+      "sourceRect": [
+        745,
+        48,
+        1011,
+        264
+      ],
+      "sourceFootAnchor": [
+        907.26,
+        264
+      ],
+      "sourceBladeAnchor": [
+        760.96,
+        238.08
+      ],
+      "bladeAnchor": [
+        24.42,
+        64.48
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.2146341463414634,
+      "normalizedRect": [
+        21,
+        24,
+        57,
+        46
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-NW.png",
+      "direction": "NW",
+      "pose": "push-right",
+      "sourceRect": [
+        1109,
+        48,
+        1383,
+        263
+      ],
+      "sourceFootAnchor": [
+        1276.14,
+        263
+      ],
+      "sourceBladeAnchor": [
+        1125.44,
+        237.2
+      ],
+      "bladeAnchor": [
+        23.54,
+        64.48
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.2146341463414634,
+      "normalizedRect": [
+        20,
+        24,
+        59,
+        46
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-NW.png",
+      "direction": "NW",
+      "pose": "wrist-windup",
+      "sourceRect": [
+        60,
+        314,
+        284,
+        525
+      ],
+      "sourceFootAnchor": [
+        203.36,
+        525
+      ],
+      "sourceBladeAnchor": null,
+      "bladeAnchor": null,
+      "bladeVisibleAtGround": false,
+      "scale": 0.2146341463414634,
+      "normalizedRect": [
+        25,
+        25,
+        48,
+        45
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "diagonal-contact-grounded.png",
+      "direction": "NW",
+      "pose": "wrist-contact",
+      "override": true,
+      "sourceCell": [
+        2,
+        0
+      ],
+      "sourceRect": [
+        886,
+        94,
+        1077,
+        250
+      ],
+      "sourceFootAnchor": [
+        1003.9475,
+        236.845
+      ],
+      "sourceBladeAnchor": [
+        944.5613392857143,
+        198.45958333333334
+      ],
+      "bladeAnchor": [
+        39,
+        59
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": [
+        0.28626198083067095,
+        0.2865671641791045
+      ],
+      "normalizedRect": [
+        22,
+        29,
+        55,
+        45
+      ],
+      "frameSize": [
+        112,
+        96
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "anchorMethod": "Authored edit target relative to preserved per-cell foot registration"
+    },
+    {
+      "source": "action-NW.png",
+      "direction": "NW",
+      "pose": "wrist-follow",
+      "sourceRect": [
+        744,
+        325,
+        1031,
+        527
+      ],
+      "sourceFootAnchor": [
+        916.2,
+        527
+      ],
+      "sourceBladeAnchor": null,
+      "bladeAnchor": null,
+      "bladeVisibleAtGround": false,
+      "scale": 0.2146341463414634,
+      "normalizedRect": [
+        19,
+        27,
+        62,
+        43
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-NW.png",
+      "direction": "NW",
+      "pose": "receive",
+      "sourceRect": [
+        1111,
+        325,
+        1392,
+        530
+      ],
+      "sourceFootAnchor": [
+        1282.41,
+        530
+      ],
+      "sourceBladeAnchor": [
+        1127.86,
+        505.4
+      ],
+      "bladeAnchor": [
+        22.6,
+        64.72
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.2146341463414634,
+      "normalizedRect": [
+        19,
+        26,
+        60,
+        44
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-NW.png",
+      "direction": "NW",
+      "pose": "slap-windup",
+      "sourceRect": [
+        134,
+        547,
+        319,
+        787
+      ],
+      "sourceFootAnchor": [
+        220.95,
+        787
+      ],
+      "sourceBladeAnchor": null,
+      "bladeAnchor": null,
+      "bladeVisibleAtGround": false,
+      "scale": 0.2146341463414634,
+      "normalizedRect": [
+        37,
+        18,
+        40,
+        52
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-NW.png",
+      "direction": "NW",
+      "pose": "slap-downswing",
+      "sourceRect": [
+        393,
+        572,
+        654,
+        780
+      ],
+      "sourceFootAnchor": [
+        554.82,
+        780
+      ],
+      "sourceBladeAnchor": null,
+      "bladeAnchor": null,
+      "bladeVisibleAtGround": false,
+      "scale": 0.2146341463414634,
+      "normalizedRect": [
+        21,
+        25,
+        56,
+        45
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "diagonal-contact-grounded.png",
+      "direction": "NW",
+      "pose": "slap-contact",
+      "override": true,
+      "sourceCell": [
+        2,
+        1
+      ],
+      "sourceRect": [
+        874,
+        428,
+        1064,
+        583
+      ],
+      "sourceFootAnchor": [
+        992.6012499999999,
+        561.46
+      ],
+      "sourceBladeAnchor": [
+        933.2150892857143,
+        523.0745833333334
+      ],
+      "bladeAnchor": [
+        39,
+        59
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": [
+        0.28626198083067095,
+        0.2865671641791045
+      ],
+      "normalizedRect": [
+        22,
+        32,
+        54,
+        44
+      ],
+      "frameSize": [
+        112,
+        96
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "anchorMethod": "Authored edit target relative to preserved per-cell foot registration"
+    },
+    {
+      "source": "action-NW.png",
+      "direction": "NW",
+      "pose": "slap-follow",
+      "sourceRect": [
+        1117,
+        574,
+        1398,
+        787
+      ],
+      "sourceFootAnchor": [
+        1294.03,
+        787
+      ],
+      "sourceBladeAnchor": null,
+      "bladeAnchor": null,
+      "bladeVisibleAtGround": false,
+      "scale": 0.2146341463414634,
+      "normalizedRect": [
+        18,
+        24,
+        60,
+        46
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "diagonal-contact-grounded.png",
+      "direction": "NW",
+      "pose": "poke-check",
+      "override": true,
+      "sourceCell": [
+        2,
+        2
+      ],
+      "sourceRect": [
+        846,
+        772,
+        1077,
+        919
+      ],
+      "sourceFootAnchor": [
+        998.47,
+        904.165
+      ],
+      "sourceBladeAnchor": [
+        939.0838392857144,
+        865.7795833333333
+      ],
+      "bladeAnchor": [
+        39,
+        59
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": [
+        0.28626198083067095,
+        0.2865671641791045
+      ],
+      "normalizedRect": [
+        12,
+        32,
+        66,
+        42
+      ],
+      "frameSize": [
+        112,
+        96
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "anchorMethod": "Authored edit target relative to preserved per-cell foot registration"
+    },
+    {
+      "source": "action-NW.png",
+      "direction": "NW",
+      "pose": "shoulder-check",
+      "sourceRect": [
+        401,
+        855,
+        676,
+        1051
+      ],
+      "sourceFootAnchor": [
+        571.5,
+        1051
+      ],
+      "sourceBladeAnchor": null,
+      "bladeAnchor": null,
+      "bladeVisibleAtGround": false,
+      "scale": 0.2146341463414634,
+      "normalizedRect": [
+        19,
+        28,
+        59,
+        42
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-NW.png",
+      "direction": "NW",
+      "pose": "stop",
+      "sourceRect": [
+        743,
+        842,
+        1016,
+        1056
+      ],
+      "sourceFootAnchor": [
+        906.8,
+        1056
+      ],
+      "sourceBladeAnchor": [
+        759.38,
+        1030.32
+      ],
+      "bladeAnchor": [
+        24.54,
+        64.48
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.2146341463414634,
+      "normalizedRect": [
+        21,
+        24,
+        59,
+        46
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-NW.png",
+      "direction": "NW",
+      "pose": "recover",
+      "sourceRect": [
+        1102,
+        846,
+        1377,
+        1057
+      ],
+      "sourceFootAnchor": [
+        1264.25,
+        1057
+      ],
+      "sourceBladeAnchor": [
+        1118.5,
+        1031.68
+      ],
+      "bladeAnchor": [
+        24.54,
+        64.6
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.2146341463414634,
+      "normalizedRect": [
+        21,
+        25,
+        59,
+        45
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-N-grounded.png",
+      "direction": "N",
+      "pose": "ready",
+      "sourceRect": [
+        103,
+        39,
+        307,
+        272
+      ],
+      "sourceFootAnchor": [
+        186.64,
+        272
+      ],
+      "sourceBladeAnchor": [
+        294.76,
+        253.36
+      ],
+      "bladeAnchor": [
+        77.6,
+        66.32
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.19642857142857142,
+      "normalizedRect": [
+        40,
+        24,
+        40,
+        46
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-N-grounded.png",
+      "direction": "N",
+      "pose": "glide",
+      "sourceRect": [
+        467,
+        40,
+        655,
+        273
+      ],
+      "sourceFootAnchor": [
+        542.2,
+        273
+      ],
+      "sourceBladeAnchor": [
+        643.72,
+        254.36
+      ],
+      "bladeAnchor": [
+        75.78,
+        66.32
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.19642857142857142,
+      "normalizedRect": [
+        41,
+        24,
+        37,
+        46
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-N-grounded.png",
+      "direction": "N",
+      "pose": "push-left",
+      "sourceRect": [
+        814,
+        39,
+        1021,
+        282
+      ],
+      "sourceFootAnchor": [
+        896.8,
+        282
+      ],
+      "sourceBladeAnchor": [
+        1008.58,
+        262.56
+      ],
+      "bladeAnchor": [
+        78.54,
+        66.16
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.19642857142857142,
+      "normalizedRect": [
+        40,
+        22,
+        41,
+        48
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-N-grounded.png",
+      "direction": "N",
+      "pose": "push-right",
+      "sourceRect": [
+        1191,
+        40,
+        1383,
+        273
+      ],
+      "sourceFootAnchor": [
+        1267.8,
+        273
+      ],
+      "sourceBladeAnchor": [
+        1371.48,
+        254.36
+      ],
+      "bladeAnchor": [
+        76.72,
+        66.32
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.19642857142857142,
+      "normalizedRect": [
+        41,
+        24,
+        38,
+        46
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-N-grounded.png",
+      "direction": "N",
+      "pose": "wrist-windup",
+      "sourceRect": [
+        109,
+        308,
+        317,
+        524
+      ],
+      "sourceFootAnchor": [
+        196.36,
+        524
+      ],
+      "sourceBladeAnchor": null,
+      "bladeAnchor": null,
+      "bladeVisibleAtGround": false,
+      "scale": 0.19642857142857142,
+      "normalizedRect": [
+        39,
+        28,
+        41,
+        42
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-N-grounded.png",
+      "direction": "N",
+      "pose": "wrist-contact",
+      "sourceRect": [
+        471,
+        308,
+        667,
+        530
+      ],
+      "sourceFootAnchor": [
+        551.36,
+        530
+      ],
+      "sourceBladeAnchor": [
+        655.24,
+        512.24
+      ],
+      "bladeAnchor": [
+        75.72,
+        66.48
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.19642857142857142,
+      "normalizedRect": [
+        40,
+        26,
+        38,
+        44
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-N-grounded.png",
+      "direction": "N",
+      "pose": "wrist-follow",
+      "sourceRect": [
+        831,
+        312,
+        1016,
+        530
+      ],
+      "sourceFootAnchor": [
+        905.0,
+        530
+      ],
+      "sourceBladeAnchor": null,
+      "bladeAnchor": null,
+      "bladeVisibleAtGround": false,
+      "scale": 0.19642857142857142,
+      "normalizedRect": [
+        41,
+        27,
+        36,
+        43
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-N-grounded.png",
+      "direction": "N",
+      "pose": "receive",
+      "sourceRect": [
+        1172,
+        312,
+        1402,
+        532
+      ],
+      "sourceFootAnchor": [
+        1268.6,
+        532
+      ],
+      "sourceBladeAnchor": [
+        1388.2,
+        514.4
+      ],
+      "bladeAnchor": [
+        79.3,
+        66.56
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.19642857142857142,
+      "normalizedRect": [
+        37,
+        27,
+        45,
+        43
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-N-grounded.png",
+      "direction": "N",
+      "pose": "slap-windup",
+      "sourceRect": [
+        76,
+        546,
+        281,
+        791
+      ],
+      "sourceFootAnchor": [
+        178.5,
+        791
+      ],
+      "sourceBladeAnchor": null,
+      "bladeAnchor": null,
+      "bladeVisibleAtGround": false,
+      "scale": 0.19642857142857142,
+      "normalizedRect": [
+        36,
+        22,
+        40,
+        48
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-N-grounded.png",
+      "direction": "N",
+      "pose": "slap-downswing",
+      "sourceRect": [
+        453,
+        567,
+        682,
+        790
+      ],
+      "sourceFootAnchor": [
+        549.18,
+        790
+      ],
+      "sourceBladeAnchor": null,
+      "bladeAnchor": null,
+      "bladeVisibleAtGround": false,
+      "scale": 0.19642857142857142,
+      "normalizedRect": [
+        37,
+        26,
+        45,
+        44
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-N-grounded.png",
+      "direction": "N",
+      "pose": "slap-contact",
+      "sourceRect": [
+        811,
+        568,
+        1047,
+        790
+      ],
+      "sourceFootAnchor": [
+        912.48,
+        790
+      ],
+      "sourceBladeAnchor": [
+        1032.84,
+        772.24
+      ],
+      "bladeAnchor": [
+        79.24,
+        66.48
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.19642857142857142,
+      "normalizedRect": [
+        36,
+        26,
+        46,
+        44
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-N-grounded.png",
+      "direction": "N",
+      "pose": "slap-follow",
+      "sourceRect": [
+        1187,
+        567,
+        1398,
+        790
+      ],
+      "sourceFootAnchor": [
+        1279.84,
+        790
+      ],
+      "sourceBladeAnchor": null,
+      "bladeAnchor": null,
+      "bladeVisibleAtGround": false,
+      "scale": 0.19642857142857142,
+      "normalizedRect": [
+        38,
+        26,
+        41,
+        44
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-N-grounded.png",
+      "direction": "N",
+      "pose": "poke-check",
+      "sourceRect": [
+        70,
+        845,
+        317,
+        1061
+      ],
+      "sourceFootAnchor": [
+        168.8,
+        1061
+      ],
+      "sourceBladeAnchor": [
+        302.18,
+        1043.72
+      ],
+      "bladeAnchor": [
+        83.06,
+        66.64
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.19642857142857142,
+      "normalizedRect": [
+        37,
+        28,
+        49,
+        42
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-N-grounded.png",
+      "direction": "N",
+      "pose": "shoulder-check",
+      "sourceRect": [
+        450,
+        847,
+        667,
+        1056
+      ],
+      "sourceFootAnchor": [
+        538.97,
+        1056
+      ],
+      "sourceBladeAnchor": null,
+      "bladeAnchor": null,
+      "bladeVisibleAtGround": false,
+      "scale": 0.19642857142857142,
+      "normalizedRect": [
+        39,
+        29,
+        43,
+        41
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-N-grounded.png",
+      "direction": "N",
+      "pose": "stop",
+      "sourceRect": [
+        793,
+        840,
+        1042,
+        1062
+      ],
+      "sourceFootAnchor": [
+        902.56,
+        1062
+      ],
+      "sourceBladeAnchor": [
+        1027.06,
+        1044.24
+      ],
+      "bladeAnchor": [
+        80.06,
+        66.48
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.19642857142857142,
+      "normalizedRect": [
+        34,
+        26,
+        49,
+        44
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-N-grounded.png",
+      "direction": "N",
+      "pose": "recover",
+      "sourceRect": [
+        1187,
+        833,
+        1395,
+        1063
+      ],
+      "sourceFootAnchor": [
+        1276.44,
+        1063
+      ],
+      "sourceBladeAnchor": [
+        1382.52,
+        1044.6
+      ],
+      "bladeAnchor": [
+        76.54,
+        66.4
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.19642857142857142,
+      "normalizedRect": [
+        38,
+        25,
+        41,
+        45
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-NE.png",
+      "direction": "NE",
+      "pose": "ready",
+      "sourceRect": [
+        72,
+        44,
+        346,
+        270
+      ],
+      "sourceFootAnchor": [
+        159.68,
+        270
+      ],
+      "sourceBladeAnchor": [
+        329.56,
+        245.14
+      ],
+      "bladeAnchor": [
+        89.7,
+        65.05
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.2009132420091324,
+      "normalizedRect": [
+        38,
+        25,
+        55,
+        45
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-NE.png",
+      "direction": "NE",
+      "pose": "glide",
+      "sourceRect": [
+        430,
+        44,
+        701,
+        261
+      ],
+      "sourceFootAnchor": [
+        519.43,
+        261
+      ],
+      "sourceBladeAnchor": [
+        684.74,
+        237.13
+      ],
+      "bladeAnchor": [
+        88.76,
+        65.16
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.2009132420091324,
+      "normalizedRect": [
+        38,
+        26,
+        54,
+        44
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-NE.png",
+      "direction": "NE",
+      "pose": "push-left",
+      "sourceRect": [
+        781,
+        44,
+        1050,
+        251
+      ],
+      "sourceFootAnchor": [
+        872.46,
+        251
+      ],
+      "sourceBladeAnchor": [
+        1033.86,
+        228.23
+      ],
+      "bladeAnchor": [
+        88.76,
+        65.38
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.2009132420091324,
+      "normalizedRect": [
+        38,
+        28,
+        54,
+        42
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-NE.png",
+      "direction": "NE",
+      "pose": "push-right",
+      "sourceRect": [
+        1145,
+        45,
+        1412,
+        262
+      ],
+      "sourceFootAnchor": [
+        1241.12,
+        262
+      ],
+      "sourceBladeAnchor": [
+        1395.98,
+        238.13
+      ],
+      "bladeAnchor": [
+        87.76,
+        65.16
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.2009132420091324,
+      "normalizedRect": [
+        37,
+        26,
+        54,
+        44
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-NE.png",
+      "direction": "NE",
+      "pose": "wrist-windup",
+      "sourceRect": [
+        65,
+        311,
+        238,
+        512
+      ],
+      "sourceFootAnchor": [
+        142.85,
+        512
+      ],
+      "sourceBladeAnchor": null,
+      "bladeAnchor": null,
+      "bladeVisibleAtGround": false,
+      "scale": 0.2009132420091324,
+      "normalizedRect": [
+        40,
+        30,
+        35,
+        40
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "diagonal-contact-grounded.png",
+      "direction": "NE",
+      "pose": "wrist-contact",
+      "override": true,
+      "sourceCell": [
+        3,
+        0
+      ],
+      "sourceRect": [
+        1304,
+        102,
+        1470,
+        250
+      ],
+      "sourceFootAnchor": [
+        1353.725,
+        235.83999999999997
+      ],
+      "sourceBladeAnchor": [
+        1413.1111607142857,
+        197.45458333333332
+      ],
+      "bladeAnchor": [
+        73,
+        59
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": [
+        0.28626198083067095,
+        0.2865671641791045
+      ],
+      "normalizedRect": [
+        42,
+        32,
+        48,
+        42
+      ],
+      "frameSize": [
+        112,
+        96
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "anchorMethod": "Authored edit target relative to preserved per-cell foot registration"
+    },
+    {
+      "source": "action-NE.png",
+      "direction": "NE",
+      "pose": "wrist-follow",
+      "sourceRect": [
+        778,
+        331,
+        1059,
+        524
+      ],
+      "sourceFootAnchor": [
+        876.35,
+        524
+      ],
+      "sourceBladeAnchor": null,
+      "bladeAnchor": null,
+      "bladeVisibleAtGround": false,
+      "scale": 0.2009132420091324,
+      "normalizedRect": [
+        36,
+        31,
+        56,
+        39
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-NE.png",
+      "direction": "NE",
+      "pose": "receive",
+      "sourceRect": [
+        1150,
+        324,
+        1397,
+        524
+      ],
+      "sourceFootAnchor": [
+        1238.92,
+        524
+      ],
+      "sourceBladeAnchor": [
+        1382.18,
+        502.0
+      ],
+      "bladeAnchor": [
+        85.0,
+        65.6
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.2009132420091324,
+      "normalizedRect": [
+        38,
+        30,
+        50,
+        40
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-NE.png",
+      "direction": "NE",
+      "pose": "slap-windup",
+      "sourceRect": [
+        50,
+        559,
+        238,
+        786
+      ],
+      "sourceFootAnchor": [
+        149.64,
+        786
+      ],
+      "sourceBladeAnchor": null,
+      "bladeAnchor": null,
+      "bladeVisibleAtGround": false,
+      "scale": 0.2009132420091324,
+      "normalizedRect": [
+        36,
+        24,
+        38,
+        46
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-NE.png",
+      "direction": "NE",
+      "pose": "slap-downswing",
+      "sourceRect": [
+        403,
+        569,
+        680,
+        783
+      ],
+      "sourceFootAnchor": [
+        499.95,
+        783
+      ],
+      "sourceBladeAnchor": null,
+      "bladeAnchor": null,
+      "bladeVisibleAtGround": false,
+      "scale": 0.2009132420091324,
+      "normalizedRect": [
+        37,
+        27,
+        56,
+        43
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "diagonal-contact-grounded.png",
+      "direction": "NE",
+      "pose": "slap-contact",
+      "override": true,
+      "sourceCell": [
+        3,
+        1
+      ],
+      "sourceRect": [
+        1296,
+        435,
+        1468,
+        583
+      ],
+      "sourceFootAnchor": [
+        1340.81375,
+        567.49
+      ],
+      "sourceBladeAnchor": [
+        1400.1999107142858,
+        529.1045833333334
+      ],
+      "bladeAnchor": [
+        73,
+        59
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": [
+        0.28626198083067095,
+        0.2865671641791045
+      ],
+      "normalizedRect": [
+        43,
+        32,
+        49,
+        42
+      ],
+      "frameSize": [
+        112,
+        96
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "anchorMethod": "Authored edit target relative to preserved per-cell foot registration"
+    },
+    {
+      "source": "action-NE.png",
+      "direction": "NE",
+      "pose": "slap-follow",
+      "sourceRect": [
+        1140,
+        568,
+        1404,
+        787
+      ],
+      "sourceFootAnchor": [
+        1250.88,
+        787
+      ],
+      "sourceBladeAnchor": null,
+      "bladeAnchor": null,
+      "bladeVisibleAtGround": false,
+      "scale": 0.2009132420091324,
+      "normalizedRect": [
+        34,
+        26,
+        53,
+        44
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "diagonal-contact-grounded.png",
+      "direction": "NE",
+      "pose": "poke-check",
+      "override": true,
+      "sourceCell": [
+        3,
+        2
+      ],
+      "sourceRect": [
+        1291,
+        768,
+        1473,
+        919
+      ],
+      "sourceFootAnchor": [
+        1341.9875,
+        905.17
+      ],
+      "sourceBladeAnchor": [
+        1401.3736607142857,
+        866.7845833333333
+      ],
+      "bladeAnchor": [
+        73,
+        59
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": [
+        0.28626198083067095,
+        0.2865671641791045
+      ],
+      "normalizedRect": [
+        41,
+        31,
+        52,
+        43
+      ],
+      "frameSize": [
+        112,
+        96
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "anchorMethod": "Authored edit target relative to preserved per-cell foot registration"
+    },
+    {
+      "source": "action-NE.png",
+      "direction": "NE",
+      "pose": "shoulder-check",
+      "sourceRect": [
+        411,
+        856,
+        674,
+        1045
+      ],
+      "sourceFootAnchor": [
+        508.31,
+        1045
+      ],
+      "sourceBladeAnchor": null,
+      "bladeAnchor": null,
+      "bladeVisibleAtGround": false,
+      "scale": 0.2009132420091324,
+      "normalizedRect": [
+        36,
+        32,
+        53,
+        38
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-NE.png",
+      "direction": "NE",
+      "pose": "stop",
+      "sourceRect": [
+        751,
+        852,
+        1059,
+        1055
+      ],
+      "sourceFootAnchor": [
+        874.2,
+        1055
+      ],
+      "sourceBladeAnchor": [
+        1040.52,
+        1032.67
+      ],
+      "bladeAnchor": [
+        89.28,
+        65.49
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.2009132420091324,
+      "normalizedRect": [
+        31,
+        29,
+        62,
+        41
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-NE.png",
+      "direction": "NE",
+      "pose": "recover",
+      "sourceRect": [
+        1151,
+        839,
+        1408,
+        1065
+      ],
+      "sourceFootAnchor": [
+        1248.66,
+        1065
+      ],
+      "sourceBladeAnchor": [
+        1392.58,
+        1040.14
+      ],
+      "bladeAnchor": [
+        84.88,
+        65.05
+      ],
+      "bladeVisibleAtGround": true,
+      "scale": 0.2009132420091324,
+      "normalizedRect": [
+        36,
+        25,
+        52,
+        45
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "puck-effects.png",
+      "pose": "puck-0",
+      "sourceRect": [
+        0,
+        0,
+        362,
+        362
+      ],
+      "opaqueRect": [
+        0,
+        0,
+        362,
+        362
+      ],
+      "runtimeSize": [
+        12,
+        8
+      ],
+      "pivot": [
+        6,
+        5
+      ],
+      "alpha": "preserved"
+    },
+    {
+      "source": "puck-effects.png",
+      "pose": "puck-1",
+      "sourceRect": [
+        362,
+        0,
+        724,
+        362
+      ],
+      "opaqueRect": [
+        1,
+        0,
+        362,
+        362
+      ],
+      "runtimeSize": [
+        12,
+        8
+      ],
+      "pivot": [
+        6,
+        5
+      ],
+      "alpha": "preserved"
+    },
+    {
+      "source": "puck-effects.png",
+      "pose": "puck-2",
+      "sourceRect": [
+        724,
+        0,
+        1086,
+        362
+      ],
+      "opaqueRect": [
+        0,
+        0,
+        362,
+        362
+      ],
+      "runtimeSize": [
+        12,
+        8
+      ],
+      "pivot": [
+        6,
+        5
+      ],
+      "alpha": "preserved"
+    },
+    {
+      "source": "puck-effects.png",
+      "pose": "puck-3",
+      "sourceRect": [
+        1086,
+        0,
+        1448,
+        362
+      ],
+      "opaqueRect": [
+        0,
+        9,
+        352,
+        362
+      ],
+      "runtimeSize": [
+        12,
+        8
+      ],
+      "pivot": [
+        6,
+        5
+      ],
+      "alpha": "preserved"
+    },
+    {
+      "source": "puck-effects.png",
+      "pose": "spray-0",
+      "sourceRect": [
+        0,
+        362,
+        362,
+        724
+      ],
+      "opaqueRect": [
+        0,
+        0,
+        362,
+        362
+      ],
+      "runtimeSize": [
+        36,
+        36
+      ],
+      "pivot": [
+        18.0,
+        35
+      ],
+      "alpha": "preserved"
+    },
+    {
+      "source": "puck-effects.png",
+      "pose": "spray-1",
+      "sourceRect": [
+        362,
+        362,
+        724,
+        724
+      ],
+      "opaqueRect": [
+        0,
+        0,
+        362,
+        362
+      ],
+      "runtimeSize": [
+        36,
+        36
+      ],
+      "pivot": [
+        18.0,
+        35
+      ],
+      "alpha": "preserved"
+    },
+    {
+      "source": "puck-effects.png",
+      "pose": "spray-2",
+      "sourceRect": [
+        724,
+        362,
+        1086,
+        724
+      ],
+      "opaqueRect": [
+        0,
+        0,
+        362,
+        362
+      ],
+      "runtimeSize": [
+        36,
+        36
+      ],
+      "pivot": [
+        18.0,
+        35
+      ],
+      "alpha": "preserved"
+    },
+    {
+      "source": "puck-effects.png",
+      "pose": "spray-3",
+      "sourceRect": [
+        1086,
+        362,
+        1448,
+        724
+      ],
+      "opaqueRect": [
+        0,
+        0,
+        362,
+        362
+      ],
+      "runtimeSize": [
+        36,
+        36
+      ],
+      "pivot": [
+        18.0,
+        35
+      ],
+      "alpha": "preserved"
+    },
+    {
+      "source": "puck-effects.png",
+      "pose": "contact-0",
+      "sourceRect": [
+        0,
+        724,
+        362,
+        1086
+      ],
+      "opaqueRect": [
+        25,
+        0,
+        362,
+        362
+      ],
+      "runtimeSize": [
+        18,
+        19
+      ],
+      "pivot": [
+        9.0,
+        18
+      ],
+      "alpha": "preserved"
+    },
+    {
+      "source": "puck-effects.png",
+      "pose": "contact-1",
+      "sourceRect": [
+        362,
+        724,
+        724,
+        1086
+      ],
+      "opaqueRect": [
+        1,
+        0,
+        362,
+        362
+      ],
+      "runtimeSize": [
+        18,
+        18
+      ],
+      "pivot": [
+        9.0,
+        17
+      ],
+      "alpha": "preserved"
+    },
+    {
+      "source": "puck-effects.png",
+      "pose": "contact-2",
+      "sourceRect": [
+        724,
+        724,
+        1086,
+        1086
+      ],
+      "opaqueRect": [
+        0,
+        0,
+        362,
+        362
+      ],
+      "runtimeSize": [
+        18,
+        18
+      ],
+      "pivot": [
+        9.0,
+        17
+      ],
+      "alpha": "preserved"
+    },
+    {
+      "source": "puck-effects.png",
+      "pose": "contact-3",
+      "sourceRect": [
+        1086,
+        724,
+        1448,
+        1086
+      ],
+      "opaqueRect": [
+        0,
+        0,
+        362,
+        362
+      ],
+      "runtimeSize": [
+        18,
+        18
+      ],
+      "pivot": [
+        9.0,
+        17
+      ],
+      "alpha": "preserved"
+    }
+  ],
+  "provenance": {
+    "source": "OpenAI ImageGen hockey-v1; preserved source files and prompts",
+    "sources": [
+      {
+        "file": "action-E.png",
+        "sha256": "d202671da7fd7278d8effbe821078bcf93d082d814c0247e7d8299b3e3a3d9ea"
+      },
+      {
+        "file": "action-SE.png",
+        "sha256": "7d48511f61971c3046d12fd0d6fcc7c513ecd52f8858399718483f597cff1ffe"
+      },
+      {
+        "file": "action-S.png",
+        "sha256": "30106c385afa728b6bebbbf406b13a9c0b4f8e29e2129addc75e89f9dd074464"
+      },
+      {
+        "file": "action-SW.png",
+        "sha256": "2a99b00efbe7426b7c34b4d597245244f7b47dbf899817485a3574a5e41e66f3"
+      },
+      {
+        "file": "action-W.png",
+        "sha256": "374da56085f618ef0251d2f221537db6c98778153c2e193f50a0d7172fc738fe"
+      },
+      {
+        "file": "action-NW.png",
+        "sha256": "1145f18aa3a05bd4565f85f0e64fbc341f9fe13041ced3ed0c389492082b2747"
+      },
+      {
+        "file": "action-N-grounded.png",
+        "sha256": "ead523fcb1fde4578303f5f5fc65095530777d8b63f8a96c691bc7e564a24d71"
+      },
+      {
+        "file": "action-NE.png",
+        "sha256": "c006c308b0b3f1c6d113483363cf9906a2f45e1b0f1f7afe5f355aeefa30f74c"
+      },
+      {
+        "file": "diagonal-contact-grounded.png",
+        "sha256": "a1cf8e1ef1d583fbd3408c24a10f74afd27df2a9b673e5b73e071636b556d75a"
+      },
+      {
+        "file": "contact-SE-grounded.png",
+        "sha256": "1684e7139e2ad24478f75c87a5783de03ea2f337651aa3584c663352739a02b2"
+      },
+      {
+        "file": "contact-SW-grounded.png",
+        "sha256": "02c5adb2e8c4c4c948b2ff4048017820de96f8289d4f7310ae61d8bc46a287d5"
+      },
+      {
+        "file": "arena-ice.png",
+        "sha256": "f8d1642ab9924ba97010bf21caa4774dfdc2728262238d0e3e7b93e1debf6ee2"
+      },
+      {
+        "file": "puck-effects.png",
+        "sha256": "18265b7eadd714f74830a12262a33f877c9c64754935ecd3d675a328b27b1e92"
+      }
+    ],
+    "teamPalettes": [
+      "ivory",
+      "ember",
+      "owls",
+      "gators",
+      "bats",
+      "hornets"
+    ],
+    "authoredFacings": 8,
+    "authoredPosesPerFacing": 16,
+    "aliases": {
+      "idle": [
+        0
+      ],
+      "glide": [
+        1
+      ],
+      "skate": [
+        2,
+        1,
+        3,
+        1
+      ],
+      "burst": [
+        2,
+        3
+      ],
+      "stickhandle": [
+        0,
+        7,
+        0
+      ],
+      "wrist": [
+        4,
+        5,
+        6
+      ],
+      "pass": [
+        4,
+        5,
+        6
+      ],
+      "slap": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "slap-hold": [
+        8
+      ],
+      "poke": [
+        0,
+        12,
+        15
+      ],
+      "shoulder": [
+        13,
+        15
+      ],
+      "stop": [
+        14,
+        1
+      ],
+      "recover": [
+        15,
+        0
+      ],
+      "receive": [
+        7,
+        0
+      ],
+      "recoil": [
+        15
+      ],
+      "celebrate": [
+        15,
+        0
+      ]
+    },
+    "method": "Shared connected-component extractor, alpha210 athlete threshold, body-to-skate scale, explicit foot and blade anchors, shared64 palette, nearest sampling; VFX alpha preserved",
+    "limitations": "Generated key poses, no full inbetweens. North low blades and 12 diagonal contact poses use targeted ImageGen corrections; original sources are preserved. Foot/blade anchors are authored cosmetic guides and never move the authoritative puck.",
+    "poseOverrides": [
+      {
+        "direction": "SE",
+        "pose": "wrist-contact",
+        "source": "contact-SE-grounded.png",
+        "sourceCell": [
+          0,
+          0
+        ],
+        "sourceRect": [
+          213,
+          217,
+          477,
+          544
+        ],
+        "sourceFootAnchor": [
+          318.56,
+          503.17999999999995
+        ],
+        "sourceBladeAnchor": [
+          409.06,
+          571.055
+        ],
+        "frameSize": [
+          112,
+          96
+        ],
+        "pivot": [
+          56,
+          70
+        ]
+      },
+      {
+        "direction": "SE",
+        "pose": "slap-contact",
+        "source": "contact-SE-grounded.png",
+        "sourceCell": [
+          1,
+          0
+        ],
+        "sourceRect": [
+          926,
+          198,
+          1190,
+          537
+        ],
+        "sourceFootAnchor": [
+          1038.94,
+          489.42400000000004
+        ],
+        "sourceBladeAnchor": [
+          1129.44,
+          557.299
+        ],
+        "frameSize": [
+          112,
+          96
+        ],
+        "pivot": [
+          56,
+          70
+        ]
+      },
+      {
+        "direction": "SE",
+        "pose": "poke-check",
+        "source": "contact-SE-grounded.png",
+        "sourceCell": [
+          2,
+          0
+        ],
+        "sourceRect": [
+          1641,
+          220,
+          1915,
+          537
+        ],
+        "sourceFootAnchor": [
+          1770.1799999999998,
+          514.764
+        ],
+        "sourceBladeAnchor": [
+          1860.6799999999998,
+          582.639
+        ],
+        "frameSize": [
+          112,
+          96
+        ],
+        "pivot": [
+          56,
+          70
+        ]
+      },
+      {
+        "direction": "SW",
+        "pose": "wrist-contact",
+        "source": "contact-SW-grounded.png",
+        "sourceCell": [
+          0,
+          0
+        ],
+        "sourceRect": [
+          255,
+          209,
+          536,
+          548
+        ],
+        "sourceFootAnchor": [
+          401.82000000000005,
+          503.17999999999995
+        ],
+        "sourceBladeAnchor": [
+          311.32000000000005,
+          571.055
+        ],
+        "frameSize": [
+          112,
+          96
+        ],
+        "pivot": [
+          56,
+          70
+        ]
+      },
+      {
+        "direction": "SW",
+        "pose": "slap-contact",
+        "source": "contact-SW-grounded.png",
+        "sourceCell": [
+          1,
+          0
+        ],
+        "sourceRect": [
+          955,
+          209,
+          1241,
+          548
+        ],
+        "sourceFootAnchor": [
+          1114.236,
+          491.59600000000006
+        ],
+        "sourceBladeAnchor": [
+          1023.7360000000001,
+          559.471
+        ],
+        "frameSize": [
+          112,
+          96
+        ],
+        "pivot": [
+          56,
+          70
+        ]
+      },
+      {
+        "direction": "SW",
+        "pose": "poke-check",
+        "source": "contact-SW-grounded.png",
+        "sourceCell": [
+          2,
+          0
+        ],
+        "sourceRect": [
+          1678,
+          237,
+          2023,
+          548
+        ],
+        "sourceFootAnchor": [
+          1847.6480000000001,
+          503.90399999999994
+        ],
+        "sourceBladeAnchor": [
+          1757.1480000000001,
+          571.779
+        ],
+        "frameSize": [
+          112,
+          96
+        ],
+        "pivot": [
+          56,
+          70
+        ]
+      },
+      {
+        "direction": "NW",
+        "pose": "wrist-contact",
+        "source": "diagonal-contact-grounded.png",
+        "sourceCell": [
+          2,
+          0
+        ],
+        "sourceRect": [
+          886,
+          94,
+          1077,
+          250
+        ],
+        "sourceFootAnchor": [
+          1003.9475,
+          236.845
+        ],
+        "sourceBladeAnchor": [
+          944.5613392857143,
+          198.45958333333334
+        ],
+        "frameSize": [
+          112,
+          96
+        ],
+        "pivot": [
+          56,
+          70
+        ]
+      },
+      {
+        "direction": "NW",
+        "pose": "slap-contact",
+        "source": "diagonal-contact-grounded.png",
+        "sourceCell": [
+          2,
+          1
+        ],
+        "sourceRect": [
+          874,
+          428,
+          1064,
+          583
+        ],
+        "sourceFootAnchor": [
+          992.6012499999999,
+          561.46
+        ],
+        "sourceBladeAnchor": [
+          933.2150892857143,
+          523.0745833333334
+        ],
+        "frameSize": [
+          112,
+          96
+        ],
+        "pivot": [
+          56,
+          70
+        ]
+      },
+      {
+        "direction": "NW",
+        "pose": "poke-check",
+        "source": "diagonal-contact-grounded.png",
+        "sourceCell": [
+          2,
+          2
+        ],
+        "sourceRect": [
+          846,
+          772,
+          1077,
+          919
+        ],
+        "sourceFootAnchor": [
+          998.47,
+          904.165
+        ],
+        "sourceBladeAnchor": [
+          939.0838392857144,
+          865.7795833333333
+        ],
+        "frameSize": [
+          112,
+          96
+        ],
+        "pivot": [
+          56,
+          70
+        ]
+      },
+      {
+        "direction": "NE",
+        "pose": "wrist-contact",
+        "source": "diagonal-contact-grounded.png",
+        "sourceCell": [
+          3,
+          0
+        ],
+        "sourceRect": [
+          1304,
+          102,
+          1470,
+          250
+        ],
+        "sourceFootAnchor": [
+          1353.725,
+          235.83999999999997
+        ],
+        "sourceBladeAnchor": [
+          1413.1111607142857,
+          197.45458333333332
+        ],
+        "frameSize": [
+          112,
+          96
+        ],
+        "pivot": [
+          56,
+          70
+        ]
+      },
+      {
+        "direction": "NE",
+        "pose": "slap-contact",
+        "source": "diagonal-contact-grounded.png",
+        "sourceCell": [
+          3,
+          1
+        ],
+        "sourceRect": [
+          1296,
+          435,
+          1468,
+          583
+        ],
+        "sourceFootAnchor": [
+          1340.81375,
+          567.49
+        ],
+        "sourceBladeAnchor": [
+          1400.1999107142858,
+          529.1045833333334
+        ],
+        "frameSize": [
+          112,
+          96
+        ],
+        "pivot": [
+          56,
+          70
+        ]
+      },
+      {
+        "direction": "NE",
+        "pose": "poke-check",
+        "source": "diagonal-contact-grounded.png",
+        "sourceCell": [
+          3,
+          2
+        ],
+        "sourceRect": [
+          1291,
+          768,
+          1473,
+          919
+        ],
+        "sourceFootAnchor": [
+          1341.9875,
+          905.17
+        ],
+        "sourceBladeAnchor": [
+          1401.3736607142857,
+          866.7845833333333
+        ],
+        "frameSize": [
+          112,
+          96
+        ],
+        "pivot": [
+          56,
+          70
+        ]
+      }
+    ]
+  }
+}

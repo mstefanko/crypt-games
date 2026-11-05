@@ -1,0 +1,34 @@
+[
+  {
+    "sport": "cryptball",
+    "p95TickWorkMs": 1.2351249999999823,
+    "maxTickWorkMs": 3.168790999999999,
+    "medianSnapshotBytes": 3311,
+    "maxSnapshotBytes": 4074,
+    "estimatedRoomPayloadBytesPerSecond": 275141.3333333334
+  },
+  {
+    "sport": "cryptkick",
+    "p95TickWorkMs": 1.074500000000171,
+    "maxTickWorkMs": 8.891417000000047,
+    "medianSnapshotBytes": 3311,
+    "maxSnapshotBytes": 4074,
+    "estimatedRoomPayloadBytesPerSecond": 275141.3333333334
+  },
+  {
+    "sport": "rift-volley",
+    "p95TickWorkMs": 1.3996250000000146,
+    "maxTickWorkMs": 7.7967919999998685,
+    "medianSnapshotBytes": 3457,
+    "maxSnapshotBytes": 4212,
+    "estimatedRoomPayloadBytesPerSecond": 288524.6666666667
+  },
+  {
+    "sport": "cryptcheck",
+    "p95TickWorkMs": 1.0030830000000606,
+    "maxTickWorkMs": 2.006709000000228,
+    "medianSnapshotBytes": 3409,
+    "maxSnapshotBytes": 4236,
+    "estimatedRoomPayloadBytesPerSecond": 283259.77777777775
+  }
+]

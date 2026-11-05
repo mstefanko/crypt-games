@@ -1,0 +1,30 @@
+{
+  "cryptball": {
+    "variantFramesChecked": 480,
+    "changedUniformPixels": {
+      "ember": 11940,
+      "owls": 11940,
+      "gators": 11940,
+      "bats": 11940,
+      "hornets": 11940
+    },
+    "nonUniformPixelsPreserved": true,
+    "alphaPreserved": true,
+    "pages": 2,
+    "pngBytes": 1968887
+  },
+  "cryptball-sports": {
+    "variantFramesChecked": 800,
+    "changedUniformPixels": {
+      "ember": 15701,
+      "owls": 15701,
+      "gators": 15701,
+      "bats": 15701,
+      "hornets": 15701
+    },
+    "nonUniformPixelsPreserved": true,
+    "alphaPreserved": true,
+    "pages": 3,
+    "pngBytes": 2132354
+  }
+}

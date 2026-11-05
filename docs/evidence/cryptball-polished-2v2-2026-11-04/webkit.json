@@ -1,0 +1,41 @@
+{
+  "engine": "webkit",
+  "ticks": 12090,
+  "scenarios": [
+    {
+      "name": "two-humans-two-field-bots",
+      "ticks": 6474,
+      "phase": "results",
+      "slides": 119
+    },
+    {
+      "name": "four-humans-field-reconnect",
+      "ticks": 5616,
+      "phase": "results",
+      "slides": 107
+    }
+  ],
+  "nodeReplayP95Ms": 2.1465419999985897,
+  "browserReplayP95Ms": 2,
+  "warmupTrials": 20,
+  "measuredTrials": 40,
+  "targetP95Ms": 4,
+  "meetsTarget": true,
+  "frameBudgetMs": 16.67,
+  "hardware": {
+    "cpu": "Apple M4",
+    "logicalCpus": 10,
+    "memoryGiB": 16,
+    "platform": "darwin",
+    "arch": "arm64"
+  },
+  "aiReplanningForced": true,
+  "replayTicks": 12,
+  "scenario": "first-moving-ball-after-tick-500",
+  "fixtureTick": 629,
+  "ballVelocity": [
+    -53567,
+    2632
+  ],
+  "ai": true
+}

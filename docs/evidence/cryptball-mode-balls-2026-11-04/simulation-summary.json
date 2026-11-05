@@ -1,0 +1,1114 @@
+{
+  "note": "Post-change seeded bot matches; no fabricated pre-change baseline. Ticks bounded at 30000 per match. Heights in authored pixels.",
+  "scenarios": [
+    {
+      "sportId": "cryptball",
+      "seed": 1,
+      "ticks": 6708,
+      "phase": "results",
+      "score": [
+        11,
+        5
+      ],
+      "maximumHeight": 0,
+      "eventCounts": {
+        "whistle": 17,
+        "swing:strike": 114,
+        "strike": 101,
+        "slide": 176,
+        "whiff:strike": 13,
+        "slide-recover": 153,
+        "board": 336,
+        "check": 57,
+        "slide-contact": 2498,
+        "diagnostic": 568,
+        "goal": 16,
+        "charge-ready": 16,
+        "power-bank": 3,
+        "post": 9,
+        "pass-target": 18,
+        "swing:pass": 18,
+        "whiff:pass": 16,
+        "pass": 2,
+        "match-end": 1
+      },
+      "faults": {},
+      "rallyTicks": []
+    },
+    {
+      "sportId": "cryptball",
+      "seed": 2,
+      "ticks": 6786,
+      "phase": "results",
+      "score": [
+        9,
+        8
+      ],
+      "maximumHeight": 0,
+      "eventCounts": {
+        "whistle": 18,
+        "swing:strike": 164,
+        "strike": 129,
+        "slide": 180,
+        "slide-contact": 3646,
+        "diagnostic": 879,
+        "check": 63,
+        "slide-recover": 154,
+        "whiff:strike": 30,
+        "post": 9,
+        "board": 348,
+        "goal": 17,
+        "charge-ready": 18,
+        "power-bank": 5,
+        "pass-target": 24,
+        "swing:pass": 24,
+        "whiff:pass": 19,
+        "pass": 5,
+        "pass-complete": 2,
+        "match-end": 1
+      },
+      "faults": {},
+      "rallyTicks": []
+    },
+    {
+      "sportId": "cryptball",
+      "seed": 3,
+      "ticks": 6630,
+      "phase": "results",
+      "score": [
+        8,
+        7
+      ],
+      "maximumHeight": 0,
+      "eventCounts": {
+        "whistle": 16,
+        "swing:strike": 139,
+        "strike": 119,
+        "slide": 175,
+        "slide-contact": 2613,
+        "diagnostic": 654,
+        "check": 53,
+        "slide-recover": 151,
+        "whiff:strike": 19,
+        "post": 10,
+        "board": 475,
+        "pass-target": 26,
+        "swing:pass": 26,
+        "whiff:pass": 23,
+        "goal": 15,
+        "charge-ready": 15,
+        "power-bank": 3,
+        "pass": 3,
+        "match-end": 1
+      },
+      "faults": {},
+      "rallyTicks": []
+    },
+    {
+      "sportId": "cryptball",
+      "seed": 4,
+      "ticks": 6708,
+      "phase": "results",
+      "score": [
+        9,
+        7
+      ],
+      "maximumHeight": 0,
+      "eventCounts": {
+        "whistle": 17,
+        "swing:strike": 134,
+        "strike": 116,
+        "slide": 195,
+        "check": 64,
+        "slide-recover": 174,
+        "board": 449,
+        "slide-contact": 2749,
+        "diagnostic": 691,
+        "whiff:strike": 14,
+        "goal": 16,
+        "charge-ready": 16,
+        "power-bank": 6,
+        "pass-target": 19,
+        "swing:pass": 19,
+        "whiff:pass": 15,
+        "post": 9,
+        "pass": 3,
+        "pass-complete": 1,
+        "match-end": 1
+      },
+      "faults": {},
+      "rallyTicks": []
+    },
+    {
+      "sportId": "cryptball",
+      "seed": 5,
+      "ticks": 6318,
+      "phase": "results",
+      "score": [
+        7,
+        4
+      ],
+      "maximumHeight": 0,
+      "eventCounts": {
+        "whistle": 12,
+        "swing:strike": 104,
+        "strike": 89,
+        "slide": 182,
+        "whiff:strike": 15,
+        "slide-recover": 164,
+        "board": 398,
+        "slide-contact": 2219,
+        "diagnostic": 505,
+        "goal": 11,
+        "charge-ready": 11,
+        "check": 61,
+        "post": 6,
+        "pass-target": 16,
+        "swing:pass": 16,
+        "whiff:pass": 13,
+        "pass": 3,
+        "match-end": 1
+      },
+      "faults": {},
+      "rallyTicks": []
+    },
+    {
+      "sportId": "cryptball",
+      "seed": 6,
+      "ticks": 6474,
+      "phase": "results",
+      "score": [
+        6,
+        7
+      ],
+      "maximumHeight": 0,
+      "eventCounts": {
+        "whistle": 14,
+        "swing:strike": 144,
+        "strike": 122,
+        "slide": 185,
+        "slide-contact": 2593,
+        "diagnostic": 577,
+        "whiff:strike": 20,
+        "slide-recover": 169,
+        "pass-target": 18,
+        "swing:pass": 18,
+        "pass": 3,
+        "check": 63,
+        "post": 2,
+        "pass-complete": 2,
+        "goal": 13,
+        "charge-ready": 13,
+        "board": 549,
+        "whiff:pass": 15,
+        "power-bank": 2,
+        "match-end": 1
+      },
+      "faults": {},
+      "rallyTicks": []
+    },
+    {
+      "sportId": "cryptball",
+      "seed": 7,
+      "ticks": 6552,
+      "phase": "results",
+      "score": [
+        9,
+        5
+      ],
+      "maximumHeight": 0,
+      "eventCounts": {
+        "whistle": 15,
+        "swing:strike": 100,
+        "strike": 81,
+        "slide": 181,
+        "slide-contact": 2430,
+        "diagnostic": 598,
+        "check": 56,
+        "slide-recover": 170,
+        "goal": 14,
+        "charge-ready": 14,
+        "board": 297,
+        "whiff:strike": 18,
+        "pass-target": 17,
+        "swing:pass": 17,
+        "whiff:pass": 13,
+        "power-bank": 6,
+        "post": 9,
+        "pass": 3,
+        "pass-complete": 1,
+        "match-end": 1
+      },
+      "faults": {},
+      "rallyTicks": []
+    },
+    {
+      "sportId": "cryptball",
+      "seed": 8,
+      "ticks": 6630,
+      "phase": "results",
+      "score": [
+        7,
+        8
+      ],
+      "maximumHeight": 0,
+      "eventCounts": {
+        "whistle": 16,
+        "swing:strike": 124,
+        "strike": 104,
+        "slide": 180,
+        "check": 59,
+        "slide-recover": 159,
+        "board": 313,
+        "slide-contact": 2954,
+        "diagnostic": 745,
+        "pass-target": 21,
+        "swing:pass": 21,
+        "pass": 4,
+        "whiff:strike": 18,
+        "goal": 15,
+        "charge-ready": 15,
+        "whiff:pass": 16,
+        "post": 6,
+        "pass-complete": 1,
+        "power-bank": 3,
+        "match-end": 1
+      },
+      "faults": {},
+      "rallyTicks": []
+    },
+    {
+      "sportId": "cryptball",
+      "seed": 9,
+      "ticks": 6552,
+      "phase": "results",
+      "score": [
+        9,
+        5
+      ],
+      "maximumHeight": 0,
+      "eventCounts": {
+        "whistle": 15,
+        "swing:strike": 113,
+        "strike": 101,
+        "slide": 180,
+        "slide-contact": 2442,
+        "diagnostic": 569,
+        "slide-recover": 152,
+        "whiff:strike": 11,
+        "board": 341,
+        "check": 54,
+        "goal": 14,
+        "charge-ready": 14,
+        "power-bank": 6,
+        "pass-target": 15,
+        "swing:pass": 15,
+        "pass": 3,
+        "whiff:pass": 11,
+        "post": 9,
+        "match-end": 1
+      },
+      "faults": {},
+      "rallyTicks": []
+    },
+    {
+      "sportId": "cryptball",
+      "seed": 10,
+      "ticks": 6708,
+      "phase": "results",
+      "score": [
+        10,
+        6
+      ],
+      "maximumHeight": 0,
+      "eventCounts": {
+        "whistle": 17,
+        "swing:strike": 125,
+        "strike": 106,
+        "slide": 167,
+        "slide-contact": 2928,
+        "check": 48,
+        "diagnostic": 677,
+        "slide-recover": 151,
+        "goal": 16,
+        "charge-ready": 16,
+        "board": 269,
+        "whiff:strike": 17,
+        "pass-target": 19,
+        "swing:pass": 19,
+        "whiff:pass": 17,
+        "power-bank": 7,
+        "post": 9,
+        "pass": 2,
+        "match-end": 1
+      },
+      "faults": {},
+      "rallyTicks": []
+    },
+    {
+      "sportId": "cryptkick",
+      "seed": 1,
+      "ticks": 6318,
+      "phase": "results",
+      "score": [
+        6,
+        5
+      ],
+      "maximumHeight": 0,
+      "eventCounts": {
+        "whistle": 12,
+        "trap": 106,
+        "pass-target": 44,
+        "swing:pass": 44,
+        "slide": 54,
+        "possession-lost": 106,
+        "slide-contact": 46,
+        "check": 52,
+        "whiff:pass": 7,
+        "slide-recover": 53,
+        "swing:strike": 30,
+        "strike": 17,
+        "board": 95,
+        "goal": 11,
+        "pass": 22,
+        "pass-complete": 16,
+        "whiff:strike": 5,
+        "post": 4,
+        "match-end": 1
+      },
+      "faults": {},
+      "rallyTicks": []
+    },
+    {
+      "sportId": "cryptkick",
+      "seed": 2,
+      "ticks": 6240,
+      "phase": "results",
+      "score": [
+        4,
+        6
+      ],
+      "maximumHeight": 0,
+      "eventCounts": {
+        "whistle": 11,
+        "trap": 89,
+        "pass-target": 43,
+        "swing:pass": 43,
+        "slide": 54,
+        "possession-lost": 89,
+        "slide-contact": 48,
+        "check": 53,
+        "whiff:pass": 11,
+        "slide-recover": 54,
+        "swing:strike": 24,
+        "strike": 14,
+        "board": 89,
+        "pass": 16,
+        "pass-complete": 10,
+        "goal": 10,
+        "post": 7,
+        "whiff:strike": 1,
+        "match-end": 1
+      },
+      "faults": {},
+      "rallyTicks": []
+    },
+    {
+      "sportId": "cryptkick",
+      "seed": 3,
+      "ticks": 6084,
+      "phase": "results",
+      "score": [
+        3,
+        5
+      ],
+      "maximumHeight": 0,
+      "eventCounts": {
+        "whistle": 9,
+        "trap": 90,
+        "pass-target": 45,
+        "swing:pass": 45,
+        "slide": 51,
+        "possession-lost": 90,
+        "slide-contact": 45,
+        "check": 48,
+        "whiff:pass": 11,
+        "slide-recover": 49,
+        "swing:strike": 21,
+        "strike": 12,
+        "board": 69,
+        "goal": 8,
+        "pass": 22,
+        "pass-complete": 15,
+        "whiff:strike": 1,
+        "post": 6,
+        "match-end": 1
+      },
+      "faults": {},
+      "rallyTicks": []
+    },
+    {
+      "sportId": "cryptkick",
+      "seed": 4,
+      "ticks": 7805,
+      "phase": "results",
+      "score": [
+        6,
+        5
+      ],
+      "maximumHeight": 0,
+      "eventCounts": {
+        "whistle": 12,
+        "trap": 115,
+        "pass-target": 54,
+        "swing:pass": 54,
+        "slide": 58,
+        "possession-lost": 114,
+        "slide-contact": 51,
+        "check": 57,
+        "whiff:pass": 10,
+        "slide-recover": 58,
+        "swing:strike": 29,
+        "strike": 19,
+        "board": 112,
+        "goal": 11,
+        "pass": 30,
+        "pass-complete": 20,
+        "whiff:strike": 3,
+        "post": 4,
+        "overtime": 1,
+        "match-end": 1
+      },
+      "faults": {},
+      "rallyTicks": []
+    },
+    {
+      "sportId": "cryptkick",
+      "seed": 5,
+      "ticks": 6084,
+      "phase": "results",
+      "score": [
+        5,
+        3
+      ],
+      "maximumHeight": 0,
+      "eventCounts": {
+        "whistle": 9,
+        "trap": 90,
+        "pass-target": 41,
+        "swing:pass": 41,
+        "slide": 50,
+        "possession-lost": 90,
+        "slide-contact": 45,
+        "check": 46,
+        "whiff:pass": 6,
+        "slide-recover": 50,
+        "swing:strike": 26,
+        "strike": 15,
+        "board": 103,
+        "pass": 16,
+        "pass-complete": 10,
+        "goal": 8,
+        "post": 8,
+        "whiff:strike": 2,
+        "match-end": 1
+      },
+      "faults": {},
+      "rallyTicks": []
+    },
+    {
+      "sportId": "cryptkick",
+      "seed": 6,
+      "ticks": 6396,
+      "phase": "results",
+      "score": [
+        7,
+        5
+      ],
+      "maximumHeight": 0,
+      "eventCounts": {
+        "whistle": 13,
+        "trap": 92,
+        "pass-target": 43,
+        "swing:pass": 43,
+        "slide": 49,
+        "possession-lost": 92,
+        "slide-contact": 44,
+        "check": 47,
+        "whiff:pass": 9,
+        "slide-recover": 49,
+        "swing:strike": 23,
+        "strike": 12,
+        "board": 119,
+        "pass": 19,
+        "pass-complete": 15,
+        "post": 8,
+        "goal": 12,
+        "whiff:strike": 3,
+        "match-end": 1
+      },
+      "faults": {},
+      "rallyTicks": []
+    },
+    {
+      "sportId": "cryptkick",
+      "seed": 7,
+      "ticks": 6162,
+      "phase": "results",
+      "score": [
+        6,
+        3
+      ],
+      "maximumHeight": 0,
+      "eventCounts": {
+        "whistle": 10,
+        "trap": 96,
+        "pass-target": 42,
+        "swing:pass": 42,
+        "slide": 52,
+        "possession-lost": 96,
+        "slide-contact": 44,
+        "check": 48,
+        "whiff:pass": 9,
+        "slide-recover": 52,
+        "swing:strike": 26,
+        "strike": 17,
+        "board": 194,
+        "goal": 9,
+        "pass": 15,
+        "whiff:strike": 3,
+        "post": 6,
+        "pass-complete": 10,
+        "match-end": 1
+      },
+      "faults": {},
+      "rallyTicks": []
+    },
+    {
+      "sportId": "cryptkick",
+      "seed": 8,
+      "ticks": 6396,
+      "phase": "results",
+      "score": [
+        5,
+        7
+      ],
+      "maximumHeight": 0,
+      "eventCounts": {
+        "whistle": 13,
+        "trap": 93,
+        "pass-target": 43,
+        "swing:pass": 43,
+        "slide": 53,
+        "possession-lost": 92,
+        "slide-contact": 48,
+        "check": 50,
+        "whiff:pass": 11,
+        "slide-recover": 53,
+        "swing:strike": 27,
+        "strike": 18,
+        "board": 87,
+        "goal": 12,
+        "pass": 21,
+        "pass-complete": 18,
+        "whiff:strike": 3,
+        "post": 16,
+        "match-end": 1
+      },
+      "faults": {},
+      "rallyTicks": []
+    },
+    {
+      "sportId": "cryptkick",
+      "seed": 9,
+      "ticks": 6396,
+      "phase": "results",
+      "score": [
+        8,
+        4
+      ],
+      "maximumHeight": 0,
+      "eventCounts": {
+        "whistle": 13,
+        "trap": 99,
+        "pass-target": 40,
+        "swing:pass": 40,
+        "slide": 48,
+        "possession-lost": 99,
+        "slide-contact": 44,
+        "check": 46,
+        "whiff:pass": 6,
+        "slide-recover": 48,
+        "swing:strike": 28,
+        "strike": 16,
+        "board": 151,
+        "whiff:strike": 5,
+        "pass": 19,
+        "goal": 12,
+        "pass-complete": 14,
+        "post": 5,
+        "match-end": 1
+      },
+      "faults": {},
+      "rallyTicks": []
+    },
+    {
+      "sportId": "cryptkick",
+      "seed": 10,
+      "ticks": 6630,
+      "phase": "results",
+      "score": [
+        6,
+        9
+      ],
+      "maximumHeight": 0,
+      "eventCounts": {
+        "whistle": 16,
+        "trap": 98,
+        "pass-target": 44,
+        "swing:pass": 44,
+        "slide": 53,
+        "possession-lost": 97,
+        "slide-contact": 42,
+        "check": 53,
+        "whiff:pass": 11,
+        "slide-recover": 52,
+        "swing:strike": 27,
+        "strike": 14,
+        "board": 107,
+        "pass": 22,
+        "pass-complete": 15,
+        "goal": 15,
+        "whiff:strike": 3,
+        "post": 5,
+        "match-end": 1
+      },
+      "faults": {},
+      "rallyTicks": []
+    },
+    {
+      "sportId": "rift-volley",
+      "seed": 1,
+      "ticks": 6848,
+      "phase": "results",
+      "score": [
+        11,
+        3
+      ],
+      "maximumHeight": 64.68359375,
+      "eventCounts": {
+        "whistle": 14,
+        "swing:strike": 150,
+        "volley-contact:serve": 14,
+        "pass-target": 65,
+        "swing:pass": 65,
+        "volley-contact:set": 58,
+        "volley-contact:attack": 134,
+        "whiff:pass": 7,
+        "rally-point": 14,
+        "whiff:strike": 2,
+        "match-end": 1
+      },
+      "faults": {
+        "floor": 14
+      },
+      "rallyTicks": [
+        635,
+        266,
+        264,
+        266,
+        933,
+        266,
+        497,
+        997,
+        246,
+        496,
+        265,
+        246,
+        263,
+        265
+      ]
+    },
+    {
+      "sportId": "rift-volley",
+      "seed": 2,
+      "ticks": 5463,
+      "phase": "results",
+      "score": [
+        11,
+        0
+      ],
+      "maximumHeight": 64.5234375,
+      "eventCounts": {
+        "whistle": 11,
+        "swing:strike": 118,
+        "volley-contact:serve": 11,
+        "pass-target": 53,
+        "swing:pass": 53,
+        "volley-contact:set": 46,
+        "volley-contact:attack": 107,
+        "rally-point": 11,
+        "whiff:pass": 7,
+        "match-end": 1
+      },
+      "faults": {
+        "floor": 11
+      },
+      "rallyTicks": [
+        266,
+        471,
+        393,
+        400,
+        264,
+        267,
+        839,
+        339,
+        646,
+        576,
+        263
+      ]
+    },
+    {
+      "sportId": "rift-volley",
+      "seed": 3,
+      "ticks": 4390,
+      "phase": "results",
+      "score": [
+        11,
+        0
+      ],
+      "maximumHeight": 64.6953125,
+      "eventCounts": {
+        "whistle": 11,
+        "swing:strike": 87,
+        "volley-contact:serve": 11,
+        "pass-target": 38,
+        "swing:pass": 38,
+        "volley-contact:set": 32,
+        "volley-contact:attack": 76,
+        "whiff:pass": 6,
+        "rally-point": 11,
+        "match-end": 1
+      },
+      "faults": {
+        "floor": 11
+      },
+      "rallyTicks": [
+        663,
+        395,
+        265,
+        331,
+        266,
+        266,
+        266,
+        264,
+        267,
+        404,
+        264
+      ]
+    },
+    {
+      "sportId": "rift-volley",
+      "seed": 4,
+      "ticks": 5874,
+      "phase": "results",
+      "score": [
+        11,
+        2
+      ],
+      "maximumHeight": 64.5234375,
+      "eventCounts": {
+        "whistle": 13,
+        "swing:strike": 123,
+        "volley-contact:serve": 13,
+        "pass-target": 57,
+        "swing:pass": 57,
+        "volley-contact:set": 48,
+        "volley-contact:attack": 109,
+        "whiff:pass": 9,
+        "rally-point": 13,
+        "whiff:strike": 1,
+        "match-end": 1
+      },
+      "faults": {
+        "floor": 13
+      },
+      "rallyTicks": [
+        400,
+        402,
+        266,
+        246,
+        331,
+        545,
+        408,
+        405,
+        265,
+        566,
+        566,
+        335,
+        264
+      ]
+    },
+    {
+      "sportId": "rift-volley",
+      "seed": 5,
+      "ticks": 9742,
+      "phase": "results",
+      "score": [
+        7,
+        11
+      ],
+      "maximumHeight": 64.5234375,
+      "eventCounts": {
+        "whistle": 18,
+        "swing:strike": 218,
+        "volley-contact:serve": 18,
+        "pass-target": 101,
+        "swing:pass": 101,
+        "volley-contact:set": 88,
+        "volley-contact:attack": 199,
+        "whiff:pass": 13,
+        "rally-point": 18,
+        "whiff:strike": 1,
+        "match-end": 1
+      },
+      "faults": {
+        "floor": 18
+      },
+      "rallyTicks": [
+        404,
+        525,
+        331,
+        262,
+        331,
+        407,
+        653,
+        246,
+        470,
+        393,
+        977,
+        263,
+        473,
+        938,
+        266,
+        400,
+        472,
+        716
+      ]
+    },
+    {
+      "sportId": "rift-volley",
+      "seed": 6,
+      "ticks": 4528,
+      "phase": "results",
+      "score": [
+        11,
+        0
+      ],
+      "maximumHeight": 64.5234375,
+      "eventCounts": {
+        "whistle": 11,
+        "swing:strike": 92,
+        "volley-contact:serve": 11,
+        "pass-target": 43,
+        "swing:pass": 43,
+        "volley-contact:set": 34,
+        "volley-contact:attack": 81,
+        "whiff:pass": 9,
+        "rally-point": 11,
+        "match-end": 1
+      },
+      "faults": {
+        "floor": 11
+      },
+      "rallyTicks": [
+        402,
+        334,
+        701,
+        265,
+        264,
+        266,
+        266,
+        263,
+        265,
+        497,
+        266
+      ]
+    },
+    {
+      "sportId": "rift-volley",
+      "seed": 7,
+      "ticks": 7709,
+      "phase": "results",
+      "score": [
+        6,
+        11
+      ],
+      "maximumHeight": 64.5546875,
+      "eventCounts": {
+        "whistle": 17,
+        "swing:strike": 164,
+        "volley-contact:serve": 17,
+        "pass-target": 74,
+        "swing:pass": 74,
+        "volley-contact:set": 62,
+        "volley-contact:attack": 145,
+        "rally-point": 17,
+        "whiff:pass": 12,
+        "whiff:strike": 2,
+        "match-end": 1
+      },
+      "faults": {
+        "floor": 17
+      },
+      "rallyTicks": [
+        427,
+        401,
+        265,
+        265,
+        499,
+        265,
+        246,
+        264,
+        330,
+        331,
+        572,
+        403,
+        494,
+        401,
+        269,
+        267,
+        863
+      ]
+    },
+    {
+      "sportId": "rift-volley",
+      "seed": 8,
+      "ticks": 5561,
+      "phase": "results",
+      "score": [
+        11,
+        0
+      ],
+      "maximumHeight": 64.71484375,
+      "eventCounts": {
+        "whistle": 11,
+        "swing:strike": 123,
+        "volley-contact:serve": 11,
+        "pass-target": 54,
+        "swing:pass": 54,
+        "volley-contact:set": 48,
+        "volley-contact:attack": 112,
+        "rally-point": 11,
+        "whiff:pass": 6,
+        "match-end": 1
+      },
+      "faults": {
+        "floor": 11
+      },
+      "rallyTicks": [
+        265,
+        566,
+        484,
+        265,
+        631,
+        266,
+        264,
+        401,
+        402,
+        563,
+        715
+      ]
+    },
+    {
+      "sportId": "rift-volley",
+      "seed": 9,
+      "ticks": 10199,
+      "phase": "results",
+      "score": [
+        12,
+        10
+      ],
+      "maximumHeight": 64.79296875,
+      "eventCounts": {
+        "whistle": 22,
+        "swing:strike": 217,
+        "volley-contact:serve": 22,
+        "pass-target": 98,
+        "swing:pass": 98,
+        "volley-contact:set": 84,
+        "volley-contact:attack": 193,
+        "rally-point": 22,
+        "whiff:pass": 14,
+        "whiff:strike": 2,
+        "match-end": 1
+      },
+      "faults": {
+        "floor": 22
+      },
+      "rallyTicks": [
+        265,
+        401,
+        246,
+        578,
+        496,
+        266,
+        429,
+        336,
+        268,
+        266,
+        400,
+        394,
+        690,
+        781,
+        264,
+        267,
+        263,
+        264,
+        631,
+        405,
+        266,
+        536
+      ]
+    },
+    {
+      "sportId": "rift-volley",
+      "seed": 10,
+      "ticks": 5471,
+      "phase": "results",
+      "score": [
+        11,
+        0
+      ],
+      "maximumHeight": 64.5234375,
+      "eventCounts": {
+        "whistle": 11,
+        "swing:strike": 118,
+        "volley-contact:serve": 11,
+        "pass-target": 54,
+        "swing:pass": 54,
+        "volley-contact:set": 46,
+        "volley-contact:attack": 107,
+        "whiff:pass": 8,
+        "rally-point": 11,
+        "match-end": 1
+      },
+      "faults": {
+        "floor": 11
+      },
+      "rallyTicks": [
+        263,
+        265,
+        710,
+        266,
+        265,
+        263,
+        265,
+        501,
+        400,
+        845,
+        689
+      ]
+    }
+  ]
+}

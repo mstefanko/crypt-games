@@ -1,0 +1,23 @@
+{
+  "tool": "built-in image_gen",
+  "reference": "../sports-v1/action-SE.png",
+  "transparent_background": true,
+  "requests": [
+    {
+      "file": "athlete-front.png",
+      "prompt": "Use case: stylized-concept. Create a production sprite SOURCE sheet for Cryptball, matching the provided reference athlete: chunky retro pixel illustration, teal cloth armor, ivory helmet stripe and pads, brown gloves/boots, exposed warm skin. Transparent background. Exactly 4 columns by 8 rows, evenly spaced cells, no grid lines or text. Each COLUMN a consistent facing: E screen right profile, SE down-right, S straight toward camera, SW down-left. Each ROW same action across four directions: 1 ready hands open chest-high to catch; 2 catching hands drawn together at chest; 3 carrying empty hands cupped at waist; 4 overarm throw windup hand behind head; 5 overarm throw release arm extended; 6 throw follow-through across body; 7 underarm teammate pass release; 8 hit recoil leaning back arms thrown apart. Full body in every cell with identical scale, ample padding, baseline aligned within each row. No ball painted into hands: runtime overlays ball. No weapons, no floor, no shadow, no lettering. Reference is identity/style only; create new poses."
+    },
+    {
+      "file": "athlete-back.png",
+      "prompt": "Use case: stylized-concept. Create a production sprite SOURCE sheet for Cryptball matching provided reference athlete chunky retro pixel illustration teal cloth armor ivory helmet stripe/pads brown gloves/boots warm skin. Transparent background. Exactly 4 columns by 8 rows evenly spaced cells no grid lines or text. Columns consistently W screen left profile; NW up-left rear three-quarter; N directly away rear view helmet back visible no face; NE up-right rear three-quarter. Rows: 1 ready hands open chest-high to catch; 2 catching hands drawn together at chest; 3 carrying empty hands cupped at waist; 4 overarm throw windup hand behind head; 5 overarm throw release arm extended; 6 throw follow-through across body; 7 underarm teammate pass release; 8 hit recoil leaning back arms thrown apart. Full body every cell identical scale ample padding baseline aligned. No ball painted into hands runtime overlays ball. No weapons no floor no shadows no lettering. New action poses with reference identity/style."
+    },
+    {
+      "file": "guardian.png",
+      "prompt": "Use case: stylized-concept. Transparent pixel-art boss sprite SOURCE sheet for Cryptball. A huge squat crypt guardian: stone skull helmet, dark iron chunky armored body, ivory bone ornaments, muted violet cloth regions for palette swapping, amber glowing chest core and eyes, empty massive gauntlets, planted legs. Match chunky outlined retro pixel illustration quality of reference athlete, but distinct boss, no athlete. Boss always faces camera SOUTH with symmetrical frontal three-quarter overhead game view, fixed north-of-arena anchored guardian. Exactly 4 columns x 4 rows evenly spaced cells; full body constant scale identical foot baseline plenty padding. Row1 idle A, idle B breathing, wake raised head, roar arms wide. Row2 ranged tell left gauntlet raised, ranged aim arm extended, ranged recoil, ranged recovery. Row3 melee windup right arm high, sweep across chest, slam both hands down, recovery crouch. Row4 hit recoil, stunned slumped head with exposed bright core, defeat kneeling, defeated broken stone pile. No attached weapons these will be separate modules. No effects outside cell, no shadows floor text labels or frame borders. Not a character design poster; regular animation source grid."
+    },
+    {
+      "file": "equipment.png",
+      "prompt": "Use case: stylized-concept. Transparent 4 columns x 4 rows game object sprite SOURCE sheet matching Cryptball dark dungeon chunky outlined pixel-art reference. Exactly 16 isolated evenly spaced objects each centered in its cell with ample padding no text grid floor shadows. Row1: skull muzzle cannon aimed down toward viewer; bone hook gauntlet pointing down; heavy square stone hammer head with short handle pointing down; violet boss crown ornament. Row2: stone cover pillar intact waist-high; identical pillar cracked; identical pillar rubble (nonblocking); closed stone crypt doorway panel straight-on. Row3: red ivory-seamed dodgeball round; same dodgeball rotated quarter turn; same ball horizontally squashed contact; same ball vertically stretched recovery. Row4: amber skull-shaped projectile facing down; short bone chain link segment; ivory stone impact burst; violet soul wisp for player down/elimination marker. Materials muted violet stone iron bone amber glow. Crisp readable at small game scale, no photographic rendering."
+    }
+  ]
+}

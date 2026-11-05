@@ -1,0 +1,18 @@
+{
+  "apps/cryptball/sim/sports-spec.ts": "ba46dae7205416b4ffa2cd453feb2d84d3175947e06363b54d737da077c03461",
+  "apps/cryptball/sim/sports.ts": "feeea7c16448a55653d69d8ebe3abde099a690aa9cf4c958e6009ed4e5315722",
+  "apps/cryptball/sim/session.ts": "0fcab348f9e28d09c65e9a0c10a10f114fcef125c6015fd58daf0a0debcd6362",
+  "apps/cryptball/sim/checkpoint.ts": "41c0b17150ec1a42a0f0df70877d03c625b687b85d948f7ed9f29360d0eadfbe",
+  "apps/cryptball/sim/actions.ts": "913ff86baf4dcf468479bf07a59e8a30476034bd848de4c94803c67fb9099265",
+  "apps/cryptball/sim/motion.ts": "ccde74a530c0823dbccd6161e81b769d301cf1f657913ef2dd126ebdd75a22c7",
+  "apps/cryptball/sim/ball.ts": "5038bf4716e657d319c2ebc012cbe9e52006f7e92e687aef3580991fa815eb0f",
+  "apps/cryptball/sim/court.ts": "6e8e2817b140dc07b3cbf5c2c50e716b793234d12326bc49de6ed4d0d310b7ac",
+  "apps/cryptball/sim/contract.ts": "b7dd0ae1fc7974de05ad909191a49ec85ecee2c73c66e1eeb95459d9d88240e7",
+  "apps/cryptball/sim/specials.ts": "381c7019b77e7d5c281ec87fc665f0ee4a9c84d9bdfea1f87dde23eafaf4ebdb",
+  "apps/cryptball/sim/spec.ts": "b20b27a7ba4b0e36d0f064aa0f0334dceb5d8618c1e0ffb4d8b52b230091d994",
+  "apps/cryptball/protocol.ts": "0fd10e11fee15f93b065965434f91cfeaa31ed9549f6b0ce368460c9a2ce8cb5",
+  "apps/cryptball/src/animation.ts": "85f4eb4f0d5ffcc8daf171bd5c1c62b1ad7a287ac284c75568c906d7c6653bde",
+  "apps/cryptball/src/presenter.ts": "ae96cd0fda684ca7063e4c35bc2c45daabe931993b66394e3539cc0eafd07230",
+  "apps/cryptball/src/ball-presentation.ts": "8e3f471dcba872bf43029d24a8f630dddfe7c44b401f494d67a0d55313d01c09",
+  "scripts/game-assets/import-cryptball-sports.py": "216c9f8ac3902233d5bbb00228302f0625492ab04232d002969987ed735388bc"
+}

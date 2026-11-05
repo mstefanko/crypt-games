@@ -1,0 +1,1 @@
+export class LinkedPeakProtector { frames:number; reducedFrames:number; outputLeft:number; outputRight:number; processInto(left:number,right:number):void; process(left:number,right:number):[number,number]; }

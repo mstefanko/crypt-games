@@ -1,0 +1,6 @@
+# Replace domains, then configure CRYPTBALL_ORIGINS=https://play.example.com.
+match.example.com {
+  reverse_proxy 127.0.0.1:2567
+  # Access logging is intentionally disabled: SDK reconnect upgrades carry a
+  # short-lived protocol token in their query. Never log request query strings.
+}

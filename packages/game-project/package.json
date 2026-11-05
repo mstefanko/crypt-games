@@ -1,0 +1,25 @@
+{
+  "name": "@onepage/game-project",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./runtime": "./src/runtime.ts",
+    "./authoring": "./src/authoring.ts",
+    "./authoring/resources": "./src/authoring-resources.ts",
+    "./authoring/descriptors": "./src/authoring-descriptors.ts",
+    "./characters": "./src/character.ts",
+    "./generation": "./src/generation.ts",
+    "./character-build": "./src/character-build.ts",
+    "./validation": "./src/validate.ts",
+    "./cave-types": "./src/cave-types.ts",
+    "./cave-validation": "./src/cave-validation.ts",
+    "./cave-data": "./src/cave-data.ts",
+    "./physics-contracts": "./src/physics-contracts.ts"
+  },
+  "types": "./src/index.ts",
+  "dependencies": {
+    "@sinclair/typebox": "0.34.52"
+  }
+}

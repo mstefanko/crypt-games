@@ -1,0 +1,20 @@
+[
+  {
+    "name": "desktop",
+    "status": 200,
+    "width": 1440,
+    "scroll": 1440,
+    "images": true,
+    "title": "Four players, one ball, and a 200 ms mistake",
+    "errors": []
+  },
+  {
+    "name": "mobile",
+    "status": 200,
+    "width": 390,
+    "scroll": 390,
+    "images": true,
+    "title": "Four players, one ball, and a 200 ms mistake",
+    "errors": []
+  }
+]

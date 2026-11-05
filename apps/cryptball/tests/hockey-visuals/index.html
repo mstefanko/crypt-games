@@ -1,0 +1,7 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Cryptcheck real-contact visual fixture</title>
+<style>body{margin:0;background:#201c2b;color:#f3e8cc;font:13px monospace}#stage{width:640px;height:400px}p,form,details{margin:8px}form{display:flex;align-items:center;gap:12px}input[type=number]{width:45px}pre{white-space:pre-wrap}</style>
+</head><body><p id="status">Loading validated hockey contact captures…</p>
+<form onsubmit="return false"><label>Direction <select id="direction"></select></label><label>Action <select id="kind"></select></label><label>Contact age / check elapsed <input id="age" type="number" value="0" min="-24" max="60"></label><label><input id="reduced" type="checkbox">Reduced motion</label><label><input id="debug" type="checkbox">Blade anchors</label><label><input id="double" type="checkbox">2× display</label><button id="show">Show</button></form>
+<div id="stage"><canvas></canvas></div><details><summary>Real authority receipt</summary><pre id="details"></pre></details>
+<script type="module" src="./main.ts"></script></body></html>

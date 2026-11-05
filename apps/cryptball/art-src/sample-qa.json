@@ -1,0 +1,79 @@
+{
+  "status": "structural gates passed",
+  "generatedAthletePoseCount": 96,
+  "authoredDirections": [
+    "E",
+    "SE",
+    "S",
+    "SW",
+    "W",
+    "NW",
+    "N",
+    "NE"
+  ],
+  "frameSize": [
+    112,
+    72
+  ],
+  "footPivot": [
+    56,
+    64
+  ],
+  "standingHeightPx": 44,
+  "sharedBasePaletteLimit": 64,
+  "athleteBinaryAlpha": true,
+  "flameFrames": 8,
+  "atlasFrames": 708,
+  "atlasPages": 2,
+  "sourceHashes": [
+    {
+      "file": "action-E.png",
+      "sha256": "461dfd231bedda57f5be38c5a9a03bc2ba1a9e28651dd162d05c053cd913e3ed"
+    },
+    {
+      "file": "action-SE.png",
+      "sha256": "5f3aa6b808e0510478e6c0be2c8e1c2c77959625984181ed659e27a79d96986c"
+    },
+    {
+      "file": "action-S.png",
+      "sha256": "cd6916dcd9b9593902216eddda300f9cbf79601a9de1bfd288041cd7315db0e5"
+    },
+    {
+      "file": "action-SW.png",
+      "sha256": "e1eb1e10a665c2ac3e99b95c0b3a5be4662d7025f80b7f7913ef7d78cbc71130"
+    },
+    {
+      "file": "action-W.png",
+      "sha256": "3508f6234e662e60b1e5487559b9b1994fa69386cb64ea10714ea3b8db6ca3f1"
+    },
+    {
+      "file": "action-NW.png",
+      "sha256": "b6d5ccada8806fa5034a7d23fa84135e392a29dc5733a392616b1fe7163e732a"
+    },
+    {
+      "file": "action-N.png",
+      "sha256": "ad0c2b2a55a7bb09a33d6846e54c90cb29b745a4daaa70f787187e5c3fd5aba7"
+    },
+    {
+      "file": "action-NE.png",
+      "sha256": "ede69c1e741b500131bfdad9f534c54ea8a6bd49b9733aecd4570482af24d70a"
+    },
+    {
+      "file": "crowd-props.png",
+      "sha256": "73aff3e63231f05f30ef8fc4ca5e682b1d2e366673a52dcc90de930753bd0c3c"
+    },
+    {
+      "file": "goal-pair.png",
+      "sha256": "e08959cc0bbbcde3d9e5eab114bdf7020ff25ebaeb39920d118419bdb16c8f33"
+    },
+    {
+      "file": "arena-runtime.png",
+      "sha256": "2c1718f760ba66b9115e4185d1977a65b4bacebc25901040d42a80b40336fb91"
+    },
+    {
+      "file": "fire-frames.png",
+      "sha256": "8a74a62c5f304b6a7606814e9a02dca6862835880c1212580aad8aab16c0a067"
+    }
+  ],
+  "manualReview": "Contact sheet and runtime preview require visual inspection; structural gates do not certify handedness or motion quality."
+}

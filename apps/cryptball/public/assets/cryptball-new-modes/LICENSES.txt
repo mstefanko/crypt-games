@@ -1,0 +1,1 @@
+Original OpenAI ImageGen artwork. Preserved sources, prompts, extraction and source QA: apps/cryptball/art-src/new-modes-v1. Runtime importer: scripts/game-assets/import-cryptball-new-modes.py. No third-party sprites.

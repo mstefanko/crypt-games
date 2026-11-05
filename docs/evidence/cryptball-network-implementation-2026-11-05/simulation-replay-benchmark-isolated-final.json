@@ -1,0 +1,136 @@
+{
+  "clock": "node:perf_hooks real monotonic",
+  "referenceDevice": "local development host; not supported-device release qualification",
+  "scope": "simulation path only; excludes adapter disposition handling, correction offsets, renderer and browser costs",
+  "report": [
+    {
+      "sport": "cryptball",
+      "horizon": 12,
+      "samples": 100,
+      "p95Ms": 5.825499999999977,
+      "maxMs": 7.2765830000000165,
+      "bytes": 3443
+    },
+    {
+      "sport": "cryptball",
+      "horizon": 20,
+      "samples": 100,
+      "p95Ms": 6.429916000000048,
+      "maxMs": 7.863792000000103,
+      "bytes": 3443
+    },
+    {
+      "sport": "cryptball",
+      "horizon": 24,
+      "samples": 100,
+      "p95Ms": 7.152042000000165,
+      "maxMs": 8.223708999999872,
+      "bytes": 3443
+    },
+    {
+      "sport": "cryptball",
+      "horizon": 32,
+      "samples": 100,
+      "p95Ms": 8.14574999999968,
+      "maxMs": 9.489791999999852,
+      "bytes": 3443
+    },
+    {
+      "sport": "cryptkick",
+      "horizon": 12,
+      "samples": 100,
+      "p95Ms": 2.5604169999996884,
+      "maxMs": 2.9719170000003032,
+      "bytes": 3441
+    },
+    {
+      "sport": "cryptkick",
+      "horizon": 20,
+      "samples": 100,
+      "p95Ms": 4.989249999999629,
+      "maxMs": 5.200125000000298,
+      "bytes": 3441
+    },
+    {
+      "sport": "cryptkick",
+      "horizon": 24,
+      "samples": 100,
+      "p95Ms": 5.783292000000074,
+      "maxMs": 15.082209000000148,
+      "bytes": 3441
+    },
+    {
+      "sport": "cryptkick",
+      "horizon": 32,
+      "samples": 100,
+      "p95Ms": 5.8987090000000535,
+      "maxMs": 7.024165999999241,
+      "bytes": 3441
+    },
+    {
+      "sport": "rift-volley",
+      "horizon": 12,
+      "samples": 100,
+      "p95Ms": 2.552625000000262,
+      "maxMs": 2.8729999999995925,
+      "bytes": 3843
+    },
+    {
+      "sport": "rift-volley",
+      "horizon": 20,
+      "samples": 100,
+      "p95Ms": 3.218499999999949,
+      "maxMs": 4.063750000000255,
+      "bytes": 3843
+    },
+    {
+      "sport": "rift-volley",
+      "horizon": 24,
+      "samples": 100,
+      "p95Ms": 3.8023330000005444,
+      "maxMs": 4.812417000000096,
+      "bytes": 3843
+    },
+    {
+      "sport": "rift-volley",
+      "horizon": 32,
+      "samples": 100,
+      "p95Ms": 4.095041999999921,
+      "maxMs": 5.303125000000364,
+      "bytes": 3843
+    },
+    {
+      "sport": "cryptcheck",
+      "horizon": 12,
+      "samples": 100,
+      "p95Ms": 4.888500000000022,
+      "maxMs": 5.727333999999246,
+      "bytes": 4615
+    },
+    {
+      "sport": "cryptcheck",
+      "horizon": 20,
+      "samples": 100,
+      "p95Ms": 6.556999999999789,
+      "maxMs": 8.318874999999935,
+      "bytes": 4615
+    },
+    {
+      "sport": "cryptcheck",
+      "horizon": 24,
+      "samples": 100,
+      "p95Ms": 8.044958999999835,
+      "maxMs": 8.410541999999623,
+      "bytes": 4615
+    },
+    {
+      "sport": "cryptcheck",
+      "horizon": 32,
+      "samples": 100,
+      "p95Ms": 10.791041999999834,
+      "maxMs": 15.02325000000019,
+      "bytes": 4615
+    }
+  ],
+  "executionContext": "No other Codex validation commands running during this invocation; OS/background activity not excluded. Local development host, not supported reference device."
+}

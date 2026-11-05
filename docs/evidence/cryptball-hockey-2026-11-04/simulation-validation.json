@@ -1,0 +1,473 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-04",
+  "sportId": "cryptcheck",
+  "checkpointVersion": 9,
+  "hockeyTuningVersion": 1,
+  "workload": {
+    "teams": [
+      "rams",
+      "foxes"
+    ],
+    "controllers": [],
+    "restoreEveryTicks": 15,
+    "maxAuthorityTicks": 9000,
+    "clockHz": 60,
+    "substeps": 4
+  },
+  "games": [
+    {
+      "seed": 1,
+      "tick": 5742,
+      "phase": "results",
+      "score": [
+        1,
+        2
+      ],
+      "winner": 1,
+      "overtime": false,
+      "checkpointRestores": 383,
+      "events": {
+        "whistle": 4,
+        "skate-push": 347,
+        "clash": 163,
+        "special": 8,
+        "trap": 202,
+        "slide": 52,
+        "possession-lost": 202,
+        "slide-contact": 22,
+        "puck-contact": 30,
+        "slide-recover": 52,
+        "ice-stop": 22,
+        "board": 26,
+        "pass-target": 1,
+        "swing": 14,
+        "pass": 1,
+        "pass-complete": 1,
+        "strike": 7,
+        "whiff": 6,
+        "post": 2,
+        "goal": 3,
+        "match-end": 1
+      },
+      "contacts": {
+        "poke": 22,
+        "pass": 1,
+        "wrist": 7
+      }
+    },
+    {
+      "seed": 2,
+      "tick": 7488,
+      "phase": "results",
+      "score": [
+        1,
+        1
+      ],
+      "winner": "draw",
+      "overtime": true,
+      "checkpointRestores": 500,
+      "events": {
+        "whistle": 4,
+        "skate-push": 440,
+        "clash": 237,
+        "special": 10,
+        "trap": 280,
+        "slide": 72,
+        "possession-lost": 280,
+        "slide-contact": 30,
+        "puck-contact": 37,
+        "slide-recover": 72,
+        "ice-stop": 20,
+        "board": 32,
+        "pass-target": 2,
+        "swing": 11,
+        "pass": 2,
+        "pass-complete": 2,
+        "strike": 5,
+        "whiff": 4,
+        "goal": 2,
+        "overtime": 1,
+        "post": 1,
+        "match-end": 1
+      },
+      "contacts": {
+        "poke": 30,
+        "pass": 2,
+        "wrist": 5
+      }
+    },
+    {
+      "seed": 3,
+      "tick": 6910,
+      "phase": "results",
+      "score": [
+        0,
+        1
+      ],
+      "winner": 1,
+      "overtime": true,
+      "checkpointRestores": 461,
+      "events": {
+        "whistle": 2,
+        "skate-push": 461,
+        "clash": 154,
+        "special": 10,
+        "trap": 295,
+        "slide": 76,
+        "possession-lost": 295,
+        "slide-contact": 34,
+        "puck-contact": 44,
+        "slide-recover": 76,
+        "ice-stop": 16,
+        "board": 49,
+        "pass-target": 3,
+        "swing": 15,
+        "pass": 3,
+        "pass-complete": 3,
+        "strike": 7,
+        "whiff": 5,
+        "check": 2,
+        "overtime": 1,
+        "goal": 1,
+        "match-end": 1
+      },
+      "contacts": {
+        "poke": 34,
+        "pass": 3,
+        "wrist": 7
+      }
+    },
+    {
+      "seed": 4,
+      "tick": 7488,
+      "phase": "results",
+      "score": [
+        1,
+        1
+      ],
+      "winner": "draw",
+      "overtime": true,
+      "checkpointRestores": 500,
+      "events": {
+        "whistle": 4,
+        "skate-push": 453,
+        "clash": 226,
+        "special": 10,
+        "trap": 272,
+        "slide": 73,
+        "possession-lost": 272,
+        "slide-contact": 30,
+        "puck-contact": 39,
+        "slide-recover": 73,
+        "ice-stop": 11,
+        "board": 47,
+        "pass-target": 2,
+        "swing": 13,
+        "pass": 2,
+        "pass-complete": 2,
+        "strike": 7,
+        "whiff": 4,
+        "goal": 2,
+        "charge-ready": 1,
+        "check": 1,
+        "overtime": 1,
+        "post": 1,
+        "match-end": 1
+      },
+      "contacts": {
+        "poke": 30,
+        "pass": 2,
+        "wrist": 6,
+        "slap": 1
+      }
+    },
+    {
+      "seed": 5,
+      "tick": 5742,
+      "phase": "results",
+      "score": [
+        0,
+        3
+      ],
+      "winner": 1,
+      "overtime": false,
+      "checkpointRestores": 383,
+      "events": {
+        "whistle": 4,
+        "skate-push": 250,
+        "clash": 259,
+        "special": 8,
+        "trap": 144,
+        "slide": 34,
+        "possession-lost": 144,
+        "slide-contact": 14,
+        "puck-contact": 21,
+        "slide-recover": 34,
+        "ice-stop": 9,
+        "board": 16,
+        "pass-target": 1,
+        "swing": 12,
+        "pass": 1,
+        "pass-complete": 1,
+        "strike": 6,
+        "whiff": 4,
+        "goal": 3,
+        "match-end": 1
+      },
+      "contacts": {
+        "poke": 14,
+        "pass": 1,
+        "wrist": 6
+      }
+    },
+    {
+      "seed": 6,
+      "tick": 7290,
+      "phase": "results",
+      "score": [
+        0,
+        0
+      ],
+      "winner": "draw",
+      "overtime": true,
+      "checkpointRestores": 486,
+      "events": {
+        "whistle": 2,
+        "skate-push": 529,
+        "clash": 154,
+        "special": 10,
+        "trap": 330,
+        "slide": 88,
+        "possession-lost": 330,
+        "slide-contact": 36,
+        "puck-contact": 51,
+        "slide-recover": 88,
+        "ice-stop": 25,
+        "board": 74,
+        "pass-target": 6,
+        "swing": 28,
+        "pass": 6,
+        "pass-complete": 6,
+        "strike": 9,
+        "whiff": 13,
+        "post": 2,
+        "check": 1,
+        "overtime": 1,
+        "match-end": 1
+      },
+      "contacts": {
+        "poke": 36,
+        "pass": 6,
+        "wrist": 9
+      }
+    },
+    {
+      "seed": 7,
+      "tick": 5742,
+      "phase": "results",
+      "score": [
+        1,
+        2
+      ],
+      "winner": 1,
+      "overtime": false,
+      "checkpointRestores": 383,
+      "events": {
+        "whistle": 4,
+        "skate-push": 271,
+        "clash": 238,
+        "special": 8,
+        "trap": 146,
+        "slide": 39,
+        "possession-lost": 146,
+        "slide-contact": 14,
+        "puck-contact": 19,
+        "slide-recover": 39,
+        "ice-stop": 11,
+        "board": 14,
+        "pass-target": 1,
+        "swing": 9,
+        "pass": 1,
+        "pass-complete": 1,
+        "strike": 4,
+        "whiff": 4,
+        "goal": 3,
+        "match-end": 1
+      },
+      "contacts": {
+        "poke": 14,
+        "pass": 1,
+        "wrist": 4
+      }
+    },
+    {
+      "seed": 8,
+      "tick": 7290,
+      "phase": "results",
+      "score": [
+        0,
+        0
+      ],
+      "winner": "draw",
+      "overtime": true,
+      "checkpointRestores": 486,
+      "events": {
+        "whistle": 2,
+        "skate-push": 509,
+        "clash": 154,
+        "special": 10,
+        "trap": 322,
+        "slide": 82,
+        "possession-lost": 322,
+        "slide-contact": 37,
+        "puck-contact": 47,
+        "slide-recover": 82,
+        "ice-stop": 16,
+        "board": 60,
+        "pass-target": 3,
+        "swing": 16,
+        "pass": 3,
+        "pass-complete": 3,
+        "strike": 7,
+        "whiff": 6,
+        "check": 2,
+        "overtime": 1,
+        "match-end": 1
+      },
+      "contacts": {
+        "poke": 37,
+        "pass": 3,
+        "wrist": 7
+      }
+    },
+    {
+      "seed": 9,
+      "tick": 5643,
+      "phase": "results",
+      "score": [
+        2,
+        0
+      ],
+      "winner": 0,
+      "overtime": false,
+      "checkpointRestores": 377,
+      "events": {
+        "whistle": 3,
+        "skate-push": 310,
+        "clash": 214,
+        "special": 8,
+        "trap": 176,
+        "slide": 45,
+        "possession-lost": 176,
+        "slide-contact": 16,
+        "puck-contact": 20,
+        "slide-recover": 45,
+        "ice-stop": 18,
+        "board": 13,
+        "pass-target": 1,
+        "swing": 8,
+        "pass": 1,
+        "pass-complete": 1,
+        "strike": 3,
+        "whiff": 4,
+        "post": 2,
+        "goal": 2,
+        "match-end": 1
+      },
+      "contacts": {
+        "poke": 16,
+        "pass": 1,
+        "wrist": 3
+      }
+    }
+  ],
+  "unitValidation": {
+    "hockeySimTests": 22,
+    "independentHockeyReviewTests": 5,
+    "fullSuite": {
+      "status": "passed",
+      "files": 23,
+      "tests": 174,
+      "command": "npx vitest run --config vitest.cryptball.config.ts"
+    },
+    "typeScript": {
+      "status": "passed",
+      "command": "npx tsc --noEmit --pretty false"
+    }
+  },
+  "specialExecutionAssertions": {
+    "rams": [
+      "speed exceeds cruise",
+      "heading stays committed under perpendicular input",
+      "checkpoint replay equality"
+    ],
+    "foxes": [
+      "lateral cut produces positive lateral speed",
+      "cruise/burst bound",
+      "checkpoint replay equality"
+    ],
+    "owls": [
+      "full seven-unit-per-second thrust increment while charging",
+      "checkpoint replay equality"
+    ],
+    "gators": [
+      "extended poke active ticks",
+      "persisted poke action receipt",
+      "checkpoint replay equality"
+    ],
+    "bats": [
+      "first push exceeds cruise",
+      "gap loses exactly1.25 units/s per tick",
+      "second push accelerates",
+      "checkpoint replay equality"
+    ],
+    "hornets": [
+      "next-shot tell1/recovery4",
+      "special consumed by next action",
+      "checkpoint replay equality"
+    ]
+  },
+  "bankPassValidation": {
+    "restitution": 0.88,
+    "effectiveMirror": "wall + (wall - targetY) / restitution",
+    "boards": [
+      "north",
+      "south"
+    ],
+    "rollout": "actual shared moveBall and dragBall with cryptcheck profile",
+    "maxTicks": 180,
+    "requiredBounces": 1,
+    "targetMissToleranceWorldUnits": 4,
+    "clearanceEndpointInsetFixedUnits": 2,
+    "authorityRolloutAdded": false
+  },
+  "legacyValidation": {
+    "baseline": "legacy-baseline.json",
+    "workloads": 6,
+    "status": "all six replay hashes matched",
+    "verifiedBy": "root agent",
+    "comparison": "state, RNG, and events; omit new null hockey field and outer checkpoint version only"
+  },
+  "mechanicsCoverage": [
+    "cardinal/diagonal cruise cap",
+    "coast/brake/reverse and aim independence",
+    "bounded turn energy",
+    "wall tangent momentum",
+    "sliding drag/rest carries",
+    "flat wrist/slap/pass and one-timers",
+    "high-speed swept blade contact",
+    "behind-body/body/board strike denial",
+    "equal-time neutral clash",
+    "control eligibility/velocity-only correction/release",
+    "poke tell and single receipt",
+    "per-opponent burst check receipt",
+    "faceoff freeze/symmetry/alternating leads",
+    "whole-puck final-live-tick score",
+    "checkpoint atomic rejection and special replay"
+  ],
+  "limitations": [
+    "Seeded bot games do not establish human feel or competitive balance.",
+    "Bank aiming predicts a static led target; moving actors may intercept the physical pass."
+  ]
+}

@@ -1,0 +1,2655 @@
+{
+  "status": "review sprites; not registered with runtime",
+  "frames": {
+    "athlete.E.catch-ready": {
+      "file": "frames/athlete.E.catch-ready.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-front.png",
+      "cell": [
+        0,
+        0,
+        222,
+        242
+      ],
+      "cropWithinCell": [
+        31,
+        36,
+        206,
+        225
+      ],
+      "scale": 0.2328042328042328
+    },
+    "athlete.SE.catch-ready": {
+      "file": "frames/athlete.SE.catch-ready.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-front.png",
+      "cell": [
+        222,
+        0,
+        444,
+        242
+      ],
+      "cropWithinCell": [
+        36,
+        40,
+        207,
+        225
+      ],
+      "scale": 0.2328042328042328
+    },
+    "athlete.S.catch-ready": {
+      "file": "frames/athlete.S.catch-ready.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-front.png",
+      "cell": [
+        444,
+        0,
+        665,
+        242
+      ],
+      "cropWithinCell": [
+        28,
+        40,
+        193,
+        225
+      ],
+      "scale": 0.2328042328042328
+    },
+    "athlete.SW.catch-ready": {
+      "file": "frames/athlete.SW.catch-ready.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-front.png",
+      "cell": [
+        665,
+        0,
+        887,
+        242
+      ],
+      "cropWithinCell": [
+        18,
+        40,
+        185,
+        225
+      ],
+      "scale": 0.2328042328042328
+    },
+    "athlete.E.catch-contact": {
+      "file": "frames/athlete.E.catch-contact.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-front.png",
+      "cell": [
+        0,
+        242,
+        222,
+        462
+      ],
+      "cropWithinCell": [
+        41,
+        17,
+        181,
+        205
+      ],
+      "scale": 0.2328042328042328
+    },
+    "athlete.SE.catch-contact": {
+      "file": "frames/athlete.SE.catch-contact.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-front.png",
+      "cell": [
+        222,
+        242,
+        444,
+        462
+      ],
+      "cropWithinCell": [
+        42,
+        19,
+        174,
+        205
+      ],
+      "scale": 0.2328042328042328
+    },
+    "athlete.S.catch-contact": {
+      "file": "frames/athlete.S.catch-contact.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-front.png",
+      "cell": [
+        444,
+        242,
+        665,
+        462
+      ],
+      "cropWithinCell": [
+        39,
+        17,
+        182,
+        204
+      ],
+      "scale": 0.2328042328042328
+    },
+    "athlete.SW.catch-contact": {
+      "file": "frames/athlete.SW.catch-contact.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-front.png",
+      "cell": [
+        665,
+        242,
+        887,
+        462
+      ],
+      "cropWithinCell": [
+        51,
+        18,
+        182,
+        205
+      ],
+      "scale": 0.2328042328042328
+    },
+    "athlete.E.carry": {
+      "file": "frames/athlete.E.carry.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-front.png",
+      "cell": [
+        0,
+        462,
+        222,
+        684
+      ],
+      "cropWithinCell": [
+        40,
+        16,
+        169,
+        206
+      ],
+      "scale": 0.2328042328042328
+    },
+    "athlete.SE.carry": {
+      "file": "frames/athlete.SE.carry.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-front.png",
+      "cell": [
+        222,
+        462,
+        444,
+        684
+      ],
+      "cropWithinCell": [
+        33,
+        19,
+        167,
+        206
+      ],
+      "scale": 0.2328042328042328
+    },
+    "athlete.S.carry": {
+      "file": "frames/athlete.S.carry.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-front.png",
+      "cell": [
+        444,
+        462,
+        665,
+        684
+      ],
+      "cropWithinCell": [
+        38,
+        17,
+        182,
+        205
+      ],
+      "scale": 0.2328042328042328
+    },
+    "athlete.SW.carry": {
+      "file": "frames/athlete.SW.carry.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-front.png",
+      "cell": [
+        665,
+        462,
+        887,
+        684
+      ],
+      "cropWithinCell": [
+        55,
+        19,
+        189,
+        206
+      ],
+      "scale": 0.2328042328042328
+    },
+    "athlete.E.throw-windup": {
+      "file": "frames/athlete.E.throw-windup.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-front.png",
+      "cell": [
+        0,
+        684,
+        222,
+        905
+      ],
+      "cropWithinCell": [
+        28,
+        18,
+        211,
+        202
+      ],
+      "scale": 0.2328042328042328
+    },
+    "athlete.SE.throw-windup": {
+      "file": "frames/athlete.SE.throw-windup.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-front.png",
+      "cell": [
+        222,
+        684,
+        444,
+        905
+      ],
+      "cropWithinCell": [
+        28,
+        21,
+        213,
+        203
+      ],
+      "scale": 0.2328042328042328
+    },
+    "athlete.S.throw-windup": {
+      "file": "frames/athlete.S.throw-windup.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-front.png",
+      "cell": [
+        444,
+        684,
+        665,
+        905
+      ],
+      "cropWithinCell": [
+        26,
+        16,
+        198,
+        203
+      ],
+      "scale": 0.2328042328042328
+    },
+    "athlete.SW.throw-windup": {
+      "file": "frames/athlete.SW.throw-windup.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-front.png",
+      "cell": [
+        665,
+        684,
+        887,
+        905
+      ],
+      "cropWithinCell": [
+        14,
+        19,
+        190,
+        203
+      ],
+      "scale": 0.2328042328042328
+    },
+    "athlete.E.throw-release": {
+      "file": "frames/athlete.E.throw-release.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-front.png",
+      "cell": [
+        0,
+        905,
+        222,
+        1126
+      ],
+      "cropWithinCell": [
+        15,
+        19,
+        218,
+        201
+      ],
+      "scale": 0.2328042328042328
+    },
+    "athlete.SE.throw-release": {
+      "file": "frames/athlete.SE.throw-release.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-front.png",
+      "cell": [
+        222,
+        905,
+        444,
+        1126
+      ],
+      "cropWithinCell": [
+        18,
+        20,
+        212,
+        203
+      ],
+      "scale": 0.2328042328042328
+    },
+    "athlete.S.throw-release": {
+      "file": "frames/athlete.S.throw-release.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-front.png",
+      "cell": [
+        444,
+        905,
+        665,
+        1126
+      ],
+      "cropWithinCell": [
+        38,
+        19,
+        201,
+        203
+      ],
+      "scale": 0.2328042328042328
+    },
+    "athlete.SW.throw-release": {
+      "file": "frames/athlete.SW.throw-release.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-front.png",
+      "cell": [
+        665,
+        905,
+        887,
+        1126
+      ],
+      "cropWithinCell": [
+        6,
+        19,
+        205,
+        202
+      ],
+      "scale": 0.2328042328042328
+    },
+    "athlete.E.throw-follow": {
+      "file": "frames/athlete.E.throw-follow.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-front.png",
+      "cell": [
+        0,
+        1126,
+        222,
+        1348
+      ],
+      "cropWithinCell": [
+        14,
+        18,
+        181,
+        200
+      ],
+      "scale": 0.2328042328042328
+    },
+    "athlete.SE.throw-follow": {
+      "file": "frames/athlete.SE.throw-follow.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-front.png",
+      "cell": [
+        222,
+        1126,
+        444,
+        1348
+      ],
+      "cropWithinCell": [
+        12,
+        21,
+        176,
+        204
+      ],
+      "scale": 0.2328042328042328
+    },
+    "athlete.S.throw-follow": {
+      "file": "frames/athlete.S.throw-follow.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-front.png",
+      "cell": [
+        444,
+        1126,
+        665,
+        1348
+      ],
+      "cropWithinCell": [
+        38,
+        20,
+        193,
+        204
+      ],
+      "scale": 0.2328042328042328
+    },
+    "athlete.SW.throw-follow": {
+      "file": "frames/athlete.SW.throw-follow.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-front.png",
+      "cell": [
+        665,
+        1126,
+        887,
+        1348
+      ],
+      "cropWithinCell": [
+        46,
+        21,
+        208,
+        203
+      ],
+      "scale": 0.2328042328042328
+    },
+    "athlete.E.pass-release": {
+      "file": "frames/athlete.E.pass-release.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-front.png",
+      "cell": [
+        0,
+        1348,
+        222,
+        1562
+      ],
+      "cropWithinCell": [
+        19,
+        17,
+        202,
+        196
+      ],
+      "scale": 0.2328042328042328
+    },
+    "athlete.SE.pass-release": {
+      "file": "frames/athlete.SE.pass-release.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-front.png",
+      "cell": [
+        222,
+        1348,
+        444,
+        1562
+      ],
+      "cropWithinCell": [
+        31,
+        18,
+        209,
+        198
+      ],
+      "scale": 0.2328042328042328
+    },
+    "athlete.S.pass-release": {
+      "file": "frames/athlete.S.pass-release.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-front.png",
+      "cell": [
+        444,
+        1348,
+        665,
+        1562
+      ],
+      "cropWithinCell": [
+        39,
+        17,
+        180,
+        197
+      ],
+      "scale": 0.2328042328042328
+    },
+    "athlete.SW.pass-release": {
+      "file": "frames/athlete.SW.pass-release.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-front.png",
+      "cell": [
+        665,
+        1348,
+        887,
+        1562
+      ],
+      "cropWithinCell": [
+        17,
+        20,
+        191,
+        197
+      ],
+      "scale": 0.2328042328042328
+    },
+    "athlete.E.hit-recoil": {
+      "file": "frames/athlete.E.hit-recoil.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-front.png",
+      "cell": [
+        0,
+        1562,
+        222,
+        1774
+      ],
+      "cropWithinCell": [
+        18,
+        16,
+        193,
+        200
+      ],
+      "scale": 0.2328042328042328
+    },
+    "athlete.SE.hit-recoil": {
+      "file": "frames/athlete.SE.hit-recoil.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-front.png",
+      "cell": [
+        222,
+        1562,
+        444,
+        1774
+      ],
+      "cropWithinCell": [
+        7,
+        18,
+        207,
+        201
+      ],
+      "scale": 0.2328042328042328
+    },
+    "athlete.S.hit-recoil": {
+      "file": "frames/athlete.S.hit-recoil.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-front.png",
+      "cell": [
+        444,
+        1562,
+        665,
+        1774
+      ],
+      "cropWithinCell": [
+        5,
+        17,
+        216,
+        201
+      ],
+      "scale": 0.2328042328042328
+    },
+    "athlete.SW.hit-recoil": {
+      "file": "frames/athlete.SW.hit-recoil.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-front.png",
+      "cell": [
+        665,
+        1562,
+        887,
+        1774
+      ],
+      "cropWithinCell": [
+        21,
+        18,
+        204,
+        202
+      ],
+      "scale": 0.2328042328042328
+    },
+    "athlete.W.catch-ready": {
+      "file": "frames/athlete.W.catch-ready.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-back.png",
+      "cell": [
+        0,
+        0,
+        222,
+        234
+      ],
+      "cropWithinCell": [
+        19,
+        33,
+        197,
+        214
+      ],
+      "scale": 0.2430939226519337
+    },
+    "athlete.NW.catch-ready": {
+      "file": "frames/athlete.NW.catch-ready.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-back.png",
+      "cell": [
+        222,
+        0,
+        444,
+        234
+      ],
+      "cropWithinCell": [
+        17,
+        34,
+        192,
+        212
+      ],
+      "scale": 0.2430939226519337
+    },
+    "athlete.N.catch-ready": {
+      "file": "frames/athlete.N.catch-ready.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-back.png",
+      "cell": [
+        444,
+        0,
+        665,
+        234
+      ],
+      "cropWithinCell": [
+        33,
+        33,
+        194,
+        214
+      ],
+      "scale": 0.2430939226519337
+    },
+    "athlete.NE.catch-ready": {
+      "file": "frames/athlete.NE.catch-ready.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-back.png",
+      "cell": [
+        665,
+        0,
+        887,
+        234
+      ],
+      "cropWithinCell": [
+        30,
+        33,
+        201,
+        214
+      ],
+      "scale": 0.2430939226519337
+    },
+    "athlete.W.catch-contact": {
+      "file": "frames/athlete.W.catch-contact.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-back.png",
+      "cell": [
+        0,
+        234,
+        222,
+        457
+      ],
+      "cropWithinCell": [
+        56,
+        21,
+        190,
+        203
+      ],
+      "scale": 0.2430939226519337
+    },
+    "athlete.NW.catch-contact": {
+      "file": "frames/athlete.NW.catch-contact.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-back.png",
+      "cell": [
+        222,
+        234,
+        444,
+        457
+      ],
+      "cropWithinCell": [
+        44,
+        22,
+        191,
+        203
+      ],
+      "scale": 0.2430939226519337
+    },
+    "athlete.N.catch-contact": {
+      "file": "frames/athlete.N.catch-contact.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-back.png",
+      "cell": [
+        444,
+        234,
+        665,
+        457
+      ],
+      "cropWithinCell": [
+        42,
+        22,
+        184,
+        203
+      ],
+      "scale": 0.2430939226519337
+    },
+    "athlete.NE.catch-contact": {
+      "file": "frames/athlete.NE.catch-contact.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-back.png",
+      "cell": [
+        665,
+        234,
+        887,
+        457
+      ],
+      "cropWithinCell": [
+        33,
+        22,
+        169,
+        203
+      ],
+      "scale": 0.2430939226519337
+    },
+    "athlete.W.carry": {
+      "file": "frames/athlete.W.carry.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-back.png",
+      "cell": [
+        0,
+        457,
+        222,
+        677
+      ],
+      "cropWithinCell": [
+        48,
+        21,
+        196,
+        201
+      ],
+      "scale": 0.2430939226519337
+    },
+    "athlete.NW.carry": {
+      "file": "frames/athlete.NW.carry.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-back.png",
+      "cell": [
+        222,
+        457,
+        444,
+        677
+      ],
+      "cropWithinCell": [
+        31,
+        21,
+        193,
+        201
+      ],
+      "scale": 0.2430939226519337
+    },
+    "athlete.N.carry": {
+      "file": "frames/athlete.N.carry.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-back.png",
+      "cell": [
+        444,
+        457,
+        665,
+        677
+      ],
+      "cropWithinCell": [
+        42,
+        22,
+        184,
+        201
+      ],
+      "scale": 0.2430939226519337
+    },
+    "athlete.NE.carry": {
+      "file": "frames/athlete.NE.carry.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-back.png",
+      "cell": [
+        665,
+        457,
+        887,
+        677
+      ],
+      "cropWithinCell": [
+        32,
+        21,
+        186,
+        201
+      ],
+      "scale": 0.2430939226519337
+    },
+    "athlete.W.throw-windup": {
+      "file": "frames/athlete.W.throw-windup.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-back.png",
+      "cell": [
+        0,
+        677,
+        222,
+        900
+      ],
+      "cropWithinCell": [
+        17,
+        23,
+        199,
+        202
+      ],
+      "scale": 0.2430939226519337
+    },
+    "athlete.NW.throw-windup": {
+      "file": "frames/athlete.NW.throw-windup.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-back.png",
+      "cell": [
+        222,
+        677,
+        444,
+        900
+      ],
+      "cropWithinCell": [
+        17,
+        19,
+        192,
+        202
+      ],
+      "scale": 0.2430939226519337
+    },
+    "athlete.N.throw-windup": {
+      "file": "frames/athlete.N.throw-windup.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-back.png",
+      "cell": [
+        444,
+        677,
+        665,
+        900
+      ],
+      "cropWithinCell": [
+        10,
+        21,
+        197,
+        202
+      ],
+      "scale": 0.2430939226519337
+    },
+    "athlete.NE.throw-windup": {
+      "file": "frames/athlete.NE.throw-windup.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-back.png",
+      "cell": [
+        665,
+        677,
+        887,
+        900
+      ],
+      "cropWithinCell": [
+        13,
+        22,
+        176,
+        202
+      ],
+      "scale": 0.2430939226519337
+    },
+    "athlete.W.throw-release": {
+      "file": "frames/athlete.W.throw-release.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-back.png",
+      "cell": [
+        0,
+        900,
+        222,
+        1123
+      ],
+      "cropWithinCell": [
+        17,
+        22,
+        190,
+        202
+      ],
+      "scale": 0.2430939226519337
+    },
+    "athlete.NW.throw-release": {
+      "file": "frames/athlete.NW.throw-release.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-back.png",
+      "cell": [
+        222,
+        900,
+        444,
+        1123
+      ],
+      "cropWithinCell": [
+        9,
+        21,
+        201,
+        202
+      ],
+      "scale": 0.2430939226519337
+    },
+    "athlete.N.throw-release": {
+      "file": "frames/athlete.N.throw-release.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-back.png",
+      "cell": [
+        444,
+        900,
+        665,
+        1123
+      ],
+      "cropWithinCell": [
+        17,
+        21,
+        202,
+        203
+      ],
+      "scale": 0.2430939226519337
+    },
+    "athlete.NE.throw-release": {
+      "file": "frames/athlete.NE.throw-release.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-back.png",
+      "cell": [
+        665,
+        900,
+        887,
+        1123
+      ],
+      "cropWithinCell": [
+        13,
+        21,
+        206,
+        203
+      ],
+      "scale": 0.2430939226519337
+    },
+    "athlete.W.throw-follow": {
+      "file": "frames/athlete.W.throw-follow.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-back.png",
+      "cell": [
+        0,
+        1123,
+        222,
+        1344
+      ],
+      "cropWithinCell": [
+        51,
+        21,
+        203,
+        200
+      ],
+      "scale": 0.2430939226519337
+    },
+    "athlete.NW.throw-follow": {
+      "file": "frames/athlete.NW.throw-follow.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-back.png",
+      "cell": [
+        222,
+        1123,
+        444,
+        1344
+      ],
+      "cropWithinCell": [
+        34,
+        21,
+        204,
+        201
+      ],
+      "scale": 0.2430939226519337
+    },
+    "athlete.N.throw-follow": {
+      "file": "frames/athlete.N.throw-follow.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-back.png",
+      "cell": [
+        444,
+        1123,
+        665,
+        1344
+      ],
+      "cropWithinCell": [
+        18,
+        22,
+        183,
+        199
+      ],
+      "scale": 0.2430939226519337
+    },
+    "athlete.NE.throw-follow": {
+      "file": "frames/athlete.NE.throw-follow.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-back.png",
+      "cell": [
+        665,
+        1123,
+        887,
+        1344
+      ],
+      "cropWithinCell": [
+        25,
+        22,
+        170,
+        200
+      ],
+      "scale": 0.2430939226519337
+    },
+    "athlete.W.pass-release": {
+      "file": "frames/athlete.W.pass-release.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-back.png",
+      "cell": [
+        0,
+        1344,
+        222,
+        1553
+      ],
+      "cropWithinCell": [
+        16,
+        21,
+        203,
+        197
+      ],
+      "scale": 0.2430939226519337
+    },
+    "athlete.NW.pass-release": {
+      "file": "frames/athlete.NW.pass-release.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-back.png",
+      "cell": [
+        222,
+        1344,
+        444,
+        1553
+      ],
+      "cropWithinCell": [
+        11,
+        20,
+        200,
+        197
+      ],
+      "scale": 0.2430939226519337
+    },
+    "athlete.N.pass-release": {
+      "file": "frames/athlete.N.pass-release.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-back.png",
+      "cell": [
+        444,
+        1344,
+        665,
+        1553
+      ],
+      "cropWithinCell": [
+        20,
+        20,
+        186,
+        197
+      ],
+      "scale": 0.2430939226519337
+    },
+    "athlete.NE.pass-release": {
+      "file": "frames/athlete.NE.pass-release.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-back.png",
+      "cell": [
+        665,
+        1344,
+        887,
+        1553
+      ],
+      "cropWithinCell": [
+        15,
+        20,
+        204,
+        197
+      ],
+      "scale": 0.2430939226519337
+    },
+    "athlete.W.hit-recoil": {
+      "file": "frames/athlete.W.hit-recoil.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-back.png",
+      "cell": [
+        0,
+        1553,
+        222,
+        1774
+      ],
+      "cropWithinCell": [
+        23,
+        19,
+        196,
+        196
+      ],
+      "scale": 0.2430939226519337
+    },
+    "athlete.NW.hit-recoil": {
+      "file": "frames/athlete.NW.hit-recoil.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-back.png",
+      "cell": [
+        222,
+        1553,
+        444,
+        1774
+      ],
+      "cropWithinCell": [
+        6,
+        13,
+        183,
+        200
+      ],
+      "scale": 0.2430939226519337
+    },
+    "athlete.N.hit-recoil": {
+      "file": "frames/athlete.N.hit-recoil.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-back.png",
+      "cell": [
+        444,
+        1553,
+        665,
+        1774
+      ],
+      "cropWithinCell": [
+        12,
+        20,
+        211,
+        199
+      ],
+      "scale": 0.2430939226519337
+    },
+    "athlete.NE.hit-recoil": {
+      "file": "frames/athlete.NE.hit-recoil.png",
+      "size": [
+        112,
+        80
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "source": "athlete-back.png",
+      "cell": [
+        665,
+        1553,
+        887,
+        1774
+      ],
+      "cropWithinCell": [
+        21,
+        19,
+        203,
+        200
+      ],
+      "scale": 0.2430939226519337
+    },
+    "guardian.idle-a": {
+      "file": "frames/guardian.idle-a.png",
+      "size": [
+        160,
+        128
+      ],
+      "pivot": [
+        80,
+        112
+      ],
+      "source": "guardian.png",
+      "cell": [
+        0,
+        0,
+        362,
+        279
+      ],
+      "cropWithinCell": [
+        54,
+        35,
+        309,
+        258
+      ],
+      "scale": 0.3157894736842105
+    },
+    "guardian.idle-b": {
+      "file": "frames/guardian.idle-b.png",
+      "size": [
+        160,
+        128
+      ],
+      "pivot": [
+        80,
+        112
+      ],
+      "source": "guardian.png",
+      "cell": [
+        362,
+        0,
+        724,
+        279
+      ],
+      "cropWithinCell": [
+        53,
+        32,
+        312,
+        258
+      ],
+      "scale": 0.3157894736842105
+    },
+    "guardian.wake": {
+      "file": "frames/guardian.wake.png",
+      "size": [
+        160,
+        128
+      ],
+      "pivot": [
+        80,
+        112
+      ],
+      "source": "guardian.png",
+      "cell": [
+        724,
+        0,
+        1086,
+        279
+      ],
+      "cropWithinCell": [
+        52,
+        21,
+        312,
+        258
+      ],
+      "scale": 0.3157894736842105
+    },
+    "guardian.roar": {
+      "file": "frames/guardian.roar.png",
+      "size": [
+        160,
+        128
+      ],
+      "pivot": [
+        80,
+        112
+      ],
+      "source": "guardian.png",
+      "cell": [
+        1086,
+        0,
+        1448,
+        279
+      ],
+      "cropWithinCell": [
+        14,
+        11,
+        349,
+        258
+      ],
+      "scale": 0.3157894736842105
+    },
+    "guardian.ranged-tell": {
+      "file": "frames/guardian.ranged-tell.png",
+      "size": [
+        160,
+        128
+      ],
+      "pivot": [
+        80,
+        112
+      ],
+      "source": "guardian.png",
+      "cell": [
+        0,
+        279,
+        362,
+        538
+      ],
+      "cropWithinCell": [
+        48,
+        21,
+        311,
+        250
+      ],
+      "scale": 0.3157894736842105
+    },
+    "guardian.ranged-aim": {
+      "file": "frames/guardian.ranged-aim.png",
+      "size": [
+        160,
+        128
+      ],
+      "pivot": [
+        80,
+        112
+      ],
+      "source": "guardian.png",
+      "cell": [
+        362,
+        279,
+        724,
+        538
+      ],
+      "cropWithinCell": [
+        47,
+        20,
+        333,
+        250
+      ],
+      "scale": 0.3157894736842105
+    },
+    "guardian.ranged-recoil": {
+      "file": "frames/guardian.ranged-recoil.png",
+      "size": [
+        160,
+        128
+      ],
+      "pivot": [
+        80,
+        112
+      ],
+      "source": "guardian.png",
+      "cell": [
+        724,
+        279,
+        1086,
+        538
+      ],
+      "cropWithinCell": [
+        46,
+        23,
+        319,
+        250
+      ],
+      "scale": 0.3157894736842105
+    },
+    "guardian.ranged-recover": {
+      "file": "frames/guardian.ranged-recover.png",
+      "size": [
+        160,
+        128
+      ],
+      "pivot": [
+        80,
+        112
+      ],
+      "source": "guardian.png",
+      "cell": [
+        1086,
+        279,
+        1448,
+        538
+      ],
+      "cropWithinCell": [
+        51,
+        22,
+        312,
+        250
+      ],
+      "scale": 0.3157894736842105
+    },
+    "guardian.melee-tell": {
+      "file": "frames/guardian.melee-tell.png",
+      "size": [
+        160,
+        128
+      ],
+      "pivot": [
+        80,
+        112
+      ],
+      "source": "guardian.png",
+      "cell": [
+        0,
+        538,
+        362,
+        819
+      ],
+      "cropWithinCell": [
+        46,
+        8,
+        325,
+        263
+      ],
+      "scale": 0.3157894736842105
+    },
+    "guardian.sweep": {
+      "file": "frames/guardian.sweep.png",
+      "size": [
+        160,
+        128
+      ],
+      "pivot": [
+        80,
+        112
+      ],
+      "source": "guardian.png",
+      "cell": [
+        362,
+        538,
+        724,
+        819
+      ],
+      "cropWithinCell": [
+        61,
+        42,
+        312,
+        263
+      ],
+      "scale": 0.3157894736842105
+    },
+    "guardian.slam": {
+      "file": "frames/guardian.slam.png",
+      "size": [
+        160,
+        128
+      ],
+      "pivot": [
+        80,
+        112
+      ],
+      "source": "guardian.png",
+      "cell": [
+        724,
+        538,
+        1086,
+        819
+      ],
+      "cropWithinCell": [
+        23,
+        49,
+        336,
+        262
+      ],
+      "scale": 0.3157894736842105
+    },
+    "guardian.melee-recover": {
+      "file": "frames/guardian.melee-recover.png",
+      "size": [
+        160,
+        128
+      ],
+      "pivot": [
+        80,
+        112
+      ],
+      "source": "guardian.png",
+      "cell": [
+        1086,
+        538,
+        1448,
+        819
+      ],
+      "cropWithinCell": [
+        47,
+        41,
+        315,
+        263
+      ],
+      "scale": 0.3157894736842105
+    },
+    "guardian.hit": {
+      "file": "frames/guardian.hit.png",
+      "size": [
+        160,
+        128
+      ],
+      "pivot": [
+        80,
+        112
+      ],
+      "source": "guardian.png",
+      "cell": [
+        0,
+        819,
+        362,
+        1086
+      ],
+      "cropWithinCell": [
+        45,
+        17,
+        317,
+        254
+      ],
+      "scale": 0.3157894736842105
+    },
+    "guardian.stun": {
+      "file": "frames/guardian.stun.png",
+      "size": [
+        160,
+        128
+      ],
+      "pivot": [
+        80,
+        112
+      ],
+      "source": "guardian.png",
+      "cell": [
+        362,
+        819,
+        724,
+        1086
+      ],
+      "cropWithinCell": [
+        55,
+        28,
+        308,
+        254
+      ],
+      "scale": 0.3157894736842105
+    },
+    "guardian.defeat": {
+      "file": "frames/guardian.defeat.png",
+      "size": [
+        160,
+        128
+      ],
+      "pivot": [
+        80,
+        112
+      ],
+      "source": "guardian.png",
+      "cell": [
+        724,
+        819,
+        1086,
+        1086
+      ],
+      "cropWithinCell": [
+        43,
+        55,
+        315,
+        254
+      ],
+      "scale": 0.3157894736842105
+    },
+    "guardian.rubble": {
+      "file": "frames/guardian.rubble.png",
+      "size": [
+        160,
+        128
+      ],
+      "pivot": [
+        80,
+        112
+      ],
+      "source": "guardian.png",
+      "cell": [
+        1086,
+        819,
+        1448,
+        1086
+      ],
+      "cropWithinCell": [
+        10,
+        102,
+        339,
+        251
+      ],
+      "scale": 0.3157894736842105
+    },
+    "object.cannon": {
+      "file": "frames/object.cannon.png",
+      "size": [
+        96,
+        96
+      ],
+      "pivot": [
+        48,
+        80
+      ],
+      "source": "equipment.png",
+      "cell": [
+        0,
+        0,
+        362,
+        300
+      ],
+      "cropWithinCell": [
+        80,
+        31,
+        312,
+        288
+      ],
+      "scale": 0.10116731517509728
+    },
+    "object.hook": {
+      "file": "frames/object.hook.png",
+      "size": [
+        96,
+        96
+      ],
+      "pivot": [
+        48,
+        80
+      ],
+      "source": "equipment.png",
+      "cell": [
+        362,
+        0,
+        724,
+        300
+      ],
+      "cropWithinCell": [
+        101,
+        27,
+        248,
+        294
+      ],
+      "scale": 0.11235955056179775
+    },
+    "object.maul": {
+      "file": "frames/object.maul.png",
+      "size": [
+        96,
+        96
+      ],
+      "pivot": [
+        48,
+        80
+      ],
+      "source": "equipment.png",
+      "cell": [
+        724,
+        0,
+        1086,
+        300
+      ],
+      "cropWithinCell": [
+        81,
+        27,
+        266,
+        294
+      ],
+      "scale": 0.12734082397003746
+    },
+    "object.crown": {
+      "file": "frames/object.crown.png",
+      "size": [
+        96,
+        96
+      ],
+      "pivot": [
+        48,
+        80
+      ],
+      "source": "equipment.png",
+      "cell": [
+        1086,
+        0,
+        1448,
+        300
+      ],
+      "cropWithinCell": [
+        49,
+        46,
+        311,
+        256
+      ],
+      "scale": 0.11450381679389313
+    },
+    "object.pillar": {
+      "file": "frames/object.pillar.png",
+      "size": [
+        96,
+        96
+      ],
+      "pivot": [
+        48,
+        80
+      ],
+      "source": "equipment.png",
+      "cell": [
+        0,
+        300,
+        362,
+        566
+      ],
+      "cropWithinCell": [
+        87,
+        59,
+        302,
+        249
+      ],
+      "scale": 0.17894736842105263
+    },
+    "object.pillar-cracked": {
+      "file": "frames/object.pillar-cracked.png",
+      "size": [
+        96,
+        96
+      ],
+      "pivot": [
+        48,
+        80
+      ],
+      "source": "equipment.png",
+      "cell": [
+        362,
+        300,
+        724,
+        566
+      ],
+      "cropWithinCell": [
+        87,
+        59,
+        302,
+        248
+      ],
+      "scale": 0.17894736842105263
+    },
+    "object.pillar-rubble": {
+      "file": "frames/object.pillar-rubble.png",
+      "size": [
+        96,
+        96
+      ],
+      "pivot": [
+        48,
+        80
+      ],
+      "source": "equipment.png",
+      "cell": [
+        724,
+        300,
+        1086,
+        566
+      ],
+      "cropWithinCell": [
+        36,
+        137,
+        309,
+        248
+      ],
+      "scale": 0.17894736842105263
+    },
+    "object.closed-gate": {
+      "file": "frames/object.closed-gate.png",
+      "size": [
+        96,
+        96
+      ],
+      "pivot": [
+        48,
+        80
+      ],
+      "source": "equipment.png",
+      "cell": [
+        1086,
+        300,
+        1448,
+        566
+      ],
+      "cropWithinCell": [
+        32,
+        5,
+        326,
+        248
+      ],
+      "scale": 0.19727891156462585
+    },
+    "object.ball-a": {
+      "file": "frames/object.ball-a.png",
+      "size": [
+        96,
+        96
+      ],
+      "pivot": [
+        48,
+        80
+      ],
+      "source": "equipment.png",
+      "cell": [
+        0,
+        566,
+        362,
+        810
+      ],
+      "cropWithinCell": [
+        98,
+        28,
+        289,
+        222
+      ],
+      "scale": 0.06282722513089005
+    },
+    "object.ball-b": {
+      "file": "frames/object.ball-b.png",
+      "size": [
+        96,
+        96
+      ],
+      "pivot": [
+        48,
+        80
+      ],
+      "source": "equipment.png",
+      "cell": [
+        362,
+        566,
+        724,
+        810
+      ],
+      "cropWithinCell": [
+        88,
+        28,
+        275,
+        220
+      ],
+      "scale": 0.06282722513089005
+    },
+    "object.ball-squash": {
+      "file": "frames/object.ball-squash.png",
+      "size": [
+        96,
+        96
+      ],
+      "pivot": [
+        48,
+        80
+      ],
+      "source": "equipment.png",
+      "cell": [
+        724,
+        566,
+        1086,
+        810
+      ],
+      "cropWithinCell": [
+        62,
+        40,
+        290,
+        215
+      ],
+      "scale": 0.06282722513089005
+    },
+    "object.ball-stretch": {
+      "file": "frames/object.ball-stretch.png",
+      "size": [
+        96,
+        96
+      ],
+      "pivot": [
+        48,
+        80
+      ],
+      "source": "equipment.png",
+      "cell": [
+        1086,
+        566,
+        1448,
+        810
+      ],
+      "cropWithinCell": [
+        53,
+        16,
+        298,
+        234
+      ],
+      "scale": 0.06282722513089005
+    },
+    "object.boss-bolt": {
+      "file": "frames/object.boss-bolt.png",
+      "size": [
+        96,
+        96
+      ],
+      "pivot": [
+        48,
+        80
+      ],
+      "source": "equipment.png",
+      "cell": [
+        0,
+        810,
+        362,
+        1086
+      ],
+      "cropWithinCell": [
+        109,
+        11,
+        275,
+        261
+      ],
+      "scale": 0.064
+    },
+    "object.chain": {
+      "file": "frames/object.chain.png",
+      "size": [
+        96,
+        96
+      ],
+      "pivot": [
+        48,
+        80
+      ],
+      "source": "equipment.png",
+      "cell": [
+        362,
+        810,
+        724,
+        1086
+      ],
+      "cropWithinCell": [
+        49,
+        96,
+        312,
+        194
+      ],
+      "scale": 0.053231939163498096
+    },
+    "object.impact": {
+      "file": "frames/object.impact.png",
+      "size": [
+        96,
+        96
+      ],
+      "pivot": [
+        48,
+        80
+      ],
+      "source": "equipment.png",
+      "cell": [
+        724,
+        810,
+        1086,
+        1086
+      ],
+      "cropWithinCell": [
+        37,
+        38,
+        321,
+        234
+      ],
+      "scale": 0.08450704225352113
+    },
+    "object.soul": {
+      "file": "frames/object.soul.png",
+      "size": [
+        96,
+        96
+      ],
+      "pivot": [
+        48,
+        80
+      ],
+      "source": "equipment.png",
+      "cell": [
+        1086,
+        810,
+        1448,
+        1086
+      ],
+      "cropWithinCell": [
+        76,
+        18,
+        269,
+        255
+      ],
+      "scale": 0.08438818565400844
+    }
+  },
+  "sources": {
+    "athlete-front.png": {
+      "sha256": "af4c819d4462d9a77491e11ac21799dae60db25b71dd2ca6b7e1f14a8adab9c6",
+      "size": [
+        887,
+        1774
+      ],
+      "grid": [
+        4,
+        8
+      ]
+    },
+    "athlete-back.png": {
+      "sha256": "7e176be0ce75d8d6c02fccfce0c17d0f74701ad57a220c4311d506ee71091c7a",
+      "size": [
+        887,
+        1774
+      ],
+      "grid": [
+        4,
+        8
+      ]
+    },
+    "guardian.png": {
+      "sha256": "1285eae7cd07598031fc03d2df8ed9b10a5c81c812ef5fc1df138628118fbf59",
+      "size": [
+        1448,
+        1086
+      ],
+      "grid": [
+        4,
+        4
+      ]
+    },
+    "equipment.png": {
+      "sha256": "e3f3d5290f155b4401e15d61100d0c2eeeafd0e8449125f9792348d0933656e6",
+      "size": [
+        1448,
+        1086
+      ],
+      "grid": [
+        4,
+        4
+      ]
+    }
+  },
+  "clips": {
+    "E.catch": [
+      "athlete.E.catch-ready",
+      "athlete.E.catch-contact",
+      "athlete.E.carry"
+    ],
+    "E.throw": [
+      "athlete.E.carry",
+      "athlete.E.throw-windup",
+      "athlete.E.throw-release",
+      "athlete.E.throw-follow",
+      "athlete.E.catch-ready"
+    ],
+    "E.pass": [
+      "athlete.E.carry",
+      "athlete.E.pass-release",
+      "athlete.E.catch-ready"
+    ],
+    "E.hit": [
+      "athlete.E.catch-ready",
+      "athlete.E.hit-recoil",
+      "athlete.E.catch-ready"
+    ],
+    "SE.catch": [
+      "athlete.SE.catch-ready",
+      "athlete.SE.catch-contact",
+      "athlete.SE.carry"
+    ],
+    "SE.throw": [
+      "athlete.SE.carry",
+      "athlete.SE.throw-windup",
+      "athlete.SE.throw-release",
+      "athlete.SE.throw-follow",
+      "athlete.SE.catch-ready"
+    ],
+    "SE.pass": [
+      "athlete.SE.carry",
+      "athlete.SE.pass-release",
+      "athlete.SE.catch-ready"
+    ],
+    "SE.hit": [
+      "athlete.SE.catch-ready",
+      "athlete.SE.hit-recoil",
+      "athlete.SE.catch-ready"
+    ],
+    "S.catch": [
+      "athlete.S.catch-ready",
+      "athlete.S.catch-contact",
+      "athlete.S.carry"
+    ],
+    "S.throw": [
+      "athlete.S.carry",
+      "athlete.S.throw-windup",
+      "athlete.S.throw-release",
+      "athlete.S.throw-follow",
+      "athlete.S.catch-ready"
+    ],
+    "S.pass": [
+      "athlete.S.carry",
+      "athlete.S.pass-release",
+      "athlete.S.catch-ready"
+    ],
+    "S.hit": [
+      "athlete.S.catch-ready",
+      "athlete.S.hit-recoil",
+      "athlete.S.catch-ready"
+    ],
+    "SW.catch": [
+      "athlete.SW.catch-ready",
+      "athlete.SW.catch-contact",
+      "athlete.SW.carry"
+    ],
+    "SW.throw": [
+      "athlete.SW.carry",
+      "athlete.SW.throw-windup",
+      "athlete.SW.throw-release",
+      "athlete.SW.throw-follow",
+      "athlete.SW.catch-ready"
+    ],
+    "SW.pass": [
+      "athlete.SW.carry",
+      "athlete.SW.pass-release",
+      "athlete.SW.catch-ready"
+    ],
+    "SW.hit": [
+      "athlete.SW.catch-ready",
+      "athlete.SW.hit-recoil",
+      "athlete.SW.catch-ready"
+    ],
+    "W.catch": [
+      "athlete.W.catch-ready",
+      "athlete.W.catch-contact",
+      "athlete.W.carry"
+    ],
+    "W.throw": [
+      "athlete.W.carry",
+      "athlete.W.throw-windup",
+      "athlete.W.throw-release",
+      "athlete.W.throw-follow",
+      "athlete.W.catch-ready"
+    ],
+    "W.pass": [
+      "athlete.W.carry",
+      "athlete.W.pass-release",
+      "athlete.W.catch-ready"
+    ],
+    "W.hit": [
+      "athlete.W.catch-ready",
+      "athlete.W.hit-recoil",
+      "athlete.W.catch-ready"
+    ],
+    "NW.catch": [
+      "athlete.NW.catch-ready",
+      "athlete.NW.catch-contact",
+      "athlete.NW.carry"
+    ],
+    "NW.throw": [
+      "athlete.NW.carry",
+      "athlete.NW.throw-windup",
+      "athlete.NW.throw-release",
+      "athlete.NW.throw-follow",
+      "athlete.NW.catch-ready"
+    ],
+    "NW.pass": [
+      "athlete.NW.carry",
+      "athlete.NW.pass-release",
+      "athlete.NW.catch-ready"
+    ],
+    "NW.hit": [
+      "athlete.NW.catch-ready",
+      "athlete.NW.hit-recoil",
+      "athlete.NW.catch-ready"
+    ],
+    "N.catch": [
+      "athlete.N.catch-ready",
+      "athlete.N.catch-contact",
+      "athlete.N.carry"
+    ],
+    "N.throw": [
+      "athlete.N.carry",
+      "athlete.N.throw-windup",
+      "athlete.N.throw-release",
+      "athlete.N.throw-follow",
+      "athlete.N.catch-ready"
+    ],
+    "N.pass": [
+      "athlete.N.carry",
+      "athlete.N.pass-release",
+      "athlete.N.catch-ready"
+    ],
+    "N.hit": [
+      "athlete.N.catch-ready",
+      "athlete.N.hit-recoil",
+      "athlete.N.catch-ready"
+    ],
+    "NE.catch": [
+      "athlete.NE.catch-ready",
+      "athlete.NE.catch-contact",
+      "athlete.NE.carry"
+    ],
+    "NE.throw": [
+      "athlete.NE.carry",
+      "athlete.NE.throw-windup",
+      "athlete.NE.throw-release",
+      "athlete.NE.throw-follow",
+      "athlete.NE.catch-ready"
+    ],
+    "NE.pass": [
+      "athlete.NE.carry",
+      "athlete.NE.pass-release",
+      "athlete.NE.catch-ready"
+    ],
+    "NE.hit": [
+      "athlete.NE.catch-ready",
+      "athlete.NE.hit-recoil",
+      "athlete.NE.catch-ready"
+    ],
+    "guardian.cannon": [
+      "guardian.idle-a",
+      "guardian.idle-b",
+      "guardian.ranged-tell",
+      "guardian.ranged-aim",
+      "guardian.ranged-recoil",
+      "guardian.ranged-recover"
+    ],
+    "guardian.melee": [
+      "guardian.idle-a",
+      "guardian.melee-tell",
+      "guardian.sweep",
+      "guardian.slam",
+      "guardian.melee-recover"
+    ],
+    "guardian.defeat": [
+      "guardian.hit",
+      "guardian.stun",
+      "guardian.defeat",
+      "guardian.rubble"
+    ]
+  },
+  "notes": [
+    "Hand and weapon sockets require in-game authoring.",
+    "Athlete frames use a shared scale within each source sheet.",
+    "Key-pose animation, not hand-authored inbetweens."
+  ]
+}

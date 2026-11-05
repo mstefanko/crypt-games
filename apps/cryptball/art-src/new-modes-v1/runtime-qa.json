@@ -1,0 +1,10 @@
+{
+  "sourceFrames": 96,
+  "runtimeFrames": 448,
+  "pages": 2,
+  "handSockets": 384,
+  "weaponSockets": 48,
+  "allClipsResolve": true,
+  "allRgba": true,
+  "runtimeBytes": 1150609
+}

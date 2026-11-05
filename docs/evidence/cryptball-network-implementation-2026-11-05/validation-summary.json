@@ -1,0 +1,70 @@
+{
+  "protocol": 11,
+  "checkpoint": 13,
+  "functional": {
+    "impairmentAndFifo": {
+      "passed": 61,
+      "scenarios": 60,
+      "postWarmTimingRejections": 0,
+      "resyncRequests": 0,
+      "botTransitions": 0
+    },
+    "networkExcludingPreviouslyPassingImpairment": {
+      "passed": 101,
+      "skipped": 2
+    },
+    "finalServerFocusedAfterResumeFix": {
+      "passed": 32
+    },
+    "finalClockClient": {
+      "passed": 35
+    },
+    "offline": {
+      "passed": 268
+    },
+    "browser": {
+      "passed": 8,
+      "postResumeServerChangeFocusedPassed": 1
+    },
+    "crossRuntime": {
+      "uniqueTests": 6,
+      "hashesAgree": true,
+      "initialCombinedPassed": 5,
+      "initialCombinedFailed": 1,
+      "initialFailure": "Firefox old 12-tick p95 23ms >16.67ms during concurrent browser validation",
+      "isolatedFirefoxPassed": 2
+    },
+    "typecheck": "passed",
+    "browserBuild": "passed",
+    "serverBuild": "passed",
+    "boundaries": "passed",
+    "purity": "passed",
+    "engineRegistryDiscovery": "passed"
+  },
+  "capacity": {
+    "rooms": [
+      1,
+      25
+    ],
+    "actualConnections": [
+      4,
+      100
+    ],
+    "prediction": "omitted from load generator; actual SDK and production scheduler retained",
+    "passed": true,
+    "fullPredictorGeneratorStress": "failed due generator timer lag; separate artifact retained"
+  },
+  "releaseGates": {
+    "realClock4msP95": "failed; simulation-only benchmark already exceeds limit, complete browser budget not qualified",
+    "targetDevices": "not qualified",
+    "controlledBrowserCadence": "not performed",
+    "deploymentLikeWSS": "not performed",
+    "separateMachineHumanPlaytest": "not performed",
+    "productionCapacity": "not qualified"
+  },
+  "deviations": [
+    "No new pre-change protocol10 baseline captured; historical audit remains historical.",
+    "Special slots are two team slots, not four; payload fixture uses both slots and all four player action origins.",
+    "No authored charge-onset loop exists; predicted-state charge visuals retained and local onset event allowlist remains swing/dash."
+  ]
+}

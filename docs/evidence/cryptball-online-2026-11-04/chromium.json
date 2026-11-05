@@ -1,0 +1,22 @@
+{
+  "engine": "chromium",
+  "ticks": 7503,
+  "nodeReplayP95Ms": 1.1772080000000642,
+  "browserReplayP95Ms": 1.2999999523162842,
+  "warmupTrials": 20,
+  "measuredTrials": 40,
+  "targetP95Ms": 4,
+  "meetsTarget": true,
+  "frameBudgetMs": 16.67,
+  "hardware": {
+    "cpu": "Apple M4",
+    "logicalCpus": 10,
+    "memoryGiB": 16,
+    "platform": "darwin",
+    "arch": "arm64"
+  },
+  "aiReplanningForced": true,
+  "replayTicks": 12,
+  "scenario": "scripted-match-tick-501-moving-ball",
+  "ai": true
+}

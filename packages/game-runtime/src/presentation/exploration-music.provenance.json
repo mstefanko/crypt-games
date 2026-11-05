@@ -1,0 +1,87 @@
+{
+  "version": "symbolic-g0-v2",
+  "sourceHash": "sha256:fba89aebf81b1499c0c164cdd9f71733034da05484af585fa6ad2989dff44430",
+  "recipe": {
+    "version": "symbolic-g0-v2",
+    "seed": 171,
+    "bars": 8,
+    "bpm": 112,
+    "meter": [
+      4,
+      4
+    ],
+    "key": {
+      "root": 0,
+      "mode": "minor"
+    },
+    "motif": [
+      0,
+      2,
+      4,
+      null,
+      3,
+      2,
+      1,
+      0
+    ],
+    "harmony": [
+      0,
+      5,
+      3,
+      4,
+      0,
+      5,
+      4,
+      0
+    ],
+    "registers": {
+      "melody": [
+        60,
+        84
+      ],
+      "bass": [
+        36,
+        55
+      ],
+      "harmony": [
+        48,
+        72
+      ],
+      "drums": [
+        36,
+        60
+      ]
+    },
+    "rhythm": "eighths",
+    "density": 2,
+    "form": "ABAC",
+    "roles": [
+      "melody",
+      "bass",
+      "harmony",
+      "drums"
+    ],
+    "energyPlan": [
+      "low",
+      "high"
+    ]
+  },
+  "recipeHash": "sha256:368baa1c3614776e81de0fbcec14d689011f47c23de34205e0e6714457ccfac6",
+  "alternative": 0,
+  "scoreHashes": {
+    "low": "sha256:ac8105818e9d17a74c5849d9e919b5110f93e18685eb0d1c8644ccf6c3283054",
+    "high": "sha256:5b46640b5a47b2e502973e69e543e11b484fa520070c7714e4498d0e5d4216f7"
+  },
+  "lockedRoles": [],
+  "editedIntensities": [],
+  "editedRoles": {
+    "low": [],
+    "high": []
+  },
+  "editedMetadata": {
+    "low": [],
+    "high": []
+  },
+  "parentResultHash": null,
+  "resultHash": "sha256:d45c3a14eafc30e9b4cea4f3b8b51485ccd42b8ee21332f642e059f70650e16c"
+}

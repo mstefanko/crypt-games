@@ -1,0 +1,391 @@
+{
+  "schemaVersion": 1,
+  "id": "crypt-sting-match-point",
+  "title": "match-point",
+  "ppq": 480,
+  "bpm": 120,
+  "meter": [
+    4,
+    4
+  ],
+  "scale": {
+    "root": 4,
+    "mode": "minor"
+  },
+  "playback": "one-shot",
+  "lengthTicks": 3840,
+  "loop": null,
+  "tracks": [
+    {
+      "id": "bass",
+      "name": "bass",
+      "patchId": "sub",
+      "role": "bass",
+      "gain": 0.94,
+      "pan": 0,
+      "minEnergy": 1
+    },
+    {
+      "id": "grit",
+      "name": "grit",
+      "patchId": "grit",
+      "role": "bass",
+      "gain": 0.2,
+      "pan": 0,
+      "minEnergy": 1
+    },
+    {
+      "id": "kick",
+      "name": "kick",
+      "patchId": "kit",
+      "role": "drums",
+      "gain": 1,
+      "pan": 0,
+      "minEnergy": 1
+    },
+    {
+      "id": "snare",
+      "name": "snare",
+      "patchId": "kit",
+      "role": "drums",
+      "gain": 0.66,
+      "pan": 0.05,
+      "minEnergy": 1
+    },
+    {
+      "id": "hat",
+      "name": "hat",
+      "patchId": "kit",
+      "role": "drums",
+      "gain": 0.25,
+      "pan": 0.22,
+      "minEnergy": 1
+    },
+    {
+      "id": "toms",
+      "name": "toms",
+      "patchId": "tom",
+      "role": "drums",
+      "gain": 0.4,
+      "pan": -0.16,
+      "minEnergy": 1
+    },
+    {
+      "id": "pad",
+      "name": "pad",
+      "patchId": "air",
+      "role": "harmony",
+      "gain": 0.16,
+      "pan": -0.25,
+      "minEnergy": 1
+    },
+    {
+      "id": "hook",
+      "name": "hook",
+      "patchId": "brass",
+      "role": "melody",
+      "gain": 0.37,
+      "pan": 0.12,
+      "minEnergy": 1
+    },
+    {
+      "id": "answer",
+      "name": "answer",
+      "patchId": "glass",
+      "role": "melody",
+      "gain": 0.29,
+      "pan": -0.3,
+      "minEnergy": 1
+    },
+    {
+      "id": "pressure-pulse",
+      "name": "pressure-pulse",
+      "patchId": "organ",
+      "role": "harmony",
+      "gain": 0.24,
+      "pan": -0.12,
+      "minEnergy": 2
+    },
+    {
+      "id": "pressure-drums",
+      "name": "pressure-drums",
+      "patchId": "kit",
+      "role": "drums",
+      "gain": 0.28,
+      "pan": -0.22,
+      "minEnergy": 2
+    }
+  ],
+  "patterns": [
+    {
+      "id": "bass",
+      "name": "bass",
+      "lengthTicks": 3840,
+      "notes": [
+        {
+          "id": "b",
+          "startTick": 0,
+          "pitch": 28,
+          "durationTicks": 1100,
+          "velocity": 0.9
+        }
+      ]
+    },
+    {
+      "id": "grit",
+      "name": "grit",
+      "lengthTicks": 3840,
+      "notes": []
+    },
+    {
+      "id": "kick",
+      "name": "kick",
+      "lengthTicks": 3840,
+      "notes": [
+        {
+          "id": "k",
+          "startTick": 0,
+          "pitch": 36,
+          "durationTicks": 150,
+          "velocity": 0.9
+        }
+      ]
+    },
+    {
+      "id": "snare",
+      "name": "snare",
+      "lengthTicks": 3840,
+      "notes": []
+    },
+    {
+      "id": "hat",
+      "name": "hat",
+      "lengthTicks": 3840,
+      "notes": []
+    },
+    {
+      "id": "toms",
+      "name": "toms",
+      "lengthTicks": 3840,
+      "notes": []
+    },
+    {
+      "id": "pad",
+      "name": "pad",
+      "lengthTicks": 3840,
+      "notes": []
+    },
+    {
+      "id": "hook",
+      "name": "hook",
+      "lengthTicks": 3840,
+      "notes": [
+        {
+          "id": "h0",
+          "startTick": 0,
+          "pitch": 64,
+          "durationTicks": 140,
+          "velocity": 0.8
+        },
+        {
+          "id": "h1",
+          "startTick": 180,
+          "pitch": 71,
+          "durationTicks": 700,
+          "velocity": 0.8
+        }
+      ]
+    },
+    {
+      "id": "answer",
+      "name": "answer",
+      "lengthTicks": 3840,
+      "notes": []
+    },
+    {
+      "id": "pressure-pulse",
+      "name": "pressure-pulse",
+      "lengthTicks": 3840,
+      "notes": []
+    },
+    {
+      "id": "pressure-drums",
+      "name": "pressure-drums",
+      "lengthTicks": 3840,
+      "notes": []
+    }
+  ],
+  "clips": [
+    {
+      "id": "bass",
+      "trackId": "bass",
+      "patternId": "bass",
+      "startTick": 0,
+      "repeats": 1,
+      "transpose": 0
+    },
+    {
+      "id": "grit",
+      "trackId": "grit",
+      "patternId": "grit",
+      "startTick": 0,
+      "repeats": 1,
+      "transpose": 0
+    },
+    {
+      "id": "kick",
+      "trackId": "kick",
+      "patternId": "kick",
+      "startTick": 0,
+      "repeats": 1,
+      "transpose": 0
+    },
+    {
+      "id": "snare",
+      "trackId": "snare",
+      "patternId": "snare",
+      "startTick": 0,
+      "repeats": 1,
+      "transpose": 0
+    },
+    {
+      "id": "hat",
+      "trackId": "hat",
+      "patternId": "hat",
+      "startTick": 0,
+      "repeats": 1,
+      "transpose": 0
+    },
+    {
+      "id": "toms",
+      "trackId": "toms",
+      "patternId": "toms",
+      "startTick": 0,
+      "repeats": 1,
+      "transpose": 0
+    },
+    {
+      "id": "pad",
+      "trackId": "pad",
+      "patternId": "pad",
+      "startTick": 0,
+      "repeats": 1,
+      "transpose": 0
+    },
+    {
+      "id": "hook",
+      "trackId": "hook",
+      "patternId": "hook",
+      "startTick": 0,
+      "repeats": 1,
+      "transpose": 0
+    },
+    {
+      "id": "answer",
+      "trackId": "answer",
+      "patternId": "answer",
+      "startTick": 0,
+      "repeats": 1,
+      "transpose": 0
+    },
+    {
+      "id": "pressure-pulse",
+      "trackId": "pressure-pulse",
+      "patternId": "pressure-pulse",
+      "startTick": 0,
+      "repeats": 1,
+      "transpose": 0
+    },
+    {
+      "id": "pressure-drums",
+      "trackId": "pressure-drums",
+      "patternId": "pressure-drums",
+      "startTick": 0,
+      "repeats": 1,
+      "transpose": 0
+    }
+  ],
+  "sections": [],
+  "patches": [
+    {
+      "id": "sub",
+      "name": "sub",
+      "waveform": "harmonic-bass",
+      "brightness": 0.3,
+      "decaySeconds": 0.5,
+      "release": 0.08,
+      "attack": 0.006,
+      "duty": 0.4
+    },
+    {
+      "id": "grit",
+      "name": "grit",
+      "waveform": "sawtooth",
+      "brightness": 0.025,
+      "decaySeconds": 0.18,
+      "release": 0.045,
+      "attack": 0.006,
+      "duty": 0.4
+    },
+    {
+      "id": "brass",
+      "name": "brass",
+      "waveform": "sawtooth",
+      "brightness": 0.08,
+      "decaySeconds": 0.38,
+      "release": 0.15,
+      "attack": 0.025,
+      "duty": 0.4
+    },
+    {
+      "id": "organ",
+      "name": "organ",
+      "waveform": "pulse",
+      "brightness": 0.045,
+      "decaySeconds": 0.3,
+      "release": 0.12,
+      "attack": 0.012,
+      "duty": 0.3
+    },
+    {
+      "id": "glass",
+      "name": "glass",
+      "waveform": "sine",
+      "brightness": 0.32,
+      "decaySeconds": 0.3,
+      "release": 0.32,
+      "attack": 0.006,
+      "duty": 0.4
+    },
+    {
+      "id": "air",
+      "name": "air",
+      "waveform": "triangle",
+      "brightness": 0.045,
+      "decaySeconds": 2,
+      "release": 0.6,
+      "attack": 0.22,
+      "duty": 0.4
+    },
+    {
+      "id": "kit",
+      "name": "kit",
+      "waveform": "noise",
+      "brightness": 0.8,
+      "decaySeconds": 0.8,
+      "release": 0.02,
+      "attack": 0.002,
+      "duty": 0.4
+    },
+    {
+      "id": "tom",
+      "name": "tom",
+      "waveform": "sine",
+      "brightness": 0.06,
+      "decaySeconds": 0.13,
+      "release": 0.07,
+      "attack": 0.003,
+      "duty": 0.4
+    }
+  ]
+}

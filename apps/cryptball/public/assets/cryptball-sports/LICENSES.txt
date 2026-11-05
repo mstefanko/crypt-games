@@ -1,0 +1,1 @@
+Original generated weapon-free athlete sheets, hands-first dive sheets, and unmarked floor edit: OpenAI ImageGen. Source prompts/extraction/provenance: apps/cryptball/art-src/sports-v1 and apps/cryptball/art-src/dives-v1. No third-party sprite assets.

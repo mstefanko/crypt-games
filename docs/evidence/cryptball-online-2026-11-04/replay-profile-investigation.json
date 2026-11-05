@@ -1,0 +1,7 @@
+{
+  "method": "Original profile ran immediately after 7503 checkpoint JSON hashes, without fresh-realm isolation or warmup.",
+  "firefoxFullSuiteP95Ms": 27,
+  "firefoxIsolatedRepeatP95Ms": 14,
+  "limitMs": 16.67,
+  "resolution": "Use a fresh page for replay, run 501 authority ticks without JSON allocation, force pending AI planning, discard 20 warmup trials and measure 40 independent 12-tick restore/replay batches. Preserve the same 16.67 ms limit."
+}

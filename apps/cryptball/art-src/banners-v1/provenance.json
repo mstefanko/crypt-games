@@ -1,0 +1,8 @@
+{
+  "tool": "Built-in OpenAI ImageGen",
+  "useCase": "stylized-concept",
+  "source": "blank-cloth.png",
+  "prompt": "Use case: stylized-concept. Asset type: reusable blank pixel art cloth for a dungeon sports arena banner. Primary request: one front-facing rectangular hanging medieval cloth banner, blank dark neutral gray fabric with subtle vertical folded pixel shading, narrow warm antique gold edging, small swallowtail notch along bottom. Style: crisp hand-painted 16-bit pixel art, deliberately coarse pixels, no antialiasing. Composition: isolated centered complete banner, 2:3 width to height, no pole, no mounting hardware, no perspective. Lighting: warm upper-left torchlight with cool shadow folds. Constraints: absolutely no logo, no emblem, no symbols, no text, no scenery; cloth interior completely blank for later deterministic team emblem composition. Transparent outside the cloth silhouette.",
+  "processing": "Interior crop and nearest-neighbor reduction; team fabric chroma and gold edge; existing public/assets/teams/*.svg marks rasterized with Chromium; affine projection onto eight existing wall flag planes. Generated background excluded by interior crop; output cloth opaque to fully replace baked motifs.",
+  "rebuild": "node scripts/game-assets/import-cryptball-banners.mjs"
+}

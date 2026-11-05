@@ -1,0 +1,86 @@
+{
+  "date": "2026-11-04",
+  "simulationPresentation": {
+    "command": "npm run test:cryptball",
+    "passed": 174,
+    "files": 23
+  },
+  "network": {
+    "command": "npm run test:cryptball:network",
+    "passed": 67,
+    "skipped": 1,
+    "note": "Existing opt-in full-real-time socket test; suites run serially to isolate realtime server from synthetic authority workload."
+  },
+  "productionBrowser": {
+    "command": "npm run test:cryptball:browser",
+    "passed": 11
+  },
+  "multiplayerBrowser": {
+    "command": "npm run test:cryptball:online-browser",
+    "passed": 7
+  },
+  "crossRuntime": {
+    "command": "npm run test:cryptball:determinism",
+    "passed": 6,
+    "runtimes": [
+      "Node",
+      "Chromium",
+      "WebKit",
+      "Firefox"
+    ]
+  },
+  "typecheck": {
+    "command": "npx tsc --noEmit",
+    "passed": true
+  },
+  "boundaries": {
+    "command": "npm run check:game-boundaries",
+    "passed": true,
+    "sourceFiles": 367,
+    "reviewedLegacyEdges": 89,
+    "focusedTestsPassed": 3
+  },
+  "purity": {
+    "command": "node scripts/check-sim-purity.mjs",
+    "passed": true,
+    "retainedBaselineDiagnostics": 186
+  },
+  "legacyReplay": {
+    "exactMatches": 6,
+    "details": "legacy-comparison.json"
+  },
+  "limits": [
+    "Human balance/feel unverified",
+    "No auditory review",
+    "No live deployment"
+  ],
+  "build": {
+    "client": true,
+    "server": true,
+    "authority": "cryptball-v1-07a23030fd98f246ff2e7830",
+    "authoritySources": 33,
+    "clientEndpoint": "default (not isolated test port2568)"
+  },
+  "finalVisualCapture": {
+    "nativeCaptures": 48,
+    "doubleScaleDebugCaptures": 3,
+    "unexpectedPuckFrames": 0,
+    "pageErrors": 0,
+    "details": "visuals/capture-validation.json"
+  },
+  "finalArtProductionSmoke": {
+    "command": "npm run test:cryptball:browser -- --grep Cryptcheck",
+    "passed": 2
+  },
+  "finalAssets": {
+    "focusedTestsPassed": 46,
+    "consumedSources": 13,
+    "overriddenPoses": 12,
+    "frames": 781,
+    "clips": 771,
+    "atlasPages": 3,
+    "encodedBytes": 2499873,
+    "decodedRgbaBytes": 12582912,
+    "builtAssetsByteIdentical": true
+  }
+}

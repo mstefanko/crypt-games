@@ -1,0 +1,6 @@
+{
+  "tool": "built-in image_gen",
+  "reference": "athlete-back-direction-rejected.png",
+  "prompt": "Edit this transparent 4-column by 8-row Cryptball athlete sheet. Correct directional errors ONLY: horizontally mirror EACH INDIVIDUAL character in column 1 and column 2 within its own cell. Column 1 must be W looking screen LEFT with hands extending LEFT, not right. Column 2 must be NW facing AWAY and LEFT with helmet back visible and hands projecting upper-left, not away-right. Preserve row action sequence, character design, poses, spacing, size, alpha, all eight rows. Columns 3 (N directly away) and 4 (NE away-right) must remain unchanged. Do not mirror whole sheet or swap columns. Keep identical 4x8 layout with no extra elements.",
+  "output": "athlete-back.png"
+}

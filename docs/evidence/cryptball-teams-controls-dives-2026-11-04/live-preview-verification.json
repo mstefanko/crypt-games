@@ -1,0 +1,12 @@
+{
+  "url": "http://127.0.0.1:4224/games/cryptball/",
+  "checks": [
+    "all six choices and desktop/short menus",
+    "cryptball: correct radius, right mouse defensive action, no pass",
+    "cryptkick: correct radius, right mouse defensive action, no pass",
+    "rift-volley: correct radius, right mouse defensive action, no pass",
+    "cryptkick: actual preview connects to matching local authority",
+    "rift-volley: actual preview connects to matching local authority"
+  ],
+  "errors": []
+}

@@ -1,0 +1,5 @@
+CRYPT GAMES menu artwork v2
+Original assets generated with OpenAI's built-in image_gen tool on 2026-11-05 for this project.
+Reference games informed menu hierarchy and art direction only; no Nintendo, Hudson, or Konami artwork is distributed here.
+Exact prompts, original PNGs, generation records and runtime hashes: apps/cryptball/art-src/menu-v2/.
+Runtime WebP encoding preserves dimensions and alpha; scene content is not composited or retouched.

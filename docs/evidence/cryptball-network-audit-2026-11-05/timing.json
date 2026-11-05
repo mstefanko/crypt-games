@@ -1,0 +1,78 @@
+[
+  {
+    "rttMs": 20,
+    "seconds": 15,
+    "inputs": 3596,
+    "accepted": 3596,
+    "rejected": 0,
+    "rejectionReasons": {},
+    "resumes": 4,
+    "inactiveSeatTicksAfterWarmup": 0,
+    "correctionPxSampledP95": 0
+  },
+  {
+    "rttMs": 80,
+    "seconds": 15,
+    "inputs": 3588,
+    "accepted": 3580,
+    "rejected": 0,
+    "rejectionReasons": {},
+    "resumes": 4,
+    "inactiveSeatTicksAfterWarmup": 0,
+    "correctionPxSampledP95": 0
+  },
+  {
+    "rttMs": 150,
+    "seconds": 15,
+    "inputs": 3556,
+    "accepted": 2260,
+    "rejected": 1280,
+    "rejectionReasons": {
+      "late": 1236,
+      "revision": 44
+    },
+    "resumes": 28,
+    "inactiveSeatTicksAfterWarmup": 796,
+    "correctionPxSampledP95": 0
+  },
+  {
+    "rttMs": 200,
+    "seconds": 15,
+    "inputs": 2404,
+    "accepted": 736,
+    "rejected": 1660,
+    "rejectionReasons": {
+      "late": 1644,
+      "revision": 16
+    },
+    "resumes": 1176,
+    "inactiveSeatTicksAfterWarmup": 812,
+    "correctionPxSampledP95": 16.26953125
+  },
+  {
+    "rttMs": 250,
+    "seconds": 15,
+    "inputs": 1004,
+    "accepted": 0,
+    "rejected": 1004,
+    "rejectionReasons": {
+      "late": 1004
+    },
+    "resumes": 2568,
+    "inactiveSeatTicksAfterWarmup": 120,
+    "correctionPxSampledP95": 1.22265625
+  },
+  {
+    "rttMs": 300,
+    "seconds": 15,
+    "inputs": 628,
+    "accepted": 0,
+    "rejected": 628,
+    "rejectionReasons": {
+      "late": 628
+    },
+    "resumes": 2940,
+    "inactiveSeatTicksAfterWarmup": 116,
+    "correctionPxSampledP95": 0
+  }
+]

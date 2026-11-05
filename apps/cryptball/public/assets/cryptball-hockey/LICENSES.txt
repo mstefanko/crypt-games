@@ -1,0 +1,1 @@
+Original generated hockey athlete sheets, ice floor edit and puck/effects: OpenAI ImageGen. Source, prompts, hashes and extraction: apps/cryptball/art-src/hockey-v1. No third-party sprite assets.

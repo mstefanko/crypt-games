@@ -1,0 +1,491 @@
+{
+  "errors": [],
+  "summaries": [
+    {
+      "direction": "E",
+      "hit": true,
+      "age": 0,
+      "tick": 1,
+      "contactIndex": 13,
+      "origin": "validated match checkpoint + actual Check command; no invented contact or recovery state",
+      "reduced": false,
+      "debug": false,
+      "attacker": {
+        "clip": "shoulder",
+        "phase": 0,
+        "instance": "hockey:check:1",
+        "lift": 0
+      },
+      "victim": {
+        "clip": "idle",
+        "phase": 0,
+        "instance": "hockey:idle",
+        "lift": 0
+      },
+      "skaters": {
+        "player-0": {
+          "carryHeading": 0,
+          "receiveUntil": 0,
+          "recaptureUntil": 0,
+          "pokeHeld": false,
+          "checkHeld": true,
+          "check": {
+            "id": 1,
+            "heading": 0,
+            "elapsed": 1,
+            "hits": []
+          },
+          "downTicks": 0,
+          "downHeading": 0
+        },
+        "player-1": {
+          "carryHeading": 0,
+          "receiveUntil": 0,
+          "recaptureUntil": 0,
+          "pokeHeld": false,
+          "checkHeld": false,
+          "check": null,
+          "downTicks": 0,
+          "downHeading": 0
+        },
+        "player-2": {
+          "carryHeading": 0,
+          "receiveUntil": 0,
+          "recaptureUntil": 0,
+          "pokeHeld": false,
+          "checkHeld": false,
+          "check": null,
+          "downTicks": 0,
+          "downHeading": 0
+        },
+        "player-3": {
+          "carryHeading": 0,
+          "receiveUntil": 0,
+          "recaptureUntil": 0,
+          "pokeHeld": false,
+          "checkHeld": false,
+          "check": null,
+          "downTicks": 0,
+          "downHeading": 0
+        }
+      },
+      "events": [
+        {
+          "type": "check-start",
+          "tick": 1,
+          "epoch": 1,
+          "counter": 0,
+          "playerId": "player-0",
+          "team": 0,
+          "x": 0,
+          "y": 0,
+          "heading": 0,
+          "actionId": 1
+        }
+      ],
+      "ball": {
+        "z": 0,
+        "vz": 0,
+        "rz": 0,
+        "x": -21760,
+        "y": 14080,
+        "vx": 0,
+        "vy": 0,
+        "rx": 0,
+        "ry": 0,
+        "dragCarry": 0,
+        "lastTouch": null,
+        "passFrom": null,
+        "passTarget": null,
+        "passTeam": null,
+        "passTick": 0,
+        "powerTeam": null,
+        "powerActionKey": null,
+        "bankBonusRemaining": 0,
+        "powerExpires": 0
+      }
+    },
+    {
+      "direction": "E",
+      "hit": true,
+      "age": 13,
+      "tick": 14,
+      "contactIndex": 13,
+      "origin": "validated match checkpoint + actual Check command; no invented contact or recovery state",
+      "reduced": false,
+      "debug": false,
+      "attacker": {
+        "clip": "shoulder",
+        "phase": 0,
+        "instance": "hockey:check:1",
+        "lift": 0
+      },
+      "victim": {
+        "clip": "knockdown-fall",
+        "phase": 0.16666666666666666,
+        "instance": "hockey:down:37:knockdown-fall",
+        "lift": 0
+      },
+      "skaters": {
+        "player-0": {
+          "carryHeading": 0,
+          "receiveUntil": 0,
+          "recaptureUntil": 0,
+          "pokeHeld": false,
+          "checkHeld": false,
+          "check": {
+            "id": 1,
+            "heading": 0,
+            "elapsed": 14,
+            "hits": [
+              "player-2"
+            ]
+          },
+          "downTicks": 0,
+          "downHeading": 0
+        },
+        "player-1": {
+          "carryHeading": 0,
+          "receiveUntil": 0,
+          "recaptureUntil": 0,
+          "pokeHeld": false,
+          "checkHeld": false,
+          "check": null,
+          "downTicks": 0,
+          "downHeading": 0
+        },
+        "player-2": {
+          "carryHeading": 0,
+          "receiveUntil": 0,
+          "recaptureUntil": 0,
+          "pokeHeld": false,
+          "checkHeld": false,
+          "check": null,
+          "downTicks": 23,
+          "downHeading": 0
+        },
+        "player-3": {
+          "carryHeading": 0,
+          "receiveUntil": 0,
+          "recaptureUntil": 0,
+          "pokeHeld": false,
+          "checkHeld": false,
+          "check": null,
+          "downTicks": 0,
+          "downHeading": 0
+        }
+      },
+      "events": [
+        {
+          "type": "check",
+          "tick": 14,
+          "epoch": 1,
+          "counter": 2,
+          "playerId": "player-0",
+          "team": 0,
+          "x": 3456,
+          "y": 0,
+          "targetId": "player-2"
+        }
+      ],
+      "ball": {
+        "z": 0,
+        "vz": 0,
+        "rz": 0,
+        "x": -21760,
+        "y": 14080,
+        "vx": 0,
+        "vy": 0,
+        "rx": 0,
+        "ry": 0,
+        "dragCarry": 0,
+        "lastTouch": null,
+        "passFrom": null,
+        "passTarget": null,
+        "passTeam": null,
+        "passTick": 0,
+        "powerTeam": null,
+        "powerActionKey": null,
+        "bankBonusRemaining": 0,
+        "powerExpires": 0
+      }
+    },
+    {
+      "direction": "E",
+      "hit": true,
+      "age": 21,
+      "tick": 22,
+      "contactIndex": 13,
+      "origin": "validated match checkpoint + actual Check command; no invented contact or recovery state",
+      "reduced": false,
+      "debug": false,
+      "attacker": {
+        "clip": "shoulder",
+        "phase": 0.67465,
+        "instance": "hockey:check:1",
+        "lift": 0
+      },
+      "victim": {
+        "clip": "knockdown",
+        "phase": 0,
+        "instance": "hockey:down:37:knockdown",
+        "lift": 0
+      },
+      "skaters": {
+        "player-0": {
+          "carryHeading": 0,
+          "receiveUntil": 0,
+          "recaptureUntil": 0,
+          "pokeHeld": false,
+          "checkHeld": false,
+          "check": {
+            "id": 1,
+            "heading": 0,
+            "elapsed": 22,
+            "hits": [
+              "player-2"
+            ]
+          },
+          "downTicks": 0,
+          "downHeading": 0
+        },
+        "player-1": {
+          "carryHeading": 0,
+          "receiveUntil": 0,
+          "recaptureUntil": 0,
+          "pokeHeld": false,
+          "checkHeld": false,
+          "check": null,
+          "downTicks": 0,
+          "downHeading": 0
+        },
+        "player-2": {
+          "carryHeading": 0,
+          "receiveUntil": 0,
+          "recaptureUntil": 0,
+          "pokeHeld": false,
+          "checkHeld": false,
+          "check": null,
+          "downTicks": 15,
+          "downHeading": 0
+        },
+        "player-3": {
+          "carryHeading": 0,
+          "receiveUntil": 0,
+          "recaptureUntil": 0,
+          "pokeHeld": false,
+          "checkHeld": false,
+          "check": null,
+          "downTicks": 0,
+          "downHeading": 0
+        }
+      },
+      "events": [],
+      "ball": {
+        "z": 0,
+        "vz": 0,
+        "rz": 0,
+        "x": -21760,
+        "y": 14080,
+        "vx": 0,
+        "vy": 0,
+        "rx": 0,
+        "ry": 0,
+        "dragCarry": 0,
+        "lastTouch": null,
+        "passFrom": null,
+        "passTarget": null,
+        "passTeam": null,
+        "passTick": 0,
+        "powerTeam": null,
+        "powerActionKey": null,
+        "bankBonusRemaining": 0,
+        "powerExpires": 0
+      }
+    },
+    {
+      "direction": "E",
+      "hit": true,
+      "age": 29,
+      "tick": 30,
+      "contactIndex": 13,
+      "origin": "validated match checkpoint + actual Check command; no invented contact or recovery state",
+      "reduced": false,
+      "debug": false,
+      "attacker": {
+        "clip": "shoulder",
+        "phase": 0.87425,
+        "instance": "hockey:check:1",
+        "lift": 0
+      },
+      "victim": {
+        "clip": "get-up",
+        "phase": 0.30000000000000004,
+        "instance": "hockey:down:37:get-up",
+        "lift": 0
+      },
+      "skaters": {
+        "player-0": {
+          "carryHeading": 0,
+          "receiveUntil": 0,
+          "recaptureUntil": 0,
+          "pokeHeld": false,
+          "checkHeld": false,
+          "check": {
+            "id": 1,
+            "heading": 0,
+            "elapsed": 30,
+            "hits": [
+              "player-2"
+            ]
+          },
+          "downTicks": 0,
+          "downHeading": 0
+        },
+        "player-1": {
+          "carryHeading": 0,
+          "receiveUntil": 0,
+          "recaptureUntil": 0,
+          "pokeHeld": false,
+          "checkHeld": false,
+          "check": null,
+          "downTicks": 0,
+          "downHeading": 0
+        },
+        "player-2": {
+          "carryHeading": 0,
+          "receiveUntil": 0,
+          "recaptureUntil": 0,
+          "pokeHeld": false,
+          "checkHeld": false,
+          "check": null,
+          "downTicks": 7,
+          "downHeading": 0
+        },
+        "player-3": {
+          "carryHeading": 0,
+          "receiveUntil": 0,
+          "recaptureUntil": 0,
+          "pokeHeld": false,
+          "checkHeld": false,
+          "check": null,
+          "downTicks": 0,
+          "downHeading": 0
+        }
+      },
+      "events": [],
+      "ball": {
+        "z": 0,
+        "vz": 0,
+        "rz": 0,
+        "x": -21760,
+        "y": 14080,
+        "vx": 0,
+        "vy": 0,
+        "rx": 0,
+        "ry": 0,
+        "dragCarry": 0,
+        "lastTouch": null,
+        "passFrom": null,
+        "passTarget": null,
+        "passTeam": null,
+        "passTick": 0,
+        "powerTeam": null,
+        "powerActionKey": null,
+        "bankBonusRemaining": 0,
+        "powerExpires": 0
+      }
+    },
+    {
+      "direction": "E",
+      "hit": false,
+      "age": 20,
+      "tick": 21,
+      "contactIndex": -1,
+      "origin": "validated match checkpoint + actual Check command; no invented contact or recovery state",
+      "reduced": false,
+      "debug": false,
+      "attacker": {
+        "clip": "shoulder",
+        "phase": 0.6496999999999999,
+        "instance": "hockey:check:1",
+        "lift": 0
+      },
+      "victim": {
+        "clip": "idle",
+        "phase": 0,
+        "instance": "hockey:idle",
+        "lift": 0
+      },
+      "skaters": {
+        "player-0": {
+          "carryHeading": 0,
+          "receiveUntil": 0,
+          "recaptureUntil": 0,
+          "pokeHeld": false,
+          "checkHeld": false,
+          "check": {
+            "id": 1,
+            "heading": 0,
+            "elapsed": 21,
+            "hits": []
+          },
+          "downTicks": 0,
+          "downHeading": 0
+        },
+        "player-1": {
+          "carryHeading": 0,
+          "receiveUntil": 0,
+          "recaptureUntil": 0,
+          "pokeHeld": false,
+          "checkHeld": false,
+          "check": null,
+          "downTicks": 0,
+          "downHeading": 0
+        },
+        "player-2": {
+          "carryHeading": 0,
+          "receiveUntil": 0,
+          "recaptureUntil": 0,
+          "pokeHeld": false,
+          "checkHeld": false,
+          "check": null,
+          "downTicks": 0,
+          "downHeading": 0
+        },
+        "player-3": {
+          "carryHeading": 0,
+          "receiveUntil": 0,
+          "recaptureUntil": 0,
+          "pokeHeld": false,
+          "checkHeld": false,
+          "check": null,
+          "downTicks": 0,
+          "downHeading": 0
+        }
+      },
+      "events": [],
+      "ball": {
+        "z": 0,
+        "vz": 0,
+        "rz": 0,
+        "x": -21760,
+        "y": 14080,
+        "vx": 0,
+        "vy": 0,
+        "rx": 0,
+        "ry": 0,
+        "dragCarry": 0,
+        "lastTouch": null,
+        "passFrom": null,
+        "passTarget": null,
+        "passTeam": null,
+        "passTick": 0,
+        "powerTeam": null,
+        "powerActionKey": null,
+        "bankBonusRemaining": 0,
+        "powerExpires": 0
+      }
+    }
+  ]
+}

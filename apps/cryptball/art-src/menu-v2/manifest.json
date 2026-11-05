@@ -1,0 +1,78 @@
+{
+  "generator": "built-in image_gen",
+  "runtime_encoding": "WebP quality 92, sharp YUV, alpha quality100; no resizing or compositing",
+  "assets": [
+    {
+      "id": "cryptcheck",
+      "source": "cryptcheck.png",
+      "runtime": "cryptcheck.webp",
+      "source_sha256": "270e2ab9c4614cb486fb1e951e3c9cf4131367621e091499e665f2ae4d3e28e2",
+      "runtime_sha256": "73c0ee772b35635f2c07d24ea8073af50e358a04972b586af6488189873bfe3b",
+      "source_bytes": 1775172,
+      "runtime_bytes": 298114
+    },
+    {
+      "id": "cryptkick",
+      "source": "cryptkick.png",
+      "runtime": "cryptkick.webp",
+      "source_sha256": "94fee8e24aff67490f5a3c1648c68b170582b73ee93c04fc46b25aa48abb3deb",
+      "runtime_sha256": "449e0f5b3e400c55086622073261ba667854cf7fe3d80dbe98f74817c7d6dc33",
+      "source_bytes": 1663302,
+      "runtime_bytes": 238236
+    },
+    {
+      "id": "crypt-guardian",
+      "source": "crypt-guardian.png",
+      "runtime": "crypt-guardian.webp",
+      "source_sha256": "0d524643aad46fd22cc51a90f84ee4b5e41f1f108cd4196558094d213ae08041",
+      "runtime_sha256": "ec0c69f49d8fcafaa9348a6ad48670a2ffaa02ab2e5733fe188cfb2cedbe657d",
+      "source_bytes": 2157845,
+      "runtime_bytes": 360328
+    },
+    {
+      "id": "shuffle",
+      "source": "shuffle.png",
+      "runtime": "shuffle.webp",
+      "source_sha256": "91bbf13a86877630b74562d9d9211c79bb12b511c706ff13c46c3ebd640b0208",
+      "runtime_sha256": "65802395a2a2675378514a8728269042f493e450de5fc4fd3842ecea5b28bdfd",
+      "source_bytes": 1779971,
+      "runtime_bytes": 287650
+    },
+    {
+      "id": "logo",
+      "source": "logo.png",
+      "runtime": "logo.webp",
+      "source_sha256": "56c579e1b643a4523c78be280fc0eb62e7babe777b830dfb65567097a9888868",
+      "runtime_sha256": "d9e26a4c89cb72222b1223bed2cdd23c13ccac734c4d1fe1eab11619dadf5049",
+      "source_bytes": 1409669,
+      "runtime_bytes": 258562
+    },
+    {
+      "id": "rift-volley",
+      "source": "rift-volley.png",
+      "runtime": "rift-volley.webp",
+      "source_sha256": "68a91b0b53717e10abd08b4cc916dd31fda81a642f7548163f06009d1efd145a",
+      "runtime_sha256": "03651d9e0938a39f472db636e00c0cf26c2abcd044b63fd5a50f1cfb35f0d0e9",
+      "source_bytes": 2097913,
+      "runtime_bytes": 335250
+    },
+    {
+      "id": "cryptball",
+      "source": "cryptball.png",
+      "runtime": "cryptball.webp",
+      "source_sha256": "6f81e45f2813aef3669aa282a675aa6a62844e3e34e47a1c5836d6d356b826ff",
+      "runtime_sha256": "85082e8d398c12660127c10c6ac0f30940f81c5a7bcb5d952978171a9bc490c9",
+      "source_bytes": 2139165,
+      "runtime_bytes": 294248
+    },
+    {
+      "id": "crypt-dodge",
+      "source": "crypt-dodge.png",
+      "runtime": "crypt-dodge.webp",
+      "source_sha256": "385bf4fff3c33c53c03e834d54c80f06abbf7ca7895a6946afe81117c20e20ff",
+      "runtime_sha256": "e26e5e37131b35dac611aab7f630c6f4b70349373f10560ccd3d5e6fc654924a",
+      "source_bytes": 1850262,
+      "runtime_bytes": 247974
+    }
+  ]
+}

@@ -1,0 +1,199 @@
+{
+  "clock": "node:perf_hooks real monotonic",
+  "referenceDevice": "local development host; not supported-device release qualification",
+  "scope": "simulation path only; excludes adapter disposition handling, correction offsets, renderer and browser costs",
+  "report": [
+    {
+      "sport": "cryptball",
+      "horizon": 12,
+      "samples": 100,
+      "p95Ms": 2.759457999999995,
+      "maxMs": 3.3050420000000145,
+      "bytes": 3460
+    },
+    {
+      "sport": "cryptball",
+      "horizon": 20,
+      "samples": 100,
+      "p95Ms": 3.2430420000000595,
+      "maxMs": 3.863125000000082,
+      "bytes": 3460
+    },
+    {
+      "sport": "cryptball",
+      "horizon": 24,
+      "samples": 100,
+      "p95Ms": 3.547708000000057,
+      "maxMs": 3.607833000000028,
+      "bytes": 3460
+    },
+    {
+      "sport": "cryptball",
+      "horizon": 32,
+      "samples": 100,
+      "p95Ms": 4.514999999999873,
+      "maxMs": 7.074333000000024,
+      "bytes": 3460
+    },
+    {
+      "sport": "cryptkick",
+      "horizon": 12,
+      "samples": 100,
+      "p95Ms": 1.1790829999999914,
+      "maxMs": 1.5372919999999795,
+      "bytes": 3458
+    },
+    {
+      "sport": "cryptkick",
+      "horizon": 20,
+      "samples": 100,
+      "p95Ms": 1.8888749999998709,
+      "maxMs": 2.2799999999999727,
+      "bytes": 3458
+    },
+    {
+      "sport": "cryptkick",
+      "horizon": 24,
+      "samples": 100,
+      "p95Ms": 2.209124999999858,
+      "maxMs": 2.275499999999738,
+      "bytes": 3458
+    },
+    {
+      "sport": "cryptkick",
+      "horizon": 32,
+      "samples": 100,
+      "p95Ms": 3.1129580000001624,
+      "maxMs": 3.1824169999999867,
+      "bytes": 3458
+    },
+    {
+      "sport": "rift-volley",
+      "horizon": 12,
+      "samples": 100,
+      "p95Ms": 0.9794999999999163,
+      "maxMs": 1.087666999999783,
+      "bytes": 3860
+    },
+    {
+      "sport": "rift-volley",
+      "horizon": 20,
+      "samples": 100,
+      "p95Ms": 1.8045419999998558,
+      "maxMs": 2.400749999999789,
+      "bytes": 3860
+    },
+    {
+      "sport": "rift-volley",
+      "horizon": 24,
+      "samples": 100,
+      "p95Ms": 1.586041000000023,
+      "maxMs": 1.6613750000001346,
+      "bytes": 3860
+    },
+    {
+      "sport": "rift-volley",
+      "horizon": 32,
+      "samples": 100,
+      "p95Ms": 2,
+      "maxMs": 2.1781670000000304,
+      "bytes": 3860
+    },
+    {
+      "sport": "cryptcheck",
+      "horizon": 12,
+      "samples": 100,
+      "p95Ms": 2.021582999999737,
+      "maxMs": 2.4442079999998896,
+      "bytes": 4632
+    },
+    {
+      "sport": "cryptcheck",
+      "horizon": 20,
+      "samples": 100,
+      "p95Ms": 3.0408339999999043,
+      "maxMs": 3.455249999999978,
+      "bytes": 4632
+    },
+    {
+      "sport": "cryptcheck",
+      "horizon": 24,
+      "samples": 100,
+      "p95Ms": 3.5397499999999127,
+      "maxMs": 3.621874999999818,
+      "bytes": 4632
+    },
+    {
+      "sport": "cryptcheck",
+      "horizon": 32,
+      "samples": 100,
+      "p95Ms": 4.881708000000799,
+      "maxMs": 5.030957999999373,
+      "bytes": 4632
+    },
+    {
+      "sport": "crypt-dodge",
+      "horizon": 12,
+      "samples": 100,
+      "p95Ms": 0.29004099999929167,
+      "maxMs": 0.3190420000000813,
+      "bytes": 4377
+    },
+    {
+      "sport": "crypt-dodge",
+      "horizon": 20,
+      "samples": 100,
+      "p95Ms": 0.3568749999994907,
+      "maxMs": 0.7143749999995634,
+      "bytes": 4377
+    },
+    {
+      "sport": "crypt-dodge",
+      "horizon": 24,
+      "samples": 100,
+      "p95Ms": 0.3910829999995258,
+      "maxMs": 0.6419999999998254,
+      "bytes": 4377
+    },
+    {
+      "sport": "crypt-dodge",
+      "horizon": 32,
+      "samples": 100,
+      "p95Ms": 0.4952079999993657,
+      "maxMs": 1.0521660000003976,
+      "bytes": 4377
+    },
+    {
+      "sport": "crypt-guardian",
+      "horizon": 12,
+      "samples": 100,
+      "p95Ms": 0.47862499999973807,
+      "maxMs": 0.6060840000000098,
+      "bytes": 4489
+    },
+    {
+      "sport": "crypt-guardian",
+      "horizon": 20,
+      "samples": 100,
+      "p95Ms": 0.6032500000001164,
+      "maxMs": 0.6570409999994808,
+      "bytes": 4489
+    },
+    {
+      "sport": "crypt-guardian",
+      "horizon": 24,
+      "samples": 100,
+      "p95Ms": 0.6707919999998921,
+      "maxMs": 1.0247499999995853,
+      "bytes": 4489
+    },
+    {
+      "sport": "crypt-guardian",
+      "horizon": 32,
+      "samples": 100,
+      "p95Ms": 1.0344169999998485,
+      "maxMs": 1.3296250000003056,
+      "bytes": 4489
+    }
+  ]
+}

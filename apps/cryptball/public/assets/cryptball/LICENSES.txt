@@ -1,0 +1,2 @@
+CRYPTBALL POLISHED GENERATED ART
+Athletes, arena and animated flame source images generated with OpenAI ImageGen. Prompts, source hashes and extraction metadata: apps/cryptball/art-src/polished-v1. Runtime cleanup uses Pillow. Original small ball/UI/contact FX retained from scripts/game-assets/import-cryptball.py; no purchased athlete assets used. No assertion of exclusive copyright or human approval.

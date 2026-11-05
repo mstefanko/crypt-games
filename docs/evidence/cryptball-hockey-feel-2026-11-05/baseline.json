@@ -1,0 +1,804 @@
+[
+  {
+    "scenario": "symmetric-faceoff",
+    "live": 3457,
+    "owned": 208,
+    "cluster": 201,
+    "maxRun": 33,
+    "meanPossession": 1.2682926829268293,
+    "score": [
+      0,
+      1
+    ],
+    "events": {
+      "whistle": 2,
+      "skate-push": 288,
+      "clash": 89,
+      "special": 4,
+      "special-success": 2,
+      "trap": 164,
+      "slide": 49,
+      "possession-lost": 164,
+      "slide-recover": 49,
+      "slide-contact": 25,
+      "puck-contact": 28,
+      "board": 58,
+      "pass-target": 1,
+      "swing": 6,
+      "pass": 1,
+      "pass-complete": 1,
+      "whiff": 3,
+      "ice-stop": 3,
+      "strike": 2,
+      "post": 1,
+      "check": 1,
+      "goal": 1
+    },
+    "reasons": {
+      "unreachable": 160,
+      "action": 3,
+      "poke": 1
+    },
+    "samples": [
+      {
+        "tick": 600,
+        "puck": [
+          0,
+          0
+        ],
+        "owner": null,
+        "players": [
+          {
+            "id": "player-0",
+            "x": -16.60546875,
+            "y": 0,
+            "role": "intercept",
+            "slide": 0
+          },
+          {
+            "id": "player-1",
+            "x": -46.765625,
+            "y": -1.50390625,
+            "role": "defend-lane",
+            "slide": 0
+          },
+          {
+            "id": "player-2",
+            "x": 16.60546875,
+            "y": 0,
+            "role": "intercept",
+            "slide": 0
+          },
+          {
+            "id": "player-3",
+            "x": 46.765625,
+            "y": 1.50390625,
+            "role": "defend-lane",
+            "slide": 0
+          }
+        ]
+      },
+      {
+        "tick": 1200,
+        "puck": [
+          119.91796875,
+          71.47265625
+        ],
+        "owner": null,
+        "players": [
+          {
+            "id": "player-0",
+            "x": 105.05078125,
+            "y": 67.30078125,
+            "role": "intercept",
+            "slide": 0
+          },
+          {
+            "id": "player-1",
+            "x": 72.61328125,
+            "y": 35.5390625,
+            "role": "defend-lane",
+            "slide": 0
+          },
+          {
+            "id": "player-2",
+            "x": 109.01953125,
+            "y": 80.76953125,
+            "role": "intercept",
+            "slide": 0
+          },
+          {
+            "id": "player-3",
+            "x": 138.60546875,
+            "y": 37.796875,
+            "role": "defend-lane",
+            "slide": 0
+          }
+        ]
+      },
+      {
+        "tick": 1800,
+        "puck": [
+          159.96484375,
+          87.76953125
+        ],
+        "owner": null,
+        "players": [
+          {
+            "id": "player-0",
+            "x": 155.1484375,
+            "y": 73.33984375,
+            "role": "intercept",
+            "slide": 0
+          },
+          {
+            "id": "player-1",
+            "x": 112.9921875,
+            "y": 41.86328125,
+            "role": "defend-lane",
+            "slide": 0
+          },
+          {
+            "id": "player-2",
+            "x": 139.31640625,
+            "y": 39.23828125,
+            "role": "defend-lane",
+            "slide": 0
+          },
+          {
+            "id": "player-3",
+            "x": 145.30859375,
+            "y": 83.78515625,
+            "role": "intercept",
+            "slide": 0
+          }
+        ]
+      },
+      {
+        "tick": 2400,
+        "puck": [
+          158.77734375,
+          -89.7734375
+        ],
+        "owner": null,
+        "players": [
+          {
+            "id": "player-0",
+            "x": 112.91015625,
+            "y": -40.58984375,
+            "role": "defend-lane",
+            "slide": 0
+          },
+          {
+            "id": "player-1",
+            "x": 146.1171875,
+            "y": -83.15234375,
+            "role": "intercept",
+            "slide": 0
+          },
+          {
+            "id": "player-2",
+            "x": 157.1796875,
+            "y": -74.5625,
+            "role": "intercept",
+            "slide": 0
+          },
+          {
+            "id": "player-3",
+            "x": 138.8125,
+            "y": -40.078125,
+            "role": "defend-lane",
+            "slide": 0
+          }
+        ]
+      },
+      {
+        "tick": 3000,
+        "puck": [
+          111.87890625,
+          -88.140625
+        ],
+        "owner": null,
+        "players": [
+          {
+            "id": "player-0",
+            "x": 69.5546875,
+            "y": -41.97265625,
+            "role": "defend-lane",
+            "slide": 0
+          },
+          {
+            "id": "player-1",
+            "x": 123.203125,
+            "y": -75.9296875,
+            "role": "intercept",
+            "slide": 0
+          },
+          {
+            "id": "player-2",
+            "x": 128.1875,
+            "y": -89,
+            "role": "intercept",
+            "slide": 0
+          },
+          {
+            "id": "player-3",
+            "x": 138.90625,
+            "y": -39.3203125,
+            "role": "defend-lane",
+            "slide": 0
+          }
+        ]
+      },
+      {
+        "tick": 3600,
+        "puck": [
+          0,
+          0
+        ],
+        "owner": null,
+        "players": [
+          {
+            "id": "player-0",
+            "x": -46.765625,
+            "y": -1.50390625,
+            "role": "defend-lane",
+            "slide": 0
+          },
+          {
+            "id": "player-1",
+            "x": -16.60546875,
+            "y": 0,
+            "role": "intercept",
+            "slide": 0
+          },
+          {
+            "id": "player-2",
+            "x": 46.765625,
+            "y": 1.50390625,
+            "role": "defend-lane",
+            "slide": 0
+          },
+          {
+            "id": "player-3",
+            "x": 16.60546875,
+            "y": 0,
+            "role": "intercept",
+            "slide": 0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "scenario": "offset-puck",
+    "live": 3457,
+    "owned": 230,
+    "cluster": 319,
+    "maxRun": 34,
+    "meanPossession": 2.277227722772277,
+    "score": [
+      0,
+      1
+    ],
+    "events": {
+      "whistle": 2,
+      "skate-push": 138,
+      "clash": 149,
+      "special": 4,
+      "trap": 101,
+      "slide": 26,
+      "possession-lost": 101,
+      "slide-contact": 13,
+      "puck-contact": 17,
+      "special-success": 1,
+      "slide-recover": 26,
+      "ice-stop": 9,
+      "post": 1,
+      "board": 19,
+      "swing": 8,
+      "strike": 3,
+      "whiff": 4,
+      "pass-target": 1,
+      "pass": 1,
+      "pass-complete": 1,
+      "goal": 1
+    },
+    "reasons": {
+      "poke": 1,
+      "action": 5,
+      "unreachable": 95
+    },
+    "samples": [
+      {
+        "tick": 600,
+        "puck": [
+          0,
+          7
+        ],
+        "owner": null,
+        "players": [
+          {
+            "id": "player-0",
+            "x": -15.40625,
+            "y": 2.37890625,
+            "role": "intercept",
+            "slide": 0
+          },
+          {
+            "id": "player-1",
+            "x": -47.10546875,
+            "y": 0.9765625,
+            "role": "defend-lane",
+            "slide": 0
+          },
+          {
+            "id": "player-2",
+            "x": 15.40625,
+            "y": 2.37890625,
+            "role": "intercept",
+            "slide": 0
+          },
+          {
+            "id": "player-3",
+            "x": 47.19921875,
+            "y": 5.77734375,
+            "role": "defend-lane",
+            "slide": 0
+          }
+        ]
+      },
+      {
+        "tick": 1200,
+        "puck": [
+          -130.1953125,
+          47.4609375
+        ],
+        "owner": null,
+        "players": [
+          {
+            "id": "player-0",
+            "x": -113.9375,
+            "y": 36.76171875,
+            "role": "intercept",
+            "slide": 0
+          },
+          {
+            "id": "player-1",
+            "x": -98.1015625,
+            "y": 28.9140625,
+            "role": "defend-lane",
+            "slide": 0
+          },
+          {
+            "id": "player-2",
+            "x": -105.87890625,
+            "y": 48.21875,
+            "role": "intercept",
+            "slide": 0
+          },
+          {
+            "id": "player-3",
+            "x": -76.6015625,
+            "y": 22.15234375,
+            "role": "defend-lane",
+            "slide": 0
+          }
+        ]
+      },
+      {
+        "tick": 1800,
+        "puck": [
+          152.4375,
+          84.62890625
+        ],
+        "owner": null,
+        "players": [
+          {
+            "id": "player-0",
+            "x": 141.77734375,
+            "y": 88.15625,
+            "role": "intercept",
+            "slide": 0
+          },
+          {
+            "id": "player-1",
+            "x": 111.52734375,
+            "y": 41.1640625,
+            "role": "defend-lane",
+            "slide": 0
+          },
+          {
+            "id": "player-2",
+            "x": 138.01171875,
+            "y": 41.27734375,
+            "role": "defend-lane",
+            "slide": 0
+          },
+          {
+            "id": "player-3",
+            "x": 146.8984375,
+            "y": 73.6484375,
+            "role": "intercept",
+            "slide": 0
+          }
+        ]
+      },
+      {
+        "tick": 2400,
+        "puck": [
+          13.16796875,
+          63.09765625
+        ],
+        "owner": null,
+        "players": [
+          {
+            "id": "player-0",
+            "x": -19.609375,
+            "y": 34.5078125,
+            "role": "defend-lane",
+            "slide": 0
+          },
+          {
+            "id": "player-1",
+            "x": 48.70703125,
+            "y": 70.44921875,
+            "role": "intercept",
+            "slide": 0
+          },
+          {
+            "id": "player-2",
+            "x": 70.5234375,
+            "y": 17.1875,
+            "role": "defend-lane",
+            "slide": 0
+          },
+          {
+            "id": "player-3",
+            "x": 29.703125,
+            "y": 68.90625,
+            "role": "intercept",
+            "action": "strike",
+            "slide": 0
+          }
+        ]
+      },
+      {
+        "tick": 3000,
+        "puck": [
+          0,
+          0
+        ],
+        "owner": null,
+        "players": [
+          {
+            "id": "player-0",
+            "x": -46.765625,
+            "y": -1.50390625,
+            "role": "defend-lane",
+            "slide": 0
+          },
+          {
+            "id": "player-1",
+            "x": -16.53515625,
+            "y": 0,
+            "role": "intercept",
+            "slide": 0
+          },
+          {
+            "id": "player-2",
+            "x": 46.765625,
+            "y": 1.50390625,
+            "role": "defend-lane",
+            "slide": 0
+          },
+          {
+            "id": "player-3",
+            "x": 16.53515625,
+            "y": 0,
+            "role": "intercept",
+            "slide": 0
+          }
+        ]
+      },
+      {
+        "tick": 3600,
+        "puck": [
+          0,
+          0
+        ],
+        "owner": null,
+        "players": [
+          {
+            "id": "player-0",
+            "x": -46.765625,
+            "y": -1.50390625,
+            "role": "defend-lane",
+            "slide": 0
+          },
+          {
+            "id": "player-1",
+            "x": -16.53515625,
+            "y": 0,
+            "role": "intercept",
+            "slide": 0
+          },
+          {
+            "id": "player-2",
+            "x": 46.765625,
+            "y": 1.50390625,
+            "role": "defend-lane",
+            "slide": 0
+          },
+          {
+            "id": "player-3",
+            "x": 16.53515625,
+            "y": 0,
+            "role": "intercept",
+            "slide": 0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "scenario": "human-idle",
+    "live": 3556,
+    "owned": 670,
+    "cluster": 46,
+    "maxRun": 110,
+    "meanPossession": 10.98360655737705,
+    "score": [
+      0,
+      0
+    ],
+    "events": {
+      "whistle": 1,
+      "skate-push": 130,
+      "clash": 1,
+      "trap": 64,
+      "possession-lost": 64,
+      "ice-stop": 2,
+      "slide": 12,
+      "slide-recover": 12,
+      "slide-contact": 10,
+      "puck-contact": 10,
+      "special": 2
+    },
+    "reasons": {
+      "interception": 5,
+      "unreachable": 49,
+      "poke": 10
+    },
+    "samples": [
+      {
+        "tick": 600,
+        "puck": [
+          -9.984375,
+          0
+        ],
+        "owner": "player-0",
+        "players": [
+          {
+            "id": "player-0",
+            "x": -24,
+            "y": 0,
+            "role": "feed",
+            "slide": 0
+          },
+          {
+            "id": "player-1",
+            "x": 13.78515625,
+            "y": 33.921875,
+            "role": "support",
+            "slide": 0
+          },
+          {
+            "id": "player-2",
+            "x": 3.08984375,
+            "y": 0,
+            "role": "intercept",
+            "slide": 0
+          },
+          {
+            "id": "player-3",
+            "x": 35.10546875,
+            "y": -0.08984375,
+            "role": "defend-lane",
+            "slide": 0
+          }
+        ]
+      },
+      {
+        "tick": 1200,
+        "puck": [
+          -17.8359375,
+          6.9765625
+        ],
+        "owner": null,
+        "players": [
+          {
+            "id": "player-0",
+            "x": -25.890625,
+            "y": -0.63671875,
+            "role": "intercept",
+            "slide": 0
+          },
+          {
+            "id": "player-1",
+            "x": -61.140625,
+            "y": 2.58203125,
+            "role": "defend-lane",
+            "slide": 0
+          },
+          {
+            "id": "player-2",
+            "x": -5.77734375,
+            "y": 0.0625,
+            "role": "intercept",
+            "slide": 0
+          },
+          {
+            "id": "player-3",
+            "x": 25.671875,
+            "y": 4.94140625,
+            "role": "defend-lane",
+            "slide": 0
+          }
+        ]
+      },
+      {
+        "tick": 1800,
+        "puck": [
+          -20.2421875,
+          8.94140625
+        ],
+        "owner": null,
+        "players": [
+          {
+            "id": "player-0",
+            "x": -25.890625,
+            "y": -0.63671875,
+            "role": "intercept",
+            "slide": 0
+          },
+          {
+            "id": "player-1",
+            "x": -63.84375,
+            "y": 3.62890625,
+            "role": "defend-lane",
+            "slide": 0
+          },
+          {
+            "id": "player-2",
+            "x": -9.30859375,
+            "y": 0.0625,
+            "role": "intercept",
+            "slide": 0
+          },
+          {
+            "id": "player-3",
+            "x": 23.5703125,
+            "y": 5.65625,
+            "role": "defend-lane",
+            "slide": 0
+          }
+        ]
+      },
+      {
+        "tick": 2400,
+        "puck": [
+          -20.2421875,
+          8.94140625
+        ],
+        "owner": null,
+        "players": [
+          {
+            "id": "player-0",
+            "x": -25.890625,
+            "y": -0.63671875,
+            "role": "intercept",
+            "slide": 0
+          },
+          {
+            "id": "player-1",
+            "x": -63.84375,
+            "y": 3.62890625,
+            "role": "defend-lane",
+            "slide": 0
+          },
+          {
+            "id": "player-2",
+            "x": -9.30859375,
+            "y": 0.0625,
+            "role": "intercept",
+            "slide": 0
+          },
+          {
+            "id": "player-3",
+            "x": 25.5390625,
+            "y": 4.83984375,
+            "role": "defend-lane",
+            "slide": 0
+          }
+        ]
+      },
+      {
+        "tick": 3000,
+        "puck": [
+          -20.2421875,
+          8.94140625
+        ],
+        "owner": null,
+        "players": [
+          {
+            "id": "player-0",
+            "x": -25.890625,
+            "y": -0.63671875,
+            "role": "intercept",
+            "slide": 0
+          },
+          {
+            "id": "player-1",
+            "x": -63.84375,
+            "y": 3.62890625,
+            "role": "defend-lane",
+            "slide": 0
+          },
+          {
+            "id": "player-2",
+            "x": -9.30859375,
+            "y": 0.0625,
+            "role": "intercept",
+            "slide": 0
+          },
+          {
+            "id": "player-3",
+            "x": 25.5390625,
+            "y": 4.83984375,
+            "role": "defend-lane",
+            "slide": 0
+          }
+        ]
+      },
+      {
+        "tick": 3600,
+        "puck": [
+          -20.2421875,
+          8.94140625
+        ],
+        "owner": null,
+        "players": [
+          {
+            "id": "player-0",
+            "x": -25.890625,
+            "y": -0.63671875,
+            "role": "intercept",
+            "slide": 0
+          },
+          {
+            "id": "player-1",
+            "x": -63.84375,
+            "y": 3.62890625,
+            "role": "defend-lane",
+            "slide": 0
+          },
+          {
+            "id": "player-2",
+            "x": -9.30859375,
+            "y": 0.0625,
+            "role": "intercept",
+            "slide": 0
+          },
+          {
+            "id": "player-3",
+            "x": 25.5390625,
+            "y": 4.83984375,
+            "role": "defend-lane",
+            "slide": 0
+          }
+        ]
+      }
+    ]
+  }
+]

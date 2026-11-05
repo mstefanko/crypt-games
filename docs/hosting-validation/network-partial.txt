@@ -1,0 +1,17 @@
+
+> crypt-games@0.0.0 test:cryptball:network
+> node apps/cryptball-server/identity.mjs && vitest run --config vitest.cryptball-network.config.ts
+
+Cryptball authority: cryptball-v1-d60eafa46a9ccdb43dc5c2d4 (45 source files)
+
+ RUN  v5.0.5 /Users/mstefanko/Documents/New project/crypt-games
+
+ ❯ apps/cryptball/tests/online-socket.test.ts (12 tests | 5 failed | 2 skipped) 51815ms
+   ❯ real Colyseus sockets (10)
+     × isolates sport queues, discovers private-room sport by code, and rejects unknown or mismatched sport 31ms
+     × isolates private rooms, joins 2 opposing humans, advances authority and resumes a dropped seat 11ms
+     × transports one team special to both peers and preserves its spent cooldown on reconnect 25041ms
+     × bounds concurrent fifth arrival and allows a three-human private start 18ms
+   × runs four real browser adapters through an ordered 150ms RTT TCP proxy 12668ms
+ ❯ apps/cryptball/tests/online-receipts.test.ts (17 tests | 1 failed) 168ms
+   × restores a real authority checkpoint during an origin-bearing active special 4ms

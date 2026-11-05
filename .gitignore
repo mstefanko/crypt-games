@@ -1,0 +1,85 @@
+node_modules/
+dist/
+coverage/
+playwright-report/
+test-results/
+.DS_Store
+.env
+.env.*
+!.env.example
+*.log
+.local/
+user-library/
+packages/music-io/src/player-runtime.generated.js
+apps/composer/public/THIRD_PARTY_NOTICES.txt
+# Local imported fan-game source, artwork and derived scores are never distributed.
+apps/composer/public/local-games/
+
+# Generated standalone cutscene player; rebuilt before typecheck/test/build.
+packages/director-runtime/src/bundle.generated.ts
+
+# Built game and browser fixture bundles.
+dist-game/
+dist-game-fixture/
+.local-game-tests/
+
+# Generated M2 static player, test fixture and pinned media preparation.
+dist-game-m2/
+dist-game-m2-fixture/
+examples/game-m2/prepared-assets/
+test-results-audio/
+dist-game-m2-assets/
+test-results-flow/
+
+# M3 self-contained static player and test-only replay fixture.
+dist-game-m3/
+dist-game-m3-fixture/
+
+# Development-only M4 Lab output.
+dist-game-lab/
+# Bounded local M4 recordings and generated cross-engine replay corpus.
+.game-m4-artifacts/
+tests/game/.m4-generated/
+
+# Generated self-contained M5 player and experimental builds.
+dist-game-m5/
+
+# Explicit trusted-rule charge proof player.
+dist-game-charge/
+
+# Authored exploration development player.
+dist-game-exploration/
+
+# Local behavior edit ownership and interrupted staging.
+.game-behavior.lock
+.game-behavior.lock.*.tmp
+examples/game-exploration/behaviors.json.*.tmp
+
+/dist-game-platform-world-browser/
+
+# P4 generated cave and optional rigid-body builds.
+/dist-game-cave-rescue/
+/dist-game-cave-browser/
+/dist-game-salvage-rig/
+
+# Reproducible Skyline comparison build outputs
+/dist-skyline-comparison-pixi/
+/dist-skyline-comparison-phaser/
+
+# Reproducible collection source extraction and intermediate offline bakes.
+/generated/game-collection/*/sources/
+/generated/game-collection/*/frames/
+/generated/game-collection/*/*.blend
+/generated/game-collection/*/*.blend1
+/generated/game-collection/browser/
+/dist-audio-arcade/
+
+/generated/game-collection/*/actor-frames/
+
+# Local harness inventories, stage logs and qualification reports.
+/generated/engine-tests/
+/generated/audio-arcade/browser/
+
+__pycache__/
+*.pyc
+.venv-assets/

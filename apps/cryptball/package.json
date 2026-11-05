@@ -1,0 +1,14 @@
+{
+  "name": "@onepage/cryptball",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./sim": "./sim/session.ts",
+    "./protocol": "./protocol.ts"
+  },
+  "dependencies": {
+    "@colyseus/sdk": "0.18.9",
+    "msgpackr": "2.0.1"
+  }
+}

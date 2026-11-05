@@ -1,0 +1,72 @@
+{
+  "status": "structural gates passed",
+  "sourcePoseCount": 160,
+  "authoredFacings": [
+    "E",
+    "SE",
+    "S",
+    "SW",
+    "W",
+    "NW",
+    "N",
+    "NE"
+  ],
+  "standingHeightPx": 44,
+  "frameSize": [
+    112,
+    80
+  ],
+  "pivot": [
+    56,
+    70
+  ],
+  "binaryAlpha": true,
+  "atlasFrames": 961,
+  "atlasPages": 3,
+  "sources": [
+    {
+      "file": "action-E.png",
+      "sha256": "4abd8a7106e1f00d297b6042531e52d9b79eb00104d8b1356d71ac93892add3a"
+    },
+    {
+      "file": "action-SE.png",
+      "sha256": "dd27b1c8cbe8a176949a806dbf936f1246ba02f0ddbc2153e2af520a17bf2705"
+    },
+    {
+      "file": "action-S.png",
+      "sha256": "e2570458d3129979527c29c8748c3e285b69ec77df51d27293f1718ac91e568e"
+    },
+    {
+      "file": "action-SW.png",
+      "sha256": "584477cf91c3ad5b7d572c22fd7253feaec9f4978b23497a0671fdfe8725f7f8"
+    },
+    {
+      "file": "action-W.png",
+      "sha256": "5b88fa83ceb8aa481667612e5b2210b906a2e5aad4ac41ff2a81ccb67cfe9455"
+    },
+    {
+      "file": "action-NW.png",
+      "sha256": "d63a7a8f2459aa8735a70a02f7dc078e42af63850df08d34d99f41968363ee0c"
+    },
+    {
+      "file": "action-N.png",
+      "sha256": "37a25e90eee3ea50014891007384dee0ffaf44abd3a5e81e72e06f24905c9cb9"
+    },
+    {
+      "file": "action-NE.png",
+      "sha256": "5fb16a59b56afa5dee98b9b35ede139e3074fba4052a3cdce14d71ecdec87cfc"
+    },
+    {
+      "file": "../dives-v1/dive-front.png",
+      "sha256": "fa4fc4739d52c97242da7f1490f72ec5214c1d861169ae3ff5279ce5ea782ed0"
+    },
+    {
+      "file": "../dives-v1/dive-back.png",
+      "sha256": "f63bf46c263f7a6f645e56de9d85fcea51ed5d5626506fc5a4079b73631fc508"
+    },
+    {
+      "file": "arena-unmarked.png",
+      "sha256": "323d6f36370da5b320fbc730667035da6960d7d8ef345d4fa2fcc731232209b2"
+    }
+  ]
+}

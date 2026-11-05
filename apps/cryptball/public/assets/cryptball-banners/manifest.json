@@ -1,0 +1,297 @@
+{
+  "version": 2,
+  "recipeId": "cryptball-team-banners-v1",
+  "sampling": "nearest",
+  "pages": {
+    "0": "rams-0-rear.png",
+    "1": "rams-0-front.png",
+    "2": "rams-1-rear.png",
+    "3": "rams-1-front.png",
+    "4": "foxes-0-rear.png",
+    "5": "foxes-0-front.png",
+    "6": "foxes-1-rear.png",
+    "7": "foxes-1-front.png",
+    "8": "owls-0-rear.png",
+    "9": "owls-0-front.png",
+    "10": "owls-1-rear.png",
+    "11": "owls-1-front.png",
+    "12": "gators-0-rear.png",
+    "13": "gators-0-front.png",
+    "14": "gators-1-rear.png",
+    "15": "gators-1-front.png",
+    "16": "bats-0-rear.png",
+    "17": "bats-0-front.png",
+    "18": "bats-1-rear.png",
+    "19": "bats-1-front.png",
+    "20": "hornets-0-rear.png",
+    "21": "hornets-0-front.png",
+    "22": "hornets-1-rear.png",
+    "23": "hornets-1-front.png"
+  },
+  "frames": {
+    "banners.rams.0.rear": {
+      "pageId": "0",
+      "x": 0,
+      "y": 0,
+      "width": 91,
+      "height": 152,
+      "pivot": {
+        "x": -7,
+        "y": -114
+      }
+    },
+    "banners.rams.0.front": {
+      "pageId": "1",
+      "x": 0,
+      "y": 0,
+      "width": 150,
+      "height": 51,
+      "pivot": {
+        "x": -110,
+        "y": -316
+      }
+    },
+    "banners.rams.1.rear": {
+      "pageId": "2",
+      "x": 0,
+      "y": 0,
+      "width": 92,
+      "height": 153,
+      "pivot": {
+        "x": -542,
+        "y": -114
+      }
+    },
+    "banners.rams.1.front": {
+      "pageId": "3",
+      "x": 0,
+      "y": 0,
+      "width": 149,
+      "height": 51,
+      "pivot": {
+        "x": -381,
+        "y": -316
+      }
+    },
+    "banners.foxes.0.rear": {
+      "pageId": "4",
+      "x": 0,
+      "y": 0,
+      "width": 91,
+      "height": 152,
+      "pivot": {
+        "x": -7,
+        "y": -114
+      }
+    },
+    "banners.foxes.0.front": {
+      "pageId": "5",
+      "x": 0,
+      "y": 0,
+      "width": 150,
+      "height": 51,
+      "pivot": {
+        "x": -110,
+        "y": -316
+      }
+    },
+    "banners.foxes.1.rear": {
+      "pageId": "6",
+      "x": 0,
+      "y": 0,
+      "width": 92,
+      "height": 153,
+      "pivot": {
+        "x": -542,
+        "y": -114
+      }
+    },
+    "banners.foxes.1.front": {
+      "pageId": "7",
+      "x": 0,
+      "y": 0,
+      "width": 149,
+      "height": 51,
+      "pivot": {
+        "x": -381,
+        "y": -316
+      }
+    },
+    "banners.owls.0.rear": {
+      "pageId": "8",
+      "x": 0,
+      "y": 0,
+      "width": 91,
+      "height": 152,
+      "pivot": {
+        "x": -7,
+        "y": -114
+      }
+    },
+    "banners.owls.0.front": {
+      "pageId": "9",
+      "x": 0,
+      "y": 0,
+      "width": 150,
+      "height": 51,
+      "pivot": {
+        "x": -110,
+        "y": -316
+      }
+    },
+    "banners.owls.1.rear": {
+      "pageId": "10",
+      "x": 0,
+      "y": 0,
+      "width": 92,
+      "height": 153,
+      "pivot": {
+        "x": -542,
+        "y": -114
+      }
+    },
+    "banners.owls.1.front": {
+      "pageId": "11",
+      "x": 0,
+      "y": 0,
+      "width": 149,
+      "height": 51,
+      "pivot": {
+        "x": -381,
+        "y": -316
+      }
+    },
+    "banners.gators.0.rear": {
+      "pageId": "12",
+      "x": 0,
+      "y": 0,
+      "width": 91,
+      "height": 152,
+      "pivot": {
+        "x": -7,
+        "y": -114
+      }
+    },
+    "banners.gators.0.front": {
+      "pageId": "13",
+      "x": 0,
+      "y": 0,
+      "width": 150,
+      "height": 51,
+      "pivot": {
+        "x": -110,
+        "y": -316
+      }
+    },
+    "banners.gators.1.rear": {
+      "pageId": "14",
+      "x": 0,
+      "y": 0,
+      "width": 92,
+      "height": 153,
+      "pivot": {
+        "x": -542,
+        "y": -114
+      }
+    },
+    "banners.gators.1.front": {
+      "pageId": "15",
+      "x": 0,
+      "y": 0,
+      "width": 149,
+      "height": 51,
+      "pivot": {
+        "x": -381,
+        "y": -316
+      }
+    },
+    "banners.bats.0.rear": {
+      "pageId": "16",
+      "x": 0,
+      "y": 0,
+      "width": 91,
+      "height": 152,
+      "pivot": {
+        "x": -7,
+        "y": -114
+      }
+    },
+    "banners.bats.0.front": {
+      "pageId": "17",
+      "x": 0,
+      "y": 0,
+      "width": 150,
+      "height": 51,
+      "pivot": {
+        "x": -110,
+        "y": -316
+      }
+    },
+    "banners.bats.1.rear": {
+      "pageId": "18",
+      "x": 0,
+      "y": 0,
+      "width": 92,
+      "height": 153,
+      "pivot": {
+        "x": -542,
+        "y": -114
+      }
+    },
+    "banners.bats.1.front": {
+      "pageId": "19",
+      "x": 0,
+      "y": 0,
+      "width": 149,
+      "height": 51,
+      "pivot": {
+        "x": -381,
+        "y": -316
+      }
+    },
+    "banners.hornets.0.rear": {
+      "pageId": "20",
+      "x": 0,
+      "y": 0,
+      "width": 91,
+      "height": 152,
+      "pivot": {
+        "x": -7,
+        "y": -114
+      }
+    },
+    "banners.hornets.0.front": {
+      "pageId": "21",
+      "x": 0,
+      "y": 0,
+      "width": 150,
+      "height": 51,
+      "pivot": {
+        "x": -110,
+        "y": -316
+      }
+    },
+    "banners.hornets.1.rear": {
+      "pageId": "22",
+      "x": 0,
+      "y": 0,
+      "width": 92,
+      "height": 153,
+      "pivot": {
+        "x": -542,
+        "y": -114
+      }
+    },
+    "banners.hornets.1.front": {
+      "pageId": "23",
+      "x": 0,
+      "y": 0,
+      "width": 149,
+      "height": 51,
+      "pivot": {
+        "x": -381,
+        "y": -316
+      }
+    }
+  }
+}

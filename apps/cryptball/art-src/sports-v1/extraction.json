@@ -1,0 +1,4092 @@
+{
+  "frames": [
+    {
+      "source": "action-E.png",
+      "pose": "idle",
+      "sourceRect": [
+        87,
+        45,
+        276,
+        256
+      ],
+      "sourceFootAnchor": [
+        94.0,
+        211
+      ],
+      "scale": 0.20853080568720378,
+      "normalizedRect": [
+        36,
+        26,
+        39,
+        44
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-E.png",
+      "pose": "run-a",
+      "sourceRect": [
+        424,
+        46,
+        646,
+        259
+      ],
+      "sourceFootAnchor": [
+        111.0,
+        213
+      ],
+      "scale": 0.20853080568720378,
+      "normalizedRect": [
+        33,
+        26,
+        46,
+        44
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-E.png",
+      "pose": "run-b",
+      "sourceRect": [
+        816,
+        43,
+        1009,
+        241
+      ],
+      "sourceFootAnchor": [
+        44.5,
+        198
+      ],
+      "scale": 0.20853080568720378,
+      "normalizedRect": [
+        47,
+        29,
+        40,
+        41
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-E.png",
+      "pose": "run-c",
+      "sourceRect": [
+        1163,
+        46,
+        1365,
+        256
+      ],
+      "sourceFootAnchor": [
+        98.5,
+        210
+      ],
+      "scale": 0.20853080568720378,
+      "normalizedRect": [
+        35,
+        26,
+        42,
+        44
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-E.png",
+      "pose": "run-d",
+      "sourceRect": [
+        85,
+        308,
+        269,
+        506
+      ],
+      "sourceFootAnchor": [
+        54.0,
+        198
+      ],
+      "scale": 0.20853080568720378,
+      "normalizedRect": [
+        45,
+        29,
+        38,
+        41
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-E.png",
+      "pose": "slide",
+      "sourceRect": [
+        407,
+        354,
+        677,
+        526
+      ],
+      "sourceFootAnchor": [
+        125.5,
+        172
+      ],
+      "scale": 0.20853080568720378,
+      "normalizedRect": [
+        30,
+        34,
+        56,
+        36
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-E.png",
+      "pose": "recovery-low",
+      "sourceRect": [
+        798,
+        369,
+        1003,
+        528
+      ],
+      "sourceFootAnchor": [
+        102.5,
+        159
+      ],
+      "scale": 0.20853080568720378,
+      "normalizedRect": [
+        35,
+        37,
+        43,
+        33
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-E.png",
+      "pose": "recovery-up",
+      "sourceRect": [
+        1160,
+        330,
+        1359,
+        524
+      ],
+      "sourceFootAnchor": [
+        82.5,
+        194
+      ],
+      "scale": 0.20853080568720378,
+      "normalizedRect": [
+        39,
+        30,
+        41,
+        40
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-E.png",
+      "pose": "kick-windup",
+      "sourceRect": [
+        66,
+        570,
+        290,
+        784
+      ],
+      "sourceFootAnchor": [
+        149.5,
+        214
+      ],
+      "scale": 0.20853080568720378,
+      "normalizedRect": [
+        25,
+        25,
+        47,
+        45
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-E.png",
+      "pose": "kick-contact",
+      "sourceRect": [
+        406,
+        570,
+        669,
+        784
+      ],
+      "sourceFootAnchor": [
+        103.0,
+        214
+      ],
+      "scale": 0.20853080568720378,
+      "normalizedRect": [
+        35,
+        25,
+        55,
+        45
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-E.png",
+      "pose": "kick-follow",
+      "sourceRect": [
+        764,
+        570,
+        998,
+        785
+      ],
+      "sourceFootAnchor": [
+        159.5,
+        215
+      ],
+      "scale": 0.20853080568720378,
+      "normalizedRect": [
+        23,
+        25,
+        49,
+        45
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-E.png",
+      "pose": "receive",
+      "sourceRect": [
+        1150,
+        574,
+        1353,
+        776
+      ],
+      "sourceFootAnchor": [
+        101.0,
+        202
+      ],
+      "scale": 0.20853080568720378,
+      "normalizedRect": [
+        35,
+        28,
+        42,
+        42
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-E.png",
+      "pose": "set",
+      "sourceRect": [
+        105,
+        833,
+        272,
+        1067
+      ],
+      "sourceFootAnchor": [
+        83.0,
+        234
+      ],
+      "scale": 0.20853080568720378,
+      "normalizedRect": [
+        39,
+        21,
+        35,
+        49
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-E.png",
+      "pose": "jump",
+      "sourceRect": [
+        445,
+        830,
+        625,
+        1033
+      ],
+      "sourceFootAnchor": [
+        78.0,
+        203
+      ],
+      "scale": 0.20853080568720378,
+      "normalizedRect": [
+        40,
+        28,
+        38,
+        42
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-E.png",
+      "pose": "spike",
+      "sourceRect": [
+        765,
+        810,
+        986,
+        1057
+      ],
+      "sourceFootAnchor": [
+        72.0,
+        247
+      ],
+      "scale": 0.20853080568720378,
+      "normalizedRect": [
+        41,
+        18,
+        46,
+        52
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-E.png",
+      "pose": "land",
+      "sourceRect": [
+        1124,
+        878,
+        1378,
+        1067
+      ],
+      "sourceFootAnchor": [
+        122.5,
+        189
+      ],
+      "scale": 0.20853080568720378,
+      "normalizedRect": [
+        30,
+        31,
+        53,
+        39
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-SE.png",
+      "pose": "idle",
+      "sourceRect": [
+        85,
+        43,
+        279,
+        257
+      ],
+      "sourceFootAnchor": [
+        96.5,
+        214
+      ],
+      "scale": 0.205607476635514,
+      "normalizedRect": [
+        36,
+        26,
+        40,
+        44
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-SE.png",
+      "pose": "run-a",
+      "sourceRect": [
+        418,
+        46,
+        648,
+        262
+      ],
+      "sourceFootAnchor": [
+        119.0,
+        216
+      ],
+      "scale": 0.205607476635514,
+      "normalizedRect": [
+        32,
+        26,
+        47,
+        44
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-SE.png",
+      "pose": "run-b",
+      "sourceRect": [
+        815,
+        44,
+        1011,
+        240
+      ],
+      "sourceFootAnchor": [
+        48.0,
+        196
+      ],
+      "scale": 0.205607476635514,
+      "normalizedRect": [
+        46,
+        30,
+        40,
+        40
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-SE.png",
+      "pose": "run-c",
+      "sourceRect": [
+        1159,
+        48,
+        1371,
+        262
+      ],
+      "sourceFootAnchor": [
+        108.0,
+        214
+      ],
+      "scale": 0.205607476635514,
+      "normalizedRect": [
+        34,
+        26,
+        44,
+        44
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-SE.png",
+      "pose": "run-d",
+      "sourceRect": [
+        81,
+        311,
+        273,
+        498
+      ],
+      "sourceFootAnchor": [
+        56.0,
+        187
+      ],
+      "scale": 0.205607476635514,
+      "normalizedRect": [
+        44,
+        32,
+        39,
+        38
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-SE.png",
+      "pose": "slide",
+      "sourceRect": [
+        405,
+        354,
+        678,
+        526
+      ],
+      "sourceFootAnchor": [
+        129.0,
+        172
+      ],
+      "scale": 0.205607476635514,
+      "normalizedRect": [
+        29,
+        35,
+        56,
+        35
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-SE.png",
+      "pose": "recovery-low",
+      "sourceRect": [
+        792,
+        370,
+        1007,
+        529
+      ],
+      "sourceFootAnchor": [
+        109.5,
+        159
+      ],
+      "scale": 0.205607476635514,
+      "normalizedRect": [
+        33,
+        37,
+        44,
+        33
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-SE.png",
+      "pose": "recovery-up",
+      "sourceRect": [
+        1159,
+        330,
+        1368,
+        522
+      ],
+      "sourceFootAnchor": [
+        85.5,
+        192
+      ],
+      "scale": 0.205607476635514,
+      "normalizedRect": [
+        38,
+        31,
+        43,
+        39
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-SE.png",
+      "pose": "kick-windup",
+      "sourceRect": [
+        61,
+        570,
+        298,
+        781
+      ],
+      "sourceFootAnchor": [
+        154.0,
+        211
+      ],
+      "scale": 0.205607476635514,
+      "normalizedRect": [
+        24,
+        27,
+        49,
+        43
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-SE.png",
+      "pose": "kick-contact",
+      "sourceRect": [
+        404,
+        574,
+        670,
+        781
+      ],
+      "sourceFootAnchor": [
+        152.0,
+        207
+      ],
+      "scale": 0.205607476635514,
+      "normalizedRect": [
+        25,
+        27,
+        55,
+        43
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-SE.png",
+      "pose": "kick-follow",
+      "sourceRect": [
+        764,
+        574,
+        1007,
+        783
+      ],
+      "sourceFootAnchor": [
+        159.5,
+        209
+      ],
+      "scale": 0.205607476635514,
+      "normalizedRect": [
+        23,
+        27,
+        50,
+        43
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-SE.png",
+      "pose": "receive",
+      "sourceRect": [
+        1151,
+        576,
+        1356,
+        778
+      ],
+      "sourceFootAnchor": [
+        102.0,
+        202
+      ],
+      "scale": 0.205607476635514,
+      "normalizedRect": [
+        35,
+        28,
+        42,
+        42
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-SE.png",
+      "pose": "set",
+      "sourceRect": [
+        103,
+        829,
+        273,
+        1067
+      ],
+      "sourceFootAnchor": [
+        84.5,
+        238
+      ],
+      "scale": 0.205607476635514,
+      "normalizedRect": [
+        39,
+        21,
+        35,
+        49
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-SE.png",
+      "pose": "jump",
+      "sourceRect": [
+        442,
+        832,
+        626,
+        1037
+      ],
+      "sourceFootAnchor": [
+        78.5,
+        205
+      ],
+      "scale": 0.205607476635514,
+      "normalizedRect": [
+        40,
+        28,
+        38,
+        42
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-SE.png",
+      "pose": "spike",
+      "sourceRect": [
+        763,
+        811,
+        989,
+        1059
+      ],
+      "sourceFootAnchor": [
+        72.0,
+        248
+      ],
+      "scale": 0.205607476635514,
+      "normalizedRect": [
+        41,
+        19,
+        46,
+        51
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-SE.png",
+      "pose": "land",
+      "sourceRect": [
+        1122,
+        881,
+        1384,
+        1067
+      ],
+      "sourceFootAnchor": [
+        128.0,
+        186
+      ],
+      "scale": 0.205607476635514,
+      "normalizedRect": [
+        30,
+        32,
+        54,
+        38
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-S.png",
+      "pose": "idle",
+      "sourceRect": [
+        94,
+        45,
+        269,
+        255
+      ],
+      "sourceFootAnchor": [
+        87.0,
+        210
+      ],
+      "scale": 0.20952380952380953,
+      "normalizedRect": [
+        38,
+        26,
+        37,
+        44
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-S.png",
+      "pose": "run-a",
+      "sourceRect": [
+        439,
+        46,
+        629,
+        261
+      ],
+      "sourceFootAnchor": [
+        87.0,
+        215
+      ],
+      "scale": 0.20952380952380953,
+      "normalizedRect": [
+        38,
+        25,
+        40,
+        45
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-S.png",
+      "pose": "run-b",
+      "sourceRect": [
+        820,
+        45,
+        990,
+        241
+      ],
+      "sourceFootAnchor": [
+        78.0,
+        196
+      ],
+      "scale": 0.20952380952380953,
+      "normalizedRect": [
+        40,
+        29,
+        36,
+        41
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-S.png",
+      "pose": "run-c",
+      "sourceRect": [
+        1182,
+        45,
+        1353,
+        260
+      ],
+      "sourceFootAnchor": [
+        103.0,
+        215
+      ],
+      "scale": 0.20952380952380953,
+      "normalizedRect": [
+        34,
+        25,
+        36,
+        45
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-S.png",
+      "pose": "run-d",
+      "sourceRect": [
+        96,
+        316,
+        266,
+        510
+      ],
+      "sourceFootAnchor": [
+        79.5,
+        194
+      ],
+      "scale": 0.20952380952380953,
+      "normalizedRect": [
+        39,
+        29,
+        36,
+        41
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-S.png",
+      "pose": "slide",
+      "sourceRect": [
+        426,
+        341,
+        659,
+        521
+      ],
+      "sourceFootAnchor": [
+        116.5,
+        180
+      ],
+      "scale": 0.20952380952380953,
+      "normalizedRect": [
+        32,
+        32,
+        49,
+        38
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-S.png",
+      "pose": "recovery-low",
+      "sourceRect": [
+        804,
+        349,
+        1006,
+        517
+      ],
+      "sourceFootAnchor": [
+        100.5,
+        168
+      ],
+      "scale": 0.20952380952380953,
+      "normalizedRect": [
+        35,
+        35,
+        42,
+        35
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-S.png",
+      "pose": "recovery-up",
+      "sourceRect": [
+        1176,
+        317,
+        1370,
+        518
+      ],
+      "sourceFootAnchor": [
+        89.5,
+        201
+      ],
+      "scale": 0.20952380952380953,
+      "normalizedRect": [
+        37,
+        28,
+        41,
+        42
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-S.png",
+      "pose": "kick-windup",
+      "sourceRect": [
+        69,
+        571,
+        290,
+        787
+      ],
+      "sourceFootAnchor": [
+        126.5,
+        216
+      ],
+      "scale": 0.20952380952380953,
+      "normalizedRect": [
+        29,
+        25,
+        46,
+        45
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-S.png",
+      "pose": "kick-contact",
+      "sourceRect": [
+        410,
+        571,
+        657,
+        787
+      ],
+      "sourceFootAnchor": [
+        142.0,
+        216
+      ],
+      "scale": 0.20952380952380953,
+      "normalizedRect": [
+        26,
+        25,
+        52,
+        45
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-S.png",
+      "pose": "kick-follow",
+      "sourceRect": [
+        772,
+        571,
+        1033,
+        787
+      ],
+      "sourceFootAnchor": [
+        148.0,
+        216
+      ],
+      "scale": 0.20952380952380953,
+      "normalizedRect": [
+        25,
+        25,
+        55,
+        45
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-S.png",
+      "pose": "receive",
+      "sourceRect": [
+        1165,
+        577,
+        1370,
+        784
+      ],
+      "sourceFootAnchor": [
+        102.0,
+        207
+      ],
+      "scale": 0.20952380952380953,
+      "normalizedRect": [
+        35,
+        27,
+        43,
+        43
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-S.png",
+      "pose": "set",
+      "sourceRect": [
+        96,
+        829,
+        264,
+        1066
+      ],
+      "sourceFootAnchor": [
+        85.0,
+        237
+      ],
+      "scale": 0.20952380952380953,
+      "normalizedRect": [
+        38,
+        20,
+        35,
+        50
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-S.png",
+      "pose": "jump",
+      "sourceRect": [
+        447,
+        832,
+        639,
+        1024
+      ],
+      "sourceFootAnchor": [
+        95.5,
+        192
+      ],
+      "scale": 0.20952380952380953,
+      "normalizedRect": [
+        36,
+        30,
+        40,
+        40
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-S.png",
+      "pose": "spike",
+      "sourceRect": [
+        766,
+        810,
+        993,
+        1052
+      ],
+      "sourceFootAnchor": [
+        92.0,
+        242
+      ],
+      "scale": 0.20952380952380953,
+      "normalizedRect": [
+        37,
+        19,
+        48,
+        51
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-S.png",
+      "pose": "land",
+      "sourceRect": [
+        1127,
+        876,
+        1405,
+        1066
+      ],
+      "sourceFootAnchor": [
+        139.5,
+        190
+      ],
+      "scale": 0.20952380952380953,
+      "normalizedRect": [
+        27,
+        30,
+        58,
+        40
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-SW.png",
+      "pose": "idle",
+      "sourceRect": [
+        86,
+        42,
+        286,
+        266
+      ],
+      "sourceFootAnchor": [
+        107.5,
+        224
+      ],
+      "scale": 0.19642857142857142,
+      "normalizedRect": [
+        35,
+        26,
+        39,
+        44
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-SW.png",
+      "pose": "run-a",
+      "sourceRect": [
+        457,
+        45,
+        669,
+        268
+      ],
+      "sourceFootAnchor": [
+        98.5,
+        223
+      ],
+      "scale": 0.19642857142857142,
+      "normalizedRect": [
+        37,
+        26,
+        42,
+        44
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-SW.png",
+      "pose": "run-b",
+      "sourceRect": [
+        820,
+        45,
+        996,
+        248
+      ],
+      "sourceFootAnchor": [
+        130.5,
+        203
+      ],
+      "scale": 0.19642857142857142,
+      "normalizedRect": [
+        30,
+        30,
+        35,
+        40
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-SW.png",
+      "pose": "run-c",
+      "sourceRect": [
+        1184,
+        45,
+        1371,
+        270
+      ],
+      "sourceFootAnchor": [
+        35.5,
+        225
+      ],
+      "scale": 0.19642857142857142,
+      "normalizedRect": [
+        49,
+        26,
+        37,
+        44
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-SW.png",
+      "pose": "run-d",
+      "sourceRect": [
+        98,
+        316,
+        277,
+        512
+      ],
+      "sourceFootAnchor": [
+        131.0,
+        196
+      ],
+      "scale": 0.19642857142857142,
+      "normalizedRect": [
+        30,
+        32,
+        35,
+        38
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-SW.png",
+      "pose": "slide",
+      "sourceRect": [
+        410,
+        347,
+        683,
+        527
+      ],
+      "sourceFootAnchor": [
+        141.5,
+        180
+      ],
+      "scale": 0.19642857142857142,
+      "normalizedRect": [
+        28,
+        35,
+        54,
+        35
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-SW.png",
+      "pose": "recovery-low",
+      "sourceRect": [
+        795,
+        365,
+        1027,
+        529
+      ],
+      "sourceFootAnchor": [
+        115.5,
+        164
+      ],
+      "scale": 0.19642857142857142,
+      "normalizedRect": [
+        33,
+        38,
+        46,
+        32
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-SW.png",
+      "pose": "recovery-up",
+      "sourceRect": [
+        1170,
+        326,
+        1371,
+        521
+      ],
+      "sourceFootAnchor": [
+        114.0,
+        195
+      ],
+      "scale": 0.19642857142857142,
+      "normalizedRect": [
+        34,
+        32,
+        39,
+        38
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-SW.png",
+      "pose": "kick-windup",
+      "sourceRect": [
+        79,
+        568,
+        321,
+        784
+      ],
+      "sourceFootAnchor": [
+        85.5,
+        216
+      ],
+      "scale": 0.19642857142857142,
+      "normalizedRect": [
+        39,
+        28,
+        48,
+        42
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-SW.png",
+      "pose": "kick-contact",
+      "sourceRect": [
+        424,
+        568,
+        687,
+        782
+      ],
+      "sourceFootAnchor": [
+        146.0,
+        214
+      ],
+      "scale": 0.19642857142857142,
+      "normalizedRect": [
+        27,
+        28,
+        52,
+        42
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-SW.png",
+      "pose": "kick-follow",
+      "sourceRect": [
+        796,
+        569,
+        1047,
+        782
+      ],
+      "sourceFootAnchor": [
+        71.0,
+        213
+      ],
+      "scale": 0.19642857142857142,
+      "normalizedRect": [
+        42,
+        28,
+        49,
+        42
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-SW.png",
+      "pose": "receive",
+      "sourceRect": [
+        1166,
+        573,
+        1378,
+        782
+      ],
+      "sourceFootAnchor": [
+        105.5,
+        209
+      ],
+      "scale": 0.19642857142857142,
+      "normalizedRect": [
+        35,
+        29,
+        42,
+        41
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-SW.png",
+      "pose": "set",
+      "sourceRect": [
+        102,
+        821,
+        284,
+        1068
+      ],
+      "sourceFootAnchor": [
+        90.5,
+        247
+      ],
+      "scale": 0.19642857142857142,
+      "normalizedRect": [
+        38,
+        21,
+        36,
+        49
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-SW.png",
+      "pose": "jump",
+      "sourceRect": [
+        451,
+        831,
+        639,
+        1031
+      ],
+      "sourceFootAnchor": [
+        110.0,
+        200
+      ],
+      "scale": 0.19642857142857142,
+      "normalizedRect": [
+        34,
+        31,
+        37,
+        39
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-SW.png",
+      "pose": "spike",
+      "sourceRect": [
+        799,
+        816,
+        1034,
+        1054
+      ],
+      "sourceFootAnchor": [
+        132.5,
+        238
+      ],
+      "scale": 0.19642857142857142,
+      "normalizedRect": [
+        30,
+        23,
+        46,
+        47
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-SW.png",
+      "pose": "land",
+      "sourceRect": [
+        1113,
+        870,
+        1403,
+        1068
+      ],
+      "sourceFootAnchor": [
+        150.0,
+        198
+      ],
+      "scale": 0.19642857142857142,
+      "normalizedRect": [
+        27,
+        31,
+        57,
+        39
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-W.png",
+      "pose": "idle",
+      "sourceRect": [
+        102,
+        41,
+        284,
+        258
+      ],
+      "sourceFootAnchor": [
+        90.5,
+        217
+      ],
+      "scale": 0.20276497695852536,
+      "normalizedRect": [
+        38,
+        26,
+        37,
+        44
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-W.png",
+      "pose": "run-a",
+      "sourceRect": [
+        446,
+        43,
+        654,
+        260
+      ],
+      "sourceFootAnchor": [
+        93.5,
+        217
+      ],
+      "scale": 0.20276497695852536,
+      "normalizedRect": [
+        37,
+        26,
+        42,
+        44
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-W.png",
+      "pose": "run-b",
+      "sourceRect": [
+        812,
+        43,
+        1002,
+        240
+      ],
+      "sourceFootAnchor": [
+        138.0,
+        197
+      ],
+      "scale": 0.20276497695852536,
+      "normalizedRect": [
+        28,
+        30,
+        39,
+        40
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-W.png",
+      "pose": "run-c",
+      "sourceRect": [
+        1161,
+        43,
+        1373,
+        261
+      ],
+      "sourceFootAnchor": [
+        105.5,
+        218
+      ],
+      "scale": 0.20276497695852536,
+      "normalizedRect": [
+        35,
+        26,
+        43,
+        44
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-W.png",
+      "pose": "run-d",
+      "sourceRect": [
+        112,
+        312,
+        286,
+        504
+      ],
+      "sourceFootAnchor": [
+        123.0,
+        192
+      ],
+      "scale": 0.20276497695852536,
+      "normalizedRect": [
+        31,
+        31,
+        35,
+        39
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-W.png",
+      "pose": "slide",
+      "sourceRect": [
+        417,
+        354,
+        676,
+        524
+      ],
+      "sourceFootAnchor": [
+        135.5,
+        170
+      ],
+      "scale": 0.20276497695852536,
+      "normalizedRect": [
+        29,
+        36,
+        53,
+        34
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-W.png",
+      "pose": "recovery-low",
+      "sourceRect": [
+        795,
+        366,
+        1011,
+        529
+      ],
+      "sourceFootAnchor": [
+        105.5,
+        163
+      ],
+      "scale": 0.20276497695852536,
+      "normalizedRect": [
+        35,
+        37,
+        44,
+        33
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-W.png",
+      "pose": "recovery-up",
+      "sourceRect": [
+        1150,
+        324,
+        1363,
+        524
+      ],
+      "sourceFootAnchor": [
+        124.5,
+        200
+      ],
+      "scale": 0.20276497695852536,
+      "normalizedRect": [
+        31,
+        29,
+        43,
+        41
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-W.png",
+      "pose": "kick-windup",
+      "sourceRect": [
+        85,
+        567,
+        308,
+        785
+      ],
+      "sourceFootAnchor": [
+        75.5,
+        218
+      ],
+      "scale": 0.20276497695852536,
+      "normalizedRect": [
+        41,
+        26,
+        45,
+        44
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-W.png",
+      "pose": "kick-contact",
+      "sourceRect": [
+        413,
+        568,
+        670,
+        785
+      ],
+      "sourceFootAnchor": [
+        152.0,
+        217
+      ],
+      "scale": 0.20276497695852536,
+      "normalizedRect": [
+        25,
+        26,
+        52,
+        44
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-W.png",
+      "pose": "kick-follow",
+      "sourceRect": [
+        803,
+        568,
+        1028,
+        785
+      ],
+      "sourceFootAnchor": [
+        81.5,
+        217
+      ],
+      "scale": 0.20276497695852536,
+      "normalizedRect": [
+        39,
+        26,
+        46,
+        44
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-W.png",
+      "pose": "receive",
+      "sourceRect": [
+        1158,
+        572,
+        1371,
+        780
+      ],
+      "sourceFootAnchor": [
+        106.0,
+        208
+      ],
+      "scale": 0.20276497695852536,
+      "normalizedRect": [
+        35,
+        28,
+        43,
+        42
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-W.png",
+      "pose": "set",
+      "sourceRect": [
+        106,
+        826,
+        280,
+        1065
+      ],
+      "sourceFootAnchor": [
+        86.5,
+        239
+      ],
+      "scale": 0.20276497695852536,
+      "normalizedRect": [
+        38,
+        22,
+        35,
+        48
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-W.png",
+      "pose": "jump",
+      "sourceRect": [
+        447,
+        830,
+        627,
+        1029
+      ],
+      "sourceFootAnchor": [
+        100.0,
+        199
+      ],
+      "scale": 0.20276497695852536,
+      "normalizedRect": [
+        36,
+        30,
+        36,
+        40
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-W.png",
+      "pose": "spike",
+      "sourceRect": [
+        784,
+        816,
+        1010,
+        1057
+      ],
+      "sourceFootAnchor": [
+        151.0,
+        241
+      ],
+      "scale": 0.20276497695852536,
+      "normalizedRect": [
+        25,
+        21,
+        46,
+        49
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-W.png",
+      "pose": "land",
+      "sourceRect": [
+        1137,
+        877,
+        1397,
+        1066
+      ],
+      "sourceFootAnchor": [
+        129.0,
+        189
+      ],
+      "scale": 0.20276497695852536,
+      "normalizedRect": [
+        30,
+        32,
+        53,
+        38
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-NW.png",
+      "pose": "idle",
+      "sourceRect": [
+        92,
+        48,
+        279,
+        263
+      ],
+      "sourceFootAnchor": [
+        103.5,
+        215
+      ],
+      "scale": 0.20465116279069767,
+      "normalizedRect": [
+        35,
+        26,
+        38,
+        44
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-NW.png",
+      "pose": "run-a",
+      "sourceRect": [
+        427,
+        48,
+        649,
+        266
+      ],
+      "sourceFootAnchor": [
+        117.0,
+        218
+      ],
+      "scale": 0.20465116279069767,
+      "normalizedRect": [
+        32,
+        25,
+        45,
+        45
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-NW.png",
+      "pose": "run-b",
+      "sourceRect": [
+        792,
+        48,
+        980,
+        266
+      ],
+      "sourceFootAnchor": [
+        168.0,
+        218
+      ],
+      "scale": 0.20465116279069767,
+      "normalizedRect": [
+        22,
+        25,
+        38,
+        45
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-NW.png",
+      "pose": "run-c",
+      "sourceRect": [
+        1160,
+        48,
+        1357,
+        266
+      ],
+      "sourceFootAnchor": [
+        101.5,
+        218
+      ],
+      "scale": 0.20465116279069767,
+      "normalizedRect": [
+        35,
+        25,
+        40,
+        45
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-NW.png",
+      "pose": "run-d",
+      "sourceRect": [
+        101,
+        310,
+        279,
+        514
+      ],
+      "sourceFootAnchor": [
+        147.0,
+        204
+      ],
+      "scale": 0.20465116279069767,
+      "normalizedRect": [
+        26,
+        28,
+        36,
+        42
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-NW.png",
+      "pose": "slide",
+      "sourceRect": [
+        415,
+        352,
+        679,
+        529
+      ],
+      "sourceFootAnchor": [
+        141.5,
+        177
+      ],
+      "scale": 0.20465116279069767,
+      "normalizedRect": [
+        27,
+        34,
+        54,
+        36
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-NW.png",
+      "pose": "recovery-low",
+      "sourceRect": [
+        800,
+        362,
+        1016,
+        527
+      ],
+      "sourceFootAnchor": [
+        107.5,
+        165
+      ],
+      "scale": 0.20465116279069767,
+      "normalizedRect": [
+        34,
+        36,
+        44,
+        34
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-NW.png",
+      "pose": "recovery-up",
+      "sourceRect": [
+        1155,
+        325,
+        1365,
+        524
+      ],
+      "sourceFootAnchor": [
+        125.0,
+        199
+      ],
+      "scale": 0.20465116279069767,
+      "normalizedRect": [
+        30,
+        29,
+        43,
+        41
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-NW.png",
+      "pose": "kick-windup",
+      "sourceRect": [
+        88,
+        573,
+        311,
+        783
+      ],
+      "sourceFootAnchor": [
+        89.5,
+        210
+      ],
+      "scale": 0.20465116279069767,
+      "normalizedRect": [
+        38,
+        27,
+        46,
+        43
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-NW.png",
+      "pose": "kick-contact",
+      "sourceRect": [
+        414,
+        574,
+        662,
+        783
+      ],
+      "sourceFootAnchor": [
+        145.0,
+        209
+      ],
+      "scale": 0.20465116279069767,
+      "normalizedRect": [
+        26,
+        27,
+        51,
+        43
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-NW.png",
+      "pose": "kick-follow",
+      "sourceRect": [
+        784,
+        573,
+        1021,
+        783
+      ],
+      "sourceFootAnchor": [
+        85.5,
+        210
+      ],
+      "scale": 0.20465116279069767,
+      "normalizedRect": [
+        39,
+        27,
+        49,
+        43
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-NW.png",
+      "pose": "receive",
+      "sourceRect": [
+        1174,
+        574,
+        1362,
+        783
+      ],
+      "sourceFootAnchor": [
+        93.5,
+        209
+      ],
+      "scale": 0.20465116279069767,
+      "normalizedRect": [
+        37,
+        27,
+        38,
+        43
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-NW.png",
+      "pose": "set",
+      "sourceRect": [
+        109,
+        823,
+        279,
+        1066
+      ],
+      "sourceFootAnchor": [
+        84.5,
+        243
+      ],
+      "scale": 0.20465116279069767,
+      "normalizedRect": [
+        39,
+        20,
+        35,
+        50
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-NW.png",
+      "pose": "jump",
+      "sourceRect": [
+        453,
+        831,
+        629,
+        1032
+      ],
+      "sourceFootAnchor": [
+        99.5,
+        201
+      ],
+      "scale": 0.20465116279069767,
+      "normalizedRect": [
+        36,
+        29,
+        36,
+        41
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-NW.png",
+      "pose": "spike",
+      "sourceRect": [
+        787,
+        814,
+        1011,
+        1059
+      ],
+      "sourceFootAnchor": [
+        145.0,
+        245
+      ],
+      "scale": 0.20465116279069767,
+      "normalizedRect": [
+        26,
+        20,
+        46,
+        50
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-NW.png",
+      "pose": "land",
+      "sourceRect": [
+        1130,
+        875,
+        1375,
+        1070
+      ],
+      "sourceFootAnchor": [
+        131.5,
+        195
+      ],
+      "scale": 0.20465116279069767,
+      "normalizedRect": [
+        29,
+        30,
+        50,
+        40
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-N.png",
+      "pose": "idle",
+      "sourceRect": [
+        88,
+        47,
+        275,
+        271
+      ],
+      "sourceFootAnchor": [
+        95.0,
+        224
+      ],
+      "scale": 0.19642857142857142,
+      "normalizedRect": [
+        37,
+        26,
+        37,
+        44
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-N.png",
+      "pose": "run-a",
+      "sourceRect": [
+        438,
+        47,
+        645,
+        272
+      ],
+      "sourceFootAnchor": [
+        83.0,
+        225
+      ],
+      "scale": 0.19642857142857142,
+      "normalizedRect": [
+        40,
+        26,
+        41,
+        44
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-N.png",
+      "pose": "run-b",
+      "sourceRect": [
+        809,
+        47,
+        992,
+        267
+      ],
+      "sourceFootAnchor": [
+        94.0,
+        220
+      ],
+      "scale": 0.19642857142857142,
+      "normalizedRect": [
+        38,
+        27,
+        36,
+        43
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-N.png",
+      "pose": "run-c",
+      "sourceRect": [
+        1171,
+        52,
+        1358,
+        274
+      ],
+      "sourceFootAnchor": [
+        87.5,
+        222
+      ],
+      "scale": 0.19642857142857142,
+      "normalizedRect": [
+        39,
+        26,
+        37,
+        44
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-N.png",
+      "pose": "run-d",
+      "sourceRect": [
+        103,
+        311,
+        268,
+        512
+      ],
+      "sourceFootAnchor": [
+        102.5,
+        201
+      ],
+      "scale": 0.19642857142857142,
+      "normalizedRect": [
+        36,
+        31,
+        32,
+        39
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-N.png",
+      "pose": "slide",
+      "sourceRect": [
+        409,
+        349,
+        676,
+        532
+      ],
+      "sourceFootAnchor": [
+        112.0,
+        183
+      ],
+      "scale": 0.19642857142857142,
+      "normalizedRect": [
+        34,
+        34,
+        52,
+        36
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-N.png",
+      "pose": "recovery-low",
+      "sourceRect": [
+        794,
+        364,
+        1017,
+        529
+      ],
+      "sourceFootAnchor": [
+        111.0,
+        165
+      ],
+      "scale": 0.19642857142857142,
+      "normalizedRect": [
+        34,
+        38,
+        44,
+        32
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-N.png",
+      "pose": "recovery-up",
+      "sourceRect": [
+        1163,
+        335,
+        1363,
+        527
+      ],
+      "sourceFootAnchor": [
+        98.0,
+        192
+      ],
+      "scale": 0.19642857142857142,
+      "normalizedRect": [
+        37,
+        32,
+        39,
+        38
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-N.png",
+      "pose": "kick-windup",
+      "sourceRect": [
+        68,
+        570,
+        297,
+        785
+      ],
+      "sourceFootAnchor": [
+        153.5,
+        215
+      ],
+      "scale": 0.19642857142857142,
+      "normalizedRect": [
+        26,
+        28,
+        45,
+        42
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-N.png",
+      "pose": "kick-contact",
+      "sourceRect": [
+        423,
+        574,
+        673,
+        785
+      ],
+      "sourceFootAnchor": [
+        92.5,
+        211
+      ],
+      "scale": 0.19642857142857142,
+      "normalizedRect": [
+        38,
+        29,
+        49,
+        41
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-N.png",
+      "pose": "kick-follow",
+      "sourceRect": [
+        782,
+        574,
+        1028,
+        790
+      ],
+      "sourceFootAnchor": [
+        131.0,
+        216
+      ],
+      "scale": 0.19642857142857142,
+      "normalizedRect": [
+        30,
+        28,
+        48,
+        42
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-N.png",
+      "pose": "receive",
+      "sourceRect": [
+        1160,
+        574,
+        1366,
+        784
+      ],
+      "sourceFootAnchor": [
+        102.5,
+        210
+      ],
+      "scale": 0.19642857142857142,
+      "normalizedRect": [
+        36,
+        29,
+        40,
+        41
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-N.png",
+      "pose": "set",
+      "sourceRect": [
+        100,
+        826,
+        269,
+        1068
+      ],
+      "sourceFootAnchor": [
+        84.0,
+        242
+      ],
+      "scale": 0.19642857142857142,
+      "normalizedRect": [
+        40,
+        22,
+        33,
+        48
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-N.png",
+      "pose": "jump",
+      "sourceRect": [
+        449,
+        831,
+        631,
+        1027
+      ],
+      "sourceFootAnchor": [
+        95.0,
+        196
+      ],
+      "scale": 0.19642857142857142,
+      "normalizedRect": [
+        37,
+        32,
+        36,
+        38
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-N.png",
+      "pose": "spike",
+      "sourceRect": [
+        777,
+        814,
+        981,
+        1061
+      ],
+      "sourceFootAnchor": [
+        75.0,
+        247
+      ],
+      "scale": 0.19642857142857142,
+      "normalizedRect": [
+        41,
+        21,
+        40,
+        49
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-N.png",
+      "pose": "land",
+      "sourceRect": [
+        1127,
+        881,
+        1399,
+        1068
+      ],
+      "sourceFootAnchor": [
+        133.5,
+        187
+      ],
+      "scale": 0.19642857142857142,
+      "normalizedRect": [
+        30,
+        33,
+        53,
+        37
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-NE.png",
+      "pose": "idle",
+      "sourceRect": [
+        86,
+        45,
+        263,
+        261
+      ],
+      "sourceFootAnchor": [
+        88.0,
+        216
+      ],
+      "scale": 0.2037037037037037,
+      "normalizedRect": [
+        38,
+        26,
+        36,
+        44
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-NE.png",
+      "pose": "run-a",
+      "sourceRect": [
+        427,
+        45,
+        643,
+        262
+      ],
+      "sourceFootAnchor": [
+        102.0,
+        217
+      ],
+      "scale": 0.2037037037037037,
+      "normalizedRect": [
+        35,
+        26,
+        44,
+        44
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-NE.png",
+      "pose": "run-b",
+      "sourceRect": [
+        811,
+        44,
+        1009,
+        240
+      ],
+      "sourceFootAnchor": [
+        47.5,
+        196
+      ],
+      "scale": 0.2037037037037037,
+      "normalizedRect": [
+        46,
+        30,
+        40,
+        40
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-NE.png",
+      "pose": "run-c",
+      "sourceRect": [
+        1173,
+        45,
+        1368,
+        263
+      ],
+      "sourceFootAnchor": [
+        90.5,
+        218
+      ],
+      "scale": 0.2037037037037037,
+      "normalizedRect": [
+        38,
+        26,
+        40,
+        44
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-NE.png",
+      "pose": "run-d",
+      "sourceRect": [
+        85,
+        311,
+        266,
+        516
+      ],
+      "sourceFootAnchor": [
+        47.5,
+        205
+      ],
+      "scale": 0.2037037037037037,
+      "normalizedRect": [
+        46,
+        28,
+        37,
+        42
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-NE.png",
+      "pose": "slide",
+      "sourceRect": [
+        408,
+        358,
+        673,
+        526
+      ],
+      "sourceFootAnchor": [
+        124.5,
+        168
+      ],
+      "scale": 0.2037037037037037,
+      "normalizedRect": [
+        31,
+        36,
+        54,
+        34
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-NE.png",
+      "pose": "recovery-low",
+      "sourceRect": [
+        807,
+        373,
+        1005,
+        530
+      ],
+      "sourceFootAnchor": [
+        99.0,
+        157
+      ],
+      "scale": 0.2037037037037037,
+      "normalizedRect": [
+        36,
+        38,
+        40,
+        32
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-NE.png",
+      "pose": "recovery-up",
+      "sourceRect": [
+        1155,
+        335,
+        1366,
+        528
+      ],
+      "sourceFootAnchor": [
+        84.0,
+        193
+      ],
+      "scale": 0.2037037037037037,
+      "normalizedRect": [
+        39,
+        31,
+        43,
+        39
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-NE.png",
+      "pose": "kick-windup",
+      "sourceRect": [
+        65,
+        572,
+        282,
+        786
+      ],
+      "sourceFootAnchor": [
+        150.5,
+        214
+      ],
+      "scale": 0.2037037037037037,
+      "normalizedRect": [
+        25,
+        26,
+        44,
+        44
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-NE.png",
+      "pose": "kick-contact",
+      "sourceRect": [
+        412,
+        574,
+        664,
+        785
+      ],
+      "sourceFootAnchor": [
+        91.0,
+        211
+      ],
+      "scale": 0.2037037037037037,
+      "normalizedRect": [
+        37,
+        27,
+        51,
+        43
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-NE.png",
+      "pose": "kick-follow",
+      "sourceRect": [
+        766,
+        574,
+        999,
+        785
+      ],
+      "sourceFootAnchor": [
+        157.0,
+        211
+      ],
+      "scale": 0.2037037037037037,
+      "normalizedRect": [
+        24,
+        27,
+        47,
+        43
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-NE.png",
+      "pose": "receive",
+      "sourceRect": [
+        1150,
+        576,
+        1352,
+        779
+      ],
+      "sourceFootAnchor": [
+        100.5,
+        203
+      ],
+      "scale": 0.2037037037037037,
+      "normalizedRect": [
+        36,
+        29,
+        41,
+        41
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-NE.png",
+      "pose": "set",
+      "sourceRect": [
+        92,
+        832,
+        265,
+        1069
+      ],
+      "sourceFootAnchor": [
+        86.0,
+        237
+      ],
+      "scale": 0.2037037037037037,
+      "normalizedRect": [
+        38,
+        22,
+        35,
+        48
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-NE.png",
+      "pose": "jump",
+      "sourceRect": [
+        447,
+        830,
+        622,
+        1032
+      ],
+      "sourceFootAnchor": [
+        73.5,
+        202
+      ],
+      "scale": 0.2037037037037037,
+      "normalizedRect": [
+        41,
+        29,
+        36,
+        41
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-NE.png",
+      "pose": "spike",
+      "sourceRect": [
+        764,
+        816,
+        984,
+        1063
+      ],
+      "sourceFootAnchor": [
+        48.0,
+        247
+      ],
+      "scale": 0.2037037037037037,
+      "normalizedRect": [
+        46,
+        20,
+        45,
+        50
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "action-NE.png",
+      "pose": "land",
+      "sourceRect": [
+        1128,
+        881,
+        1378,
+        1069
+      ],
+      "sourceFootAnchor": [
+        119.5,
+        188
+      ],
+      "scale": 0.2037037037037037,
+      "normalizedRect": [
+        32,
+        32,
+        51,
+        38
+      ],
+      "pivot": [
+        56,
+        70
+      ]
+    },
+    {
+      "source": "../dives-v1/dive-front.png",
+      "pose": "dive-launch",
+      "direction": "E",
+      "sourceRect": [
+        57,
+        56,
+        304,
+        246
+      ],
+      "scale": 0.1841620626151013,
+      "normalizedRect": [
+        34,
+        35,
+        45,
+        35
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "anchor": "centered body footprint; lowest grounded silhouette"
+    },
+    {
+      "source": "../dives-v1/dive-front.png",
+      "pose": "dive-flight",
+      "direction": "E",
+      "sourceRect": [
+        381,
+        57,
+        701,
+        215
+      ],
+      "scale": 0.1841620626151013,
+      "normalizedRect": [
+        26,
+        41,
+        59,
+        29
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "anchor": "centered body footprint; lowest grounded silhouette"
+    },
+    {
+      "source": "../dives-v1/dive-front.png",
+      "pose": "dive-contact",
+      "direction": "E",
+      "sourceRect": [
+        746,
+        113,
+        1068,
+        239
+      ],
+      "scale": 0.1841620626151013,
+      "normalizedRect": [
+        26,
+        47,
+        59,
+        23
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "anchor": "centered body footprint; lowest grounded silhouette"
+    },
+    {
+      "source": "../dives-v1/dive-front.png",
+      "pose": "dive-pushup",
+      "direction": "E",
+      "sourceRect": [
+        1124,
+        70,
+        1397,
+        241
+      ],
+      "scale": 0.1841620626151013,
+      "normalizedRect": [
+        31,
+        39,
+        50,
+        31
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "anchor": "centered body footprint; lowest grounded silhouette"
+    },
+    {
+      "source": "../dives-v1/dive-front.png",
+      "pose": "dive-launch",
+      "direction": "SE",
+      "sourceRect": [
+        75,
+        320,
+        281,
+        504
+      ],
+      "scale": 0.1841620626151013,
+      "normalizedRect": [
+        37,
+        36,
+        38,
+        34
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "anchor": "centered body footprint; lowest grounded silhouette"
+    },
+    {
+      "source": "../dives-v1/dive-front.png",
+      "pose": "dive-flight",
+      "direction": "SE",
+      "sourceRect": [
+        403,
+        330,
+        667,
+        471
+      ],
+      "scale": 0.1841620626151013,
+      "normalizedRect": [
+        32,
+        44,
+        49,
+        26
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "anchor": "centered body footprint; lowest grounded silhouette"
+    },
+    {
+      "source": "../dives-v1/dive-front.png",
+      "pose": "dive-contact",
+      "direction": "SE",
+      "sourceRect": [
+        768,
+        373,
+        1035,
+        521
+      ],
+      "scale": 0.1841620626151013,
+      "normalizedRect": [
+        32,
+        43,
+        49,
+        27
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "anchor": "centered body footprint; lowest grounded silhouette"
+    },
+    {
+      "source": "../dives-v1/dive-front.png",
+      "pose": "dive-pushup",
+      "direction": "SE",
+      "sourceRect": [
+        1134,
+        345,
+        1399,
+        514
+      ],
+      "scale": 0.1841620626151013,
+      "normalizedRect": [
+        32,
+        39,
+        49,
+        31
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "anchor": "centered body footprint; lowest grounded silhouette"
+    },
+    {
+      "source": "../dives-v1/dive-front.png",
+      "pose": "dive-launch",
+      "direction": "S",
+      "sourceRect": [
+        82,
+        590,
+        253,
+        779
+      ],
+      "scale": 0.1841620626151013,
+      "normalizedRect": [
+        40,
+        35,
+        31,
+        35
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "anchor": "centered body footprint; lowest grounded silhouette"
+    },
+    {
+      "source": "../dives-v1/dive-front.png",
+      "pose": "dive-flight",
+      "direction": "S",
+      "sourceRect": [
+        467,
+        582,
+        628,
+        744
+      ],
+      "scale": 0.1841620626151013,
+      "normalizedRect": [
+        41,
+        40,
+        30,
+        30
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "anchor": "centered body footprint; lowest grounded silhouette"
+    },
+    {
+      "source": "../dives-v1/dive-front.png",
+      "pose": "dive-contact",
+      "direction": "S",
+      "sourceRect": [
+        816,
+        625,
+        992,
+        780
+      ],
+      "scale": 0.1841620626151013,
+      "normalizedRect": [
+        40,
+        41,
+        32,
+        29
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "anchor": "centered body footprint; lowest grounded silhouette"
+    },
+    {
+      "source": "../dives-v1/dive-front.png",
+      "pose": "dive-pushup",
+      "direction": "S",
+      "sourceRect": [
+        1161,
+        602,
+        1375,
+        780
+      ],
+      "scale": 0.1841620626151013,
+      "normalizedRect": [
+        36,
+        37,
+        39,
+        33
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "anchor": "centered body footprint; lowest grounded silhouette"
+    },
+    {
+      "source": "../dives-v1/dive-front.png",
+      "pose": "dive-launch",
+      "direction": "SW",
+      "sourceRect": [
+        104,
+        861,
+        292,
+        1042
+      ],
+      "scale": 0.1841620626151013,
+      "normalizedRect": [
+        38,
+        37,
+        35,
+        33
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "anchor": "centered body footprint; lowest grounded silhouette"
+    },
+    {
+      "source": "../dives-v1/dive-front.png",
+      "pose": "dive-flight",
+      "direction": "SW",
+      "sourceRect": [
+        420,
+        853,
+        667,
+        988
+      ],
+      "scale": 0.1841620626151013,
+      "normalizedRect": [
+        34,
+        45,
+        45,
+        25
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "anchor": "centered body footprint; lowest grounded silhouette"
+    },
+    {
+      "source": "../dives-v1/dive-front.png",
+      "pose": "dive-contact",
+      "direction": "SW",
+      "sourceRect": [
+        765,
+        903,
+        1028,
+        1044
+      ],
+      "scale": 0.1841620626151013,
+      "normalizedRect": [
+        32,
+        44,
+        48,
+        26
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "anchor": "centered body footprint; lowest grounded silhouette"
+    },
+    {
+      "source": "../dives-v1/dive-front.png",
+      "pose": "dive-pushup",
+      "direction": "SW",
+      "sourceRect": [
+        1120,
+        875,
+        1367,
+        1049
+      ],
+      "scale": 0.1841620626151013,
+      "normalizedRect": [
+        34,
+        38,
+        45,
+        32
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "anchor": "centered body footprint; lowest grounded silhouette"
+    },
+    {
+      "source": "../dives-v1/dive-back.png",
+      "pose": "dive-launch",
+      "direction": "W",
+      "sourceRect": [
+        72,
+        57,
+        324,
+        244
+      ],
+      "scale": 0.1841620626151013,
+      "normalizedRect": [
+        33,
+        36,
+        46,
+        34
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "anchor": "centered body footprint; lowest grounded silhouette"
+    },
+    {
+      "source": "../dives-v1/dive-back.png",
+      "pose": "dive-flight",
+      "direction": "W",
+      "sourceRect": [
+        368,
+        57,
+        681,
+        209
+      ],
+      "scale": 0.1841620626151013,
+      "normalizedRect": [
+        27,
+        42,
+        58,
+        28
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "anchor": "centered body footprint; lowest grounded silhouette"
+    },
+    {
+      "source": "../dives-v1/dive-back.png",
+      "pose": "dive-contact",
+      "direction": "W",
+      "sourceRect": [
+        746,
+        110,
+        1060,
+        238
+      ],
+      "scale": 0.1841620626151013,
+      "normalizedRect": [
+        27,
+        46,
+        58,
+        24
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "anchor": "centered body footprint; lowest grounded silhouette"
+    },
+    {
+      "source": "../dives-v1/dive-back.png",
+      "pose": "dive-pushup",
+      "direction": "W",
+      "sourceRect": [
+        1126,
+        67,
+        1403,
+        245
+      ],
+      "scale": 0.1841620626151013,
+      "normalizedRect": [
+        30,
+        37,
+        51,
+        33
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "anchor": "centered body footprint; lowest grounded silhouette"
+    },
+    {
+      "source": "../dives-v1/dive-back.png",
+      "pose": "dive-launch",
+      "direction": "NW",
+      "sourceRect": [
+        82,
+        311,
+        314,
+        510
+      ],
+      "scale": 0.1841620626151013,
+      "normalizedRect": [
+        34,
+        33,
+        43,
+        37
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "anchor": "centered body footprint; lowest grounded silhouette"
+    },
+    {
+      "source": "../dives-v1/dive-back.png",
+      "pose": "dive-flight",
+      "direction": "NW",
+      "sourceRect": [
+        410,
+        314,
+        681,
+        504
+      ],
+      "scale": 0.1841620626151013,
+      "normalizedRect": [
+        31,
+        35,
+        50,
+        35
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "anchor": "centered body footprint; lowest grounded silhouette"
+    },
+    {
+      "source": "../dives-v1/dive-back.png",
+      "pose": "dive-contact",
+      "direction": "NW",
+      "sourceRect": [
+        769,
+        352,
+        1044,
+        511
+      ],
+      "scale": 0.1841620626151013,
+      "normalizedRect": [
+        30,
+        41,
+        51,
+        29
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "anchor": "centered body footprint; lowest grounded silhouette"
+    },
+    {
+      "source": "../dives-v1/dive-back.png",
+      "pose": "dive-pushup",
+      "direction": "NW",
+      "sourceRect": [
+        1137,
+        329,
+        1396,
+        518
+      ],
+      "scale": 0.1841620626151013,
+      "normalizedRect": [
+        32,
+        35,
+        48,
+        35
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "anchor": "centered body footprint; lowest grounded silhouette"
+    },
+    {
+      "source": "../dives-v1/dive-back.png",
+      "pose": "dive-launch",
+      "direction": "N",
+      "sourceRect": [
+        109,
+        576,
+        260,
+        780
+      ],
+      "scale": 0.1841620626151013,
+      "normalizedRect": [
+        42,
+        32,
+        28,
+        38
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "anchor": "centered body footprint; lowest grounded silhouette"
+    },
+    {
+      "source": "../dives-v1/dive-back.png",
+      "pose": "dive-flight",
+      "direction": "N",
+      "sourceRect": [
+        477,
+        568,
+        608,
+        784
+      ],
+      "scale": 0.1841620626151013,
+      "normalizedRect": [
+        44,
+        30,
+        24,
+        40
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "anchor": "centered body footprint; lowest grounded silhouette"
+    },
+    {
+      "source": "../dives-v1/dive-back.png",
+      "pose": "dive-contact",
+      "direction": "N",
+      "sourceRect": [
+        840,
+        592,
+        972,
+        788
+      ],
+      "scale": 0.1841620626151013,
+      "normalizedRect": [
+        44,
+        34,
+        24,
+        36
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "anchor": "centered body footprint; lowest grounded silhouette"
+    },
+    {
+      "source": "../dives-v1/dive-back.png",
+      "pose": "dive-pushup",
+      "direction": "N",
+      "sourceRect": [
+        1154,
+        585,
+        1380,
+        783
+      ],
+      "scale": 0.1841620626151013,
+      "normalizedRect": [
+        35,
+        34,
+        42,
+        36
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "anchor": "centered body footprint; lowest grounded silhouette"
+    },
+    {
+      "source": "../dives-v1/dive-back.png",
+      "pose": "dive-launch",
+      "direction": "NE",
+      "sourceRect": [
+        64,
+        849,
+        270,
+        1045
+      ],
+      "scale": 0.1841620626151013,
+      "normalizedRect": [
+        37,
+        34,
+        38,
+        36
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "anchor": "centered body footprint; lowest grounded silhouette"
+    },
+    {
+      "source": "../dives-v1/dive-back.png",
+      "pose": "dive-flight",
+      "direction": "NE",
+      "sourceRect": [
+        385,
+        841,
+        656,
+        1036
+      ],
+      "scale": 0.1841620626151013,
+      "normalizedRect": [
+        31,
+        34,
+        50,
+        36
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "anchor": "centered body footprint; lowest grounded silhouette"
+    },
+    {
+      "source": "../dives-v1/dive-back.png",
+      "pose": "dive-contact",
+      "direction": "NE",
+      "sourceRect": [
+        750,
+        877,
+        1020,
+        1047
+      ],
+      "scale": 0.1841620626151013,
+      "normalizedRect": [
+        31,
+        39,
+        50,
+        31
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "anchor": "centered body footprint; lowest grounded silhouette"
+    },
+    {
+      "source": "../dives-v1/dive-back.png",
+      "pose": "dive-pushup",
+      "direction": "NE",
+      "sourceRect": [
+        1130,
+        852,
+        1382,
+        1053
+      ],
+      "scale": 0.1841620626151013,
+      "normalizedRect": [
+        33,
+        33,
+        46,
+        37
+      ],
+      "pivot": [
+        56,
+        70
+      ],
+      "anchor": "centered body footprint; lowest grounded silhouette"
+    }
+  ],
+  "provenance": {
+    "teamPalettes": [
+      "ivory",
+      "ember",
+      "owls",
+      "gators",
+      "bats",
+      "hornets"
+    ],
+    "source": "Built-in OpenAI ImageGen weapon-free sports-v1 and hands-first dives-v1 sheets",
+    "tools": [
+      "OpenAI ImageGen",
+      "Pillow deterministic extraction and packing"
+    ],
+    "sources": [
+      {
+        "file": "action-E.png",
+        "sha256": "4abd8a7106e1f00d297b6042531e52d9b79eb00104d8b1356d71ac93892add3a"
+      },
+      {
+        "file": "action-SE.png",
+        "sha256": "dd27b1c8cbe8a176949a806dbf936f1246ba02f0ddbc2153e2af520a17bf2705"
+      },
+      {
+        "file": "action-S.png",
+        "sha256": "e2570458d3129979527c29c8748c3e285b69ec77df51d27293f1718ac91e568e"
+      },
+      {
+        "file": "action-SW.png",
+        "sha256": "584477cf91c3ad5b7d572c22fd7253feaec9f4978b23497a0671fdfe8725f7f8"
+      },
+      {
+        "file": "action-W.png",
+        "sha256": "5b88fa83ceb8aa481667612e5b2210b906a2e5aad4ac41ff2a81ccb67cfe9455"
+      },
+      {
+        "file": "action-NW.png",
+        "sha256": "d63a7a8f2459aa8735a70a02f7dc078e42af63850df08d34d99f41968363ee0c"
+      },
+      {
+        "file": "action-N.png",
+        "sha256": "37a25e90eee3ea50014891007384dee0ffaf44abd3a5e81e72e06f24905c9cb9"
+      },
+      {
+        "file": "action-NE.png",
+        "sha256": "5fb16a59b56afa5dee98b9b35ede139e3074fba4052a3cdce14d71ecdec87cfc"
+      },
+      {
+        "file": "../dives-v1/dive-front.png",
+        "sha256": "fa4fc4739d52c97242da7f1490f72ec5214c1d861169ae3ff5279ce5ea782ed0"
+      },
+      {
+        "file": "../dives-v1/dive-back.png",
+        "sha256": "f63bf46c263f7a6f645e56de9d85fcea51ed5d5626506fc5a4079b73631fc508"
+      },
+      {
+        "file": "arena-unmarked.png",
+        "sha256": "323d6f36370da5b320fbc730667035da6960d7d8ef345d4fa2fcc731232209b2"
+      }
+    ],
+    "authoredFacings": 8,
+    "authoredPosesPerFacing": 20,
+    "weaponFree": true,
+    "aliases": {
+      "idle": [
+        0
+      ],
+      "run": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "sprint": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "slide-launch": [
+        6,
+        5
+      ],
+      "slide": [
+        5
+      ],
+      "slide-recover": [
+        6,
+        7
+      ],
+      "recoil": [
+        6,
+        7
+      ],
+      "celebrate": [
+        12,
+        0
+      ],
+      "trap": [
+        9,
+        0
+      ],
+      "pass": [
+        8,
+        9,
+        10
+      ],
+      "kick": [
+        8,
+        9,
+        10
+      ],
+      "receive": [
+        11,
+        0
+      ],
+      "set": [
+        11,
+        12,
+        12,
+        0
+      ],
+      "spike": [
+        13,
+        14,
+        15
+      ],
+      "jump": [
+        13
+      ],
+      "land": [
+        15,
+        7
+      ],
+      "dig": [
+        18,
+        19,
+        7
+      ],
+      "dive": [
+        16,
+        17,
+        18
+      ],
+      "dive-recover": [
+        19,
+        7
+      ]
+    },
+    "method": "Connected-component source extraction; alpha210 threshold; shared64 color palette; nearest sampling; six masked teal-uniform material palettes; no drawn athlete anatomy",
+    "limitations": "Key poses, not hand-cleaned full inbetween animation. Pass/trap reuse kick frames; Dig/dive use independently generated hands-first poses. Jump is cosmetic contact animation, no player jump physics."
+  }
+}

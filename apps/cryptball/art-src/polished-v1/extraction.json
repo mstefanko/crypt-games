@@ -1,0 +1,3540 @@
+{
+  "frames": [
+    {
+      "source": "action-E.png",
+      "pose": "idle",
+      "sourceComponentRect": [
+        60,
+        62,
+        293,
+        309
+      ],
+      "contentRect": [
+        0,
+        0,
+        233,
+        247
+      ],
+      "sourceFootAnchor": [
+        116.0,
+        247
+      ],
+      "scale": 0.17813765182186234,
+      "normalizedRect": [
+        35,
+        20,
+        42,
+        44
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-E.png",
+      "pose": "run-a",
+      "sourceComponentRect": [
+        390,
+        61,
+        671,
+        309
+      ],
+      "contentRect": [
+        0,
+        0,
+        281,
+        248
+      ],
+      "sourceFootAnchor": [
+        142.5,
+        248
+      ],
+      "scale": 0.17813765182186234,
+      "normalizedRect": [
+        31,
+        20,
+        50,
+        44
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-E.png",
+      "pose": "run-b",
+      "sourceComponentRect": [
+        784,
+        61,
+        1026,
+        316
+      ],
+      "contentRect": [
+        0,
+        0,
+        242,
+        255
+      ],
+      "sourceFootAnchor": [
+        71.0,
+        255
+      ],
+      "scale": 0.17813765182186234,
+      "normalizedRect": [
+        43,
+        19,
+        43,
+        45
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-E.png",
+      "pose": "run-c",
+      "sourceComponentRect": [
+        1136,
+        61,
+        1391,
+        313
+      ],
+      "contentRect": [
+        0,
+        0,
+        255,
+        252
+      ],
+      "sourceFootAnchor": [
+        127.0,
+        252
+      ],
+      "scale": 0.17813765182186234,
+      "normalizedRect": [
+        33,
+        19,
+        45,
+        45
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-E.png",
+      "pose": "run-d",
+      "sourceComponentRect": [
+        68,
+        411,
+        277,
+        654
+      ],
+      "contentRect": [
+        0,
+        0,
+        209,
+        243
+      ],
+      "sourceFootAnchor": [
+        63.0,
+        243
+      ],
+      "scale": 0.17813765182186234,
+      "normalizedRect": [
+        45,
+        21,
+        37,
+        43
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-E.png",
+      "pose": "strike-windup",
+      "sourceComponentRect": [
+        398,
+        401,
+        634,
+        660
+      ],
+      "contentRect": [
+        0,
+        0,
+        236,
+        259
+      ],
+      "sourceFootAnchor": [
+        117.5,
+        259
+      ],
+      "scale": 0.17813765182186234,
+      "normalizedRect": [
+        35,
+        18,
+        42,
+        46
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-E.png",
+      "pose": "strike-contact",
+      "sourceComponentRect": [
+        731,
+        420,
+        1070,
+        660
+      ],
+      "contentRect": [
+        0,
+        0,
+        339,
+        240
+      ],
+      "sourceFootAnchor": [
+        129.0,
+        240
+      ],
+      "scale": 0.17813765182186234,
+      "normalizedRect": [
+        33,
+        21,
+        60,
+        43
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-E.png",
+      "pose": "strike-follow",
+      "sourceComponentRect": [
+        1133,
+        418,
+        1409,
+        660
+      ],
+      "contentRect": [
+        0,
+        0,
+        276,
+        242
+      ],
+      "sourceFootAnchor": [
+        109.0,
+        242
+      ],
+      "scale": 0.17813765182186234,
+      "normalizedRect": [
+        37,
+        21,
+        49,
+        43
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-E.png",
+      "pose": "slide-entry",
+      "sourceComponentRect": [
+        39,
+        786,
+        315,
+        992
+      ],
+      "contentRect": [
+        0,
+        0,
+        276,
+        206
+      ],
+      "sourceFootAnchor": [
+        137.5,
+        206
+      ],
+      "scale": 0.17813765182186234,
+      "normalizedRect": [
+        32,
+        27,
+        49,
+        37
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-E.png",
+      "pose": "slide-active",
+      "sourceComponentRect": [
+        367,
+        800,
+        733,
+        994
+      ],
+      "contentRect": [
+        0,
+        0,
+        366,
+        194
+      ],
+      "sourceFootAnchor": [
+        176.5,
+        194
+      ],
+      "scale": 0.17813765182186234,
+      "normalizedRect": [
+        25,
+        29,
+        65,
+        35
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-E.png",
+      "pose": "recovery-low",
+      "sourceComponentRect": [
+        771,
+        784,
+        1032,
+        992
+      ],
+      "contentRect": [
+        0,
+        0,
+        261,
+        208
+      ],
+      "sourceFootAnchor": [
+        126.5,
+        208
+      ],
+      "scale": 0.17813765182186234,
+      "normalizedRect": [
+        33,
+        27,
+        46,
+        37
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-E.png",
+      "pose": "recovery-up",
+      "sourceComponentRect": [
+        1144,
+        763,
+        1389,
+        993
+      ],
+      "contentRect": [
+        0,
+        0,
+        245,
+        230
+      ],
+      "sourceFootAnchor": [
+        93.0,
+        230
+      ],
+      "scale": 0.17813765182186234,
+      "normalizedRect": [
+        39,
+        23,
+        44,
+        41
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-SE.png",
+      "pose": "idle",
+      "sourceComponentRect": [
+        64,
+        57,
+        309,
+        310
+      ],
+      "contentRect": [
+        0,
+        0,
+        245,
+        253
+      ],
+      "sourceFootAnchor": [
+        119.5,
+        253
+      ],
+      "scale": 0.17391304347826086,
+      "normalizedRect": [
+        35,
+        20,
+        43,
+        44
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-SE.png",
+      "pose": "run-a",
+      "sourceComponentRect": [
+        430,
+        57,
+        687,
+        314
+      ],
+      "contentRect": [
+        0,
+        0,
+        257,
+        257
+      ],
+      "sourceFootAnchor": [
+        184.0,
+        257
+      ],
+      "scale": 0.17391304347826086,
+      "normalizedRect": [
+        24,
+        19,
+        45,
+        45
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-SE.png",
+      "pose": "run-b",
+      "sourceComponentRect": [
+        826,
+        57,
+        1065,
+        314
+      ],
+      "contentRect": [
+        0,
+        0,
+        239,
+        257
+      ],
+      "sourceFootAnchor": [
+        76.0,
+        257
+      ],
+      "scale": 0.17391304347826086,
+      "normalizedRect": [
+        43,
+        19,
+        42,
+        45
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-SE.png",
+      "pose": "run-c",
+      "sourceComponentRect": [
+        1208,
+        57,
+        1453,
+        314
+      ],
+      "contentRect": [
+        0,
+        0,
+        245,
+        257
+      ],
+      "sourceFootAnchor": [
+        203.5,
+        257
+      ],
+      "scale": 0.17391304347826086,
+      "normalizedRect": [
+        21,
+        19,
+        43,
+        45
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-SE.png",
+      "pose": "run-d",
+      "sourceComponentRect": [
+        66,
+        393,
+        293,
+        654
+      ],
+      "contentRect": [
+        0,
+        0,
+        227,
+        261
+      ],
+      "sourceFootAnchor": [
+        185.5,
+        261
+      ],
+      "scale": 0.17391304347826086,
+      "normalizedRect": [
+        24,
+        19,
+        39,
+        45
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-SE.png",
+      "pose": "strike-windup",
+      "sourceComponentRect": [
+        430,
+        377,
+        675,
+        645
+      ],
+      "contentRect": [
+        0,
+        0,
+        245,
+        268
+      ],
+      "sourceFootAnchor": [
+        122.0,
+        268
+      ],
+      "scale": 0.17391304347826086,
+      "normalizedRect": [
+        35,
+        17,
+        43,
+        47
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-SE.png",
+      "pose": "strike-contact",
+      "sourceComponentRect": [
+        803,
+        398,
+        1131,
+        645
+      ],
+      "contentRect": [
+        0,
+        0,
+        328,
+        247
+      ],
+      "sourceFootAnchor": [
+        122.5,
+        247
+      ],
+      "scale": 0.17391304347826086,
+      "normalizedRect": [
+        35,
+        21,
+        57,
+        43
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-SE.png",
+      "pose": "strike-follow",
+      "sourceComponentRect": [
+        1221,
+        395,
+        1496,
+        651
+      ],
+      "contentRect": [
+        0,
+        0,
+        275,
+        256
+      ],
+      "sourceFootAnchor": [
+        109.0,
+        256
+      ],
+      "scale": 0.17391304347826086,
+      "normalizedRect": [
+        37,
+        19,
+        48,
+        45
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-SE.png",
+      "pose": "slide-entry",
+      "sourceComponentRect": [
+        31,
+        744,
+        333,
+        957
+      ],
+      "contentRect": [
+        0,
+        0,
+        302,
+        213
+      ],
+      "sourceFootAnchor": [
+        150.5,
+        213
+      ],
+      "scale": 0.17391304347826086,
+      "normalizedRect": [
+        30,
+        27,
+        53,
+        37
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-SE.png",
+      "pose": "slide-active",
+      "sourceComponentRect": [
+        382,
+        760,
+        745,
+        960
+      ],
+      "contentRect": [
+        0,
+        0,
+        363,
+        200
+      ],
+      "sourceFootAnchor": [
+        175.5,
+        200
+      ],
+      "scale": 0.17391304347826086,
+      "normalizedRect": [
+        25,
+        29,
+        63,
+        35
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-SE.png",
+      "pose": "recovery-low",
+      "sourceComponentRect": [
+        811,
+        751,
+        1071,
+        966
+      ],
+      "contentRect": [
+        0,
+        0,
+        260,
+        215
+      ],
+      "sourceFootAnchor": [
+        121.0,
+        215
+      ],
+      "scale": 0.17391304347826086,
+      "normalizedRect": [
+        35,
+        27,
+        45,
+        37
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-SE.png",
+      "pose": "recovery-up",
+      "sourceComponentRect": [
+        1217,
+        722,
+        1456,
+        963
+      ],
+      "contentRect": [
+        0,
+        0,
+        239,
+        241
+      ],
+      "sourceFootAnchor": [
+        93.5,
+        241
+      ],
+      "scale": 0.17391304347826086,
+      "normalizedRect": [
+        40,
+        22,
+        42,
+        42
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-S.png",
+      "pose": "idle",
+      "sourceComponentRect": [
+        71,
+        57,
+        313,
+        306
+      ],
+      "contentRect": [
+        0,
+        0,
+        242,
+        249
+      ],
+      "sourceFootAnchor": [
+        120.5,
+        249
+      ],
+      "scale": 0.17670682730923695,
+      "normalizedRect": [
+        35,
+        20,
+        43,
+        44
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-S.png",
+      "pose": "run-a",
+      "sourceComponentRect": [
+        442,
+        51,
+        679,
+        305
+      ],
+      "contentRect": [
+        0,
+        0,
+        237,
+        254
+      ],
+      "sourceFootAnchor": [
+        106.5,
+        254
+      ],
+      "scale": 0.17670682730923695,
+      "normalizedRect": [
+        37,
+        19,
+        42,
+        45
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-S.png",
+      "pose": "run-b",
+      "sourceComponentRect": [
+        849,
+        48,
+        1058,
+        305
+      ],
+      "contentRect": [
+        0,
+        0,
+        209,
+        257
+      ],
+      "sourceFootAnchor": [
+        111.5,
+        257
+      ],
+      "scale": 0.17670682730923695,
+      "normalizedRect": [
+        36,
+        19,
+        37,
+        45
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-S.png",
+      "pose": "run-c",
+      "sourceComponentRect": [
+        1230,
+        52,
+        1445,
+        306
+      ],
+      "contentRect": [
+        0,
+        0,
+        215,
+        254
+      ],
+      "sourceFootAnchor": [
+        126.0,
+        254
+      ],
+      "scale": 0.17670682730923695,
+      "normalizedRect": [
+        34,
+        19,
+        38,
+        45
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-S.png",
+      "pose": "run-d",
+      "sourceComponentRect": [
+        99,
+        383,
+        297,
+        648
+      ],
+      "contentRect": [
+        0,
+        0,
+        198,
+        265
+      ],
+      "sourceFootAnchor": [
+        99.5,
+        265
+      ],
+      "scale": 0.17670682730923695,
+      "normalizedRect": [
+        38,
+        17,
+        35,
+        47
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-S.png",
+      "pose": "strike-windup",
+      "sourceComponentRect": [
+        449,
+        361,
+        689,
+        637
+      ],
+      "contentRect": [
+        0,
+        0,
+        240,
+        276
+      ],
+      "sourceFootAnchor": [
+        119.5,
+        276
+      ],
+      "scale": 0.17670682730923695,
+      "normalizedRect": [
+        35,
+        15,
+        42,
+        49
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-S.png",
+      "pose": "strike-contact",
+      "sourceComponentRect": [
+        837,
+        383,
+        1073,
+        636
+      ],
+      "contentRect": [
+        0,
+        0,
+        236,
+        253
+      ],
+      "sourceFootAnchor": [
+        117.5,
+        253
+      ],
+      "scale": 0.17670682730923695,
+      "normalizedRect": [
+        35,
+        19,
+        42,
+        45
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-S.png",
+      "pose": "strike-follow",
+      "sourceComponentRect": [
+        1226,
+        384,
+        1476,
+        637
+      ],
+      "contentRect": [
+        0,
+        0,
+        250,
+        253
+      ],
+      "sourceFootAnchor": [
+        119.5,
+        253
+      ],
+      "scale": 0.17670682730923695,
+      "normalizedRect": [
+        35,
+        19,
+        44,
+        45
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-S.png",
+      "pose": "slide-entry",
+      "sourceComponentRect": [
+        55,
+        744,
+        303,
+        970
+      ],
+      "contentRect": [
+        0,
+        0,
+        248,
+        226
+      ],
+      "sourceFootAnchor": [
+        121.0,
+        226
+      ],
+      "scale": 0.17670682730923695,
+      "normalizedRect": [
+        35,
+        24,
+        44,
+        40
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-S.png",
+      "pose": "slide-active",
+      "sourceComponentRect": [
+        417,
+        758,
+        687,
+        975
+      ],
+      "contentRect": [
+        0,
+        0,
+        270,
+        217
+      ],
+      "sourceFootAnchor": [
+        133.0,
+        217
+      ],
+      "scale": 0.17670682730923695,
+      "normalizedRect": [
+        32,
+        26,
+        48,
+        38
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-S.png",
+      "pose": "recovery-low",
+      "sourceComponentRect": [
+        824,
+        743,
+        1071,
+        962
+      ],
+      "contentRect": [
+        0,
+        0,
+        247,
+        219
+      ],
+      "sourceFootAnchor": [
+        103.0,
+        219
+      ],
+      "scale": 0.17670682730923695,
+      "normalizedRect": [
+        38,
+        25,
+        44,
+        39
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-S.png",
+      "pose": "recovery-up",
+      "sourceComponentRect": [
+        1220,
+        719,
+        1472,
+        966
+      ],
+      "contentRect": [
+        0,
+        0,
+        252,
+        247
+      ],
+      "sourceFootAnchor": [
+        125.5,
+        247
+      ],
+      "scale": 0.17670682730923695,
+      "normalizedRect": [
+        34,
+        20,
+        45,
+        44
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-SW.png",
+      "pose": "idle",
+      "sourceComponentRect": [
+        86,
+        59,
+        322,
+        316
+      ],
+      "contentRect": [
+        0,
+        0,
+        236,
+        257
+      ],
+      "sourceFootAnchor": [
+        117.5,
+        257
+      ],
+      "scale": 0.17120622568093385,
+      "normalizedRect": [
+        36,
+        20,
+        40,
+        44
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-SW.png",
+      "pose": "run-a",
+      "sourceComponentRect": [
+        456,
+        61,
+        720,
+        320
+      ],
+      "contentRect": [
+        0,
+        0,
+        264,
+        259
+      ],
+      "sourceFootAnchor": [
+        60.5,
+        259
+      ],
+      "scale": 0.17120622568093385,
+      "normalizedRect": [
+        46,
+        20,
+        45,
+        44
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-SW.png",
+      "pose": "run-b",
+      "sourceComponentRect": [
+        834,
+        59,
+        1056,
+        314
+      ],
+      "contentRect": [
+        0,
+        0,
+        222,
+        255
+      ],
+      "sourceFootAnchor": [
+        153.0,
+        255
+      ],
+      "scale": 0.17120622568093385,
+      "normalizedRect": [
+        30,
+        20,
+        38,
+        44
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-SW.png",
+      "pose": "run-c",
+      "sourceComponentRect": [
+        1216,
+        61,
+        1457,
+        327
+      ],
+      "contentRect": [
+        0,
+        0,
+        241,
+        266
+      ],
+      "sourceFootAnchor": [
+        37.5,
+        266
+      ],
+      "scale": 0.17120622568093385,
+      "normalizedRect": [
+        50,
+        18,
+        41,
+        46
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-SW.png",
+      "pose": "run-d",
+      "sourceComponentRect": [
+        91,
+        402,
+        300,
+        663
+      ],
+      "contentRect": [
+        0,
+        0,
+        209,
+        261
+      ],
+      "sourceFootAnchor": [
+        47.0,
+        261
+      ],
+      "scale": 0.17120622568093385,
+      "normalizedRect": [
+        48,
+        19,
+        36,
+        45
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-SW.png",
+      "pose": "strike-windup",
+      "sourceComponentRect": [
+        447,
+        371,
+        696,
+        655
+      ],
+      "contentRect": [
+        0,
+        0,
+        249,
+        284
+      ],
+      "sourceFootAnchor": [
+        124.0,
+        284
+      ],
+      "scale": 0.17120622568093385,
+      "normalizedRect": [
+        35,
+        15,
+        43,
+        49
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-SW.png",
+      "pose": "strike-contact",
+      "sourceComponentRect": [
+        783,
+        403,
+        1105,
+        660
+      ],
+      "contentRect": [
+        0,
+        0,
+        322,
+        257
+      ],
+      "sourceFootAnchor": [
+        190.5,
+        257
+      ],
+      "scale": 0.17120622568093385,
+      "normalizedRect": [
+        23,
+        20,
+        55,
+        44
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-SW.png",
+      "pose": "strike-follow",
+      "sourceComponentRect": [
+        1194,
+        406,
+        1462,
+        663
+      ],
+      "contentRect": [
+        0,
+        0,
+        268,
+        257
+      ],
+      "sourceFootAnchor": [
+        156.5,
+        257
+      ],
+      "scale": 0.17120622568093385,
+      "normalizedRect": [
+        29,
+        20,
+        46,
+        44
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-SW.png",
+      "pose": "slide-entry",
+      "sourceComponentRect": [
+        62,
+        745,
+        311,
+        967
+      ],
+      "contentRect": [
+        0,
+        0,
+        249,
+        222
+      ],
+      "sourceFootAnchor": [
+        111.0,
+        222
+      ],
+      "scale": 0.17120622568093385,
+      "normalizedRect": [
+        37,
+        26,
+        43,
+        38
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-SW.png",
+      "pose": "slide-active",
+      "sourceComponentRect": [
+        383,
+        741,
+        738,
+        986
+      ],
+      "contentRect": [
+        0,
+        0,
+        355,
+        245
+      ],
+      "sourceFootAnchor": [
+        71.5,
+        245
+      ],
+      "scale": 0.17120622568093385,
+      "normalizedRect": [
+        44,
+        22,
+        61,
+        42
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-SW.png",
+      "pose": "recovery-low",
+      "sourceComponentRect": [
+        851,
+        753,
+        1066,
+        968
+      ],
+      "contentRect": [
+        0,
+        0,
+        215,
+        215
+      ],
+      "sourceFootAnchor": [
+        115.0,
+        215
+      ],
+      "scale": 0.17120622568093385,
+      "normalizedRect": [
+        36,
+        27,
+        37,
+        37
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-SW.png",
+      "pose": "recovery-up",
+      "sourceComponentRect": [
+        1225,
+        729,
+        1450,
+        970
+      ],
+      "contentRect": [
+        0,
+        0,
+        225,
+        241
+      ],
+      "sourceFootAnchor": [
+        112.0,
+        241
+      ],
+      "scale": 0.17120622568093385,
+      "normalizedRect": [
+        37,
+        23,
+        39,
+        41
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-W.png",
+      "pose": "idle",
+      "sourceComponentRect": [
+        83,
+        62,
+        332,
+        307
+      ],
+      "contentRect": [
+        0,
+        0,
+        249,
+        245
+      ],
+      "sourceFootAnchor": [
+        124.0,
+        245
+      ],
+      "scale": 0.17959183673469387,
+      "normalizedRect": [
+        34,
+        20,
+        45,
+        44
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-W.png",
+      "pose": "run-a",
+      "sourceComponentRect": [
+        469,
+        64,
+        730,
+        307
+      ],
+      "contentRect": [
+        0,
+        0,
+        261,
+        243
+      ],
+      "sourceFootAnchor": [
+        55.0,
+        243
+      ],
+      "scale": 0.17959183673469387,
+      "normalizedRect": [
+        46,
+        20,
+        47,
+        44
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-W.png",
+      "pose": "run-b",
+      "sourceComponentRect": [
+        850,
+        64,
+        1070,
+        305
+      ],
+      "contentRect": [
+        0,
+        0,
+        220,
+        241
+      ],
+      "sourceFootAnchor": [
+        189.5,
+        241
+      ],
+      "scale": 0.17959183673469387,
+      "normalizedRect": [
+        22,
+        21,
+        40,
+        43
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-W.png",
+      "pose": "run-c",
+      "sourceComponentRect": [
+        1234,
+        64,
+        1474,
+        307
+      ],
+      "contentRect": [
+        0,
+        0,
+        240,
+        243
+      ],
+      "sourceFootAnchor": [
+        116.0,
+        243
+      ],
+      "scale": 0.17959183673469387,
+      "normalizedRect": [
+        35,
+        20,
+        43,
+        44
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-W.png",
+      "pose": "run-d",
+      "sourceComponentRect": [
+        111,
+        402,
+        302,
+        640
+      ],
+      "contentRect": [
+        0,
+        0,
+        191,
+        238
+      ],
+      "sourceFootAnchor": [
+        44.5,
+        238
+      ],
+      "scale": 0.17959183673469387,
+      "normalizedRect": [
+        48,
+        21,
+        34,
+        43
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-W.png",
+      "pose": "strike-windup",
+      "sourceComponentRect": [
+        464,
+        377,
+        708,
+        637
+      ],
+      "contentRect": [
+        0,
+        0,
+        244,
+        260
+      ],
+      "sourceFootAnchor": [
+        121.5,
+        260
+      ],
+      "scale": 0.17959183673469387,
+      "normalizedRect": [
+        34,
+        17,
+        44,
+        47
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-W.png",
+      "pose": "strike-contact",
+      "sourceComponentRect": [
+        784,
+        407,
+        1110,
+        637
+      ],
+      "contentRect": [
+        0,
+        0,
+        326,
+        230
+      ],
+      "sourceFootAnchor": [
+        198.5,
+        230
+      ],
+      "scale": 0.17959183673469387,
+      "normalizedRect": [
+        20,
+        23,
+        59,
+        41
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-W.png",
+      "pose": "strike-follow",
+      "sourceComponentRect": [
+        1205,
+        403,
+        1467,
+        639
+      ],
+      "contentRect": [
+        0,
+        0,
+        262,
+        236
+      ],
+      "sourceFootAnchor": [
+        145.0,
+        236
+      ],
+      "scale": 0.17959183673469387,
+      "normalizedRect": [
+        30,
+        22,
+        47,
+        42
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-W.png",
+      "pose": "slide-entry",
+      "sourceComponentRect": [
+        77,
+        748,
+        302,
+        950
+      ],
+      "contentRect": [
+        0,
+        0,
+        225,
+        202
+      ],
+      "sourceFootAnchor": [
+        105.0,
+        202
+      ],
+      "scale": 0.17959183673469387,
+      "normalizedRect": [
+        37,
+        28,
+        40,
+        36
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-W.png",
+      "pose": "slide-active",
+      "sourceComponentRect": [
+        411,
+        769,
+        739,
+        950
+      ],
+      "contentRect": [
+        0,
+        0,
+        328,
+        181
+      ],
+      "sourceFootAnchor": [
+        168.5,
+        181
+      ],
+      "scale": 0.17959183673469387,
+      "normalizedRect": [
+        26,
+        31,
+        59,
+        33
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-W.png",
+      "pose": "recovery-low",
+      "sourceComponentRect": [
+        865,
+        755,
+        1068,
+        950
+      ],
+      "contentRect": [
+        0,
+        0,
+        203,
+        195
+      ],
+      "sourceFootAnchor": [
+        112.5,
+        195
+      ],
+      "scale": 0.17959183673469387,
+      "normalizedRect": [
+        36,
+        29,
+        36,
+        35
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-W.png",
+      "pose": "recovery-up",
+      "sourceComponentRect": [
+        1234,
+        731,
+        1450,
+        950
+      ],
+      "contentRect": [
+        0,
+        0,
+        216,
+        219
+      ],
+      "sourceFootAnchor": [
+        107.5,
+        219
+      ],
+      "scale": 0.17959183673469387,
+      "normalizedRect": [
+        37,
+        25,
+        39,
+        39
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-NW.png",
+      "pose": "idle",
+      "sourceComponentRect": [
+        78,
+        62,
+        309,
+        338
+      ],
+      "contentRect": [
+        0,
+        0,
+        231,
+        276
+      ],
+      "sourceFootAnchor": [
+        115.0,
+        276
+      ],
+      "scale": 0.15942028985507245,
+      "normalizedRect": [
+        38,
+        20,
+        37,
+        44
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-NW.png",
+      "pose": "run-a",
+      "sourceComponentRect": [
+        404,
+        62,
+        678,
+        344
+      ],
+      "contentRect": [
+        0,
+        0,
+        274,
+        282
+      ],
+      "sourceFootAnchor": [
+        131.5,
+        282
+      ],
+      "scale": 0.15942028985507245,
+      "normalizedRect": [
+        35,
+        19,
+        44,
+        45
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-NW.png",
+      "pose": "run-b",
+      "sourceComponentRect": [
+        756,
+        63,
+        1035,
+        344
+      ],
+      "contentRect": [
+        0,
+        0,
+        279,
+        281
+      ],
+      "sourceFootAnchor": [
+        183.5,
+        281
+      ],
+      "scale": 0.15942028985507245,
+      "normalizedRect": [
+        27,
+        19,
+        44,
+        45
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-NW.png",
+      "pose": "run-c",
+      "sourceComponentRect": [
+        1125,
+        69,
+        1376,
+        339
+      ],
+      "contentRect": [
+        0,
+        0,
+        251,
+        270
+      ],
+      "sourceFootAnchor": [
+        162.0,
+        270
+      ],
+      "scale": 0.15942028985507245,
+      "normalizedRect": [
+        30,
+        21,
+        40,
+        43
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-NW.png",
+      "pose": "run-d",
+      "sourceComponentRect": [
+        76,
+        412,
+        317,
+        694
+      ],
+      "contentRect": [
+        0,
+        0,
+        241,
+        282
+      ],
+      "sourceFootAnchor": [
+        128.5,
+        282
+      ],
+      "scale": 0.15942028985507245,
+      "normalizedRect": [
+        36,
+        19,
+        38,
+        45
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-NW.png",
+      "pose": "strike-windup",
+      "sourceComponentRect": [
+        414,
+        387,
+        666,
+        683
+      ],
+      "contentRect": [
+        0,
+        0,
+        252,
+        296
+      ],
+      "sourceFootAnchor": [
+        125.5,
+        296
+      ],
+      "scale": 0.15942028985507245,
+      "normalizedRect": [
+        36,
+        17,
+        40,
+        47
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-NW.png",
+      "pose": "strike-contact",
+      "sourceComponentRect": [
+        749,
+        421,
+        1017,
+        683
+      ],
+      "contentRect": [
+        0,
+        0,
+        268,
+        262
+      ],
+      "sourceFootAnchor": [
+        133.5,
+        262
+      ],
+      "scale": 0.15942028985507245,
+      "normalizedRect": [
+        35,
+        22,
+        43,
+        42
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-NW.png",
+      "pose": "strike-follow",
+      "sourceComponentRect": [
+        1091,
+        425,
+        1405,
+        683
+      ],
+      "contentRect": [
+        0,
+        0,
+        314,
+        258
+      ],
+      "sourceFootAnchor": [
+        185.0,
+        258
+      ],
+      "scale": 0.15942028985507245,
+      "normalizedRect": [
+        27,
+        23,
+        50,
+        41
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-NW.png",
+      "pose": "slide-entry",
+      "sourceComponentRect": [
+        68,
+        780,
+        325,
+        1029
+      ],
+      "contentRect": [
+        0,
+        0,
+        257,
+        249
+      ],
+      "sourceFootAnchor": [
+        167.5,
+        249
+      ],
+      "scale": 0.15942028985507245,
+      "normalizedRect": [
+        29,
+        24,
+        41,
+        40
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-NW.png",
+      "pose": "slide-active",
+      "sourceComponentRect": [
+        395,
+        811,
+        700,
+        1015
+      ],
+      "contentRect": [
+        0,
+        0,
+        305,
+        204
+      ],
+      "sourceFootAnchor": [
+        151.5,
+        204
+      ],
+      "scale": 0.15942028985507245,
+      "normalizedRect": [
+        32,
+        31,
+        49,
+        33
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-NW.png",
+      "pose": "recovery-low",
+      "sourceComponentRect": [
+        770,
+        786,
+        1030,
+        1020
+      ],
+      "contentRect": [
+        0,
+        0,
+        260,
+        234
+      ],
+      "sourceFootAnchor": [
+        131.5,
+        234
+      ],
+      "scale": 0.15942028985507245,
+      "normalizedRect": [
+        35,
+        27,
+        41,
+        37
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-NW.png",
+      "pose": "recovery-up",
+      "sourceComponentRect": [
+        1141,
+        771,
+        1366,
+        1025
+      ],
+      "contentRect": [
+        0,
+        0,
+        225,
+        254
+      ],
+      "sourceFootAnchor": [
+        112.5,
+        254
+      ],
+      "scale": 0.15942028985507245,
+      "normalizedRect": [
+        38,
+        24,
+        36,
+        40
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-N.png",
+      "pose": "idle",
+      "sourceComponentRect": [
+        74,
+        70,
+        309,
+        323
+      ],
+      "contentRect": [
+        0,
+        0,
+        235,
+        253
+      ],
+      "sourceFootAnchor": [
+        117.0,
+        253
+      ],
+      "scale": 0.17391304347826086,
+      "normalizedRect": [
+        36,
+        20,
+        41,
+        44
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-N.png",
+      "pose": "run-a",
+      "sourceComponentRect": [
+        425,
+        64,
+        681,
+        331
+      ],
+      "contentRect": [
+        0,
+        0,
+        256,
+        267
+      ],
+      "sourceFootAnchor": [
+        94.5,
+        267
+      ],
+      "scale": 0.17391304347826086,
+      "normalizedRect": [
+        40,
+        18,
+        45,
+        46
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-N.png",
+      "pose": "run-b",
+      "sourceComponentRect": [
+        774,
+        64,
+        1030,
+        330
+      ],
+      "contentRect": [
+        0,
+        0,
+        256,
+        266
+      ],
+      "sourceFootAnchor": [
+        119.0,
+        266
+      ],
+      "scale": 0.17391304347826086,
+      "normalizedRect": [
+        35,
+        18,
+        45,
+        46
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-N.png",
+      "pose": "run-c",
+      "sourceComponentRect": [
+        1138,
+        67,
+        1374,
+        323
+      ],
+      "contentRect": [
+        0,
+        0,
+        236,
+        256
+      ],
+      "sourceFootAnchor": [
+        135.5,
+        256
+      ],
+      "scale": 0.17391304347826086,
+      "normalizedRect": [
+        32,
+        19,
+        41,
+        45
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-N.png",
+      "pose": "run-d",
+      "sourceComponentRect": [
+        84,
+        411,
+        305,
+        674
+      ],
+      "contentRect": [
+        0,
+        0,
+        221,
+        263
+      ],
+      "sourceFootAnchor": [
+        148.0,
+        263
+      ],
+      "scale": 0.17391304347826086,
+      "normalizedRect": [
+        30,
+        18,
+        38,
+        46
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-N.png",
+      "pose": "strike-windup",
+      "sourceComponentRect": [
+        421,
+        395,
+        658,
+        672
+      ],
+      "contentRect": [
+        0,
+        0,
+        237,
+        277
+      ],
+      "sourceFootAnchor": [
+        118.0,
+        277
+      ],
+      "scale": 0.17391304347826086,
+      "normalizedRect": [
+        35,
+        16,
+        41,
+        48
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-N.png",
+      "pose": "strike-contact",
+      "sourceComponentRect": [
+        761,
+        424,
+        1040,
+        672
+      ],
+      "contentRect": [
+        0,
+        0,
+        279,
+        248
+      ],
+      "sourceFootAnchor": [
+        119.0,
+        248
+      ],
+      "scale": 0.17391304347826086,
+      "normalizedRect": [
+        35,
+        21,
+        49,
+        43
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-N.png",
+      "pose": "strike-follow",
+      "sourceComponentRect": [
+        1103,
+        424,
+        1397,
+        672
+      ],
+      "contentRect": [
+        0,
+        0,
+        294,
+        248
+      ],
+      "sourceFootAnchor": [
+        173.0,
+        248
+      ],
+      "scale": 0.17391304347826086,
+      "normalizedRect": [
+        26,
+        21,
+        51,
+        43
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-N.png",
+      "pose": "slide-entry",
+      "sourceComponentRect": [
+        76,
+        786,
+        318,
+        1019
+      ],
+      "contentRect": [
+        0,
+        0,
+        242,
+        233
+      ],
+      "sourceFootAnchor": [
+        139.5,
+        233
+      ],
+      "scale": 0.17391304347826086,
+      "normalizedRect": [
+        32,
+        23,
+        42,
+        41
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-N.png",
+      "pose": "slide-active",
+      "sourceComponentRect": [
+        403,
+        817,
+        693,
+        1008
+      ],
+      "contentRect": [
+        0,
+        0,
+        290,
+        191
+      ],
+      "sourceFootAnchor": [
+        144.5,
+        191
+      ],
+      "scale": 0.17391304347826086,
+      "normalizedRect": [
+        31,
+        31,
+        50,
+        33
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-N.png",
+      "pose": "recovery-low",
+      "sourceComponentRect": [
+        773,
+        788,
+        1025,
+        1002
+      ],
+      "contentRect": [
+        0,
+        0,
+        252,
+        214
+      ],
+      "sourceFootAnchor": [
+        125.5,
+        214
+      ],
+      "scale": 0.17391304347826086,
+      "normalizedRect": [
+        34,
+        27,
+        44,
+        37
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-N.png",
+      "pose": "recovery-up",
+      "sourceComponentRect": [
+        1153,
+        768,
+        1363,
+        1012
+      ],
+      "contentRect": [
+        0,
+        0,
+        210,
+        244
+      ],
+      "sourceFootAnchor": [
+        105.0,
+        244
+      ],
+      "scale": 0.17391304347826086,
+      "normalizedRect": [
+        38,
+        22,
+        37,
+        42
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-NE.png",
+      "pose": "idle",
+      "sourceComponentRect": [
+        80,
+        59,
+        287,
+        325
+      ],
+      "contentRect": [
+        0,
+        0,
+        207,
+        266
+      ],
+      "sourceFootAnchor": [
+        103.0,
+        266
+      ],
+      "scale": 0.16541353383458646,
+      "normalizedRect": [
+        39,
+        20,
+        34,
+        44
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-NE.png",
+      "pose": "run-a",
+      "sourceComponentRect": [
+        449,
+        55,
+        672,
+        339
+      ],
+      "contentRect": [
+        0,
+        0,
+        223,
+        284
+      ],
+      "sourceFootAnchor": [
+        29.0,
+        284
+      ],
+      "scale": 0.16541353383458646,
+      "normalizedRect": [
+        51,
+        17,
+        37,
+        47
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-NE.png",
+      "pose": "run-b",
+      "sourceComponentRect": [
+        805,
+        58,
+        1018,
+        338
+      ],
+      "contentRect": [
+        0,
+        0,
+        213,
+        280
+      ],
+      "sourceFootAnchor": [
+        64.5,
+        280
+      ],
+      "scale": 0.16541353383458646,
+      "normalizedRect": [
+        45,
+        18,
+        35,
+        46
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-NE.png",
+      "pose": "run-c",
+      "sourceComponentRect": [
+        1163,
+        54,
+        1377,
+        321
+      ],
+      "contentRect": [
+        0,
+        0,
+        214,
+        267
+      ],
+      "sourceFootAnchor": [
+        106.5,
+        267
+      ],
+      "scale": 0.16541353383458646,
+      "normalizedRect": [
+        38,
+        20,
+        35,
+        44
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-NE.png",
+      "pose": "run-d",
+      "sourceComponentRect": [
+        104,
+        404,
+        294,
+        684
+      ],
+      "contentRect": [
+        0,
+        0,
+        190,
+        280
+      ],
+      "sourceFootAnchor": [
+        70.5,
+        280
+      ],
+      "scale": 0.16541353383458646,
+      "normalizedRect": [
+        44,
+        18,
+        31,
+        46
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-NE.png",
+      "pose": "strike-windup",
+      "sourceComponentRect": [
+        410,
+        383,
+        661,
+        679
+      ],
+      "contentRect": [
+        0,
+        0,
+        251,
+        296
+      ],
+      "sourceFootAnchor": [
+        117.0,
+        296
+      ],
+      "scale": 0.16541353383458646,
+      "normalizedRect": [
+        37,
+        15,
+        42,
+        49
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-NE.png",
+      "pose": "strike-contact",
+      "sourceComponentRect": [
+        758,
+        419,
+        1050,
+        683
+      ],
+      "contentRect": [
+        0,
+        0,
+        292,
+        264
+      ],
+      "sourceFootAnchor": [
+        113.5,
+        264
+      ],
+      "scale": 0.16541353383458646,
+      "normalizedRect": [
+        37,
+        20,
+        48,
+        44
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-NE.png",
+      "pose": "strike-follow",
+      "sourceComponentRect": [
+        1138,
+        414,
+        1410,
+        678
+      ],
+      "contentRect": [
+        0,
+        0,
+        272,
+        264
+      ],
+      "sourceFootAnchor": [
+        120.0,
+        264
+      ],
+      "scale": 0.16541353383458646,
+      "normalizedRect": [
+        36,
+        20,
+        45,
+        44
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-NE.png",
+      "pose": "slide-entry",
+      "sourceComponentRect": [
+        83,
+        784,
+        307,
+        1025
+      ],
+      "contentRect": [
+        0,
+        0,
+        224,
+        241
+      ],
+      "sourceFootAnchor": [
+        119.0,
+        241
+      ],
+      "scale": 0.16541353383458646,
+      "normalizedRect": [
+        36,
+        24,
+        37,
+        40
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-NE.png",
+      "pose": "slide-active",
+      "sourceComponentRect": [
+        383,
+        812,
+        676,
+        1013
+      ],
+      "contentRect": [
+        0,
+        0,
+        293,
+        201
+      ],
+      "sourceFootAnchor": [
+        146.0,
+        201
+      ],
+      "scale": 0.16541353383458646,
+      "normalizedRect": [
+        32,
+        31,
+        48,
+        33
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-NE.png",
+      "pose": "recovery-low",
+      "sourceComponentRect": [
+        772,
+        784,
+        1033,
+        1013
+      ],
+      "contentRect": [
+        0,
+        0,
+        261,
+        229
+      ],
+      "sourceFootAnchor": [
+        131.0,
+        229
+      ],
+      "scale": 0.16541353383458646,
+      "normalizedRect": [
+        34,
+        26,
+        43,
+        38
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    },
+    {
+      "source": "action-NE.png",
+      "pose": "recovery-up",
+      "sourceComponentRect": [
+        1133,
+        760,
+        1361,
+        1020
+      ],
+      "contentRect": [
+        0,
+        0,
+        228,
+        260
+      ],
+      "sourceFootAnchor": [
+        105.5,
+        260
+      ],
+      "scale": 0.16541353383458646,
+      "normalizedRect": [
+        39,
+        21,
+        38,
+        43
+      ],
+      "frameSize": [
+        112,
+        72
+      ],
+      "pivot": [
+        56,
+        64
+      ]
+    }
+  ],
+  "fireGrid": [
+    4,
+    2
+  ],
+  "fireFrameSize": [
+    32,
+    40
+  ],
+  "firePivot": [
+    16,
+    39
+  ],
+  "firePositions": [
+    [
+      60,
+      43
+    ],
+    [
+      183,
+      57
+    ],
+    [
+      267,
+      59
+    ],
+    [
+      373,
+      59
+    ],
+    [
+      458,
+      57
+    ],
+    [
+      580,
+      43
+    ],
+    [
+      27,
+      343
+    ],
+    [
+      614,
+      343
+    ]
+  ],
+  "aliases": {
+    "idle": [
+      0
+    ],
+    "run": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "sprint": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "strike": [
+      5,
+      6,
+      7
+    ],
+    "pass": [
+      5,
+      6,
+      7
+    ],
+    "power": [
+      5,
+      6,
+      7
+    ],
+    "slide-launch": [
+      8
+    ],
+    "slide": [
+      9
+    ],
+    "slide-recover": [
+      10,
+      11
+    ],
+    "recoil": [
+      10,
+      11
+    ],
+    "celebrate": [
+      0
+    ],
+    "keeper-shuffle": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "keeper-dive": [
+      8,
+      9
+    ]
+  },
+  "provenance": {
+    "teamPalettes": [
+      "ivory",
+      "ember",
+      "owls",
+      "gators",
+      "bats",
+      "hornets"
+    ],
+    "source": "Generated polished-v1 source images; see prompts.json and extraction.json",
+    "tools": [
+      "OpenAI ImageGen",
+      "Python",
+      "Pillow"
+    ],
+    "sources": [
+      {
+        "file": "action-E.png",
+        "sha256": "461dfd231bedda57f5be38c5a9a03bc2ba1a9e28651dd162d05c053cd913e3ed"
+      },
+      {
+        "file": "action-SE.png",
+        "sha256": "5f3aa6b808e0510478e6c0be2c8e1c2c77959625984181ed659e27a79d96986c"
+      },
+      {
+        "file": "action-S.png",
+        "sha256": "cd6916dcd9b9593902216eddda300f9cbf79601a9de1bfd288041cd7315db0e5"
+      },
+      {
+        "file": "action-SW.png",
+        "sha256": "e1eb1e10a665c2ac3e99b95c0b3a5be4662d7025f80b7f7913ef7d78cbc71130"
+      },
+      {
+        "file": "action-W.png",
+        "sha256": "3508f6234e662e60b1e5487559b9b1994fa69386cb64ea10714ea3b8db6ca3f1"
+      },
+      {
+        "file": "action-NW.png",
+        "sha256": "b6d5ccada8806fa5034a7d23fa84135e392a29dc5733a392616b1fe7163e732a"
+      },
+      {
+        "file": "action-N.png",
+        "sha256": "ad0c2b2a55a7bb09a33d6846e54c90cb29b745a4daaa70f787187e5c3fd5aba7"
+      },
+      {
+        "file": "action-NE.png",
+        "sha256": "ede69c1e741b500131bfdad9f534c54ea8a6bd49b9733aecd4570482af24d70a"
+      },
+      {
+        "file": "crowd-props.png",
+        "sha256": "73aff3e63231f05f30ef8fc4ca5e682b1d2e366673a52dcc90de930753bd0c3c"
+      },
+      {
+        "file": "goal-pair.png",
+        "sha256": "e08959cc0bbbcde3d9e5eab114bdf7020ff25ebaeb39920d118419bdb16c8f33"
+      },
+      {
+        "file": "arena-runtime.png",
+        "sha256": "2c1718f760ba66b9115e4185d1977a65b4bacebc25901040d42a80b40336fb91"
+      },
+      {
+        "file": "fire-frames.png",
+        "sha256": "8a74a62c5f304b6a7606814e9a02dca6862835880c1212580aad8aab16c0a067"
+      }
+    ],
+    "athleteMethod": "Source crop, threshold alpha210, nearest-neighbor native sampling,64-color shared palette quantization, six constrained teal-uniform material palettes; no generated procedural anatomy",
+    "authoredHeadings": 8,
+    "runtimeHeadings": 16,
+    "reviewStatus": "Runtime integration preview; human motion/readability approval pending",
+    "retainedAssets": "Original small ball/UI/contact effects from art-src/export; no original procedural athletes/court/stadium used"
+  }
+}

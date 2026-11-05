@@ -1,0 +1,13 @@
+{
+  "url": "http://127.0.0.1:4224/games/cryptball/",
+  "teams": [
+    "owls",
+    "hornets"
+  ],
+  "specials": [
+    "Focus",
+    "Sting"
+  ],
+  "privateRoomCreated": true,
+  "errors": []
+}

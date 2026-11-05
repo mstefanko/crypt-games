@@ -1,0 +1,12 @@
+{
+  "origin": "http://127.0.0.1:4224",
+  "sports": [
+    "cryptkick",
+    "rift-volley"
+  ],
+  "socketPorts": [
+    "2567",
+    "2567"
+  ],
+  "errors": []
+}

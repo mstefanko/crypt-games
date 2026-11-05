@@ -1,0 +1,32 @@
+{
+  "name": "@onepage/music-web-audio",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "One shared synth and audio-clock scheduler for editor, standalone player, offline rendering and exported games. No editor or MIDI-parser imports.",
+  "exports": {
+    ".": "./src/index.ts",
+    "./performance": "./src/performance-render.ts",
+    "./stream": "./src/stream-engine.ts",
+    "./instrument-renderer": "./src/instrument-renderer.ts",
+    "./native-instrument-renderer": "./src/native-instrument-renderer.ts",
+    "./soundfont-instrument-renderer": "./src/soundfont-instrument-renderer.ts",
+    "./expressive": "./src/expressive-engine.ts",
+    "./expressive-stream": "./src/expressive-stream.ts",
+    "./expressive-synth": "./src/expressive-synth.ts",
+    "./expressive-soundfont-live": "./src/expressive-soundfont-live.ts",
+    "./expressive-soundfont": "./src/expressive-soundfont.ts",
+    "./narrative-soundfont": "./src/narrative-soundfont.ts",
+    "./expressive-native": "./src/expressive-native.ts",
+    "./narrative-live": "./src/narrative-live.ts",
+    "./gameplay-audio": "./src/gameplay-audio.ts",
+    "./gameplay-sound": "./src/gameplay-sound.ts"
+  },
+  "types": "./src/index.ts",
+  "dependencies": {
+    "@onepage/project": "*",
+    "@onepage/music-core": "*",
+    "spessasynth_core": "4.3.22",
+    "spessasynth_lib": "4.3.14"
+  }
+}

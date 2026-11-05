@@ -1,0 +1,28 @@
+import { expect, it } from "vitest";
+import { PlatformWorldInput } from "./platform-world-input";
+import type { ActionMap } from "../action-map";
+it("reuses mapping across frames and rebuilds on rebind with cancel-until-release", () => {
+  const input = new PlatformWorldInput();
+  const cached = input as unknown as { map: ActionMap };
+  const initial = cached.map;
+  input.frame(); input.press("ArrowLeft"); input.frame();
+  expect(cached.map).toBe(initial);
+  input.rebind("left", "KeyA");
+  expect(cached.map).not.toBe(initial);
+  expect(input.bindings.KeyA).toBe("left");
+  expect(input.bindings.ArrowLeft).toBeUndefined();
+  expect(Object.isFrozen(input.bindings)).toBe(true);
+  const cancelled = input.frame().slots[0]!;
+  expect(cancelled.held.left).toBe(false);
+  expect(cancelled.edges).toContainEqual({ action: "left", kind: "cancel" });
+  input.press("KeyA");
+  expect(input.frame().slots[0]!.held.left).toBe(true);
+  input.cancel();
+  input.press("KeyA");
+  expect(input.frame().slots[0]!.held.left).toBe(false);
+  input.release("KeyA"); input.press("KeyA");
+  expect(input.frame().slots[0]!.held.left).toBe(true);
+  const rebound = cached.map;
+  input.frame();
+  expect(cached.map).toBe(rebound);
+});

@@ -1,0 +1,18 @@
+{
+  "source": "/Users/mstefanko/Documents/New project/game-runtime-m5",
+  "sourceHead": "6b1136dd1f3f0e59a6ccb20beee7f2a2eb84efa7",
+  "includesUncommittedGameChanges": true,
+  "sharedPackages": [
+    "@onepage/assets-core",
+    "@onepage/director-core",
+    "@onepage/director-runtime",
+    "@onepage/game-project",
+    "@onepage/game-runtime",
+    "@onepage/game-simulation",
+    "@onepage/music-core",
+    "@onepage/music-web-audio",
+    "@onepage/project",
+    "@onepage/asset-library"
+  ],
+  "copiedFiles": 1529
+}

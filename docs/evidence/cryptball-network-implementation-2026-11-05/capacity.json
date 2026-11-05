@@ -1,0 +1,1406 @@
+[
+  {
+    "rooms": 1,
+    "scope": "four real SDK connections per room using production clock/scheduler and scripted controls; full-world predictors only when CRYPTBALL_CAPACITY_PREDICT=1; local ws; six-second measured interval after two-second warmup; not production-device or WAN qualification",
+    "elapsedMs": 6001.143916999999,
+    "before": {
+      "work": {
+        "pumpMs": {
+          "count": 590,
+          "sampleCount": 256,
+          "mean": 0.2585605220338814,
+          "max": 9.781083000000308,
+          "p50": 0.018915999999990163,
+          "p95": 1.6687910000000556,
+          "p99": 2.6789580000004207
+        },
+        "tickMs": {
+          "count": 303,
+          "sampleCount": 256,
+          "mean": 0.25955543564356437,
+          "max": 9.432416000000103,
+          "p50": 0.00716599999987011,
+          "p95": 1.0700000000001637,
+          "p99": 2.2388750000000073
+        },
+        "encodeMs": {
+          "count": 408,
+          "sampleCount": 256,
+          "mean": 0.05855069117645656,
+          "max": 0.449333999999908,
+          "p50": 0.05116700000007768,
+          "p95": 0.1475420000001577,
+          "p99": 0.3440419999997175
+        },
+        "payloadBytes": {
+          "count": 408,
+          "sampleCount": 256,
+          "mean": 3949.671568627451,
+          "max": 6210,
+          "p50": 4328,
+          "p95": 5468,
+          "p99": 6210
+        },
+        "eventLoopMs": {
+          "sampleCount": 249,
+          "min": 17.334272,
+          "mean": 20.374293590361447,
+          "max": 22.642687,
+          "p95": 21.299199,
+          "p99": 21.921791
+        }
+      },
+      "activePeerFeedback": {
+        "lateReceipts": 4,
+        "rejections": 0,
+        "emptySlots": 153,
+        "neutralizations": 0,
+        "botTransitions": 0,
+        "sampleCount": 411,
+        "rejectionReasons": {
+          "expired": 0,
+          "future": 0,
+          "capacity": 0,
+          "revision": 0,
+          "inactive": 0,
+          "sequence-gap": 0,
+          "cancelled": 0
+        }
+      },
+      "heartbeats": {
+        "accepted": 100,
+        "rejected": 88
+      },
+      "resync": {
+        "requested": 0,
+        "rejected": 0,
+        "served": 0
+      },
+      "outbound": {
+        "bytes": 1611466,
+        "bufferedPeers": 0,
+        "maxBacklogDurationMs": 0
+      },
+      "rooms": 1,
+      "snapshots": 408,
+      "bytes": 1611466,
+      "rejected": 0,
+      "droppedSlow": 0,
+      "maxDebtMs": 0
+    },
+    "after": {
+      "work": {
+        "pumpMs": {
+          "count": 1298,
+          "sampleCount": 256,
+          "mean": 0.27959556009244785,
+          "max": 9.781083000000308,
+          "p50": 0.08770899999944959,
+          "p95": 1.1952089999995223,
+          "p99": 1.579541999999492
+        },
+        "tickMs": {
+          "count": 663,
+          "sampleCount": 256,
+          "mean": 0.30885395022626816,
+          "max": 9.432416000000103,
+          "p50": 0.3222910000004049,
+          "p95": 0.6296670000010636,
+          "p99": 1.1472499999999854
+        },
+        "encodeMs": {
+          "count": 888,
+          "sampleCount": 256,
+          "mean": 0.06314181306306671,
+          "max": 1.0068750000009459,
+          "p50": 0.056957999999212916,
+          "p95": 0.12645899999915855,
+          "p99": 0.18787499999962165
+        },
+        "payloadBytes": {
+          "count": 888,
+          "sampleCount": 256,
+          "mean": 4622.274774774774,
+          "max": 6328,
+          "p50": 5056,
+          "p95": 5792,
+          "p99": 6328
+        },
+        "eventLoopMs": {
+          "sampleCount": 544,
+          "min": 17.334272,
+          "mean": 20.36585411764706,
+          "max": 22.642687,
+          "p95": 21.250047,
+          "p99": 21.725183
+        }
+      },
+      "activePeerFeedback": {
+        "lateReceipts": 4,
+        "rejections": 0,
+        "emptySlots": 368,
+        "neutralizations": 0,
+        "botTransitions": 0,
+        "sampleCount": 1600,
+        "rejectionReasons": {
+          "expired": 0,
+          "future": 0,
+          "capacity": 0,
+          "revision": 0,
+          "inactive": 0,
+          "sequence-gap": 0,
+          "cancelled": 0
+        }
+      },
+      "heartbeats": {
+        "accepted": 100,
+        "rejected": 316
+      },
+      "resync": {
+        "requested": 0,
+        "rejected": 0,
+        "served": 0
+      },
+      "outbound": {
+        "bytes": 4104580,
+        "bufferedPeers": 0,
+        "maxBacklogDurationMs": 0
+      },
+      "rooms": 1,
+      "snapshots": 888,
+      "bytes": 4104580,
+      "rejected": 0,
+      "droppedSlow": 0,
+      "maxDebtMs": 0
+    },
+    "observedTimerSpacingMs": {
+      "p50": 16.79925000000003,
+      "p95": 17.421916999999667,
+      "max": 17.837500000001455
+    },
+    "clients": [
+      {
+        "status": "joined",
+        "terminalProgress": 308,
+        "terminalSeq": 392,
+        "receivedSeq": 401,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.0593643082083426,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 306,
+        "terminalSeq": 390,
+        "receivedSeq": 399,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 0.781428829492557,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 306,
+        "terminalSeq": 390,
+        "receivedSeq": 399,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 0.7673662749933992,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 305,
+        "terminalSeq": 388,
+        "receivedSeq": 397,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 0.749854079248752,
+        "desiredLead": 14
+      }
+    ]
+  },
+  {
+    "rooms": 25,
+    "scope": "four real SDK connections per room using production clock/scheduler and scripted controls; full-world predictors only when CRYPTBALL_CAPACITY_PREDICT=1; local ws; six-second measured interval after two-second warmup; not production-device or WAN qualification",
+    "elapsedMs": 6000.079083000004,
+    "before": {
+      "work": {
+        "pumpMs": {
+          "count": 109439,
+          "sampleCount": 256,
+          "mean": 0.06833154969434184,
+          "max": 59.616957999998704,
+          "p50": 0.0599169999914011,
+          "p95": 0.4309170000051381,
+          "p99": 0.6625829999975394
+        },
+        "tickMs": {
+          "count": 55939,
+          "sampleCount": 256,
+          "mean": 0.012130174726054248,
+          "max": 9.432416000000103,
+          "p50": 0.10379200000897981,
+          "p95": 0.30812499999592546,
+          "p99": 0.5594169999967562
+        },
+        "encodeMs": {
+          "count": 72188,
+          "sampleCount": 256,
+          "mean": 0.03941634613786995,
+          "max": 59.08824999999888,
+          "p50": 0.017458000002079643,
+          "p95": 0.06604199999128468,
+          "p99": 0.0846670000028098
+        },
+        "payloadBytes": {
+          "count": 72188,
+          "sampleCount": 256,
+          "mean": 3529.48883470937,
+          "max": 6328,
+          "p50": 4654,
+          "p95": 4962,
+          "p99": 4978
+        },
+        "eventLoopMs": {
+          "sampleCount": 3809,
+          "min": 17.334272,
+          "mean": 20.325612307692307,
+          "max": 72.876031,
+          "p95": 21.102591,
+          "p99": 21.692415
+        }
+      },
+      "activePeerFeedback": {
+        "lateReceipts": 7,
+        "rejections": 0,
+        "emptySlots": 5778,
+        "neutralizations": 0,
+        "botTransitions": 0,
+        "sampleCount": 7700,
+        "rejectionReasons": {
+          "expired": 0,
+          "future": 0,
+          "capacity": 0,
+          "revision": 0,
+          "inactive": 0,
+          "sequence-gap": 0,
+          "cancelled": 0
+        }
+      },
+      "heartbeats": {
+        "accepted": 29481,
+        "rejected": 2520
+      },
+      "resync": {
+        "requested": 0,
+        "rejected": 0,
+        "served": 0
+      },
+      "outbound": {
+        "bytes": 254786740,
+        "bufferedPeers": 0,
+        "maxBacklogDurationMs": 0
+      },
+      "rooms": 25,
+      "snapshots": 72188,
+      "bytes": 254786740,
+      "rejected": 0,
+      "droppedSlow": 0,
+      "maxDebtMs": 0
+    },
+    "after": {
+      "work": {
+        "pumpMs": {
+          "count": 126814,
+          "sampleCount": 256,
+          "mean": 0.07422020487484526,
+          "max": 59.616957999998704,
+          "p50": 0.05820800000219606,
+          "p95": 0.6257499999919673,
+          "p99": 0.8801669999957085
+        },
+        "tickMs": {
+          "count": 64944,
+          "sampleCount": 256,
+          "mean": 0.028335972761159782,
+          "max": 9.432416000000103,
+          "p50": 0.14699999999720603,
+          "p95": 0.31266700000560377,
+          "p99": 0.4218330000003334
+        },
+        "encodeMs": {
+          "count": 84196,
+          "sampleCount": 256,
+          "mean": 0.038106580894584255,
+          "max": 59.08824999999888,
+          "p50": 0.03454100000089966,
+          "p95": 0.08900000000721775,
+          "p99": 0.15649999999732245
+        },
+        "payloadBytes": {
+          "count": 84196,
+          "sampleCount": 256,
+          "mean": 3747.9080835194072,
+          "max": 6343,
+          "p50": 5402,
+          "p95": 6111,
+          "p99": 6175
+        },
+        "eventLoopMs": {
+          "sampleCount": 4106,
+          "min": 17.334272,
+          "mean": 20.316171970774477,
+          "max": 72.876031,
+          "p95": 21.102591,
+          "p99": 21.708799
+        }
+      },
+      "activePeerFeedback": {
+        "lateReceipts": 7,
+        "rejections": 0,
+        "emptySlots": 18373,
+        "neutralizations": 0,
+        "botTransitions": 0,
+        "sampleCount": 30667,
+        "rejectionReasons": {
+          "expired": 0,
+          "future": 0,
+          "capacity": 0,
+          "revision": 0,
+          "inactive": 0,
+          "sequence-gap": 0,
+          "cancelled": 0
+        }
+      },
+      "heartbeats": {
+        "accepted": 29481,
+        "rejected": 7820
+      },
+      "resync": {
+        "requested": 0,
+        "rejected": 0,
+        "served": 0
+      },
+      "outbound": {
+        "bytes": 315558869,
+        "bufferedPeers": 0,
+        "maxBacklogDurationMs": 0
+      },
+      "rooms": 25,
+      "snapshots": 84196,
+      "bytes": 315558869,
+      "rejected": 0,
+      "droppedSlow": 0,
+      "maxDebtMs": 0
+    },
+    "observedTimerSpacingMs": {
+      "p50": 16.170250000010128,
+      "p95": 17.007916000002297,
+      "max": 17.32500000001164
+    },
+    "clients": [
+      {
+        "status": "joined",
+        "terminalProgress": 251,
+        "terminalSeq": 318,
+        "receivedSeq": 327,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.6932270124175428,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 248,
+        "terminalSeq": 314,
+        "receivedSeq": 323,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.6700198260195398,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 247,
+        "terminalSeq": 313,
+        "receivedSeq": 322,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.6597417964809469,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 247,
+        "terminalSeq": 313,
+        "receivedSeq": 322,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.650221274195339,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 242,
+        "terminalSeq": 308,
+        "receivedSeq": 318,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.6191589543303326,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 240,
+        "terminalSeq": 306,
+        "receivedSeq": 315,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.6152070271312975,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 239,
+        "terminalSeq": 305,
+        "receivedSeq": 314,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.6203215327471505,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 239,
+        "terminalSeq": 305,
+        "receivedSeq": 314,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.6215699995776587,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 245,
+        "terminalSeq": 308,
+        "receivedSeq": 316,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.6223156826395972,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 244,
+        "terminalSeq": 307,
+        "receivedSeq": 315,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.6172328036907464,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 241,
+        "terminalSeq": 304,
+        "receivedSeq": 312,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.6094634337601652,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 241,
+        "terminalSeq": 304,
+        "receivedSeq": 312,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.5774743831270408,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 246,
+        "terminalSeq": 311,
+        "receivedSeq": 318,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.5641867568622558,
+        "desiredLead": 13
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 244,
+        "terminalSeq": 309,
+        "receivedSeq": 316,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.5636768375157084,
+        "desiredLead": 13
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 244,
+        "terminalSeq": 309,
+        "receivedSeq": 316,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.5563240700018168,
+        "desiredLead": 13
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 241,
+        "terminalSeq": 306,
+        "receivedSeq": 314,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.5554738785867297,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 242,
+        "terminalSeq": 304,
+        "receivedSeq": 312,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.5069750302207638,
+        "desiredLead": 13
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 241,
+        "terminalSeq": 303,
+        "receivedSeq": 311,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.5210834992467965,
+        "desiredLead": 13
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 241,
+        "terminalSeq": 303,
+        "receivedSeq": 311,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.5296277077302862,
+        "desiredLead": 13
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 240,
+        "terminalSeq": 302,
+        "receivedSeq": 310,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.539802047725828,
+        "desiredLead": 13
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 238,
+        "terminalSeq": 302,
+        "receivedSeq": 310,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.5589291489729935,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 239,
+        "terminalSeq": 303,
+        "receivedSeq": 311,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.560299412302715,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 238,
+        "terminalSeq": 302,
+        "receivedSeq": 310,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.5617414265163951,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 235,
+        "terminalSeq": 299,
+        "receivedSeq": 306,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.5637155513512302,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 237,
+        "terminalSeq": 302,
+        "receivedSeq": 309,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.5872564069943942,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 237,
+        "terminalSeq": 302,
+        "receivedSeq": 309,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.580535364206041,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 237,
+        "terminalSeq": 302,
+        "receivedSeq": 309,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.5772833584081667,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 237,
+        "terminalSeq": 302,
+        "receivedSeq": 309,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.5685662616099791,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 238,
+        "terminalSeq": 300,
+        "receivedSeq": 307,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.5640882420887017,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 238,
+        "terminalSeq": 300,
+        "receivedSeq": 307,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.5589617624212944,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 238,
+        "terminalSeq": 300,
+        "receivedSeq": 307,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.5441081535962788,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 238,
+        "terminalSeq": 300,
+        "receivedSeq": 307,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.5376605009136604,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 232,
+        "terminalSeq": 298,
+        "receivedSeq": 304,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.5729689212733584,
+        "desiredLead": 12
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 232,
+        "terminalSeq": 298,
+        "receivedSeq": 304,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.553561760611287,
+        "desiredLead": 12
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 231,
+        "terminalSeq": 297,
+        "receivedSeq": 303,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.5571928893321982,
+        "desiredLead": 12
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 230,
+        "terminalSeq": 296,
+        "receivedSeq": 302,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.5564037612608996,
+        "desiredLead": 12
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 230,
+        "terminalSeq": 293,
+        "receivedSeq": 300,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 0.9071453631035121,
+        "desiredLead": 13
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 230,
+        "terminalSeq": 293,
+        "receivedSeq": 300,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 0.9070633584728709,
+        "desiredLead": 13
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 230,
+        "terminalSeq": 293,
+        "receivedSeq": 300,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 0.9064195154935683,
+        "desiredLead": 13
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 230,
+        "terminalSeq": 293,
+        "receivedSeq": 300,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 0.9151297216351796,
+        "desiredLead": 13
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 235,
+        "terminalSeq": 298,
+        "receivedSeq": 306,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 0.9042659055752912,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 235,
+        "terminalSeq": 298,
+        "receivedSeq": 306,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 0.902249295594206,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 234,
+        "terminalSeq": 297,
+        "receivedSeq": 305,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 0.9023231240941358,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 234,
+        "terminalSeq": 297,
+        "receivedSeq": 305,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 0.9269050864043542,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 233,
+        "terminalSeq": 296,
+        "receivedSeq": 303,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 0.8897747355790091,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 232,
+        "terminalSeq": 295,
+        "receivedSeq": 302,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 0.900923097196456,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 232,
+        "terminalSeq": 295,
+        "receivedSeq": 302,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 0.917731741730353,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 232,
+        "terminalSeq": 295,
+        "receivedSeq": 302,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.0967601837997356,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 231,
+        "terminalSeq": 295,
+        "receivedSeq": 303,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.111364524608664,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 231,
+        "terminalSeq": 296,
+        "receivedSeq": 304,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.095593932051962,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 231,
+        "terminalSeq": 296,
+        "receivedSeq": 304,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.856288376859079,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 231,
+        "terminalSeq": 296,
+        "receivedSeq": 304,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.8807561056349391,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 229,
+        "terminalSeq": 293,
+        "receivedSeq": 301,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.8972151320296389,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 229,
+        "terminalSeq": 293,
+        "receivedSeq": 301,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.910335302606677,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 228,
+        "terminalSeq": 293,
+        "receivedSeq": 301,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.7374671454644928,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 228,
+        "terminalSeq": 293,
+        "receivedSeq": 301,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.7677861537239052,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 232,
+        "terminalSeq": 296,
+        "receivedSeq": 303,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.818496225908672,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 232,
+        "terminalSeq": 296,
+        "receivedSeq": 303,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.9410091549895616,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 231,
+        "terminalSeq": 295,
+        "receivedSeq": 302,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.9793815757761708,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 231,
+        "terminalSeq": 295,
+        "receivedSeq": 302,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 2.0006892070942714,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 232,
+        "terminalSeq": 297,
+        "receivedSeq": 305,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 2.012806435214917,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 234,
+        "terminalSeq": 299,
+        "receivedSeq": 306,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.147525378520466,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 234,
+        "terminalSeq": 299,
+        "receivedSeq": 306,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.200629128864957,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 234,
+        "terminalSeq": 299,
+        "receivedSeq": 306,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.2262533030857115,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 234,
+        "terminalSeq": 297,
+        "receivedSeq": 304,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.2334675858370043,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 234,
+        "terminalSeq": 297,
+        "receivedSeq": 304,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.2300359039105657,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 234,
+        "terminalSeq": 297,
+        "receivedSeq": 304,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.274950414696148,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 234,
+        "terminalSeq": 297,
+        "receivedSeq": 304,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.280887276526857,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 231,
+        "terminalSeq": 296,
+        "receivedSeq": 303,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.2631174487519528,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 231,
+        "terminalSeq": 296,
+        "receivedSeq": 303,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.2726190657932095,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 231,
+        "terminalSeq": 297,
+        "receivedSeq": 304,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 0.9759403826327175,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 231,
+        "terminalSeq": 297,
+        "receivedSeq": 304,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 0.9593589957117721,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 235,
+        "terminalSeq": 297,
+        "receivedSeq": 304,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 0.9113136819516501,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 235,
+        "terminalSeq": 297,
+        "receivedSeq": 304,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 0.8962881642787502,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 235,
+        "terminalSeq": 297,
+        "receivedSeq": 304,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 0.9197929176225328,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 235,
+        "terminalSeq": 297,
+        "receivedSeq": 304,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 0.9018881237034516,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 229,
+        "terminalSeq": 292,
+        "receivedSeq": 300,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 0.920365940488755,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 229,
+        "terminalSeq": 292,
+        "receivedSeq": 299,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 0.9116829059625317,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 229,
+        "terminalSeq": 292,
+        "receivedSeq": 299,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 0.9131427167884846,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 229,
+        "terminalSeq": 292,
+        "receivedSeq": 299,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 0.9144756949895417,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 231,
+        "terminalSeq": 295,
+        "receivedSeq": 302,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.945407450569601,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 231,
+        "terminalSeq": 295,
+        "receivedSeq": 302,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.9392219292146657,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 231,
+        "terminalSeq": 295,
+        "receivedSeq": 302,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.937460828003771,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 231,
+        "terminalSeq": 295,
+        "receivedSeq": 302,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.9607932691580892,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 230,
+        "terminalSeq": 292,
+        "receivedSeq": 298,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.9668820101959643,
+        "desiredLead": 12
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 230,
+        "terminalSeq": 292,
+        "receivedSeq": 298,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.96985422990395,
+        "desiredLead": 12
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 229,
+        "terminalSeq": 291,
+        "receivedSeq": 297,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.9685560050142727,
+        "desiredLead": 12
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 229,
+        "terminalSeq": 291,
+        "receivedSeq": 297,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.9676228281624246,
+        "desiredLead": 12
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 228,
+        "terminalSeq": 292,
+        "receivedSeq": 300,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 2.451350066935065,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 230,
+        "terminalSeq": 294,
+        "receivedSeq": 302,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 2.537172330891074,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 230,
+        "terminalSeq": 294,
+        "receivedSeq": 302,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 2.5390479245971793,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 230,
+        "terminalSeq": 294,
+        "receivedSeq": 302,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 2.543805145299576,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 230,
+        "terminalSeq": 294,
+        "receivedSeq": 301,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 2.543103851986899,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 229,
+        "terminalSeq": 293,
+        "receivedSeq": 300,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 2.588408337657065,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 229,
+        "terminalSeq": 294,
+        "receivedSeq": 301,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 0.8832319616808311,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 229,
+        "terminalSeq": 294,
+        "receivedSeq": 301,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 0.8800136946993387,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 229,
+        "terminalSeq": 292,
+        "receivedSeq": 300,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 0.8302039501145422,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 229,
+        "terminalSeq": 292,
+        "receivedSeq": 300,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 1.1459177922459618,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 229,
+        "terminalSeq": 292,
+        "receivedSeq": 300,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 0.840345645173907,
+        "desiredLead": 14
+      },
+      {
+        "status": "joined",
+        "terminalProgress": 229,
+        "terminalSeq": 292,
+        "receivedSeq": 300,
+        "botTransitions": 0,
+        "timingRejections": 0,
+        "rttMs": 0.9080382517872867,
+        "desiredLead": 14
+      }
+    ]
+  }
+]

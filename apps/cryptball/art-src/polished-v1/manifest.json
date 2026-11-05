@@ -1,0 +1,84 @@
+[
+  {
+    "file": "athlete-directions.png",
+    "source": "exec-4022148b-fe3b-4be3-a39d-0a4fe9776064.png",
+    "size": [
+      1774,
+      887
+    ],
+    "mode": "RGBA",
+    "status": "generated source; not runtime-ready",
+    "transparentFraction": 0.4859,
+    "fullyOpaqueFraction": 0.0002
+  },
+  {
+    "file": "athlete-actions.png",
+    "source": "exec-ae943566-fe6f-497e-9e32-41094df8c74a.png",
+    "size": [
+      1536,
+      1024
+    ],
+    "mode": "RGBA",
+    "status": "generated source; not runtime-ready",
+    "transparentFraction": 0.6784,
+    "fullyOpaqueFraction": 0.0
+  },
+  {
+    "file": "arena-empty.png",
+    "source": "exec-ee17f983-49e3-430e-ac10-3d6fb3a36e60.png",
+    "size": [
+      1536,
+      1024
+    ],
+    "mode": "RGB",
+    "status": "generated source; not runtime-ready"
+  },
+  {
+    "file": "crowd-props.png",
+    "source": "exec-1e1e325f-3752-4329-b1d5-1304393e91cd.png",
+    "size": [
+      1536,
+      1024
+    ],
+    "mode": "RGBA",
+    "status": "generated source; not runtime-ready",
+    "transparentFraction": 0.6522,
+    "fullyOpaqueFraction": 0.0
+  },
+  {
+    "file": "court-floor.png",
+    "source": "exec-b51524c2-72a7-4101-b16d-d8832dd19761.png",
+    "size": [
+      1774,
+      887
+    ],
+    "mode": "RGBA",
+    "status": "generated source; not runtime-ready",
+    "transparentFraction": 0.4236,
+    "fullyOpaqueFraction": 0.0001
+  },
+  {
+    "file": "back-stands.png",
+    "source": "exec-c115f5b0-102c-40d8-9e25-65b65bd1dbda.png",
+    "size": [
+      2172,
+      724
+    ],
+    "mode": "RGBA",
+    "status": "generated source; not runtime-ready",
+    "transparentFraction": 0.3756,
+    "fullyOpaqueFraction": 0.0001
+  },
+  {
+    "file": "goal-pair.png",
+    "source": "exec-f5a05453-5e9e-41c9-b1ff-f526dfeacb64.png",
+    "size": [
+      2172,
+      724
+    ],
+    "mode": "RGBA",
+    "status": "generated source; not runtime-ready",
+    "transparentFraction": 0.5991,
+    "fullyOpaqueFraction": 0.0001
+  }
+]

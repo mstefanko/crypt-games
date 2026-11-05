@@ -1,0 +1,363 @@
+{
+  "schema": 1,
+  "rootCauses": [
+    "Global player-ID reaction slots gave mirrored athletes different modulo-six observation phases.",
+    "Only opening-team parity used the original seed, yielding just two all-bot match trajectories.",
+    "Repeated catch attempts on one live throw allowed recovery into a second defensive window."
+  ],
+  "policy": {
+    "catchDecisionPercent": 55,
+    "reactionTicks": [
+      10,
+      19
+    ],
+    "aimErrorHeadingSteps": [
+      -5,
+      5
+    ],
+    "degreesPerHeadingStep": 1.40625,
+    "catchAttemptsPerThrow": 1,
+    "decisionIdentity": "deriveRandomSeed(originalMatchSeed, dodge.throw-<id>.slot-<side-local-slot>)",
+    "catchDistance": "standing reach + public ball speed * 0.1 seconds",
+    "mirroring": "side-local slot keeps response identical under side reflection; aim error reverses sign"
+  },
+  "baseline": {
+    "sampleSeeds": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "teamWins": [
+      4,
+      0
+    ],
+    "throws": 666,
+    "catches": 588,
+    "catchRate": 0.8828828828828829
+  },
+  "totals": {
+    "throws": 1064,
+    "catches": 532,
+    "catchRate": 0.5,
+    "teamWins": [
+      5,
+      7
+    ],
+    "allComplete": true
+  },
+  "samples": [
+    {
+      "seed": 1,
+      "ticks": 10310,
+      "seconds": 171.83333333333334,
+      "phase": "results",
+      "winner": 0,
+      "score": [
+        2,
+        1
+      ],
+      "throws": 117,
+      "catches": 62,
+      "rounds": [
+        {
+          "tick": 4311,
+          "winner": 1
+        },
+        {
+          "tick": 7440,
+          "winner": 0
+        },
+        {
+          "tick": 10310,
+          "winner": 0
+        }
+      ]
+    },
+    {
+      "seed": 2,
+      "ticks": 11791,
+      "seconds": 196.51666666666668,
+      "phase": "results",
+      "winner": 1,
+      "score": [
+        1,
+        2
+      ],
+      "throws": 144,
+      "catches": 78,
+      "rounds": [
+        {
+          "tick": 3024,
+          "winner": 0
+        },
+        {
+          "tick": 6423,
+          "winner": 1
+        },
+        {
+          "tick": 11791,
+          "winner": 1
+        }
+      ]
+    },
+    {
+      "seed": 3,
+      "ticks": 4605,
+      "seconds": 76.75,
+      "phase": "results",
+      "winner": 1,
+      "score": [
+        0,
+        2
+      ],
+      "throws": 61,
+      "catches": 32,
+      "rounds": [
+        {
+          "tick": 2156,
+          "winner": 1
+        },
+        {
+          "tick": 4605,
+          "winner": 1
+        }
+      ]
+    },
+    {
+      "seed": 4,
+      "ticks": 3779,
+      "seconds": 62.983333333333334,
+      "phase": "results",
+      "winner": 1,
+      "score": [
+        0,
+        2
+      ],
+      "throws": 47,
+      "catches": 21,
+      "rounds": [
+        {
+          "tick": 1961,
+          "winner": 1
+        },
+        {
+          "tick": 3779,
+          "winner": 1
+        }
+      ]
+    },
+    {
+      "seed": 5,
+      "ticks": 5470,
+      "seconds": 91.16666666666667,
+      "phase": "results",
+      "winner": 0,
+      "score": [
+        2,
+        0
+      ],
+      "throws": 62,
+      "catches": 23,
+      "rounds": [
+        {
+          "tick": 2722,
+          "winner": 0
+        },
+        {
+          "tick": 5470,
+          "winner": 0
+        }
+      ]
+    },
+    {
+      "seed": 6,
+      "ticks": 8295,
+      "seconds": 138.25,
+      "phase": "results",
+      "winner": 0,
+      "score": [
+        2,
+        1
+      ],
+      "throws": 99,
+      "catches": 50,
+      "rounds": [
+        {
+          "tick": 3418,
+          "winner": 1
+        },
+        {
+          "tick": 5710,
+          "winner": 0
+        },
+        {
+          "tick": 8295,
+          "winner": 0
+        }
+      ]
+    },
+    {
+      "seed": 7,
+      "ticks": 9423,
+      "seconds": 157.05,
+      "phase": "results",
+      "winner": 1,
+      "score": [
+        1,
+        2
+      ],
+      "throws": 110,
+      "catches": 59,
+      "rounds": [
+        {
+          "tick": 2736,
+          "winner": 1
+        },
+        {
+          "tick": 6604,
+          "winner": 0
+        },
+        {
+          "tick": 9423,
+          "winner": 1
+        }
+      ]
+    },
+    {
+      "seed": 8,
+      "ticks": 9270,
+      "seconds": 154.5,
+      "phase": "results",
+      "winner": 1,
+      "score": [
+        1,
+        2
+      ],
+      "throws": 102,
+      "catches": 50,
+      "rounds": [
+        {
+          "tick": 2380,
+          "winner": 0
+        },
+        {
+          "tick": 5056,
+          "winner": 1
+        },
+        {
+          "tick": 9270,
+          "winner": 1
+        }
+      ]
+    },
+    {
+      "seed": 9,
+      "ticks": 7388,
+      "seconds": 123.13333333333334,
+      "phase": "results",
+      "winner": 1,
+      "score": [
+        1,
+        2
+      ],
+      "throws": 76,
+      "catches": 30,
+      "rounds": [
+        {
+          "tick": 3260,
+          "winner": 1
+        },
+        {
+          "tick": 5044,
+          "winner": 0
+        },
+        {
+          "tick": 7388,
+          "winner": 1
+        }
+      ]
+    },
+    {
+      "seed": 10,
+      "ticks": 7296,
+      "seconds": 121.6,
+      "phase": "results",
+      "winner": 1,
+      "score": [
+        1,
+        2
+      ],
+      "throws": 88,
+      "catches": 49,
+      "rounds": [
+        {
+          "tick": 2061,
+          "winner": 1
+        },
+        {
+          "tick": 4566,
+          "winner": 0
+        },
+        {
+          "tick": 7296,
+          "winner": 1
+        }
+      ]
+    },
+    {
+      "seed": 11,
+      "ticks": 8382,
+      "seconds": 139.7,
+      "phase": "results",
+      "winner": 0,
+      "score": [
+        2,
+        1
+      ],
+      "throws": 96,
+      "catches": 48,
+      "rounds": [
+        {
+          "tick": 1905,
+          "winner": 0
+        },
+        {
+          "tick": 4824,
+          "winner": 1
+        },
+        {
+          "tick": 8382,
+          "winner": 0
+        }
+      ]
+    },
+    {
+      "seed": 12,
+      "ticks": 5155,
+      "seconds": 85.91666666666667,
+      "phase": "results",
+      "winner": 0,
+      "score": [
+        2,
+        0
+      ],
+      "throws": 62,
+      "catches": 30,
+      "rounds": [
+        {
+          "tick": 1555,
+          "winner": 0
+        },
+        {
+          "tick": 5155,
+          "winner": 0
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "This twelve-seed bot sample is a regression check, not evidence of human balance or a population win rate.",
+    "No gameplay catch windows, lives, damage or speed tuning changed."
+  ]
+}

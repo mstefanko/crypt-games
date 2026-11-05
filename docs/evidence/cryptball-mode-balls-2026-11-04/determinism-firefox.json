@@ -1,0 +1,155 @@
+{
+  "engine": "firefox",
+  "scenarios": [
+    {
+      "sportId": "cryptkick",
+      "humans": false,
+      "eventCounts": {
+        "whistle": 10,
+        "trap": 90,
+        "pass-target": 43,
+        "swing:pass": 43,
+        "slide": 49,
+        "possession-lost": 90,
+        "slide-contact": 45,
+        "check": 45,
+        "whiff:pass": 11,
+        "slide-recover": 49,
+        "swing:strike": 30,
+        "strike": 16,
+        "board": 101,
+        "pass": 21,
+        "pass-complete": 10,
+        "whiff:strike": 2,
+        "post": 5,
+        "goal": 9,
+        "match-end": 1
+      },
+      "maximumHeight": 0,
+      "phase": "results",
+      "score": [
+        7,
+        2
+      ],
+      "ticks": 6162
+    },
+    {
+      "sportId": "cryptkick",
+      "humans": true,
+      "eventCounts": {
+        "switch": 16,
+        "whistle": 7,
+        "pass-target": 31,
+        "swing:pass": 31,
+        "trap": 19,
+        "charge-ready": 15,
+        "whiff:pass": 22,
+        "swing:strike": 17,
+        "slide": 30,
+        "possession-lost": 19,
+        "slide-contact": 11,
+        "check": 12,
+        "slide-recover": 24,
+        "whiff:strike": 12,
+        "goal": 6,
+        "pass": 5,
+        "dash": 10,
+        "board": 36,
+        "post": 3,
+        "strike": 4,
+        "pass-complete": 3
+      },
+      "maximumHeight": 0,
+      "phase": "play",
+      "score": [
+        3,
+        3
+      ],
+      "ticks": 2400
+    },
+    {
+      "sportId": "rift-volley",
+      "humans": false,
+      "eventCounts": {
+        "whistle": 13,
+        "swing:strike": 190,
+        "volley-contact:serve": 13,
+        "pass-target": 86,
+        "swing:pass": 86,
+        "volley-contact:set": 78,
+        "volley-contact:attack": 174,
+        "whiff:strike": 3,
+        "rally-point": 13,
+        "whiff:pass": 8,
+        "match-end": 1
+      },
+      "maximumHeight": 16555,
+      "phase": "results",
+      "score": [
+        2,
+        11
+      ],
+      "ticks": 8165
+    },
+    {
+      "sportId": "rift-volley",
+      "humans": true,
+      "eventCounts": {
+        "switch": 15,
+        "whistle": 12,
+        "swing:strike": 17,
+        "volley-contact:serve": 12,
+        "pass-target": 20,
+        "swing:pass": 20,
+        "charge-ready": 10,
+        "whiff:pass": 14,
+        "slide": 19,
+        "slide-recover": 13,
+        "whiff:strike": 6,
+        "rally-point": 12,
+        "dash": 8,
+        "volley-contact:set": 3,
+        "volley-contact:dig": 1,
+        "match-end": 1
+      },
+      "maximumHeight": 15691,
+      "phase": "results",
+      "score": [
+        11,
+        1
+      ],
+      "ticks": 2261
+    }
+  ],
+  "browserProfiles": [
+    {
+      "sportId": "cryptkick",
+      "fixtureTick": 302,
+      "fixtureHash": "3299433662:3786523364",
+      "p95Ms": 2
+    },
+    {
+      "sportId": "rift-volley",
+      "fixtureTick": 302,
+      "fixtureHash": "3310992843:3559160309",
+      "p95Ms": 2
+    }
+  ],
+  "nodeProfiles": [
+    {
+      "sportId": "cryptkick",
+      "fixtureTick": 302,
+      "fixtureHash": "3299433662:3786523364",
+      "p95Ms": 1.0488750000004075
+    },
+    {
+      "sportId": "rift-volley",
+      "fixtureTick": 302,
+      "fixtureHash": "3310992843:3559160309",
+      "p95Ms": 0.7530000000006112
+    }
+  ],
+  "replayTicks": 12,
+  "warmupTrials": 20,
+  "measuredTrials": 40
+}

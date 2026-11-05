@@ -1,0 +1,36 @@
+
+ RUN  v5.0.5 /Users/mstefanko/Documents/New project/game-runtime-m5
+
+ ❯ apps/cryptball/tests/online-receipts.test.ts (17 tests | 1 failed | 16 skipped) 13ms
+   × restores a real authority checkpoint during an origin-bearing active special 13ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  apps/cryptball/tests/online-receipts.test.ts > restores a real authority checkpoint during an origin-bearing active special
+AssertionError: expected undefined to match object { participantId: 'a', seq: 1 }
+
+- Expected:
+{
+  "participantId": "a",
+  "seq": 1,
+}
+
++ Received:
+undefined
+
+ ❯ apps/cryptball/tests/online-receipts.test.ts:435:64
+    433|   m.advance();
+    434|   const snapshot = m.snapshot("a", m.session.drainEvents());
+    435|   expect(snapshot.checkpoint.state.specials[0].active?.origin).toMatch…
+       |                                                                ^
+    436|     participantId: "a",
+    437|     seq: 1,
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 16 skipped (17)
+   Start at  14:39:24
+   Duration  255ms (transform 55%, import 32%, tests 11%, worker 2%)
+

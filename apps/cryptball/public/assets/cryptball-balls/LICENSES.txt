@@ -1,0 +1,1 @@
+Original code-authored pixel ball and contact sprites. Recipe: scripts/game-assets/import-cryptball-balls.py. No third-party pixels.

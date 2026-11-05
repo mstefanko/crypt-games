@@ -1,0 +1,30 @@
+{
+  "date": "2026-11-05",
+  "status": "source-and-review-package validated; runtime integration pending",
+  "selectedSources": 4,
+  "transparentFrames": 96,
+  "validClipSequences": 35,
+  "proofGifFrames": 16,
+  "checks": [
+    "source hashes match",
+    "all frame files present and RGBA",
+    "all frame dimensions match manifest",
+    "nonempty frame alpha stays inside output canvas",
+    "all clip frame references valid",
+    "SVG parses",
+    "GIF has 16 review frames"
+  ],
+  "visualReview": [
+    "four selected source sheets",
+    "W/NW correction",
+    "native equipment sheet after row-boundary fix",
+    "all 96 frames overview",
+    "first animation proof frame"
+  ],
+  "limits": [
+    "not integrated or playtested",
+    "hand/weapon sockets and palette masks pending",
+    "no full real-game animation timing validation",
+    "no new mode audio rendered"
+  ]
+}

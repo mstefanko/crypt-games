@@ -1,0 +1,23 @@
+{
+  "recipeId": "cryptball-polished-2v2-2026-11-04",
+  "renderedPlayers": 4,
+  "authoredDirections": [
+    "E",
+    "SE",
+    "S",
+    "SW",
+    "W",
+    "NW",
+    "N",
+    "NE"
+  ],
+  "intervalMs": 170,
+  "cropLogicalPixels": {
+    "x": 250,
+    "y": 18,
+    "width": 34,
+    "height": 42
+  },
+  "materiallyChangedPixelFraction": 0.1562630917469627,
+  "minimumFraction": 0.015
+}

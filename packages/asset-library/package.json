@@ -1,0 +1,16 @@
+{
+  "name": "@onepage/asset-library",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Asset identity, immutable revisions, dependency closure and storage interfaces. Browser/local adapters share contracts; no mandatory cloud service.",
+  "exports": {
+    ".": "./src/index.ts",
+    "./sprite-atlas": "./src/sprite-atlas.ts"
+  },
+  "types": "./src/index.ts",
+  "dependencies": {
+    "@onepage/project": "*",
+    "idb": "8.0.4"
+  }
+}

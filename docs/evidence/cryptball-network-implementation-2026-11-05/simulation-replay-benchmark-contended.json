@@ -1,0 +1,136 @@
+{
+  "clock": "node:perf_hooks real monotonic",
+  "referenceDevice": "local development host; not supported-device release qualification",
+  "scope": "simulation path only; excludes adapter disposition handling, correction offsets, renderer and browser costs",
+  "report": [
+    {
+      "sport": "cryptball",
+      "horizon": 12,
+      "samples": 100,
+      "p95Ms": 11.025375000000167,
+      "maxMs": 13.48524999999995,
+      "bytes": 3351
+    },
+    {
+      "sport": "cryptball",
+      "horizon": 20,
+      "samples": 100,
+      "p95Ms": 12.827166999999918,
+      "maxMs": 16.113207999999986,
+      "bytes": 3351
+    },
+    {
+      "sport": "cryptball",
+      "horizon": 24,
+      "samples": 100,
+      "p95Ms": 19.403999999999996,
+      "maxMs": 42.46033299999999,
+      "bytes": 3351
+    },
+    {
+      "sport": "cryptball",
+      "horizon": 32,
+      "samples": 100,
+      "p95Ms": 10.377917000000252,
+      "maxMs": 12.093624999999975,
+      "bytes": 3351
+    },
+    {
+      "sport": "cryptkick",
+      "horizon": 12,
+      "samples": 100,
+      "p95Ms": 6.550833999999668,
+      "maxMs": 11.7047079999993,
+      "bytes": 3349
+    },
+    {
+      "sport": "cryptkick",
+      "horizon": 20,
+      "samples": 100,
+      "p95Ms": 8.922166999999718,
+      "maxMs": 19.423041000000012,
+      "bytes": 3349
+    },
+    {
+      "sport": "cryptkick",
+      "horizon": 24,
+      "samples": 100,
+      "p95Ms": 7.84545799999978,
+      "maxMs": 11.790750000000116,
+      "bytes": 3349
+    },
+    {
+      "sport": "cryptkick",
+      "horizon": 32,
+      "samples": 100,
+      "p95Ms": 8.216374999999971,
+      "maxMs": 18.307041000000027,
+      "bytes": 3349
+    },
+    {
+      "sport": "rift-volley",
+      "horizon": 12,
+      "samples": 100,
+      "p95Ms": 3.257999999999811,
+      "maxMs": 3.9308750000000146,
+      "bytes": 3725
+    },
+    {
+      "sport": "rift-volley",
+      "horizon": 20,
+      "samples": 100,
+      "p95Ms": 4.891458000000057,
+      "maxMs": 7.185375000000022,
+      "bytes": 3725
+    },
+    {
+      "sport": "rift-volley",
+      "horizon": 24,
+      "samples": 100,
+      "p95Ms": 7.185959000000366,
+      "maxMs": 12.499624999999469,
+      "bytes": 3725
+    },
+    {
+      "sport": "rift-volley",
+      "horizon": 32,
+      "samples": 100,
+      "p95Ms": 5.082374999999956,
+      "maxMs": 8.272917000000234,
+      "bytes": 3725
+    },
+    {
+      "sport": "cryptcheck",
+      "horizon": 12,
+      "samples": 100,
+      "p95Ms": 7.703249999999571,
+      "maxMs": 10.346416999999747,
+      "bytes": 4523
+    },
+    {
+      "sport": "cryptcheck",
+      "horizon": 20,
+      "samples": 100,
+      "p95Ms": 6.910499999999956,
+      "maxMs": 7.512416999999914,
+      "bytes": 4523
+    },
+    {
+      "sport": "cryptcheck",
+      "horizon": 24,
+      "samples": 100,
+      "p95Ms": 6.8400000000001455,
+      "maxMs": 7.803124999998545,
+      "bytes": 4523
+    },
+    {
+      "sport": "cryptcheck",
+      "horizon": 32,
+      "samples": 100,
+      "p95Ms": 9.164082999999664,
+      "maxMs": 9.961250000000291,
+      "bytes": 4523
+    }
+  ],
+  "executionContext": "Earlier development run overlapped other validation; contended diagnostic only."
+}

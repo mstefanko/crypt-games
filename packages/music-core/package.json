@@ -1,0 +1,33 @@
+{
+  "name": "@onepage/music-core",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "DOM-free musical tick math, score compilation, canonical event traces and cue decisions. No React, Web Audio, filesystem or game-simulation dependency.",
+  "exports": {
+    ".": "./src/index.ts",
+    "./runtime": "./src/runtime.ts",
+    "./generation": "./src/generation.ts",
+    "./performance": "./src/performance.ts",
+    "./bar-planner": "./src/bar-planner.ts",
+    "./weather-model": "./src/weather-model.ts",
+    "./weather-composer": "./src/weather-composer.ts",
+    "./tonality": "./src/tonality.ts",
+    "./harmonic-grammar": "./src/harmonic-grammar.ts",
+    "./orchestration": "./src/orchestration.ts",
+    "./weather-intent": "./src/weather-intent.ts",
+    "./instrument-palette": "./src/instrument-palette.ts",
+    "./expressive-performance": "./src/expressive-performance.ts",
+    "./weather-expression": "./src/weather-expression.ts",
+    "./expressive-project": "./src/expressive-project.ts",
+    "./weather-narrative": "./src/weather-narrative.ts",
+    "./weather-narrative-memory": "./src/weather-narrative-memory.ts",
+    "./weather-narrative-transition": "./src/weather-narrative-transition.ts",
+    "./weather-narrative-live": "./src/weather-narrative-live.ts",
+    "./gameplay-director": "./src/gameplay-director.ts"
+  },
+  "types": "./src/index.ts",
+  "dependencies": {
+    "@onepage/project": "*"
+  }
+}

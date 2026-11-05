@@ -1,0 +1,16 @@
+{
+  "name": "@onepage/cryptball-server",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "dependencies": {
+    "@onepage/cryptball": "*",
+    "@colyseus/core": "0.18.26",
+    "@colyseus/ws-transport": "0.18.4",
+    "@colyseus/schema": "5.0.43",
+    "express": "5.3.0"
+  }
+}

@@ -1,0 +1,311 @@
+{
+  "files": [
+    {
+      "file": "menu.wav",
+      "frames": 1764000,
+      "peak_dbfs": -15.42,
+      "boundary_delta": 1.6113801393657923e-05,
+      "passed": true
+    },
+    {
+      "file": "cryptball.wav",
+      "frames": 2646000,
+      "peak_dbfs": -11.65,
+      "boundary_delta": 6.764288991689682e-05,
+      "passed": true
+    },
+    {
+      "file": "cryptball-pressure.wav",
+      "frames": 2646000,
+      "peak_dbfs": -11.57,
+      "boundary_delta": 0.0008856463246047497,
+      "passed": true
+    },
+    {
+      "file": "cryptball-stem-foundation.wav",
+      "frames": 2646000,
+      "peak_dbfs": -11.65,
+      "boundary_delta": 6.764288991689682e-05,
+      "passed": true
+    },
+    {
+      "file": "cryptball-stem-identity.wav",
+      "frames": 2646000,
+      "peak_dbfs": -27.49,
+      "boundary_delta": 0,
+      "passed": true
+    },
+    {
+      "file": "cryptball-stem-pressure.wav",
+      "frames": 2646000,
+      "peak_dbfs": -28.2,
+      "boundary_delta": 0.0008180036675184965,
+      "passed": true
+    },
+    {
+      "file": "adaptive-demo.wav",
+      "frames": 2646000,
+      "peak_dbfs": -11.57,
+      "boundary_delta": 6.764288991689682e-05,
+      "passed": true
+    },
+    {
+      "file": "cryptkick.wav",
+      "frames": 2822400,
+      "peak_dbfs": -11.41,
+      "boundary_delta": 3.743171691894531e-05,
+      "passed": true
+    },
+    {
+      "file": "cryptkick-pressure.wav",
+      "frames": 2822400,
+      "peak_dbfs": -11.33,
+      "boundary_delta": 0.00017242133617401123,
+      "passed": true
+    },
+    {
+      "file": "cryptkick-stem-foundation.wav",
+      "frames": 2822400,
+      "peak_dbfs": -11.41,
+      "boundary_delta": 3.743171691894531e-05,
+      "passed": true
+    },
+    {
+      "file": "cryptkick-stem-identity.wav",
+      "frames": 2822400,
+      "peak_dbfs": -27.3,
+      "boundary_delta": 0,
+      "passed": true
+    },
+    {
+      "file": "cryptkick-stem-pressure.wav",
+      "frames": 2822400,
+      "peak_dbfs": -28.34,
+      "boundary_delta": 0.00013499101623892784,
+      "passed": true
+    },
+    {
+      "file": "rift-volley.wav",
+      "frames": 2565818,
+      "peak_dbfs": -11.32,
+      "boundary_delta": 4.205014556646347e-05,
+      "passed": true
+    },
+    {
+      "file": "rift-volley-pressure.wav",
+      "frames": 2565818,
+      "peak_dbfs": -11.25,
+      "boundary_delta": 0.0006534839048981667,
+      "passed": true
+    },
+    {
+      "file": "rift-volley-stem-foundation.wav",
+      "frames": 2565818,
+      "peak_dbfs": -11.32,
+      "boundary_delta": 4.205014556646347e-05,
+      "passed": true
+    },
+    {
+      "file": "rift-volley-stem-identity.wav",
+      "frames": 2565818,
+      "peak_dbfs": -26.31,
+      "boundary_delta": 0,
+      "passed": true
+    },
+    {
+      "file": "rift-volley-stem-pressure.wav",
+      "frames": 2565818,
+      "peak_dbfs": -28.01,
+      "boundary_delta": 0.0006955342250876129,
+      "passed": true
+    },
+    {
+      "file": "cryptcheck.wav",
+      "frames": 2352000,
+      "peak_dbfs": -11.45,
+      "boundary_delta": 0.00020014820620417595,
+      "passed": true
+    },
+    {
+      "file": "cryptcheck-pressure.wav",
+      "frames": 2352000,
+      "peak_dbfs": -11.36,
+      "boundary_delta": 3.86582687497139e-05,
+      "passed": true
+    },
+    {
+      "file": "cryptcheck-stem-foundation.wav",
+      "frames": 2352000,
+      "peak_dbfs": -11.45,
+      "boundary_delta": 0.00020014820620417595,
+      "passed": true
+    },
+    {
+      "file": "cryptcheck-stem-identity.wav",
+      "frames": 2352000,
+      "peak_dbfs": -26.54,
+      "boundary_delta": 0,
+      "passed": true
+    },
+    {
+      "file": "cryptcheck-stem-pressure.wav",
+      "frames": 2352000,
+      "peak_dbfs": -27.98,
+      "boundary_delta": 0.00016148993745446205,
+      "passed": true
+    },
+    {
+      "file": "crypt-dodge.wav",
+      "frames": 2490353,
+      "peak_dbfs": -10.93,
+      "boundary_delta": 0.000743599608540535,
+      "passed": true
+    },
+    {
+      "file": "crypt-dodge-pressure.wav",
+      "frames": 2490353,
+      "peak_dbfs": -10.76,
+      "boundary_delta": 0.0007717255502939224,
+      "passed": true
+    },
+    {
+      "file": "crypt-dodge-stem-foundation.wav",
+      "frames": 2490353,
+      "peak_dbfs": -10.93,
+      "boundary_delta": 0.000743599608540535,
+      "passed": true
+    },
+    {
+      "file": "crypt-dodge-stem-identity.wav",
+      "frames": 2490353,
+      "peak_dbfs": -27.49,
+      "boundary_delta": 0,
+      "passed": true
+    },
+    {
+      "file": "crypt-dodge-stem-pressure.wav",
+      "frames": 2490353,
+      "peak_dbfs": -28.16,
+      "boundary_delta": 3.3999793231487274e-05,
+      "passed": true
+    },
+    {
+      "file": "crypt-guardian.wav",
+      "frames": 3024000,
+      "peak_dbfs": -11.63,
+      "boundary_delta": 0.0001299767754971981,
+      "passed": true
+    },
+    {
+      "file": "crypt-guardian-pressure.wav",
+      "frames": 3024000,
+      "peak_dbfs": -11.6,
+      "boundary_delta": 0.00027427426539361477,
+      "passed": true
+    },
+    {
+      "file": "crypt-guardian-stem-foundation.wav",
+      "frames": 3024000,
+      "peak_dbfs": -11.63,
+      "boundary_delta": 0.0001299767754971981,
+      "passed": true
+    },
+    {
+      "file": "crypt-guardian-stem-identity.wav",
+      "frames": 3024000,
+      "peak_dbfs": -26.87,
+      "boundary_delta": 0,
+      "passed": true
+    },
+    {
+      "file": "crypt-guardian-stem-pressure.wav",
+      "frames": 3024000,
+      "peak_dbfs": -28.29,
+      "boundary_delta": 0.00014429748989641666,
+      "passed": true
+    },
+    {
+      "file": "results.wav",
+      "frames": 1764000,
+      "peak_dbfs": -15.42,
+      "boundary_delta": 1.6113801393657923e-05,
+      "passed": true
+    },
+    {
+      "file": "sting-start.wav",
+      "frames": 220500,
+      "peak_dbfs": -13.26,
+      "boundary_delta": null,
+      "passed": true
+    },
+    {
+      "file": "sting-point.wav",
+      "frames": 220500,
+      "peak_dbfs": -12.64,
+      "boundary_delta": null,
+      "passed": true
+    },
+    {
+      "file": "sting-match-point.wav",
+      "frames": 220500,
+      "peak_dbfs": -12.64,
+      "boundary_delta": null,
+      "passed": true
+    },
+    {
+      "file": "sting-victory.wav",
+      "frames": 220500,
+      "peak_dbfs": -12.64,
+      "boundary_delta": null,
+      "passed": true
+    },
+    {
+      "file": "sting-defeat.wav",
+      "frames": 220500,
+      "peak_dbfs": -12.83,
+      "boundary_delta": null,
+      "passed": true
+    }
+  ],
+  "stem_sums": [
+    {
+      "sport": "cryptball",
+      "normal_error_lsb": 1,
+      "pressure_error_lsb": 1,
+      "passed": true
+    },
+    {
+      "sport": "cryptkick",
+      "normal_error_lsb": 1,
+      "pressure_error_lsb": 1,
+      "passed": true
+    },
+    {
+      "sport": "rift-volley",
+      "normal_error_lsb": 1,
+      "pressure_error_lsb": 1,
+      "passed": true
+    },
+    {
+      "sport": "cryptcheck",
+      "normal_error_lsb": 1,
+      "pressure_error_lsb": 2,
+      "passed": true
+    },
+    {
+      "sport": "crypt-dodge",
+      "normal_error_lsb": 1,
+      "pressure_error_lsb": 1,
+      "passed": true
+    },
+    {
+      "sport": "crypt-guardian",
+      "normal_error_lsb": 1,
+      "pressure_error_lsb": 1,
+      "passed": true
+    }
+  ],
+  "limitations": "Technical audio-file checks only; no subjective listening or in-game mix approval.",
+  "midi_files": 13,
+  "all_passed": true
+}

@@ -1,0 +1,258 @@
+{
+  "archive": "/Users/mstefanko/Documents/GameAssets/Lords of Pain/Lords Of Pain - Old School Isometric Assets.zip",
+  "sha256": "85d208a201d5e8ec2a64b47ddacb6ca07c12b21a55d9ad80c064572efb9bfbdc",
+  "clips": {
+    "warrior_armed_idle": {
+      "frames": 16,
+      "headings": [
+        "E",
+        "N",
+        "NE",
+        "NEE",
+        "NNE",
+        "NNW",
+        "NW",
+        "NWW",
+        "S",
+        "SE",
+        "SEE",
+        "SSE",
+        "SSW",
+        "SW",
+        "SWW",
+        "W"
+      ]
+    },
+    "warrior_armed_walk": {
+      "frames": 128,
+      "headings": [
+        "E",
+        "N",
+        "NE",
+        "NEE",
+        "NNE",
+        "NNW",
+        "NW",
+        "NWW",
+        "S",
+        "SE",
+        "SEE",
+        "SSE",
+        "SSW",
+        "SW",
+        "SWW",
+        "W"
+      ]
+    },
+    "warrior_armed_attack": {
+      "frames": 128,
+      "headings": [
+        "E",
+        "N",
+        "NE",
+        "NEE",
+        "NNE",
+        "NNW",
+        "NW",
+        "NWW",
+        "S",
+        "SE",
+        "SEE",
+        "SSE",
+        "SSW",
+        "SW",
+        "SWW",
+        "W"
+      ]
+    },
+    "warrior_special_select": {
+      "frames": 128,
+      "headings": [
+        "E",
+        "N",
+        "NE",
+        "NEE",
+        "NNE",
+        "NNW",
+        "NW",
+        "NWW",
+        "S",
+        "SE",
+        "SEE",
+        "SSE",
+        "SSW",
+        "SW",
+        "SWW",
+        "W"
+      ]
+    },
+    "knight_armed_idle": {
+      "frames": 16,
+      "headings": [
+        "E",
+        "N",
+        "NE",
+        "NEE",
+        "NNE",
+        "NNW",
+        "NW",
+        "NWW",
+        "S",
+        "SE",
+        "SEE",
+        "SSE",
+        "SSW",
+        "SW",
+        "SWW",
+        "W"
+      ]
+    },
+    "knight_armed_walk": {
+      "frames": 128,
+      "headings": [
+        "E",
+        "N",
+        "NE",
+        "NEE",
+        "NNE",
+        "NNW",
+        "NW",
+        "NWW",
+        "S",
+        "SE",
+        "SEE",
+        "SSE",
+        "SSW",
+        "SW",
+        "SWW",
+        "W"
+      ]
+    },
+    "knight_armed_attack": {
+      "frames": 128,
+      "headings": [
+        "E",
+        "N",
+        "NE",
+        "NEE",
+        "NNE",
+        "NNW",
+        "NW",
+        "NWW",
+        "S",
+        "SE",
+        "SEE",
+        "SSE",
+        "SSW",
+        "SW",
+        "SWW",
+        "W"
+      ]
+    },
+    "knight_special_select": {
+      "frames": 128,
+      "headings": [
+        "E",
+        "N",
+        "NE",
+        "NEE",
+        "NNE",
+        "NNW",
+        "NW",
+        "NWW",
+        "S",
+        "SE",
+        "SEE",
+        "SSE",
+        "SSW",
+        "SW",
+        "SWW",
+        "W"
+      ]
+    },
+    "fighter_armed_idle": {
+      "frames": 16,
+      "headings": [
+        "E",
+        "N",
+        "NE",
+        "NEE",
+        "NNE",
+        "NNW",
+        "NW",
+        "NWW",
+        "S",
+        "SE",
+        "SEE",
+        "SSE",
+        "SSW",
+        "SW",
+        "SWW",
+        "W"
+      ]
+    },
+    "fighter_armed_walk": {
+      "frames": 128,
+      "headings": [
+        "E",
+        "N",
+        "NE",
+        "NEE",
+        "NNE",
+        "NNW",
+        "NW",
+        "NWW",
+        "S",
+        "SE",
+        "SEE",
+        "SSE",
+        "SSW",
+        "SW",
+        "SWW",
+        "W"
+      ]
+    },
+    "fighter_armed_attack": {
+      "frames": 128,
+      "headings": [
+        "E",
+        "N",
+        "NE",
+        "NEE",
+        "NNE",
+        "NNW",
+        "NW",
+        "NWW",
+        "S",
+        "SE",
+        "SEE",
+        "SSE",
+        "SSW",
+        "SW",
+        "SWW",
+        "W"
+      ]
+    },
+    "fighter_special_select": {
+      "frames": 128,
+      "headings": [
+        "E",
+        "N",
+        "NE",
+        "NEE",
+        "NNE",
+        "NNW",
+        "NW",
+        "NWW",
+        "S",
+        "SE",
+        "SEE",
+        "SSE",
+        "SSW",
+        "SW",
+        "SWW",
+        "W"
+      ]
+    }
+  }
+}

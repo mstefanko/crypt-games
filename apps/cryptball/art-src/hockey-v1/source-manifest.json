@@ -1,0 +1,3257 @@
+{
+  "generated": "2026-11-04",
+  "generator": "built-in image_gen",
+  "status": "runtime imported; original sheets and selected north/diagonal corrections preserved",
+  "runtimeAthletePoses": 128,
+  "runtimeContactOverrides": 12,
+  "generatedSourcePngs": 14,
+  "consumedSourcePngs": 13,
+  "sources": [
+    {
+      "file": "action-E.png",
+      "sha256": "d202671da7fd7278d8effbe821078bcf93d082d814c0247e7d8299b3e3a3d9ea",
+      "size": [
+        1448,
+        1086
+      ],
+      "mode": "RGBA",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 1440261,
+      "selectedForRuntime": true,
+      "grid": [
+        4,
+        4
+      ],
+      "cells": [
+        {
+          "index": 0,
+          "pose": "ready",
+          "gridRect": [
+            0,
+            0,
+            362,
+            271
+          ],
+          "opaqueBoundsInCell": [
+            55,
+            47,
+            332,
+            269
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 1,
+          "pose": "glide",
+          "gridRect": [
+            362,
+            0,
+            724,
+            271
+          ],
+          "opaqueBoundsInCell": [
+            45,
+            47,
+            316,
+            267
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 2,
+          "pose": "push-left",
+          "gridRect": [
+            724,
+            0,
+            1086,
+            271
+          ],
+          "opaqueBoundsInCell": [
+            39,
+            44,
+            320,
+            267
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 3,
+          "pose": "push-right",
+          "gridRect": [
+            1086,
+            0,
+            1448,
+            271
+          ],
+          "opaqueBoundsInCell": [
+            49,
+            47,
+            334,
+            267
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 4,
+          "pose": "wrist-windup",
+          "gridRect": [
+            0,
+            271,
+            362,
+            543
+          ],
+          "opaqueBoundsInCell": [
+            55,
+            39,
+            265,
+            264
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 5,
+          "pose": "wrist-contact",
+          "gridRect": [
+            362,
+            271,
+            724,
+            543
+          ],
+          "opaqueBoundsInCell": [
+            33,
+            57,
+            329,
+            262
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 6,
+          "pose": "wrist-follow",
+          "gridRect": [
+            724,
+            271,
+            1086,
+            543
+          ],
+          "opaqueBoundsInCell": [
+            41,
+            57,
+            338,
+            263
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 7,
+          "pose": "receive",
+          "gridRect": [
+            1086,
+            271,
+            1448,
+            543
+          ],
+          "opaqueBoundsInCell": [
+            44,
+            54,
+            307,
+            260
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 8,
+          "pose": "slap-windup",
+          "gridRect": [
+            0,
+            543,
+            362,
+            814
+          ],
+          "opaqueBoundsInCell": [
+            45,
+            24,
+            248,
+            252
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 9,
+          "pose": "slap-downswing",
+          "gridRect": [
+            362,
+            543,
+            724,
+            814
+          ],
+          "opaqueBoundsInCell": [
+            39,
+            37,
+            304,
+            248
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 10,
+          "pose": "slap-contact",
+          "gridRect": [
+            724,
+            543,
+            1086,
+            814
+          ],
+          "opaqueBoundsInCell": [
+            19,
+            37,
+            325,
+            246
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 11,
+          "pose": "slap-follow",
+          "gridRect": [
+            1086,
+            543,
+            1448,
+            814
+          ],
+          "opaqueBoundsInCell": [
+            29,
+            32,
+            324,
+            249
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 12,
+          "pose": "poke-check",
+          "gridRect": [
+            0,
+            814,
+            362,
+            1086
+          ],
+          "opaqueBoundsInCell": [
+            35,
+            60,
+            362,
+            244
+          ],
+          "touchesGridEdge": true
+        },
+        {
+          "index": 13,
+          "pose": "shoulder-check",
+          "gridRect": [
+            362,
+            814,
+            724,
+            1086
+          ],
+          "opaqueBoundsInCell": [
+            0,
+            48,
+            314,
+            241
+          ],
+          "touchesGridEdge": true
+        },
+        {
+          "index": 14,
+          "pose": "stop",
+          "gridRect": [
+            724,
+            814,
+            1086,
+            1086
+          ],
+          "opaqueBoundsInCell": [
+            38,
+            23,
+            314,
+            250
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 15,
+          "pose": "recover",
+          "gridRect": [
+            1086,
+            814,
+            1448,
+            1086
+          ],
+          "opaqueBoundsInCell": [
+            56,
+            21,
+            310,
+            250
+          ],
+          "touchesGridEdge": false
+        }
+      ]
+    },
+    {
+      "file": "action-SE.png",
+      "sha256": "7d48511f61971c3046d12fd0d6fcc7c513ecd52f8858399718483f597cff1ffe",
+      "size": [
+        1448,
+        1086
+      ],
+      "mode": "RGBA",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 1468294,
+      "selectedForRuntime": true,
+      "grid": [
+        4,
+        4
+      ],
+      "cells": [
+        {
+          "index": 0,
+          "pose": "ready",
+          "gridRect": [
+            0,
+            0,
+            362,
+            271
+          ],
+          "opaqueBoundsInCell": [
+            53,
+            41,
+            305,
+            257
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 1,
+          "pose": "glide",
+          "gridRect": [
+            362,
+            0,
+            724,
+            271
+          ],
+          "opaqueBoundsInCell": [
+            36,
+            41,
+            310,
+            253
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 2,
+          "pose": "push-left",
+          "gridRect": [
+            724,
+            0,
+            1086,
+            271
+          ],
+          "opaqueBoundsInCell": [
+            29,
+            41,
+            320,
+            254
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 3,
+          "pose": "push-right",
+          "gridRect": [
+            1086,
+            0,
+            1448,
+            271
+          ],
+          "opaqueBoundsInCell": [
+            29,
+            41,
+            331,
+            257
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 4,
+          "pose": "wrist-windup",
+          "gridRect": [
+            0,
+            271,
+            362,
+            543
+          ],
+          "opaqueBoundsInCell": [
+            29,
+            35,
+            234,
+            257
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 5,
+          "pose": "wrist-contact",
+          "gridRect": [
+            362,
+            271,
+            724,
+            543
+          ],
+          "opaqueBoundsInCell": [
+            17,
+            44,
+            326,
+            248
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 6,
+          "pose": "wrist-follow",
+          "gridRect": [
+            724,
+            271,
+            1086,
+            543
+          ],
+          "opaqueBoundsInCell": [
+            39,
+            41,
+            334,
+            254
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 7,
+          "pose": "receive",
+          "gridRect": [
+            1086,
+            271,
+            1448,
+            543
+          ],
+          "opaqueBoundsInCell": [
+            41,
+            37,
+            331,
+            249
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 8,
+          "pose": "slap-windup",
+          "gridRect": [
+            0,
+            543,
+            362,
+            814
+          ],
+          "opaqueBoundsInCell": [
+            35,
+            12,
+            254,
+            254
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 9,
+          "pose": "slap-downswing",
+          "gridRect": [
+            362,
+            543,
+            724,
+            814
+          ],
+          "opaqueBoundsInCell": [
+            40,
+            32,
+            316,
+            253
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 10,
+          "pose": "slap-contact",
+          "gridRect": [
+            724,
+            543,
+            1086,
+            814
+          ],
+          "opaqueBoundsInCell": [
+            20,
+            38,
+            325,
+            253
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 11,
+          "pose": "slap-follow",
+          "gridRect": [
+            1086,
+            543,
+            1448,
+            814
+          ],
+          "opaqueBoundsInCell": [
+            29,
+            27,
+            324,
+            248
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 12,
+          "pose": "poke-check",
+          "gridRect": [
+            0,
+            814,
+            362,
+            1086
+          ],
+          "opaqueBoundsInCell": [
+            17,
+            47,
+            347,
+            250
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 13,
+          "pose": "shoulder-check",
+          "gridRect": [
+            362,
+            814,
+            724,
+            1086
+          ],
+          "opaqueBoundsInCell": [
+            47,
+            43,
+            291,
+            251
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 14,
+          "pose": "stop",
+          "gridRect": [
+            724,
+            814,
+            1086,
+            1086
+          ],
+          "opaqueBoundsInCell": [
+            11,
+            24,
+            308,
+            246
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 15,
+          "pose": "recover",
+          "gridRect": [
+            1086,
+            814,
+            1448,
+            1086
+          ],
+          "opaqueBoundsInCell": [
+            38,
+            27,
+            314,
+            254
+          ],
+          "touchesGridEdge": false
+        }
+      ]
+    },
+    {
+      "file": "action-S.png",
+      "sha256": "30106c385afa728b6bebbbf406b13a9c0b4f8e29e2129addc75e89f9dd074464",
+      "size": [
+        1448,
+        1086
+      ],
+      "mode": "RGBA",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 1456029,
+      "selectedForRuntime": true,
+      "grid": [
+        4,
+        4
+      ],
+      "cells": [
+        {
+          "index": 0,
+          "pose": "ready",
+          "gridRect": [
+            0,
+            0,
+            362,
+            271
+          ],
+          "opaqueBoundsInCell": [
+            84,
+            42,
+            311,
+            259
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 1,
+          "pose": "glide",
+          "gridRect": [
+            362,
+            0,
+            724,
+            271
+          ],
+          "opaqueBoundsInCell": [
+            83,
+            42,
+            293,
+            257
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 2,
+          "pose": "push-left",
+          "gridRect": [
+            724,
+            0,
+            1086,
+            271
+          ],
+          "opaqueBoundsInCell": [
+            70,
+            41,
+            301,
+            258
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 3,
+          "pose": "push-right",
+          "gridRect": [
+            1086,
+            0,
+            1448,
+            271
+          ],
+          "opaqueBoundsInCell": [
+            86,
+            42,
+            307,
+            260
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 4,
+          "pose": "wrist-windup",
+          "gridRect": [
+            0,
+            271,
+            362,
+            543
+          ],
+          "opaqueBoundsInCell": [
+            47,
+            38,
+            258,
+            254
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 5,
+          "pose": "wrist-contact",
+          "gridRect": [
+            362,
+            271,
+            724,
+            543
+          ],
+          "opaqueBoundsInCell": [
+            91,
+            42,
+            257,
+            265
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 6,
+          "pose": "wrist-follow",
+          "gridRect": [
+            724,
+            271,
+            1086,
+            543
+          ],
+          "opaqueBoundsInCell": [
+            84,
+            41,
+            324,
+            255
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 7,
+          "pose": "receive",
+          "gridRect": [
+            1086,
+            271,
+            1448,
+            543
+          ],
+          "opaqueBoundsInCell": [
+            90,
+            39,
+            312,
+            257
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 8,
+          "pose": "slap-windup",
+          "gridRect": [
+            0,
+            543,
+            362,
+            814
+          ],
+          "opaqueBoundsInCell": [
+            53,
+            12,
+            268,
+            248
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 9,
+          "pose": "slap-downswing",
+          "gridRect": [
+            362,
+            543,
+            724,
+            814
+          ],
+          "opaqueBoundsInCell": [
+            83,
+            25,
+            299,
+            252
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 10,
+          "pose": "slap-contact",
+          "gridRect": [
+            724,
+            543,
+            1086,
+            814
+          ],
+          "opaqueBoundsInCell": [
+            68,
+            21,
+            266,
+            259
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 11,
+          "pose": "slap-follow",
+          "gridRect": [
+            1086,
+            543,
+            1448,
+            814
+          ],
+          "opaqueBoundsInCell": [
+            71,
+            23,
+            331,
+            249
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 12,
+          "pose": "poke-check",
+          "gridRect": [
+            0,
+            814,
+            362,
+            1086
+          ],
+          "opaqueBoundsInCell": [
+            50,
+            42,
+            337,
+            240
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 13,
+          "pose": "shoulder-check",
+          "gridRect": [
+            362,
+            814,
+            724,
+            1086
+          ],
+          "opaqueBoundsInCell": [
+            80,
+            39,
+            310,
+            240
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 14,
+          "pose": "stop",
+          "gridRect": [
+            724,
+            814,
+            1086,
+            1086
+          ],
+          "opaqueBoundsInCell": [
+            52,
+            24,
+            316,
+            236
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 15,
+          "pose": "recover",
+          "gridRect": [
+            1086,
+            814,
+            1448,
+            1086
+          ],
+          "opaqueBoundsInCell": [
+            88,
+            26,
+            319,
+            247
+          ],
+          "touchesGridEdge": false
+        }
+      ]
+    },
+    {
+      "file": "action-SW.png",
+      "sha256": "2a99b00efbe7426b7c34b4d597245244f7b47dbf899817485a3574a5e41e66f3",
+      "size": [
+        1448,
+        1086
+      ],
+      "mode": "RGBA",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 1478363,
+      "selectedForRuntime": true,
+      "grid": [
+        4,
+        4
+      ],
+      "cells": [
+        {
+          "index": 0,
+          "pose": "ready",
+          "gridRect": [
+            0,
+            0,
+            362,
+            271
+          ],
+          "opaqueBoundsInCell": [
+            47,
+            42,
+            297,
+            269
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 1,
+          "pose": "glide",
+          "gridRect": [
+            362,
+            0,
+            724,
+            271
+          ],
+          "opaqueBoundsInCell": [
+            43,
+            43,
+            302,
+            269
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 2,
+          "pose": "push-left",
+          "gridRect": [
+            724,
+            0,
+            1086,
+            271
+          ],
+          "opaqueBoundsInCell": [
+            49,
+            43,
+            296,
+            266
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 3,
+          "pose": "push-right",
+          "gridRect": [
+            1086,
+            0,
+            1448,
+            271
+          ],
+          "opaqueBoundsInCell": [
+            50,
+            43,
+            311,
+            270
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 4,
+          "pose": "wrist-windup",
+          "gridRect": [
+            0,
+            271,
+            362,
+            543
+          ],
+          "opaqueBoundsInCell": [
+            75,
+            44,
+            287,
+            261
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 5,
+          "pose": "wrist-contact",
+          "gridRect": [
+            362,
+            271,
+            724,
+            543
+          ],
+          "opaqueBoundsInCell": [
+            25,
+            43,
+            327,
+            262
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 6,
+          "pose": "wrist-follow",
+          "gridRect": [
+            724,
+            271,
+            1086,
+            543
+          ],
+          "opaqueBoundsInCell": [
+            33,
+            52,
+            304,
+            255
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 7,
+          "pose": "receive",
+          "gridRect": [
+            1086,
+            271,
+            1448,
+            543
+          ],
+          "opaqueBoundsInCell": [
+            40,
+            46,
+            317,
+            262
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 8,
+          "pose": "slap-windup",
+          "gridRect": [
+            0,
+            543,
+            362,
+            814
+          ],
+          "opaqueBoundsInCell": [
+            71,
+            17,
+            298,
+            253
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 9,
+          "pose": "slap-downswing",
+          "gridRect": [
+            362,
+            543,
+            724,
+            814
+          ],
+          "opaqueBoundsInCell": [
+            48,
+            31,
+            299,
+            252
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 10,
+          "pose": "slap-contact",
+          "gridRect": [
+            724,
+            543,
+            1086,
+            814
+          ],
+          "opaqueBoundsInCell": [
+            28,
+            31,
+            302,
+            254
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 11,
+          "pose": "slap-follow",
+          "gridRect": [
+            1086,
+            543,
+            1448,
+            814
+          ],
+          "opaqueBoundsInCell": [
+            104,
+            28,
+            314,
+            248
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 12,
+          "pose": "poke-check",
+          "gridRect": [
+            0,
+            814,
+            362,
+            1086
+          ],
+          "opaqueBoundsInCell": [
+            14,
+            45,
+            340,
+            246
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 13,
+          "pose": "shoulder-check",
+          "gridRect": [
+            362,
+            814,
+            724,
+            1086
+          ],
+          "opaqueBoundsInCell": [
+            42,
+            42,
+            311,
+            246
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 14,
+          "pose": "stop",
+          "gridRect": [
+            724,
+            814,
+            1086,
+            1086
+          ],
+          "opaqueBoundsInCell": [
+            27,
+            26,
+            312,
+            242
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 15,
+          "pose": "recover",
+          "gridRect": [
+            1086,
+            814,
+            1448,
+            1086
+          ],
+          "opaqueBoundsInCell": [
+            30,
+            26,
+            307,
+            246
+          ],
+          "touchesGridEdge": false
+        }
+      ]
+    },
+    {
+      "file": "action-W.png",
+      "sha256": "374da56085f618ef0251d2f221537db6c98778153c2e193f50a0d7172fc738fe",
+      "size": [
+        1448,
+        1086
+      ],
+      "mode": "RGBA",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 1374068,
+      "selectedForRuntime": true,
+      "grid": [
+        4,
+        4
+      ],
+      "cells": [
+        {
+          "index": 0,
+          "pose": "ready",
+          "gridRect": [
+            0,
+            0,
+            362,
+            271
+          ],
+          "opaqueBoundsInCell": [
+            41,
+            40,
+            303,
+            264
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 1,
+          "pose": "glide",
+          "gridRect": [
+            362,
+            0,
+            724,
+            271
+          ],
+          "opaqueBoundsInCell": [
+            46,
+            42,
+            320,
+            263
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 2,
+          "pose": "push-left",
+          "gridRect": [
+            724,
+            0,
+            1086,
+            271
+          ],
+          "opaqueBoundsInCell": [
+            60,
+            42,
+            319,
+            263
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 3,
+          "pose": "push-right",
+          "gridRect": [
+            1086,
+            0,
+            1448,
+            271
+          ],
+          "opaqueBoundsInCell": [
+            33,
+            42,
+            318,
+            264
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 4,
+          "pose": "wrist-windup",
+          "gridRect": [
+            0,
+            271,
+            362,
+            543
+          ],
+          "opaqueBoundsInCell": [
+            129,
+            42,
+            305,
+            261
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 5,
+          "pose": "wrist-contact",
+          "gridRect": [
+            362,
+            271,
+            724,
+            543
+          ],
+          "opaqueBoundsInCell": [
+            16,
+            59,
+            324,
+            261
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 6,
+          "pose": "wrist-follow",
+          "gridRect": [
+            724,
+            271,
+            1086,
+            543
+          ],
+          "opaqueBoundsInCell": [
+            31,
+            66,
+            326,
+            261
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 7,
+          "pose": "receive",
+          "gridRect": [
+            1086,
+            271,
+            1448,
+            543
+          ],
+          "opaqueBoundsInCell": [
+            32,
+            50,
+            310,
+            261
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 8,
+          "pose": "slap-windup",
+          "gridRect": [
+            0,
+            543,
+            362,
+            814
+          ],
+          "opaqueBoundsInCell": [
+            115,
+            5,
+            309,
+            253
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 9,
+          "pose": "slap-downswing",
+          "gridRect": [
+            362,
+            543,
+            724,
+            814
+          ],
+          "opaqueBoundsInCell": [
+            46,
+            34,
+            314,
+            251
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 10,
+          "pose": "slap-contact",
+          "gridRect": [
+            724,
+            543,
+            1086,
+            814
+          ],
+          "opaqueBoundsInCell": [
+            31,
+            34,
+            316,
+            253
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 11,
+          "pose": "slap-follow",
+          "gridRect": [
+            1086,
+            543,
+            1448,
+            814
+          ],
+          "opaqueBoundsInCell": [
+            53,
+            33,
+            317,
+            250
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 12,
+          "pose": "poke-check",
+          "gridRect": [
+            0,
+            814,
+            362,
+            1086
+          ],
+          "opaqueBoundsInCell": [
+            17,
+            50,
+            350,
+            246
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 13,
+          "pose": "shoulder-check",
+          "gridRect": [
+            362,
+            814,
+            724,
+            1086
+          ],
+          "opaqueBoundsInCell": [
+            43,
+            50,
+            325,
+            245
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 14,
+          "pose": "stop",
+          "gridRect": [
+            724,
+            814,
+            1086,
+            1086
+          ],
+          "opaqueBoundsInCell": [
+            56,
+            35,
+            318,
+            243
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 15,
+          "pose": "recover",
+          "gridRect": [
+            1086,
+            814,
+            1448,
+            1086
+          ],
+          "opaqueBoundsInCell": [
+            52,
+            27,
+            295,
+            248
+          ],
+          "touchesGridEdge": false
+        }
+      ]
+    },
+    {
+      "file": "action-NW.png",
+      "sha256": "1145f18aa3a05bd4565f85f0e64fbc341f9fe13041ced3ed0c389492082b2747",
+      "size": [
+        1448,
+        1086
+      ],
+      "mode": "RGBA",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 1331260,
+      "selectedForRuntime": true,
+      "grid": [
+        4,
+        4
+      ],
+      "cells": [
+        {
+          "index": 0,
+          "pose": "ready",
+          "gridRect": [
+            0,
+            0,
+            362,
+            271
+          ],
+          "opaqueBoundsInCell": [
+            28,
+            48,
+            299,
+            263
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 1,
+          "pose": "glide",
+          "gridRect": [
+            362,
+            0,
+            724,
+            271
+          ],
+          "opaqueBoundsInCell": [
+            19,
+            48,
+            290,
+            260
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 2,
+          "pose": "push-left",
+          "gridRect": [
+            724,
+            0,
+            1086,
+            271
+          ],
+          "opaqueBoundsInCell": [
+            21,
+            48,
+            287,
+            264
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 3,
+          "pose": "push-right",
+          "gridRect": [
+            1086,
+            0,
+            1448,
+            271
+          ],
+          "opaqueBoundsInCell": [
+            23,
+            48,
+            297,
+            263
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 4,
+          "pose": "wrist-windup",
+          "gridRect": [
+            0,
+            271,
+            362,
+            543
+          ],
+          "opaqueBoundsInCell": [
+            60,
+            43,
+            284,
+            254
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 5,
+          "pose": "wrist-contact",
+          "gridRect": [
+            362,
+            271,
+            724,
+            543
+          ],
+          "opaqueBoundsInCell": [
+            16,
+            51,
+            324,
+            252
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 6,
+          "pose": "wrist-follow",
+          "gridRect": [
+            724,
+            271,
+            1086,
+            543
+          ],
+          "opaqueBoundsInCell": [
+            20,
+            54,
+            307,
+            256
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 7,
+          "pose": "receive",
+          "gridRect": [
+            1086,
+            271,
+            1448,
+            543
+          ],
+          "opaqueBoundsInCell": [
+            25,
+            54,
+            306,
+            259
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 8,
+          "pose": "slap-windup",
+          "gridRect": [
+            0,
+            543,
+            362,
+            814
+          ],
+          "opaqueBoundsInCell": [
+            134,
+            4,
+            319,
+            244
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 9,
+          "pose": "slap-downswing",
+          "gridRect": [
+            362,
+            543,
+            724,
+            814
+          ],
+          "opaqueBoundsInCell": [
+            31,
+            29,
+            292,
+            237
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 10,
+          "pose": "slap-contact",
+          "gridRect": [
+            724,
+            543,
+            1086,
+            814
+          ],
+          "opaqueBoundsInCell": [
+            17,
+            35,
+            311,
+            237
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 11,
+          "pose": "slap-follow",
+          "gridRect": [
+            1086,
+            543,
+            1448,
+            814
+          ],
+          "opaqueBoundsInCell": [
+            31,
+            31,
+            312,
+            244
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 12,
+          "pose": "poke-check",
+          "gridRect": [
+            0,
+            814,
+            362,
+            1086
+          ],
+          "opaqueBoundsInCell": [
+            16,
+            56,
+            345,
+            242
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 13,
+          "pose": "shoulder-check",
+          "gridRect": [
+            362,
+            814,
+            724,
+            1086
+          ],
+          "opaqueBoundsInCell": [
+            39,
+            41,
+            314,
+            237
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 14,
+          "pose": "stop",
+          "gridRect": [
+            724,
+            814,
+            1086,
+            1086
+          ],
+          "opaqueBoundsInCell": [
+            19,
+            28,
+            292,
+            242
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 15,
+          "pose": "recover",
+          "gridRect": [
+            1086,
+            814,
+            1448,
+            1086
+          ],
+          "opaqueBoundsInCell": [
+            16,
+            32,
+            291,
+            243
+          ],
+          "touchesGridEdge": false
+        }
+      ]
+    },
+    {
+      "file": "action-N.png",
+      "sha256": "b632555a877c8252d460f522ec46c447d9f10f4671af517121a0504fd03038fe",
+      "size": [
+        1448,
+        1086
+      ],
+      "mode": "RGBA",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 1191824,
+      "selectedForRuntime": false,
+      "grid": [
+        4,
+        4
+      ],
+      "cells": [
+        {
+          "index": 0,
+          "pose": "ready",
+          "gridRect": [
+            0,
+            0,
+            362,
+            271
+          ],
+          "opaqueBoundsInCell": [
+            100,
+            40,
+            267,
+            271
+          ],
+          "touchesGridEdge": true
+        },
+        {
+          "index": 1,
+          "pose": "glide",
+          "gridRect": [
+            362,
+            0,
+            724,
+            271
+          ],
+          "opaqueBoundsInCell": [
+            102,
+            40,
+            273,
+            271
+          ],
+          "touchesGridEdge": true
+        },
+        {
+          "index": 2,
+          "pose": "push-left",
+          "gridRect": [
+            724,
+            0,
+            1086,
+            271
+          ],
+          "opaqueBoundsInCell": [
+            89,
+            40,
+            284,
+            271
+          ],
+          "touchesGridEdge": true
+        },
+        {
+          "index": 3,
+          "pose": "push-right",
+          "gridRect": [
+            1086,
+            0,
+            1448,
+            271
+          ],
+          "opaqueBoundsInCell": [
+            102,
+            40,
+            289,
+            271
+          ],
+          "touchesGridEdge": true
+        },
+        {
+          "index": 4,
+          "pose": "wrist-windup",
+          "gridRect": [
+            0,
+            271,
+            362,
+            543
+          ],
+          "opaqueBoundsInCell": [
+            108,
+            0,
+            276,
+            251
+          ],
+          "touchesGridEdge": true
+        },
+        {
+          "index": 5,
+          "pose": "wrist-contact",
+          "gridRect": [
+            362,
+            271,
+            724,
+            543
+          ],
+          "opaqueBoundsInCell": [
+            107,
+            0,
+            281,
+            258
+          ],
+          "touchesGridEdge": true
+        },
+        {
+          "index": 6,
+          "pose": "wrist-follow",
+          "gridRect": [
+            724,
+            271,
+            1086,
+            543
+          ],
+          "opaqueBoundsInCell": [
+            92,
+            0,
+            292,
+            256
+          ],
+          "touchesGridEdge": true
+        },
+        {
+          "index": 7,
+          "pose": "receive",
+          "gridRect": [
+            1086,
+            271,
+            1448,
+            543
+          ],
+          "opaqueBoundsInCell": [
+            84,
+            0,
+            295,
+            260
+          ],
+          "touchesGridEdge": true
+        },
+        {
+          "index": 8,
+          "pose": "slap-windup",
+          "gridRect": [
+            0,
+            543,
+            362,
+            814
+          ],
+          "opaqueBoundsInCell": [
+            76,
+            6,
+            281,
+            248
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 9,
+          "pose": "slap-downswing",
+          "gridRect": [
+            362,
+            543,
+            724,
+            814
+          ],
+          "opaqueBoundsInCell": [
+            92,
+            22,
+            274,
+            246
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 10,
+          "pose": "slap-contact",
+          "gridRect": [
+            724,
+            543,
+            1086,
+            814
+          ],
+          "opaqueBoundsInCell": [
+            87,
+            24,
+            306,
+            246
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 11,
+          "pose": "slap-follow",
+          "gridRect": [
+            1086,
+            543,
+            1448,
+            814
+          ],
+          "opaqueBoundsInCell": [
+            100,
+            23,
+            303,
+            247
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 12,
+          "pose": "poke-check",
+          "gridRect": [
+            0,
+            814,
+            362,
+            1086
+          ],
+          "opaqueBoundsInCell": [
+            70,
+            32,
+            316,
+            246
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 13,
+          "pose": "shoulder-check",
+          "gridRect": [
+            362,
+            814,
+            724,
+            1086
+          ],
+          "opaqueBoundsInCell": [
+            89,
+            33,
+            303,
+            241
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 14,
+          "pose": "stop",
+          "gridRect": [
+            724,
+            814,
+            1086,
+            1086
+          ],
+          "opaqueBoundsInCell": [
+            69,
+            26,
+            299,
+            247
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 15,
+          "pose": "recover",
+          "gridRect": [
+            1086,
+            814,
+            1448,
+            1086
+          ],
+          "opaqueBoundsInCell": [
+            99,
+            19,
+            263,
+            248
+          ],
+          "touchesGridEdge": false
+        }
+      ]
+    },
+    {
+      "file": "action-NE.png",
+      "sha256": "c006c308b0b3f1c6d113483363cf9906a2f45e1b0f1f7afe5f355aeefa30f74c",
+      "size": [
+        1448,
+        1086
+      ],
+      "mode": "RGBA",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 1311713,
+      "selectedForRuntime": true,
+      "grid": [
+        4,
+        4
+      ],
+      "cells": [
+        {
+          "index": 0,
+          "pose": "ready",
+          "gridRect": [
+            0,
+            0,
+            362,
+            271
+          ],
+          "opaqueBoundsInCell": [
+            72,
+            44,
+            346,
+            270
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 1,
+          "pose": "glide",
+          "gridRect": [
+            362,
+            0,
+            724,
+            271
+          ],
+          "opaqueBoundsInCell": [
+            68,
+            44,
+            339,
+            261
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 2,
+          "pose": "push-left",
+          "gridRect": [
+            724,
+            0,
+            1086,
+            271
+          ],
+          "opaqueBoundsInCell": [
+            57,
+            44,
+            326,
+            251
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 3,
+          "pose": "push-right",
+          "gridRect": [
+            1086,
+            0,
+            1448,
+            271
+          ],
+          "opaqueBoundsInCell": [
+            59,
+            45,
+            326,
+            262
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 4,
+          "pose": "wrist-windup",
+          "gridRect": [
+            0,
+            271,
+            362,
+            543
+          ],
+          "opaqueBoundsInCell": [
+            65,
+            40,
+            238,
+            241
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 5,
+          "pose": "wrist-contact",
+          "gridRect": [
+            362,
+            271,
+            724,
+            543
+          ],
+          "opaqueBoundsInCell": [
+            47,
+            51,
+            334,
+            250
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 6,
+          "pose": "wrist-follow",
+          "gridRect": [
+            724,
+            271,
+            1086,
+            543
+          ],
+          "opaqueBoundsInCell": [
+            54,
+            60,
+            335,
+            253
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 7,
+          "pose": "receive",
+          "gridRect": [
+            1086,
+            271,
+            1448,
+            543
+          ],
+          "opaqueBoundsInCell": [
+            64,
+            53,
+            311,
+            253
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 8,
+          "pose": "slap-windup",
+          "gridRect": [
+            0,
+            543,
+            362,
+            814
+          ],
+          "opaqueBoundsInCell": [
+            50,
+            16,
+            238,
+            243
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 9,
+          "pose": "slap-downswing",
+          "gridRect": [
+            362,
+            543,
+            724,
+            814
+          ],
+          "opaqueBoundsInCell": [
+            41,
+            26,
+            318,
+            240
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 10,
+          "pose": "slap-contact",
+          "gridRect": [
+            724,
+            543,
+            1086,
+            814
+          ],
+          "opaqueBoundsInCell": [
+            35,
+            32,
+            331,
+            236
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 11,
+          "pose": "slap-follow",
+          "gridRect": [
+            1086,
+            543,
+            1448,
+            814
+          ],
+          "opaqueBoundsInCell": [
+            54,
+            25,
+            318,
+            244
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 12,
+          "pose": "poke-check",
+          "gridRect": [
+            0,
+            814,
+            362,
+            1086
+          ],
+          "opaqueBoundsInCell": [
+            28,
+            38,
+            347,
+            241
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 13,
+          "pose": "shoulder-check",
+          "gridRect": [
+            362,
+            814,
+            724,
+            1086
+          ],
+          "opaqueBoundsInCell": [
+            49,
+            42,
+            312,
+            231
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 14,
+          "pose": "stop",
+          "gridRect": [
+            724,
+            814,
+            1086,
+            1086
+          ],
+          "opaqueBoundsInCell": [
+            27,
+            38,
+            335,
+            241
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 15,
+          "pose": "recover",
+          "gridRect": [
+            1086,
+            814,
+            1448,
+            1086
+          ],
+          "opaqueBoundsInCell": [
+            65,
+            25,
+            322,
+            251
+          ],
+          "touchesGridEdge": false
+        }
+      ]
+    },
+    {
+      "file": "action-N-grounded.png",
+      "sha256": "ead523fcb1fde4578303f5f5fc65095530777d8b63f8a96c691bc7e564a24d71",
+      "size": [
+        1448,
+        1086
+      ],
+      "mode": "RGBA",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 1250468,
+      "selectedForRuntime": true,
+      "grid": [
+        4,
+        4
+      ],
+      "cells": [
+        {
+          "index": 0,
+          "pose": "ready",
+          "gridRect": [
+            0,
+            0,
+            362,
+            271
+          ],
+          "opaqueBoundsInCell": [
+            103,
+            39,
+            307,
+            271
+          ],
+          "touchesGridEdge": true
+        },
+        {
+          "index": 1,
+          "pose": "glide",
+          "gridRect": [
+            362,
+            0,
+            724,
+            271
+          ],
+          "opaqueBoundsInCell": [
+            105,
+            40,
+            293,
+            271
+          ],
+          "touchesGridEdge": true
+        },
+        {
+          "index": 2,
+          "pose": "push-left",
+          "gridRect": [
+            724,
+            0,
+            1086,
+            271
+          ],
+          "opaqueBoundsInCell": [
+            90,
+            39,
+            297,
+            271
+          ],
+          "touchesGridEdge": true
+        },
+        {
+          "index": 3,
+          "pose": "push-right",
+          "gridRect": [
+            1086,
+            0,
+            1448,
+            271
+          ],
+          "opaqueBoundsInCell": [
+            105,
+            40,
+            297,
+            271
+          ],
+          "touchesGridEdge": true
+        },
+        {
+          "index": 4,
+          "pose": "wrist-windup",
+          "gridRect": [
+            0,
+            271,
+            362,
+            543
+          ],
+          "opaqueBoundsInCell": [
+            109,
+            0,
+            317,
+            253
+          ],
+          "touchesGridEdge": true
+        },
+        {
+          "index": 5,
+          "pose": "wrist-contact",
+          "gridRect": [
+            362,
+            271,
+            724,
+            543
+          ],
+          "opaqueBoundsInCell": [
+            109,
+            0,
+            305,
+            259
+          ],
+          "touchesGridEdge": true
+        },
+        {
+          "index": 6,
+          "pose": "wrist-follow",
+          "gridRect": [
+            724,
+            271,
+            1086,
+            543
+          ],
+          "opaqueBoundsInCell": [
+            92,
+            0,
+            292,
+            259
+          ],
+          "touchesGridEdge": true
+        },
+        {
+          "index": 7,
+          "pose": "receive",
+          "gridRect": [
+            1086,
+            271,
+            1448,
+            543
+          ],
+          "opaqueBoundsInCell": [
+            86,
+            0,
+            316,
+            261
+          ],
+          "touchesGridEdge": true
+        },
+        {
+          "index": 8,
+          "pose": "slap-windup",
+          "gridRect": [
+            0,
+            543,
+            362,
+            814
+          ],
+          "opaqueBoundsInCell": [
+            76,
+            3,
+            281,
+            248
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 9,
+          "pose": "slap-downswing",
+          "gridRect": [
+            362,
+            543,
+            724,
+            814
+          ],
+          "opaqueBoundsInCell": [
+            91,
+            24,
+            320,
+            247
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 10,
+          "pose": "slap-contact",
+          "gridRect": [
+            724,
+            543,
+            1086,
+            814
+          ],
+          "opaqueBoundsInCell": [
+            87,
+            25,
+            323,
+            247
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 11,
+          "pose": "slap-follow",
+          "gridRect": [
+            1086,
+            543,
+            1448,
+            814
+          ],
+          "opaqueBoundsInCell": [
+            101,
+            24,
+            312,
+            247
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 12,
+          "pose": "poke-check",
+          "gridRect": [
+            0,
+            814,
+            362,
+            1086
+          ],
+          "opaqueBoundsInCell": [
+            70,
+            31,
+            317,
+            247
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 13,
+          "pose": "shoulder-check",
+          "gridRect": [
+            362,
+            814,
+            724,
+            1086
+          ],
+          "opaqueBoundsInCell": [
+            88,
+            33,
+            305,
+            242
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 14,
+          "pose": "stop",
+          "gridRect": [
+            724,
+            814,
+            1086,
+            1086
+          ],
+          "opaqueBoundsInCell": [
+            69,
+            26,
+            318,
+            248
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 15,
+          "pose": "recover",
+          "gridRect": [
+            1086,
+            814,
+            1448,
+            1086
+          ],
+          "opaqueBoundsInCell": [
+            101,
+            19,
+            309,
+            249
+          ],
+          "touchesGridEdge": false
+        }
+      ]
+    },
+    {
+      "file": "arena-ice.png",
+      "sha256": "f8d1642ab9924ba97010bf21caa4774dfdc2728262238d0e3e7b93e1debf6ee2",
+      "size": [
+        1536,
+        1024
+      ],
+      "mode": "RGB",
+      "alphaExtrema": [
+        255,
+        255
+      ],
+      "bytes": 2339645,
+      "selectedForRuntime": true
+    },
+    {
+      "file": "puck-effects.png",
+      "sha256": "18265b7eadd714f74830a12262a33f877c9c64754935ecd3d675a328b27b1e92",
+      "size": [
+        1448,
+        1086
+      ],
+      "mode": "RGBA",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 651185,
+      "selectedForRuntime": true,
+      "grid": [
+        4,
+        3
+      ],
+      "cells": [
+        {
+          "index": 0,
+          "pose": "puck-0",
+          "gridRect": [
+            0,
+            0,
+            362,
+            362
+          ],
+          "opaqueBoundsInCell": [
+            68,
+            140,
+            294,
+            289
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 1,
+          "pose": "puck-1",
+          "gridRect": [
+            362,
+            0,
+            724,
+            362
+          ],
+          "opaqueBoundsInCell": [
+            68,
+            140,
+            295,
+            289
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 2,
+          "pose": "puck-2",
+          "gridRect": [
+            724,
+            0,
+            1086,
+            362
+          ],
+          "opaqueBoundsInCell": [
+            68,
+            140,
+            294,
+            289
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 3,
+          "pose": "puck-3",
+          "gridRect": [
+            1086,
+            0,
+            1448,
+            362
+          ],
+          "opaqueBoundsInCell": [
+            68,
+            140,
+            294,
+            289
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 4,
+          "pose": "spray-0",
+          "gridRect": [
+            0,
+            362,
+            362,
+            724
+          ],
+          "opaqueBoundsInCell": [
+            73,
+            185,
+            238,
+            262
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 5,
+          "pose": "spray-1",
+          "gridRect": [
+            362,
+            362,
+            724,
+            724
+          ],
+          "opaqueBoundsInCell": [
+            36,
+            100,
+            325,
+            272
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 6,
+          "pose": "spray-2",
+          "gridRect": [
+            724,
+            362,
+            1086,
+            724
+          ],
+          "opaqueBoundsInCell": [
+            37,
+            156,
+            333,
+            266
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 7,
+          "pose": "spray-3",
+          "gridRect": [
+            1086,
+            362,
+            1448,
+            724
+          ],
+          "opaqueBoundsInCell": [
+            57,
+            192,
+            307,
+            259
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 8,
+          "pose": "contact-0",
+          "gridRect": [
+            0,
+            724,
+            362,
+            1086
+          ],
+          "opaqueBoundsInCell": [
+            125,
+            167,
+            220,
+            226
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 9,
+          "pose": "contact-1",
+          "gridRect": [
+            362,
+            724,
+            724,
+            1086
+          ],
+          "opaqueBoundsInCell": [
+            100,
+            120,
+            255,
+            226
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 10,
+          "pose": "contact-2",
+          "gridRect": [
+            724,
+            724,
+            1086,
+            1086
+          ],
+          "opaqueBoundsInCell": [
+            101,
+            130,
+            264,
+            226
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 11,
+          "pose": "contact-3",
+          "gridRect": [
+            1086,
+            724,
+            1448,
+            1086
+          ],
+          "opaqueBoundsInCell": [
+            111,
+            158,
+            241,
+            212
+          ],
+          "touchesGridEdge": false
+        }
+      ]
+    },
+    {
+      "file": "diagonal-contact-grounded.png",
+      "sha256": "a1cf8e1ef1d583fbd3408c24a10f74afd27df2a9b673e5b73e071636b556d75a",
+      "size": [
+        1565,
+        1005
+      ],
+      "mode": "RGBA",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 746457,
+      "selectedForRuntime": true,
+      "grid": [
+        4,
+        3
+      ],
+      "cells": [
+        {
+          "index": 0,
+          "pose": "wrist-contact-SE",
+          "gridRect": [
+            0,
+            0,
+            391,
+            335
+          ],
+          "opaqueBoundsInCell": [
+            114,
+            91,
+            290,
+            263
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 1,
+          "pose": "wrist-contact-SW",
+          "gridRect": [
+            391,
+            0,
+            782,
+            335
+          ],
+          "opaqueBoundsInCell": [
+            96,
+            87,
+            286,
+            264
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 2,
+          "pose": "wrist-contact-NW",
+          "gridRect": [
+            782,
+            0,
+            1173,
+            335
+          ],
+          "opaqueBoundsInCell": [
+            104,
+            94,
+            295,
+            250
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 3,
+          "pose": "wrist-contact-NE",
+          "gridRect": [
+            1173,
+            0,
+            1565,
+            335
+          ],
+          "opaqueBoundsInCell": [
+            131,
+            102,
+            297,
+            250
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 4,
+          "pose": "slap-contact-SE",
+          "gridRect": [
+            0,
+            335,
+            391,
+            670
+          ],
+          "opaqueBoundsInCell": [
+            112,
+            80,
+            305,
+            263
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 5,
+          "pose": "slap-contact-SW",
+          "gridRect": [
+            391,
+            335,
+            782,
+            670
+          ],
+          "opaqueBoundsInCell": [
+            82,
+            83,
+            274,
+            263
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 6,
+          "pose": "slap-contact-NW",
+          "gridRect": [
+            782,
+            335,
+            1173,
+            670
+          ],
+          "opaqueBoundsInCell": [
+            92,
+            93,
+            282,
+            248
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 7,
+          "pose": "slap-contact-NE",
+          "gridRect": [
+            1173,
+            335,
+            1565,
+            670
+          ],
+          "opaqueBoundsInCell": [
+            123,
+            100,
+            295,
+            248
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 8,
+          "pose": "poke-check-SE",
+          "gridRect": [
+            0,
+            670,
+            391,
+            1005
+          ],
+          "opaqueBoundsInCell": [
+            113,
+            90,
+            317,
+            255
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 9,
+          "pose": "poke-check-SW",
+          "gridRect": [
+            391,
+            670,
+            782,
+            1005
+          ],
+          "opaqueBoundsInCell": [
+            70,
+            96,
+            306,
+            257
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 10,
+          "pose": "poke-check-NW",
+          "gridRect": [
+            782,
+            670,
+            1173,
+            1005
+          ],
+          "opaqueBoundsInCell": [
+            64,
+            102,
+            295,
+            249
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 11,
+          "pose": "poke-check-NE",
+          "gridRect": [
+            1173,
+            670,
+            1565,
+            1005
+          ],
+          "opaqueBoundsInCell": [
+            118,
+            98,
+            300,
+            249
+          ],
+          "touchesGridEdge": false
+        }
+      ]
+    },
+    {
+      "file": "contact-SE-grounded.png",
+      "sha256": "1684e7139e2ad24478f75c87a5783de03ea2f337651aa3584c663352739a02b2",
+      "size": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 400601,
+      "selectedForRuntime": true,
+      "grid": [
+        3,
+        1
+      ],
+      "cells": [
+        {
+          "index": 0,
+          "pose": "wrist-contact-SE",
+          "gridRect": [
+            0,
+            0,
+            724,
+            724
+          ],
+          "opaqueBoundsInCell": [
+            213,
+            217,
+            477,
+            544
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 1,
+          "pose": "slap-contact-SE",
+          "gridRect": [
+            724,
+            0,
+            1448,
+            724
+          ],
+          "opaqueBoundsInCell": [
+            202,
+            198,
+            466,
+            537
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 2,
+          "pose": "poke-check-SE",
+          "gridRect": [
+            1448,
+            0,
+            2172,
+            724
+          ],
+          "opaqueBoundsInCell": [
+            193,
+            220,
+            467,
+            537
+          ],
+          "touchesGridEdge": false
+        }
+      ]
+    },
+    {
+      "file": "contact-SW-grounded.png",
+      "sha256": "02c5adb2e8c4c4c948b2ff4048017820de96f8289d4f7310ae61d8bc46a287d5",
+      "size": [
+        2172,
+        724
+      ],
+      "mode": "RGBA",
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "bytes": 424744,
+      "selectedForRuntime": true,
+      "grid": [
+        3,
+        1
+      ],
+      "cells": [
+        {
+          "index": 0,
+          "pose": "wrist-contact-SW",
+          "gridRect": [
+            0,
+            0,
+            724,
+            724
+          ],
+          "opaqueBoundsInCell": [
+            255,
+            209,
+            536,
+            548
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 1,
+          "pose": "slap-contact-SW",
+          "gridRect": [
+            724,
+            0,
+            1448,
+            724
+          ],
+          "opaqueBoundsInCell": [
+            231,
+            209,
+            517,
+            548
+          ],
+          "touchesGridEdge": false
+        },
+        {
+          "index": 2,
+          "pose": "poke-check-SW",
+          "gridRect": [
+            1448,
+            0,
+            2172,
+            724
+          ],
+          "opaqueBoundsInCell": [
+            230,
+            237,
+            575,
+            548
+          ],
+          "touchesGridEdge": false
+        }
+      ]
+    }
+  ]
+}

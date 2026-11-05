@@ -1,0 +1,6 @@
+{
+  "equal": true,
+  "baseline": "legacy-baseline.json",
+  "current": "legacy-current.json",
+  "scope": "three legacy sports; full bot match and 2400-tick mixed input each; state/RNG/events; excludes added hockey null and checkpoint schema version"
+}
