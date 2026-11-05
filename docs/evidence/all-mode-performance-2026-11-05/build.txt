@@ -1,0 +1,44 @@
+
+> crypt-games@0.0.0 build
+> npm run build:cryptball && npm run build:cryptball:server
+
+
+> crypt-games@0.0.0 build:cryptball
+> node apps/cryptball-server/identity.mjs && vite build --config vite.cryptball.config.ts
+
+Cryptball authority: cryptball-v1-3d31d137e1f81a36ff1342b9 (45 source files)
+vite v8.3.4 building client environment for production...
+transforming...
+✓ 1095 modules transformed.
+rendering chunks...
+computing gzip size...
+.local-game-tests/cryptball/index.html                                        1.94 kB │ gzip:   0.71 kB
+.local-game-tests/cryptball/assets/mix-protector-worklet-Ch0Xq2CP.js          3.19 kB
+.local-game-tests/cryptball/assets/environment-texture-worklet-B3HI_S_J.js    6.25 kB
+.local-game-tests/cryptball/assets/index-BBlOLFN2.css                        20.50 kB │ gzip:   4.94 kB
+.local-game-tests/cryptball/assets/webworkerAll-dq0sBRfa.js                   0.05 kB │ gzip:   0.06 kB
+.local-game-tests/cryptball/assets/getTextureBatchBindGroup-Cgsy0fHk.js       0.34 kB │ gzip:   0.27 kB
+.local-game-tests/cryptball/assets/Cache-CybsNgns.js                          1.10 kB │ gzip:   0.56 kB
+.local-game-tests/cryptball/assets/canvasUtils-DjJbAzsM.js                    6.01 kB │ gzip:   2.04 kB
+.local-game-tests/cryptball/assets/getTexelRangeRects-BjEnTNHd.js            11.35 kB │ gzip:   2.99 kB
+.local-game-tests/cryptball/assets/init-DZ1Ud0SN.js                          14.84 kB │ gzip:   4.59 kB
+.local-game-tests/cryptball/assets/GCManagedHash-ph25uQ2d.js                 19.33 kB │ gzip:   6.28 kB
+.local-game-tests/cryptball/assets/Filter-CCN5j_8F.js                        41.95 kB │ gzip:  12.02 kB
+.local-game-tests/cryptball/assets/browserAll-IIMqwqI8.js                    43.51 kB │ gzip:  11.25 kB
+.local-game-tests/cryptball/assets/RenderTargetSystem-mosymKWX.js            58.80 kB │ gzip:  16.47 kB
+.local-game-tests/cryptball/assets/GraphicsContext-BUfpWLCx.js               61.68 kB │ gzip:  20.62 kB
+.local-game-tests/cryptball/assets/CanvasPool-C5I4jMTV.js                    71.21 kB │ gzip:  23.31 kB
+.local-game-tests/cryptball/assets/session-DrhRLZLC.js                      156.20 kB │ gzip:  48.33 kB
+.local-game-tests/cryptball/assets/index-Cef3TlhM.js                        710.85 kB │ gzip: 216.34 kB
+
+✓ built in 237ms
+[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+
+> crypt-games@0.0.0 build:cryptball:server
+> node apps/cryptball-server/build.mjs
+
+Cryptball authority: cryptball-v1-3d31d137e1f81a36ff1342b9 (45 source files)
