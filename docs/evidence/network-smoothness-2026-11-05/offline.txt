@@ -1,0 +1,16 @@
+
+> crypt-games@0.0.0 test:cryptball
+> vitest run --config vitest.cryptball.config.ts
+
+
+ RUN  v5.0.5 /Users/mstefanko/Documents/New project/crypt-games
+
+
+ Test Files  39 passed (39)
+      Tests  386 passed (386)
+   Start at  15:20:52
+   Duration  22.77s (tests 75%, import 14%, transform 10%, worker 1%)
+
+    Isolate  39 workers spawned · ~223ms startup each (spawn + environment, per file)
+             at least ~4.12s faster with isolate: false — reuses workers across files instead of one per file
+

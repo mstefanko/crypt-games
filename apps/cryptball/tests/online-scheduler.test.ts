@@ -17,7 +17,7 @@ it("increases and decreases lead without rewriting or duplicating slots", () => 
   s.feedback(1, 1, -2, -2, 100);
   expect(s.lead).toBe(6);
   expect(s.allocate(11, 11, 100)?.tick).toBe(17);
-  s.feedback(2, 1, 6, 6, 1200);
+  s.feedback(2, 61, 6, 6, 1200);
   expect(s.lead).toBe(5);
   expect(s.allocate(11, 11, 1200)).toBeNull();
   expect(s.allocate(13, 13, 1217)?.tick).toBe(18);
@@ -81,4 +81,21 @@ it("validates outstanding ping identity and stops tick extrapolation in lobby", 
   ).toBe(true);
   expect(c.rtt).toBe(50);
   expect(c.tick).toBe(0);
+});
+
+it("does not repeatedly increase prediction lead from the same rolling receipt window", () => {
+  const s = new InputScheduler();
+  s.seed(150);
+  expect(s.lead).toBe(7);
+  s.feedback(10, 10, 0, 0, 1000);
+  expect(s.lead).toBe(9);
+  for (let count = 11; count < 70; count++)
+    s.feedback(count, count, 0, 0, 1000 + count * 20);
+  expect(s.lead).toBe(9);
+  // A whole window of new receipts can justify another adjustment.
+  s.feedback(70, 70, 0, 0, 2500);
+  expect(s.lead).toBe(11);
+  s.reset();
+  s.feedback(1, 1, 0, 0, 2600);
+  expect(s.lead).toBe(4);
 });

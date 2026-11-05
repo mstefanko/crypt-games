@@ -93,6 +93,12 @@ function ceilDiv(n: bigint, d: bigint): bigint {
 /** Exact quadratic entry, rounded UP to one of 65537 finite contact buckets.
  * BigInt prevents discriminant overflow; no floating-point square root. */
 function diskEntry(p: GeometryVector, d: GeometryVector, center: GeometryVector, radius: number): number | null {
+  // Exact conservative rejection before allocating BigInts. Closed bounds keep
+  // tangencies; the existing quadratic still resolves every possible contact.
+  if (Math.max(p.x, p.x + d.x) < center.x - radius ||
+      Math.min(p.x, p.x + d.x) > center.x + radius ||
+      Math.max(p.y, p.y + d.y) < center.y - radius ||
+      Math.min(p.y, p.y + d.y) > center.y + radius) return null;
   const x = BigInt(p.x - center.x), y = BigInt(p.y - center.y);
   const dx = BigInt(d.x), dy = BigInt(d.y), r = BigInt(radius);
   const a = dx * dx + dy * dy;
@@ -146,6 +152,12 @@ export function circleSweepCircle(c: GeometryCircle, d: GeometryVector, target: 
 export function circleSweepRect(c: GeometryCircle, d: GeometryVector, target: GeometryRect): number | null {
   validateGeometryCircle(c); rect(target); motion(c, d);
   validateGeometryCircle({ ...c, x: c.x + d.x, y: c.y + d.y });
+  // Validate first, then reject a swept circle whose bounds cannot reach the
+  // rectangle. Do not replace the rounded-corner narrowphase with this box.
+  if (Math.max(c.x, c.x + d.x) + c.radius < target.x ||
+      Math.min(c.x, c.x + d.x) - c.radius > target.x + target.width ||
+      Math.max(c.y, c.y + d.y) + c.radius < target.y ||
+      Math.min(c.y, c.y + d.y) - c.radius > target.y + target.height) return null;
   const start = initial(c, d, nearest(c, target), c.radius);
   if (start !== undefined) return start;
   const entries = [

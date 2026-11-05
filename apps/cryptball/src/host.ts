@@ -1,3 +1,4 @@
+import { FrameInterpolation } from "./online/frame-interpolation";
 import { PixiStage } from "@onepage/game-runtime/pixi";
 import { BrowserLifecycle } from "@onepage/game-runtime/browser/lifecycle";
 import {
@@ -168,6 +169,7 @@ export async function mountCryptball() {
       audio.observeMusic(observation, { matchId: `local:${localMusicMatch}`, epoch: localMusicMatch, generation: 0, snapshotSeq: observation.tick }, observation.players.find(player => player.id === observation.controlledId)?.team ?? null);
     }
   }
+  const frameInterpolation = new FrameInterpolation();
   const lifecycle = new BrowserLifecycle({
     tick,
     interruptionPolicy: "suspend-input",
@@ -192,7 +194,10 @@ export async function mountCryptball() {
         pendingEvents.push(...online.drainEvents());
         updateHud();
       }
-      const state = observation;
+      const interpolateOnline = online && observation.sportId === "rift-volley" && screen === "play" && !lifecycle.paused;
+      if (!interpolateOnline) frameInterpolation.reset();
+      const state = interpolateOnline
+        ? frameInterpolation.draw(observation, time) : observation;
       presenter.render(state, pendingEvents, prefs.reducedMotion, Object.fromEntries((online?.lobby?.seats ?? []).map(seat=>[online?.controllerOwners.find(controller=>controller.id===seat.id)?.playerId ?? seat.playerId,seat.name])));
       pendingEvents = [];
       stage.render(0);

@@ -1,0 +1,9 @@
+
+ RUN  v5.0.5 /Users/mstefanko/Documents/New project/crypt-games
+
+
+ Test Files  1 passed (1)
+      Tests  5 passed | 86 skipped (91)
+   Start at  15:20:52
+   Duration  11.09s (tests 93%, import 3%, transform 3%)
+

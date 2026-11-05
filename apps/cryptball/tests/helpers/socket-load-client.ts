@@ -7,11 +7,11 @@ import {
   type Lobby,
   type Snapshot,
 } from "../../protocol";
-import type { CommandFrame } from "../../sim/contract";
+import type { CommandFrame, SportId } from "../../sim/contract";
 import { NetworkClock } from "../../src/online/clock";
 import { InputScheduler } from "../../src/online/input-scheduler";
 /** Real SDK + production clock/scheduler, without 100 full-world predictors on the generator CPU. */
-export function createSocketLoadClient(endpoint: string) {
+export function createSocketLoadClient(endpoint: string, sportId: SportId = "cryptball") {
   let room: Room,
     lobby: Lobby | null = null,
     snapshot: Snapshot | undefined,
@@ -24,7 +24,7 @@ export function createSocketLoadClient(endpoint: string) {
   return {
     async connect(kind: "private" | "join", code?: string) {
       const client = new Client(endpoint),
-        options = { build: BUILD, protocol: PROTOCOL, sportId: "cryptball" };
+        options = { build: BUILD, protocol: PROTOCOL, sportId };
       room =
         kind === "private"
           ? await client.create("cryptball", { ...options, private: true })

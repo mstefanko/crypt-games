@@ -85,6 +85,7 @@ export function createOnlineSession(options: OnlineOptions = {}) {
   const diagnostics = {
     rttMs: 80,
     correctionPx: 0,
+    ballCorrectionPx: 0,
     replayMs: 0,
     replayedTicks: 0,
     snapshotBytes: 0,
@@ -242,6 +243,10 @@ export function createOnlineSession(options: OnlineOptions = {}) {
       oldPlayer && newPlayer
         ? Math.hypot(oldPlayer.x - newPlayer.x, oldPlayer.y - newPlayer.y) / 256
         : 0;
+    diagnostics.ballCorrectionPx = reset || target < snapshot.tick ? 0 :
+      Math.hypot(previous.ball.x - current.ball.x,
+        previous.ball.y - current.ball.y,
+        previous.ball.z - current.ball.z) / 256;
     corrections.correct(
       current,
       performance.now(),

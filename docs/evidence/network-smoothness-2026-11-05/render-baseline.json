@@ -1,0 +1,105 @@
+{
+  "sport": "rift-volley",
+  "endpoint": "cloud",
+  "rttAdded": 0,
+  "cpu": 4,
+  "seconds": 15,
+  "status": "joined",
+  "menu": "play",
+  "errors": [],
+  "framesMs": {
+    "n": 774,
+    "p50": 16.69999999999891,
+    "p95": 16.700000000000728,
+    "p99": 16.80000000000291,
+    "max": 50
+  },
+  "stepMs": {
+    "n": 779,
+    "p50": 0.5,
+    "p95": 1.5,
+    "p99": 2.5999999046325684,
+    "max": 12.600000143051147
+  },
+  "movingBallSamples": 348,
+  "metrics": {
+    "rttMs": {
+      "n": 774,
+      "p50": 47.79672048782809,
+      "p95": 69.7475904154208,
+      "p99": 69.7475904154208,
+      "max": 69.7475904154208
+    },
+    "replayMs": {
+      "n": 774,
+      "p50": 2.200000047683716,
+      "p95": 5.799999952316284,
+      "p99": 6.700000047683716,
+      "max": 8.699999809265137
+    },
+    "replayedTicks": {
+      "n": 774,
+      "p50": 15,
+      "p95": 21,
+      "p99": 21,
+      "max": 22
+    },
+    "correctionPx": {
+      "n": 774,
+      "p50": 0,
+      "p95": 0,
+      "p99": 0,
+      "max": 0
+    },
+    "serverDebtMs": {
+      "n": 774,
+      "p50": 4.10816099983591,
+      "p95": 7.619304999941367,
+      "p99": 8.292596000012981,
+      "max": 8.447257000020947
+    },
+    "snapshotBytes": {
+      "n": 774,
+      "p50": 4156,
+      "p95": 4673,
+      "p99": 4795,
+      "max": 4998
+    },
+    "desiredLead": {
+      "n": 774,
+      "p50": 15,
+      "p95": 20,
+      "p99": 20,
+      "max": 20
+    },
+    "actualLead": {
+      "n": 774,
+      "p50": 15,
+      "p95": 20,
+      "p99": 20,
+      "max": 20
+    },
+    "timingRejections": {
+      "n": 774,
+      "p50": 0,
+      "p95": 0,
+      "p99": 0,
+      "max": 0
+    },
+    "resyncRequested": {
+      "n": 774,
+      "p50": 0,
+      "p95": 0,
+      "p99": 0,
+      "max": 0
+    },
+    "botTransitions": {
+      "n": 774,
+      "p50": 0,
+      "p95": 0,
+      "p99": 0,
+      "max": 0
+    }
+  },
+  "note": "One private live Render room, local rendered browser via same-origin diagnostic proxy. No artificial latency; CPU slowdown 4x. No provider admin metrics."
+}
