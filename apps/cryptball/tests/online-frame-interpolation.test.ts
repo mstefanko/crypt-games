@@ -283,3 +283,20 @@ it("serializes only the scene key rather than every entity generation", () => {
     stringify.mockRestore();
   }
 });
+
+it("keeps moving through ordinary Dodge damage and snaps to the sideline on elimination", () => {
+  const frame = new FrameInterpolation();
+  const state = createInitialState("match", {}, "crypt-dodge");
+  state.phase = "play";
+  const player = state.players[0];
+  const athlete = state.dodge!.athletes[player.id];
+  frame.capture(state);
+  state.tick++;
+  athlete.lives--;
+  player.x += 256;
+  expect(frame.draw(state, 16, 0.5).players[0].x).toBe(player.x - 128);
+  state.tick++;
+  athlete.lives = 0;
+  player.y = 86 * 256;
+  expect(frame.draw(state, 32, 0.5).players[0].y).toBe(player.y);
+});

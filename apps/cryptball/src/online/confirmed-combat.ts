@@ -1,5 +1,20 @@
 import type { Observation } from "../contract";
 
+type DodgeMode = NonNullable<Observation["dodge"]>["ball"];
+
+function usePredictedBallPose(local: DodgeMode, known: DodgeMode) {
+  if (local.throwId !== known.throwId || local.holderId !== known.holderId)
+    return false;
+  if (local.state === known.state) return true;
+  // The confirmed throw has reached a surface or athlete in the prediction.
+  // Reusing the older airborne position here would replay its approach.
+  return (
+    known.state === "hostile-flight" &&
+    local.state === "dead-loose" &&
+    local.releaseTick === known.releaseTick
+  );
+}
+
 /** Only drawing state is merged. Prediction checkpoints retain their complete
  * resources so reconciliation can replay normally; cues come from authority. */
 export function confirmedCombatPresentation(
@@ -10,14 +25,12 @@ export function confirmedCombatPresentation(
   if (predicted.dodge && authority.dodge) {
     const a = authority.dodge,
       p = predicted.dodge;
-    const changed =
-      p.ball.state !== a.ball.state ||
-      p.ball.holderId !== a.ball.holderId ||
-      p.ball.throwId !== a.ball.throwId;
     return {
       ...predicted,
       possessionId: authority.possessionId,
-      ball: changed ? { ...authority.ball } : predicted.ball,
+      ball: usePredictedBallPose(p.ball, a.ball)
+        ? predicted.ball
+        : { ...authority.ball },
       dodge: {
         ...p,
         subphase: a.subphase,
@@ -29,15 +42,15 @@ export function confirmedCombatPresentation(
         settleTicks: a.settleTicks,
         balls: a.balls.map((known) => {
           const local = p.balls.find((b) => b.id === known.id);
-          const changed =
-            !local ||
-            local.mode.state !== known.mode.state ||
-            local.mode.holderId !== known.mode.holderId ||
-            local.mode.throwId !== known.mode.throwId;
+          const physical =
+            local && local.retired === known.retired &&
+            usePredictedBallPose(local.mode, known.mode)
+              ? local.physical
+              : known.physical;
           return {
             ...known,
             mode: { ...known.mode },
-            physical: { ...(changed ? known.physical : local.physical) },
+            physical: { ...physical },
           };
         }),
         ball: { ...a.ball },
@@ -53,9 +66,11 @@ export function confirmedCombatPresentation(
       },
       players: predicted.players.map((player) => {
         const known = authority.players.find((q) => q.id === player.id)!;
+        const predictedOut = p.athletes[player.id].lives === 0;
+        const confirmedOut = a.athletes[player.id].lives === 0;
         return {
           ...player,
-          ...(p.athletes[player.id].lives !== a.athletes[player.id].lives
+          ...(predictedOut !== confirmedOut
             ? { x: known.x, y: known.y }
             : {}),
           immunityTicks: known.immunityTicks,

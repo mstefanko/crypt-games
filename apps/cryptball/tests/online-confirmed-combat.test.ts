@@ -73,3 +73,35 @@ it('Guardian compact projection detaches nested authority resources without full
   out.orbs[0].ballToken!.origin!.seq++;out.orbs[0].ball.x++;
   expect(authority).toEqual(original);
 });
+
+it('draws the continuing trajectory of a confirmed Dodge throw through contact on either ball', () => {
+  const authority = createCryptballSession({ sportId: 'crypt-dodge' }).observe();
+  for (const b of authority.dodge!.balls) {
+    Object.assign(b.mode, { state: 'hostile-flight', throwId: 4, releaseTick: 11, holderId: null });
+    b.physical.x = 100 * 256;
+  }
+  authority.dodge!.ball = authority.dodge!.balls[0].mode;
+  authority.ball = authority.dodge!.balls[0].physical;
+  const predicted = structuredClone(authority);
+  for (const b of predicted.dodge!.balls) {
+    b.mode.state = 'dead-loose';
+    b.physical.x = 145 * 256;
+  }
+  const p = predicted.players[0];
+  predicted.dodge!.athletes[p.id].lives--;
+  p.x += 5 * 256;
+  const draw = confirmedCombatPresentation(predicted, authority);
+  for (const b of draw.dodge!.balls) {
+    expect(b.physical.x).toBe(145 * 256);
+    expect(b.mode.state).toBe('hostile-flight');
+  }
+  expect(draw.ball.x).toBe(draw.dodge!.balls[0].physical.x);
+  expect(draw.players[0].x).toBe(p.x);
+  expect(draw.dodge!.athletes[p.id].lives).toBe(authority.dodge!.athletes[p.id].lives);
+
+  // A restarted or different throw cannot borrow the old throw's trajectory.
+  predicted.dodge!.balls[0].mode.releaseTick++;
+  predicted.dodge!.balls[1].mode.throwId++;
+  const reset = confirmedCombatPresentation(predicted, authority);
+  expect(reset.dodge!.balls.map(b => b.physical.x)).toEqual([100 * 256, 100 * 256]);
+});

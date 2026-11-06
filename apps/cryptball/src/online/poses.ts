@@ -65,7 +65,7 @@ export function extractPoses(s: Observation): PoseFrame {
     });
   for (const p of s.players)
     add(`player:${p.id}`, p, [
-      s.dodge?.athletes[p.id]?.lives,
+      s.dodge?.athletes[p.id]?.lives === 0,
       s.guardian?.athletes[p.id]?.status,
     ]);
   const ball = (
