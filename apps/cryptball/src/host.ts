@@ -94,8 +94,7 @@ export async function mountCryptball() {
   let observation = session.observe();
   const abort = new AbortController(),
     signal = abort.signal;
-  const keys = new Set<string>(),
-    blocked = new Set<string>();
+  const keys = new Set<string>();
   const touch = new CourtTouchControls();
   const touchCues = document.createElement("div");
   touchCues.id = "touch-cues"; touchCues.setAttribute("aria-hidden", "true");
@@ -112,9 +111,7 @@ export async function mountCryptball() {
   let pendingEvents: CryptballEvent[] = [];
   let edges: CommandFrame = {},
     pointerHeld = false,
-    pointerBlocked = false,
     secondaryHeld = false,
-    secondaryBlocked = false,
     pointerAim: { x: number; y: number } | undefined;
   let prefs = {
     music: 0.7,
@@ -151,15 +148,12 @@ export async function mountCryptball() {
       hudTouches.delete(id);
       if (value.trigger.hasPointerCapture(id)) value.trigger.releasePointerCapture(id);
     }
-    for (const code of keys) blocked.add(code);
     keys.clear();
-    pointerBlocked = pointerHeld;
-    secondaryBlocked ||= secondaryHeld;
     secondaryHeld = false;
     pointerHeld = false;
     pointerAim = undefined;
     edges = {};
-    if (online) online.suspend();
+    if (online) online.releaseInput();
     else session.step({ cancel: true });
     observation = session.observe();
     drawTouchCues();
@@ -167,7 +161,7 @@ export async function mountCryptball() {
   let localMusicMatch = 0;
   function observeMusic() {
     if (online) {
-      const snapshot = online.musicObservation();
+      const snapshot = online.musicObservation(audio.lastMusicStamp);
       if (snapshot) audio.observeMusic(snapshot.state, snapshot.stamp, snapshot.controlledTeam);
     } else {
       audio.observeMusic(observation, { matchId: `local:${localMusicMatch}`, epoch: localMusicMatch, generation: 0, snapshotSeq: observation.tick }, observation.players.find(player => player.id === observation.controlledId)?.team ?? null);
@@ -199,12 +193,16 @@ export async function mountCryptball() {
   const lifecycle = new BrowserLifecycle({
     tick,
     interruptionPolicy: "suspend-input",
+    releaseInputWhileVisible: () => !!online,
     onInputSuspension(suspended) {
       if (suspended) {
         if (online) {
           online.suspend();
           if (screen === "play") showOnlinePause();
         } else if (screen === "play") pause();
+      } else if (online && ["online-lobby", "online-connecting", "online-starting"].includes(screen)) {
+        // Setup has no cover menu to dismiss; returning before kickoff restores intent.
+        online.resume();
       }
     },
     frame(time) {
@@ -225,15 +223,23 @@ export async function mountCryptball() {
       }
       const interpolateFrame = screen === "play" && !lifecycle.paused;
       if (!interpolateFrame) frameInterpolation.reset();
-      const state = interpolateFrame
-        ? frameInterpolation.drawCaptured(observation, time, alpha) : observation;
-      presenter.render(state, pendingEvents, prefs.reducedMotion, Object.fromEntries((online?.lobby?.seats ?? []).map(seat=>[online?.controllerOwners.find(controller=>controller.id===seat.id)?.playerId ?? seat.playerId,seat.name])), interpolateFrame ? Math.max(0, observation.tick - 1 + alpha) : observation.tick);
-      pendingEvents = [];
+      const covered = ["play", "pause", "settings"].includes(screen) ? online?.coveredObservation(time) : null;
+      const state = covered?.state ?? (interpolateFrame
+        ? frameInterpolation.drawCaptured(observation, time, alpha) : observation);
+      if (covered) updateHud(state);
+      const renderEvents = covered ? pendingEvents.filter(event => event.tick <= covered.tick) : pendingEvents;
+      presenter.render(state, renderEvents, prefs.reducedMotion, Object.fromEntries((online?.lobby?.seats ?? []).map(seat=>[online?.controllerOwners.find(controller=>controller.id===seat.id)?.playerId ?? seat.playerId,seat.name])), covered?.tick ?? (interpolateFrame ? Math.max(0, observation.tick - 1 + alpha) : observation.tick));
+      pendingEvents = covered ? pendingEvents.filter(event => event.tick > covered.tick) : [];
       stage.render(0);
       performanceDiagnostics.submittedRender();
       if (performanceDiagnostics.enabled && time - diagnosticMetadataAt >= 1000) {
         diagnosticMetadataAt = time;
+        const playback = online?.diagnostics;
         performanceDiagnostics.setMetadata({ mode: sportId, online: !!online,
+          focused: document.hasFocus(), hidden: document.hidden, inputSuspended: online?.suspended ?? false,
+          coveredBufferUnderruns: playback?.coveredBufferUnderruns ?? 0,
+          coveredBufferDelayMs: playback?.coveredBufferDelayMs ?? null,
+          coveredBufferTick: playback?.coveredBufferTick ?? null,
           refreshHz: frameRate, canvasWidth: canvas.width, canvasHeight: canvas.height,
           inputTiming: "Command application is linked to render submission by session/epoch/generation/sequence; physical captures remain unlinked." });
       }
@@ -591,6 +597,12 @@ export async function mountCryptball() {
       audio.resetMatch();
       observeMusic();
       void audio.engine.resume();
+      if (online.suspended || lifecycle.inputSuspended || document.hidden) {
+        online.suspend();
+        showOnlinePause();
+      } else {
+        online.resume();
+      }
       lifecycle.resume();
       updateHud();
     } catch (error) {
@@ -649,6 +661,7 @@ export async function mountCryptball() {
       });
       online = next;
       session = next;
+      if (document.hidden || lifecycle.inputSuspended) next.suspend();
       await next.connect(kind, code);
       if (generation !== onlineJoinGeneration) {
         await next.leave();
@@ -713,9 +726,7 @@ export async function mountCryptball() {
     for (const id of capturedTouches) releaseTouch(id);
     edges = {};
     keys.clear();
-    blocked.clear();
     secondaryHeld = false;
-    secondaryBlocked = false;
     pointerHeld = false;
     pointerAim = undefined;
     screen = "starting";
@@ -739,6 +750,7 @@ export async function mountCryptball() {
     if (screen !== "play") return;
     if (online) {
       cancel();
+      online.suspend();
       showOnlinePause();
       return;
     }
@@ -857,8 +869,7 @@ export async function mountCryptball() {
   const writeText = (node: Element, text: string) => {
     if (node.textContent !== text) node.textContent = text;
   };
-  function updateHud() {
-    const state = observation;
+  function updateHud(state = observation) {
     touchCues.hidden = screen !== "play";
     game.dataset.sport = state.sportId;
     const newMode = isNewMode(state.sportId);
@@ -1007,10 +1018,7 @@ export async function mountCryptball() {
     const events = session.drainEvents();
     if (ownControlSwitched(events, online?.participantId)) {
       touch.disarmAction(); touchFacing = undefined;
-      if (keys.has("KeyJ")) blocked.add("KeyJ");
       keys.delete("KeyJ");
-      pointerBlocked = pointerHeld;
-      secondaryBlocked ||= secondaryHeld;
       secondaryHeld = false;
       pointerHeld = false;
     }
@@ -1118,7 +1126,7 @@ export async function mountCryptball() {
       )
         return;
       e.preventDefault();
-      if (e.repeat || blocked.has(e.code)) return;
+      if (e.repeat) return;
       inputMode(false);
       keys.add(e.code);
       if (movement.has(e.code)) pointerAim = undefined;
@@ -1135,7 +1143,6 @@ export async function mountCryptball() {
   window.addEventListener(
     "keyup",
     (e) => {
-      blocked.delete(e.code);
       if (screen === "play" && e.code === "KeyJ" && keys.has("KeyJ"))
         edges.strikeReleased = true;
       keys.delete(e.code);
@@ -1178,11 +1185,11 @@ export async function mountCryptball() {
       if (screen !== "play" || touchMode) return;
       e.preventDefault();
       pointerAim = { x: e.clientX, y: e.clientY };
-      if (e.button === 0 && !pointerBlocked) {
+      if (e.button === 0) {
         pointerHeld = true;
         edges.strikePressed = true;
       }
-      if (e.button === 2 && !secondaryBlocked) {
+      if (e.button === 2) {
         if (["cryptcheck", "crypt-dodge", "crypt-guardian"].includes(sportId) && !secondaryHeld) edges.slide = true;
         secondaryHeld = true; pointerAim = { x: e.clientX, y: e.clientY };
       }
@@ -1201,11 +1208,10 @@ export async function mountCryptball() {
   );
   window.addEventListener("mouseup", e => {
       if (e.button === 1) middleHeld=false;
-      if (e.button === 2) { secondaryHeld = false; secondaryBlocked = false; }
+      if (e.button === 2) secondaryHeld = false;
       if (e.button === 0) {
         if (screen === "play" && pointerHeld) edges.strikeReleased = true;
         pointerHeld = false;
-        pointerBlocked = false;
       }
   }, { signal });
   canvas.addEventListener(

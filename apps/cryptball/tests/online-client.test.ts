@@ -955,3 +955,125 @@ it.each(["cryptball","cryptkick","rift-volley","cryptcheck","crypt-dodge"] as co
   expect(authority.receive("p0",packet)).toBe(true);
   expect(authority.peers.get("p0")!.feedback.rejectionReasons.expired).toBe(0);
 });
+
+it("reasserts suspended lobby intent at kickoff and rematch without auto-resuming", async () => {
+  const authority = new MatchAuthority("room", false, "crypt-dodge");
+  authority.join("p0", "Guest");
+  authority.join("p1", "Other");
+  const client = createOnlineSession({ endpoint: "ws://test", sportId: "crypt-dodge" });
+  await client.connect("quick");
+  const deliver = () => {
+    fake.messages.get("lobby")!(authority.lobby());
+    fake.messages.get("snapshot")!(encodeSnapshot(authority.snapshot("p0", [])));
+  };
+  deliver();
+  client.suspend();
+  authority.suspend("p0", true);
+  authority.ready("p0"); authority.ready("p1"); authority.start();
+  deliver();
+  for (let i = 0; i < 180; i++) authority.advance();
+  fake.sent.length = 0;
+  deliver();
+  expect(fake.sent.at(-1)?.[0]).toBe("suspend");
+  expect(client.suspended).toBe(true);
+  expect(authority.peers.get("p0")!.active).toBe(false);
+  expect(authority.peers.get("p0")!.suspended).toBe(true);
+  const count = fake.sent.length;
+  client.step({ moveX: 1 });
+  expect(fake.sent).toHaveLength(count);
+  authority.phase = "results";
+  authority.rematch("p0"); authority.rematch("p1");
+  fake.sent.length = 0;
+  deliver();
+  expect(fake.sent.at(-1)?.[0]).toBe("suspend");
+  expect(client.suspended).toBe(true);
+  client.resume();
+  expect(client.suspended).toBe(false);
+  expect(fake.sent.at(-1)?.[0]).toBe("resume");
+});
+
+it("cancels held charge on visible blur while retaining active control", async () => {
+  const authority = new MatchAuthority("room", false, "crypt-dodge");
+  for (const id of ["p0", "p1"]) { authority.join(id, id); authority.ready(id); }
+  authority.start();
+  for (let i = 0; i < 180; i++) authority.advance();
+  const client = createOnlineSession({ endpoint: "ws://test", sportId: "crypt-dodge" });
+  await client.connect("quick");
+  fake.messages.get("lobby")!(authority.lobby());
+  fake.messages.get("snapshot")!(encodeSnapshot(authority.snapshot("p0", [])));
+  client.step({});
+  now += 17;
+  client.step({ strikeHeld: true });
+  now += 17;
+  client.releaseInput();
+  client.step({ strikeHeld: true }); // Drain cancellation at the next normal control tick.
+  expect(client.suspended).toBe(false);
+  const packets = fake.sent.filter(([type]) => type === "input").map(([, value]) => value as import("../protocol").InputPacket);
+  expect(packets.at(-1)!.command.cancel).toBe(true);
+  expect(packets.at(-1)!.command.strikeReleased).not.toBe(true);
+  now += 17;
+  client.step({});
+  now += 17;
+  client.step({ moveX: 1 });
+  expect(fake.sent.filter(([type]) => type === "input").length).toBeGreaterThan(packets.length);
+});
+
+it("renders covered authority on its delayed cursor and leaves active prediction unbuffered", async () => {
+  const authority = new MatchAuthority("room", false, "crypt-dodge");
+  for (const id of ["p0", "p1"]) { authority.join(id, id); authority.ready(id); }
+  authority.start();
+  for (let i = 0; i < 180; i++) authority.advance();
+  const client = createOnlineSession({ endpoint: "ws://test", sportId: "crypt-dodge" });
+  await client.connect("quick");
+  const deliver = () => fake.messages.get("snapshot")!(encodeSnapshot(authority.snapshot("p0", [])));
+  fake.messages.get("lobby")!(authority.lobby());
+  deliver();
+  expect(client.coveredObservation(now)).toBeNull();
+  expect(client.diagnostics.coveredBufferTick).toBe(-1);
+  client.suspend();
+  authority.suspend("p0", true);
+  deliver();
+  for (let batch = 0; batch < 4; batch++) {
+    now += 50;
+    for (let i = 0; i < 3; i++) authority.advance();
+    deliver();
+  }
+  const covered = client.coveredObservation(now)!;
+  expect(covered.tick).toBeCloseTo(authority.session.getTick() - 6);
+  expect(covered.state.tick).toBeLessThan(authority.session.getTick());
+  expect(client.diagnostics.coveredBufferTick).toBe(covered.tick);
+  client.resume();
+  expect(client.diagnostics.coveredBufferTick).toBe(-1);
+  authority.suspend("p0", false);
+  for (let i = 0; i < 3; i++) authority.advance();
+  deliver();
+  expect(client.coveredObservation(now)).toBeNull();
+});
+
+it("does not reset a playing checkpoint or send control messages on duplicate resume", async () => {
+  const authority = new MatchAuthority("room", false, "crypt-dodge");
+  for (const id of ["p0", "p1"]) { authority.join(id, id); authority.ready(id); }
+  authority.start();
+  for (let i = 0; i < 180; i++) authority.advance();
+  const client = createOnlineSession({ endpoint: "ws://test", sportId: "crypt-dodge" });
+  await client.connect("quick");
+  fake.messages.get("lobby")!(authority.lobby());
+  fake.messages.get("snapshot")!(encodeSnapshot(authority.snapshot("p0", [])));
+  client.step({});
+  now += 17;
+  client.step({ moveX: 1 });
+  const count = fake.sent.length;
+  const previousTick = client.simulationTick;
+  client.resume(); client.resume();
+  expect(fake.sent).toHaveLength(count);
+  now += 17;
+  client.step({ moveX: 1 });
+  expect(client.simulationTick).toBeGreaterThan(previousTick);
+  client.suspend();
+  const suspendedCount = fake.sent.length;
+  client.suspend();
+  expect(fake.sent).toHaveLength(suspendedCount);
+  client.resume();
+  expect(fake.sent.at(-1)?.[0]).toBe("resume");
+  expect(client.suspended).toBe(false);
+});

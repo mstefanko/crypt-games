@@ -175,6 +175,7 @@ export class CryptballAudio {
     this.mixer.setPressure(0, true); void this.engine.resume();
   }
   /** Authoritative-only channel. Prediction is deliberately confined to tick(). */
+  get lastMusicStamp() { return this.musicPrevious?.stamp; }
   observeMusic(state: Observation, stamp?: MusicStamp, controlledTeam: 0|1|null = null) {
     const previous = this.musicPrevious;
     const beforeStamp = previous?.stamp;

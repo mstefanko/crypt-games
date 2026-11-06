@@ -9,8 +9,8 @@ import type {
 import type { CryptballSession } from "./sim/contract";
 import { isSportId } from "./sim/sports-spec";
 export { isSportId };
-// v15 requires queued-switch revision admission and matching client replay semantics.
-export const PROTOCOL = 15;
+// v16 preserves client suspension across kickoff and rematch.
+export const PROTOCOL = 16;
 export function resolveSportId(value: unknown): SportId {
   if (value === undefined) return "cryptball";
   if (!isSportId(value))

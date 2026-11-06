@@ -1,4 +1,6 @@
+import type { MusicStamp } from "../audio-music-policy";
 import { Client, type Room } from "@colyseus/sdk";
+import { CoveredViewBuffer } from "./covered-view-buffer";
 import { NetworkClock } from "./clock";
 import { InputScheduler, replaySchedule } from "./input-scheduler";
 import { Recovery } from "./recovery";
@@ -75,6 +77,8 @@ export function createOnlineSession(options: OnlineOptions = {}) {
     lastSnapshotSeq = -1,
     lastSnapshotAt = 0,
     lastFeedbackSampleSeq = -1;
+  const coveredView = new CoveredViewBuffer();
+  let authorityCovered = false;
   const clock = new NetworkClock();
   const scheduler = new InputScheduler();
   const recovery = new Recovery();
@@ -83,6 +87,7 @@ export function createOnlineSession(options: OnlineOptions = {}) {
   let previousPrediction: Observation | null = null;
   let remote: Record<string, CommandFrame> = {};
   let localHeld: CommandFrame = {};
+  let lastCheckpointPhase: Snapshot["phase"] | undefined;
   let authority: Observation | null = null;
   let authoritativeControllers: {id:string;team:0|1;playerId:string}[] = [];
 
@@ -132,7 +137,11 @@ export function createOnlineSession(options: OnlineOptions = {}) {
       return null;
     }
   };
+  let persisted: { token: string; sport: typeof sportId; roomId?: string } | undefined;
   const save = (token: string | null) => {
+    const roomId = room?.roomId;
+    if (token && persisted?.token === token && persisted.sport === sportId && persisted.roomId === roomId) return;
+    persisted = undefined;
     try {
       const keys = [`${storageBase}:${sportId}`];
       if (room) keys.push(`${storageBase}:room:${room.roomId}`);
@@ -140,6 +149,7 @@ export function createOnlineSession(options: OnlineOptions = {}) {
         if (token) sessionStorage.setItem(key, token);
         else sessionStorage.removeItem(key);
       }
+      if (token) persisted = { token, sport: sportId, roomId };
     } catch {}
   };
   let history: InputPacket[] = [];
@@ -168,6 +178,7 @@ export function createOnlineSession(options: OnlineOptions = {}) {
     const hadAuthority = epoch > 0;
     const reset =
       snapshot.epoch !== epoch || snapshot.generation !== generation;
+    const controlCheckpoint = reset || snapshot.phase !== lastCheckpointPhase;
     if (!reset && snapshot.snapshotSeq <= lastSnapshotSeq) return;
     if (!reset && snapshot.tick < lastTick) return;
     previousPrediction = null;
@@ -180,6 +191,11 @@ export function createOnlineSession(options: OnlineOptions = {}) {
     session.restore(snapshot.checkpoint);
     options.onPerformance?.({ kind: "snapshot-restore", at: performance.now(), fields: { durationMs: performance.now() - restoreStarted, snapshotSeq: snapshot.snapshotSeq } });
     authority = session.observeFor(snapshot.participantId);
+    const coveredController = snapshot.checkpoint.state.controllers.find(c => c.id === snapshot.participantId);
+    authorityCovered = !coveredController?.active;
+    if (suspended || authorityCovered)
+      coveredView.ingest(authority, performance.now(), `${snapshot.epoch}:${snapshot.generation}:${coveredController?.revision}:${coveredController?.active}`);
+    else coveredView.reset();
     authoritativeControllers = snapshot.checkpoint.state.controllers.map(({id,team,playerId})=>({id,team,playerId}));
     remote = snapshot.remote ?? {};
     if (reset) {
@@ -344,10 +360,11 @@ export function createOnlineSession(options: OnlineOptions = {}) {
     diagnostics.cosmeticConfirmed = cosmetics.confirmed;
     diagnostics.cosmeticExpired = cosmetics.expired;
     if (room) save(room.reconnectionToken);
-    if (status !== "joined") {
-      setStatus("joined");
+    const rejoined = status !== "joined";
+    if (rejoined) setStatus("joined");
+    lastCheckpointPhase = snapshot.phase;
+    if (rejoined || controlCheckpoint)
       room?.send(suspended ? "suspend" : "resume");
-    }
   }
   function bind(next: Room) {
     room = next;
@@ -552,9 +569,10 @@ export function createOnlineSession(options: OnlineOptions = {}) {
           command.special ||
           command.strikePressed ||
           command.strikeReleased
-        )
-          return;
-        neutralLatch = false;
+        ) {
+          // A safety cancellation must drain even while the physical action is held.
+          if (!scheduler.pendingCancellation) return;
+        } else neutralLatch = false;
         command = {};
       }
       const now = performance.now();
@@ -629,6 +647,9 @@ export function createOnlineSession(options: OnlineOptions = {}) {
     observe(): Observation {
       return confirmedObservation(id ? session.observeFor(id) : session.observe());
     },
+    coveredObservation(now: number) {
+      return suspended || authorityCovered ? coveredView.draw(now) : null;
+    },
     takePreviousPrediction() {
       const previous = previousPrediction;
       previousPrediction = null;
@@ -637,13 +658,16 @@ export function createOnlineSession(options: OnlineOptions = {}) {
     /** Detached authority only: music must never consume replayed prediction.
      * Lobby packets may lead checkpoints during rematch/Shuffle. Wait for the
      * matching epoch and sport rather than exposing the previous match. */
-    musicObservation() {
+    musicObservation(previous?: MusicStamp) {
       if (!authority || !room || !lobby || lobby.epoch !== epoch ||
         lobby.sportId !== authority.sportId ||
         (lobby.phase !== "playing" && lobby.phase !== "results")) return null;
+      const matchId = `${endpoint}:${room.roomId}:${epoch}`;
+      if (previous?.matchId === matchId && previous.epoch === epoch &&
+        previous.generation === generation && previous.snapshotSeq === lastSnapshotSeq) return null;
       const state = structuredClone(authority);
       const controlledTeam = state.players.find(player => player.id === state.controlledId)?.team ?? null;
-      return { state, stamp: { matchId: `${endpoint}:${room.roomId}:${epoch}`, epoch, generation, snapshotSeq: lastSnapshotSeq }, controlledTeam };
+      return { state, stamp: { matchId, epoch, generation, snapshotSeq: lastSnapshotSeq }, controlledTeam };
     },
     /** Consumed once at the render boundary by the sole presentation owner. */
     takePresentationCorrection() {
@@ -676,7 +700,15 @@ export function createOnlineSession(options: OnlineOptions = {}) {
       history = [];
       room?.send("rematch");
     },
+    get suspended() { return suspended; },
+    releaseInput() {
+      scheduler.cancelPendingInput();
+      localHeld = {};
+      neutralLatch = true;
+    },
     suspend() {
+      if (suspended) return;
+      coveredView.reset();
       suspended = true;
       playingCheckpoint = false;
       scheduler.reset();
@@ -690,6 +722,8 @@ export function createOnlineSession(options: OnlineOptions = {}) {
       if (status === "joined") room?.send("suspend");
     },
     resume() {
+      if (!suspended) return;
+      coveredView.reset();
       suspended = false;
       scheduler.reset();
       clock.reset();
@@ -724,7 +758,7 @@ export function createOnlineSession(options: OnlineOptions = {}) {
       room = undefined;
     },
     get diagnostics() {
-      return { ...diagnostics };
+      return { ...diagnostics, ...coveredView.diagnostics };
     },
     get lobby() {
       return lobby;

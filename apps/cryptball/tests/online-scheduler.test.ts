@@ -197,3 +197,25 @@ it("does not consume an action when the corrected safe target exceeds admission 
   expect(scheduler.allocate(130,130,17,107)).toMatchObject({tick:137,command:{strikeReleased:true}});
   expect(scheduler.queuedEdges).toBe(0);
 });
+
+it("retains timing and cancellation through an unavailable allocation after blur", () => {
+  const scheduler = new InputScheduler();
+  scheduler.seed(150);
+  scheduler.capture({ strikeHeld: true, strikePressed: true }, 0, true, "crypt-dodge");
+  const first = scheduler.allocate(100, 100, 0)!;
+  scheduler.capture({ strikeReleased: true, dash: true }, 1, true, "crypt-dodge");
+  const lead = scheduler.lead;
+  scheduler.cancelPendingInput();
+  expect(scheduler.lead).toBe(lead);
+  expect(scheduler.queuedEdges).toBe(0);
+  expect(scheduler.allocate(130, 100, 2, first.tick)).toBeNull();
+  expect(scheduler.pendingCancellation).toBe(true);
+  scheduler.capture({}, 3, true, "crypt-dodge");
+  const cancel = scheduler.allocate(130, 130, 3, first.tick)!;
+  expect(cancel.tick).toBeGreaterThan(first.tick);
+  expect(cancel.command).toMatchObject({ cancel: true, strikeHeld: false, passHeld: false });
+  expect(cancel.command.strikeReleased).not.toBe(true);
+  expect(cancel.command.dash).not.toBe(true);
+  expect(scheduler.pendingCancellation).toBe(false);
+  expect(scheduler.allocate(130, 130, 4, cancel.tick)!.tick).toBe(cancel.tick + 1);
+});

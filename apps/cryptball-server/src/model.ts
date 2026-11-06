@@ -181,7 +181,7 @@ export class MatchAuthority {
         id: p.id,
         team: p.team,
         playerId: p.playerId,
-        active: p.connected,
+        active: p.connected && !p.suspended,
       })),
     );
   }
@@ -489,7 +489,7 @@ export class MatchAuthority {
           id: p.id,
           team: p.team,
           playerId: p.playerId,
-          active: p.connected,
+          active: p.connected && !p.suspended,
         })),
       );
       const checkpoint = this.session.capture();
@@ -501,8 +501,7 @@ export class MatchAuthority {
       }
       this.session.restore(checkpoint);
       for (const p of this.peers.values()) {
-        p.active = p.connected;
-        p.suspended = false;
+        p.active = p.connected && !p.suspended;
         p.lastInput = p.lastControl = this.tick;
         p.safetyCancel = false;
         p.queue = [];

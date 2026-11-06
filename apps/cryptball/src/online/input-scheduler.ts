@@ -39,6 +39,13 @@ export class InputScheduler {
     this.healthySince = 0;
     this.lead = 2;
   }
+  /** Discard unsent intent while preserving clock slots and learned arrival lead. */
+  cancelPendingInput() {
+    this.edges = [];
+    this.held = {};
+    this.safetyCancel = true;
+  }
+  get pendingCancellation() { return this.safetyCancel; }
   seed(rtt: number) {
     this.lead = Math.min(
       NETWORK_LIMITS.maxArrivalLead,

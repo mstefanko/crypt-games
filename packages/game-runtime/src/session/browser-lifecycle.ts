@@ -9,6 +9,8 @@ export interface BrowserLifecyclePlatform {
 export interface BrowserLifecycleOptions {
   /** Browser interruptions can suspend controls while an online authority continues. */
   interruptionPolicy?: "pause" | "suspend-input";
+  /** Release held controls on visible blur or rotation when the online match continues. */
+  releaseInputWhileVisible?: () => boolean;
   onInputSuspension?: (suspended: boolean, reason?: string) => void;
   tick: () => void;
   frame: (time: number) => void;
@@ -43,6 +45,8 @@ export class BrowserLifecycle {
       this.pause();
       options.onDebt();
     });
+    this.suspended = platform.document.hidden && !!options.releaseInputWhileVisible &&
+      options.interruptionPolicy === "suspend-input";
     const signal = this.abort.signal;
     const interrupt = (reason?: string) => {
       if (this.disposed) return;
@@ -54,11 +58,16 @@ export class BrowserLifecycle {
         options.onPause(reason);
       }
     };
+    const interruptWindow = (reason: string) => {
+      if (!platform.document.hidden && options.releaseInputWhileVisible?.())
+        options.cancelInput();
+      else interrupt(reason);
+    };
     platform.window.addEventListener(
       "blur",
       () => {
         this.focused = false;
-        interrupt("Paused while the window is unfocused.");
+        interruptWindow("Paused while the window is unfocused.");
       },
       { signal },
     );
@@ -82,7 +91,7 @@ export class BrowserLifecycle {
     platform.window.addEventListener(
       "orientationchange",
       () => {
-        interrupt("Paused after orientation changed. Resume when ready.");
+        interruptWindow("Paused after orientation changed. Resume when ready.");
         if (this.focused && !platform.document.hidden)
           this.reportInputSuspension(false);
       },

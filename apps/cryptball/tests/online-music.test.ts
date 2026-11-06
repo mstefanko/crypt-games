@@ -75,15 +75,34 @@ it("publishes detached authoritative music state with its reconnect identity", a
   first.state.score[0] = 999;
   expect(client.musicObservation()!.state.score[0]).not.toBe(999);
   now += 1000 / 60; client.step({});
+  expect(client.musicObservation(first.stamp)).toBeNull();
   expect(client.musicObservation()!.stamp).toEqual(first.stamp);
   expect(client.musicObservation()!.state.tick).toBe(first.state.tick);
   authority.reconnect("p0");
   fake.signals.get("reconnect")!();
   fake.messages.get("snapshot")!(encodeSnapshot(authority.snapshot("p0", [])));
-  const rejoined = client.musicObservation()!;
+  const rejoined = client.musicObservation(first.stamp)!;
   expect(rejoined.stamp.matchId).toBe(first.stamp.matchId);
   expect(rejoined.stamp.generation).toBeGreaterThan(first.stamp.generation);
   expect(rejoined.stamp.snapshotSeq).toBeGreaterThan(first.stamp.snapshotSeq);
+});
+
+it("retries reconnect storage after failure and skips writes for an unchanged token", async () => {
+  const authority = new MatchAuthority("room", true, "cryptball");
+  authority.join("p0", "Ada");
+  const client = createOnlineSession({ endpoint: "ws://test" });
+  await client.connect("quick");
+  const write = vi.spyOn(sessionStorage, "setItem").mockImplementationOnce(() => { throw Error("Storage unavailable"); });
+  const publish = () => fake.messages.get("snapshot")!(encodeSnapshot(authority.snapshot("p0", [])));
+  publish();
+  publish();
+  expect(write).toHaveBeenCalledTimes(3);
+  publish();
+  expect(write).toHaveBeenCalledTimes(3);
+  const keys = write.mock.calls.slice(1).map(([key]) => key);
+  expect(new Set(keys).size).toBe(2);
+  await client.leave();
+  for (const key of keys) expect(sessionStorage.getItem(key)).toBeNull();
 });
 
 it("withholds the old soundtrack while a new Shuffle lobby awaits its checkpoint", async () => {

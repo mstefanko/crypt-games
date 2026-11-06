@@ -323,3 +323,40 @@ async function copyInvite(page: Page) {
   await expect(page.getByRole("button", { name: "Invite copied", exact: true })).toBeVisible();
   return page.evaluate(() => navigator.clipboard.readText());
 }
+
+test("a joiner hidden through Dodge kickoff gets cover and can take control", async ({ browser }) => {
+  const [host, peer] = await Promise.all([browser.newPage(), browser.newPage()]);
+  try {
+    for (const [index, page] of [host, peer].entries()) {
+      await page.goto("http://127.0.0.1:4226/games/cryptball/?sport=crypt-dodge&diagnostics=1");
+      await chooseOnline(page, "Find a match");
+      await page.getByLabel("Player name", { exact: true }).fill(index === 0 ? "Host" : "Peer");
+      await page.getByRole("button", { name: "Continue", exact: true }).click();
+      await expect(page.getByRole("heading", { name: "The next match" })).toBeVisible();
+    }
+    await peer.evaluate(() => {
+      window.dispatchEvent(new Event("blur"));
+      Object.defineProperty(document, "hidden", { configurable: true, value: true });
+      document.dispatchEvent(new Event("visibilitychange"));
+    });
+    await host.getByRole("button", { name: "Start with bots", exact: true }).click();
+    const cover = peer.getByRole("button", { name: "Return to play", exact: true });
+    await expect(cover).toBeVisible({ timeout: 20000 });
+    await peer.evaluate(() => {
+      Reflect.deleteProperty(document, "hidden");
+      document.dispatchEvent(new Event("visibilitychange"));
+      window.dispatchEvent(new Event("focus"));
+    });
+    await expect(cover).toBeVisible();
+    await cover.click();
+    await expect(peer.locator("#overlay")).toBeHidden();
+    await peer.waitForFunction(() => {
+      const diagnostics = (window as unknown as {
+        __cryptballPerformance: { export(): { events: { kind: string }[] } };
+      }).__cryptballPerformance;
+      return diagnostics.export().events.some(event => event.kind === "input-applied");
+    });
+  } finally {
+    await Promise.all([host.close(), peer.close()]);
+  }
+});
