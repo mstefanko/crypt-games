@@ -5,6 +5,7 @@ import {
   createInitialState,
   predictVolleyLanding,
   stepState,
+  supportsPassControlTransfer,
 } from "../sim/session";
 import type { CommandFrame, SportId, State, Team } from "../sim/contract";
 import { FIXED as F, headingVector } from "../sim/rules";
@@ -539,4 +540,11 @@ describe("Volley physical size and flight integration", () => {
     expect(event.height).toBeGreaterThan(5 * F);
     expect(typeof event.vz).toBe("number");
   });
+});
+
+it.each([
+  ["cryptball", true], ["cryptkick", true], ["cryptcheck", true],
+  ["rift-volley", false], ["crypt-dodge", false], ["crypt-guardian", false],
+] as const)("defines pass control transfer policy for %s", (sportId, expected) => {
+  expect(supportsPassControlTransfer(sportId)).toBe(expected);
 });

@@ -189,8 +189,8 @@ export async function mountCryptball() {
     if (correction) {
       frameInterpolation.correct(correction.before, correction.after,
         performance.now(), correction.key, correction.reset);
-      // Reconciliation may arrive between frames; preserve confirmed combat gates.
-      observation = online.observe();
+      // The detached correction already contains the confirmed current render view.
+      observation = correction.after;
     }
     const previousPrediction = online.takePreviousPrediction();
     if (previousPrediction) frameInterpolation.capture(previousPrediction);
@@ -226,7 +226,7 @@ export async function mountCryptball() {
       const interpolateFrame = screen === "play" && !lifecycle.paused;
       if (!interpolateFrame) frameInterpolation.reset();
       const state = interpolateFrame
-        ? frameInterpolation.draw(observation, time, alpha) : observation;
+        ? frameInterpolation.drawCaptured(observation, time, alpha) : observation;
       presenter.render(state, pendingEvents, prefs.reducedMotion, Object.fromEntries((online?.lobby?.seats ?? []).map(seat=>[online?.controllerOwners.find(controller=>controller.id===seat.id)?.playerId ?? seat.playerId,seat.name])), interpolateFrame ? Math.max(0, observation.tick - 1 + alpha) : observation.tick);
       pendingEvents = [];
       stage.render(0);
@@ -235,7 +235,7 @@ export async function mountCryptball() {
         diagnosticMetadataAt = time;
         performanceDiagnostics.setMetadata({ mode: sportId, online: !!online,
           refreshHz: frameRate, canvasWidth: canvas.width, canvasHeight: canvas.height,
-          inputTiming: "Physical captures and command application are separate events; synthetic traces link command to submission." });
+          inputTiming: "Command application is linked to render submission by session/epoch/generation/sequence; physical captures remain unlinked." });
       }
       performanceDiagnostics.frame(time, frameSteps, performance.now() - frameStarted);
       if (screen === "finishing") { finishingElapsed += Math.max(0,Math.min(50,time-previousFrameTime)); if(finishingElapsed>=1500) showResults(); }
@@ -631,7 +631,7 @@ export async function mountCryptball() {
         sportId,
 
         onPerformance: performanceDiagnostics.enabled
-          ? event => performanceDiagnostics.record(event.kind, event.fields, event.at) : undefined,
+          ? event => performanceDiagnostics.onlineEvent(event, `online:${generation}`) : undefined,
         onTeamError: (message) => { notice.textContent = message; },
         onLobby: (value) => {
           if (generation === onlineJoinGeneration) renderLobby(value);

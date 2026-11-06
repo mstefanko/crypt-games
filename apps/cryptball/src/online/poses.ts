@@ -2,7 +2,7 @@ import type { Observation, Ball } from "../contract";
 
 export type EntityPose = {
   id: string;
-  generation: string;
+  generation: readonly (string | number | boolean | null | undefined)[];
   x: number;
   y: number;
   z: number;
@@ -11,6 +11,13 @@ export type EntityPose = {
   speed: number;
   heading?: number;
 };
+/** Generations contain only primitive lifecycle markers; compare without serializing. */
+export function sameGeneration(a: EntityPose, b: EntityPose): boolean {
+  if (a.generation.length !== b.generation.length) return false;
+  for (let i = 0; i < a.generation.length; i++)
+    if (a.generation[i] !== b.generation[i]) return false;
+  return true;
+}
 export type PoseFrame = {
   tick: number;
   key: string;
@@ -43,7 +50,7 @@ export function extractPoses(s: Observation): PoseFrame {
       vz?: number;
       heading?: number;
     },
-    generation: unknown[],
+    generation: EntityPose["generation"],
     owner?: string | null,
   ) =>
     entities.set(id, {
@@ -51,7 +58,7 @@ export function extractPoses(s: Observation): PoseFrame {
       x: value.x,
       y: value.y,
       z: value.z ?? 0,
-      generation: JSON.stringify(generation),
+      generation,
       owner,
       speed: Math.hypot(value.vx ?? 0, value.vy ?? 0, value.vz ?? 0) / 60,
       heading: value.heading,
@@ -64,7 +71,7 @@ export function extractPoses(s: Observation): PoseFrame {
   const ball = (
     id: string,
     b: Ball,
-    markers: unknown[],
+    markers: EntityPose["generation"],
     owner?: string | null,
   ) =>
     add(

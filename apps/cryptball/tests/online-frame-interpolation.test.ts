@@ -1,4 +1,4 @@
-import { expect, it } from "vitest";
+import { expect, it, vi } from "vitest";
 import { createInitialState } from "../sim/session";
 import { FrameInterpolation } from "../src/online/frame-interpolation";
 import { extractPoses } from "../src/online/poses";
@@ -240,4 +240,46 @@ it("normal control switches preserve unrelated entity interpolation while explic
   expect(f.draw(s, 17, 1).players[1].x).toBe(s.players[1].x);
   f.correct(s, s, 18, "epoch:generation:participant", true);
   expect(f.draw(s, 18, 0.5).players[1].x).toBe(s.players[1].x);
+});
+it("captured rendering reuses lifecycle extraction and safely falls back after reset", () => {
+  const f = new FrameInterpolation(),
+    s = createInitialState();
+  s.phase = "play";
+  f.capture(s);
+  s.tick++;
+  s.players[0].x += 256;
+  f.capture(s);
+  Object.defineProperty(s.ball, "passTick", {
+    get() {
+      throw Error("duplicate pose extraction");
+    },
+    enumerable: false,
+    configurable: true,
+  });
+  expect(f.drawCaptured(s, 16, 0.5).players[0].x).toBe(s.players[0].x - 128);
+  Object.defineProperty(s.ball, "passTick", { value: 0, configurable: true });
+  f.reset();
+  expect(f.drawCaptured(s, 32, 0.5).players[0].x).toBe(s.players[0].x);
+});
+it("generation markers do not serialize entity identities and remain detached", () => {
+  const s = createInitialState();
+  s.phase = "play";
+  s.ball.lastTouch = 'player:[null,"marker"]';
+  const frame = extractPoses(s),
+    generation = frame.entities.get("ball:primary")!.generation;
+  expect(generation).toContain(s.ball.lastTouch);
+  s.ball.lastTouch = "different";
+  expect(generation).not.toContain("different");
+});
+
+it("serializes only the scene key rather than every entity generation", () => {
+  const s = createInitialState("match", {}, "crypt-dodge");
+  const stringify = vi.spyOn(JSON, "stringify");
+  try {
+    const pose = extractPoses(s);
+    expect(pose.entities.size).toBeGreaterThan(1);
+    expect(stringify).toHaveBeenCalledTimes(1);
+  } finally {
+    stringify.mockRestore();
+  }
 });

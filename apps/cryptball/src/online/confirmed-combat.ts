@@ -84,7 +84,13 @@ export function confirmedCombatPresentation(
         orbs: a.orbs.map((known) => {
           const local = p.orbs.find((b) => b.id === known.id);
           return {
-            ...structuredClone(known),
+            ...known,
+            ballToken: known.ballToken && {
+              ...known.ballToken,
+              ...(known.ballToken.origin
+                ? { origin: { ...known.ballToken.origin } }
+                : {}),
+            },
             ball: {
               ...(local &&
               local.possessionId === known.possessionId &&
@@ -108,7 +114,14 @@ export function confirmedCombatPresentation(
           ]),
         ),
         cover: a.cover.map((c) => ({ ...c })),
-        attack: a.attack ? structuredClone(a.attack) : null,
+        attack: a.attack
+          ? {
+              ...a.attack,
+              timing: { ...a.attack.timing },
+              hits: [...a.attack.hits],
+              shapes: a.attack.shapes.map((shape) => ({ ...shape })),
+            }
+          : null,
         projectiles: a.projectiles.map((known) => {
           const local = p.projectiles.find(
             (q) => q.id === known.id && q.attackId === known.attackId,

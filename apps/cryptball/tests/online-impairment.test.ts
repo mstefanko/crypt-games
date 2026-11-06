@@ -67,7 +67,8 @@ for (const sport of SPORT_IDS)
         rejectedAfterWarmup = 0,
         acceptedAfterWarmup = 0,
         appliedAfterWarmup = 0,
-        pendingAfterWarmup = 0;
+        pendingAfterWarmup = 0,
+        inFlightInputs = 0;
       vi.spyOn(performance, "now").mockImplementation(() => now);
       vi.stubGlobal("sessionStorage", {
         getItem: () => null,
@@ -85,9 +86,17 @@ for (const sport of SPORT_IDS)
       let actionExecuted = 0;
       const actions = new Set<string>();
       const measuredInputs = new Set<string>();
+      const measuredAccepted = new Set<string>();
+      const terminalReasons = new Map<string, string | undefined>();
+      const terminalCounts = new Map<string, number>();
+      const measuredRejections: { peer: string; at: number; reason: string | undefined }[] = [];
+      const firstChangedRouteRtt = new Map<string, number>();
       vi.spyOn(authority as any, "terminal").mockImplementation(
         (...args: any[]) => {
           const [peer, seq, reason] = args;
+          const key = `${peer.id}:${seq}`;
+          terminalReasons.set(key, reason);
+          terminalCounts.set(key, (terminalCounts.get(key) ?? 0) + 1);
           if (measuredInputs.has(`${peer.id}:${seq}`) && reason === undefined) {
             appliedAfterWarmup++;
             if (actions.has(`${peer.id}:${seq}`)) actionExecuted++;
@@ -129,18 +138,26 @@ for (const sport of SPORT_IDS)
           onLeave: () => {},
           onError: () => {},
           leave: async () => {},
-          send: (type: string, value: any) =>
+          send: (type: string, value: any) => {
+            if (type === "input") inFlightInputs++;
             up.send(now, () => {
               if (type === "input") {
+                inFlightInputs--;
                 if (now > 2000) measuredInputs.add(`${id}:${value.seq}`);
                 if (value.command.strikePressed || value.command.dash)
                   actions.add(`${id}:${value.seq}`);
                 if (authority.receive(id, value)) {
                   accepted++;
-                  if (now > 2000) acceptedAfterWarmup++;
+                  if (now > 2000) {
+                    acceptedAfterWarmup++;
+                    measuredAccepted.add(`${id}:${value.seq}`);
+                  }
                 } else {
                   rejected++;
-                  if (now > 2000) rejectedAfterWarmup++;
+                  if (now > 2000) {
+                    rejectedAfterWarmup++;
+                    measuredRejections.push({peer:id, at:now, reason:terminalReasons.get(`${id}:${value.seq}`)});
+                  }
                 }
               } else if (type === "heartbeat") authority.heartbeat(id, value);
               else if (type === "resume") {
@@ -161,11 +178,17 @@ for (const sport of SPORT_IDS)
                 };
                 down.send(now, () => h.get("pong")?.(pong));
               }
-            }),
+            });
+          },
         });
         const client = createOnlineSession({
           endpoint: "ws://impairment",
           sportId: sport,
+          onPerformance(event) {
+            if (scenario.name === "route-change" && event.kind === "rtt" && event.at >= 4000 &&
+                Number(event.fields.rttMs) >= (scenario.up + scenario.down) / 2 && !firstChangedRouteRtt.has(id))
+              firstChangedRouteRtt.set(id, event.at);
+          },
         });
         await client.connect("quick");
         clients.push(client);
@@ -185,8 +208,7 @@ for (const sport of SPORT_IDS)
       });
       let serverAt = 1000 / 60,
         clientAt = 1000 / 60;
-      for (now = 0; now < 10000; now++) {
-        for (const link of links) link.deliver(now);
+      const advanceAuthority = () => {
         if (now >= serverAt) {
           serverAt += 1000 / 60;
           authority.advance();
@@ -206,6 +228,10 @@ for (const sport of SPORT_IDS)
               (p) => !p.active,
             ).length;
         }
+      };
+      for (now = 0; now < 10000; now++) {
+        for (const link of links) link.deliver(now);
+        advanceAuthority();
         if (now >= clientAt) {
           clientAt += 1000 / 60;
           for (let i = 0; i < clients.length; i++) {
@@ -213,6 +239,21 @@ for (const sport of SPORT_IDS)
             schedulers[i]!.advance(now, clients[i]!.predictionRate);
           }
         }
+      }
+      const pendingAtCutoff = [...authority.peers.values()].reduce((sum, peer) => sum + peer.queue.length, 0);
+      // Stop generating commands, but retain liveness and authority progression
+      // until every command in the finite input cohort has a terminal outcome.
+      const drainStarted = now;
+      for (; now < drainStarted + 2000; now++) {
+        for (const link of links) link.deliver(now);
+        advanceAuthority();
+        for (const client of clients) client.update();
+        if (inFlightInputs === 0 && [...measuredAccepted].every(key => terminalCounts.has(key))) break;
+      }
+      expect(inFlightInputs).toBe(0);
+      for (const key of measuredAccepted) {
+        expect(terminalCounts.get(key), key).toBe(1);
+        expect(terminalReasons.get(key), key).toBeUndefined();
       }
       pendingAfterWarmup = [...authority.peers.values()].reduce(
         (sum, p) =>
@@ -237,6 +278,13 @@ for (const sport of SPORT_IDS)
         rejectedAfterWarmup,
         appliedAfterWarmup,
         pendingAfterWarmup,
+        pendingAtCutoff,
+        drainMs: now - drainStarted,
+        acceptedExecutionRate: appliedAfterWarmup / Math.max(1, acceptedAfterWarmup),
+        overallAdmissionRate: acceptedAfterWarmup / Math.max(1, acceptedAfterWarmup + rejectedAfterWarmup),
+        overallExecutionRate: appliedAfterWarmup / Math.max(1, acceptedAfterWarmup + rejectedAfterWarmup),
+        measuredRejections,
+        firstChangedRouteRtt: Object.fromEntries(firstChangedRouteRtt),
         actionExecuted,
         botTransitions,
         resync,
@@ -260,7 +308,7 @@ for (const sport of SPORT_IDS)
             Math.max(1, acceptedAfterWarmup + rejectedAfterWarmup),
           JSON.stringify(report),
         ).toBeLessThan(0.01);
-      if (!scenario.stall)
+      if (!scenario.stall && scenario.name !== "route-change")
         expect(
           appliedAfterWarmup /
             Math.max(
@@ -269,6 +317,24 @@ for (const sport of SPORT_IDS)
             ),
           JSON.stringify(report),
         ).toBeGreaterThanOrEqual(0.99);
+      if (scenario.name === "route-change") {
+        // Unknown uplink delay rises abruptly at 4s. Late in-flight commands may
+        // expire before that change is observable; they must not form a lasting
+        // catch-up streak once the new RTT/clock sample has arrived.
+        const maximumTransientTicks = Math.ceil((scenario.up - 10 + scenario.jitter) / (1000 / 60));
+        for (let i = 0; i < authority.capacity; i++) {
+          const id = `p${i}`, observed = firstChangedRouteRtt.get(id);
+          expect(observed, JSON.stringify(report)).toBeDefined();
+          const rejections = measuredRejections.filter(rejection => rejection.peer === id);
+          expect(rejections.length, JSON.stringify(report)).toBeLessThanOrEqual(maximumTransientTicks);
+          for (const rejection of rejections) {
+            expect(rejection.reason).toBe("expired");
+            expect(rejection.at).toBeGreaterThanOrEqual(4000);
+            expect(rejection.at).toBeLessThanOrEqual(5000);
+            expect(rejection.at).toBeLessThan(observed!);
+          }
+        }
+      }
       if(!scenario.stall) expect(resyncAfterWarmup,JSON.stringify(report)).toBe(0);
       if(!scenario.stall && scenario.name !== "route-change") expect(clients.reduce((sum,client)=>sum+client.diagnostics.expiredEdges,0),JSON.stringify(report)).toBe(0);
       expect(resync, JSON.stringify(report)).toBeLessThanOrEqual(authority.capacity);

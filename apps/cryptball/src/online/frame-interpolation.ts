@@ -3,6 +3,7 @@ import { SPORT_BALL_PROFILES } from "../../sim/sports-spec";
 import {
   applyPoses,
   extractPoses,
+  sameGeneration,
   type EntityPose,
   type PoseFrame,
 } from "./poses";
@@ -11,6 +12,7 @@ import {
 export class FrameInterpolation {
   private previous: PoseFrame | null = null;
   private current: PoseFrame | null = null;
+  private source: Observation | null = null;
   private offsets = new Map<string, EntityPose>();
   private correctedAt = 0;
   private identity: string | number | undefined;
@@ -18,6 +20,7 @@ export class FrameInterpolation {
   reset() {
     this.previous = null;
     this.current = null;
+    this.source = null;
     this.offsets.clear();
     this.identity = undefined;
     this.time = 0;
@@ -34,6 +37,7 @@ export class FrameInterpolation {
       this.offsets.clear();
     } else if (next.tick > this.current.tick) this.previous = this.current;
     this.current = next;
+    this.source = state;
   }
   /** Reconciliation inputs must represent the same simulated tick, never the last displayed pose. */
   correct(
@@ -60,8 +64,10 @@ export class FrameInterpolation {
         const previous = a.entities.get(id),
           oldOffset = old.get(id),
           offset =
-            oldOffset?.generation === next.generation ? oldOffset : undefined;
-        if (!previous || previous.generation !== next.generation) continue;
+            oldOffset && sameGeneration(oldOffset, next)
+              ? oldOffset
+              : undefined;
+        if (!previous || !sameGeneration(previous, next)) continue;
         const x = previous.x - next.x + (offset?.x ?? 0) * decay,
           y = previous.y - next.y + (offset?.y ?? 0) * decay,
           z = previous.z - next.z + (offset?.z ?? 0) * decay;
@@ -85,8 +91,8 @@ export class FrameInterpolation {
           id,
           prior &&
             oldPose &&
-            prior.generation === next.generation &&
-            oldPose.generation === next.generation
+            sameGeneration(prior, next) &&
+            sameGeneration(oldPose, next)
             ? {
                 ...prior,
                 x: prior.x + next.x - oldPose.x,
@@ -99,11 +105,19 @@ export class FrameInterpolation {
       this.previous = { ...this.previous, entities };
     } else this.previous = b;
     this.current = b;
+    this.source = after;
   }
   draw(state: Observation, now: number, alpha = 1): Observation {
+    this.capture(state);
+    return this.drawCaptured(state, now, alpha);
+  }
+  /** Host fast path: state is the detached observation just supplied to capture.
+   * Reuse that compact pose rather than extracting it again during the same RAF. */
+  drawCaptured(state: Observation, now: number, alpha = 1): Observation {
     if (now - this.time > 100 && this.time !== 0) this.reset();
     this.time = now;
-    this.capture(state);
+    if (this.source !== state || this.current?.tick !== state.tick)
+      this.capture(state);
     if (state.phase !== "play") return state;
     const a = this.previous!,
       b = this.current!,
@@ -114,7 +128,8 @@ export class FrameInterpolation {
       const previous = a.entities.get(id),
         offset = this.offsets.get(id);
       const continuous =
-        previous?.generation === next.generation &&
+        previous &&
+        sameGeneration(previous, next) &&
         Math.hypot(
           previous.x - next.x,
           previous.y - next.y,
@@ -126,7 +141,7 @@ export class FrameInterpolation {
           (continuous
             ? previous[key] + (next[key] - previous[key]) * t
             : next[key]) +
-            (continuous && offset?.generation === next.generation
+            (continuous && offset && sameGeneration(offset, next)
               ? offset[key] * decay
               : 0),
         );

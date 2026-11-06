@@ -23,6 +23,32 @@ describe('performance diagnostic event recording', () => {
     expect(d.export().events[2].fields.captureToSubmissionMs).toBe(5);
     expect(d.export().events[2].fields.eventToSubmissionMs).toBe(6);
   });
+  it('links actual command application to the first submitted render without linking physical events', () => {
+    const d = createPerformanceDiagnostics({ enabled: true });
+    d.captureInput('physical-event', 1, 2);
+    d.onlineEvent({ kind: 'input-allocated', at: 3, fields: { seq: 7, tick: 40, epoch: 2, generation: 3, revision: 4 } }, 'session:1');
+    d.onlineEvent({ kind: 'input-applied', at: 5, fields: { seq: 7, tick: 40 } }, 'session:1');
+    d.submittedRender(undefined, 12); d.submittedRender(undefined, 20);
+    const submissions = d.export().events.filter(e => e.kind === 'command-render-submission');
+    expect(submissions).toHaveLength(1);
+    expect(submissions[0].fields).toEqual({ seq: 7, tick: 40, epoch: 2, generation: 3, revision: 4,
+      allocatedAt: 3, commandId: 'session:1:2:3:7', source: 'predicted-command', physicalEventLinked: false, applicationToSubmissionMs: 7, allocationToSubmissionMs: 9 });
+    expect(submissions[0].fields).not.toHaveProperty('captureToSubmissionMs');
+    expect(d.export().events.filter(e => e.kind === 'input-render-submission')).toHaveLength(0);
+  });
+  it('does not measure allocation-only commands or carry an old timeline into a new render', () => {
+    const d = createPerformanceDiagnostics({ enabled: true });
+    const allocate = (scope: string, epoch: number) => d.onlineEvent({ kind: 'input-allocated', at: 1, fields: { seq: 1, tick: 8, epoch, generation: 1, revision: 0 } }, scope);
+    const apply = (scope: string) => d.onlineEvent({ kind: 'input-applied', at: 2, fields: { seq: 1, tick: 8 } }, scope);
+    allocate('a', 1); d.submittedRender(undefined, 3);
+    expect(d.export().events.filter(e => e.kind === 'command-render-submission')).toHaveLength(0);
+    apply('a'); allocate('a', 2); apply('a');
+    allocate('b', 1); apply('b'); apply('b');
+    d.submittedRender(undefined, 10);
+    const submissions = d.export().events.filter(e => e.kind === 'command-render-submission');
+    expect(submissions).toHaveLength(1);
+    expect(submissions[0].fields.commandId).toBe('b:1:1:1');
+  });
   it('does no event recording when disabled and detaches exports', () => {
     const d = createPerformanceDiagnostics({ enabled: false });
     d.record('snapshot'); expect(d.captureInput('physical-event')).toBe(0);

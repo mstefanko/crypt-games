@@ -1,6 +1,7 @@
 import {
   ROSTER,
   createCryptballSession,
+  supportsPassControlTransfer,
   isTeamId,
   TEAM_IDS,
   type TeamSelection,
@@ -318,7 +319,7 @@ export class MatchAuthority {
     if (++p.received > 90) return false;
     const currentRevision = this.session.getControllerRevision(id);
     const transfer = this.session.getControllerTransfer(id);
-    const supportsPassTransfer = ["cryptball", "cryptkick", "cryptcheck"].includes(this.sportId);
+    const supportsPassTransfer = supportsPassControlTransfer(this.sportId);
     let queuedRevision = currentRevision === undefined ? undefined : currentRevision +
       (transfer?.pending ? 1 : 0);
     // Prediction can already own the next athlete while its ordered switch is

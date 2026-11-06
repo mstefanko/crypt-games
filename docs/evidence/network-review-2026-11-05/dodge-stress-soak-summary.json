@@ -1,0 +1,630 @@
+{
+  "variant": "optimized",
+  "sport": "crypt-dodge",
+  "play": "online",
+  "peerKind": "browser",
+  "endpoint": "local",
+  "rttAdded": 150,
+  "cpu": 4,
+  "seconds": 600,
+  "rematch": true,
+  "restart": false,
+  "errors": [],
+  "impairment": {
+    "jitterMs": 30,
+    "stallRate": 0.02,
+    "stallMs": 150,
+    "seed": 42,
+    "recoverySeconds": 60,
+    "stats": [
+      {
+        "chunks": 1,
+        "impairedChunks": 1,
+        "stalls": 0
+      },
+      {
+        "chunks": 1,
+        "impairedChunks": 1,
+        "stalls": 0
+      },
+      {
+        "chunks": 1,
+        "impairedChunks": 1,
+        "stalls": 0
+      },
+      {
+        "chunks": 1,
+        "impairedChunks": 1,
+        "stalls": 0
+      },
+      {
+        "chunks": 40325,
+        "impairedChunks": 36441,
+        "stalls": 682
+      },
+      {
+        "chunks": 13127,
+        "impairedChunks": 11712,
+        "stalls": 238
+      },
+      {
+        "chunks": 1,
+        "impairedChunks": 1,
+        "stalls": 0
+      },
+      {
+        "chunks": 1,
+        "impairedChunks": 1,
+        "stalls": 0
+      },
+      {
+        "chunks": 1,
+        "impairedChunks": 1,
+        "stalls": 0
+      },
+      {
+        "chunks": 1,
+        "impairedChunks": 1,
+        "stalls": 0
+      },
+      {
+        "chunks": 40980,
+        "impairedChunks": 37022,
+        "stalls": 758
+      },
+      {
+        "chunks": 13093,
+        "impairedChunks": 11678,
+        "stalls": 222
+      },
+      {
+        "chunks": 4,
+        "impairedChunks": 0,
+        "stalls": 0
+      },
+      {
+        "chunks": 73,
+        "impairedChunks": 0,
+        "stalls": 0
+      }
+    ]
+  },
+  "limitations": [
+    "Synthetic input to render submission is not physical input-to-photon latency.",
+    "Seeded stream jitter/stalls model ordered retransmission delay, not actual packet loss, packet segmentation, or TCP congestion control.",
+    "Desktop browser run; actual phone capture required separately.",
+    "Scripted actions do not establish every mode scenario occurred; inspect event annotations."
+  ],
+  "framesMs": {
+    "n": 35875,
+    "p50": 16.699999999982538,
+    "p95": 16.70000000006985,
+    "p99": 16.800000000017462,
+    "max": 50
+  },
+  "stepMs": {
+    "n": 34953,
+    "p50": 0.5,
+    "p95": 1.1000001430511475,
+    "p99": 1.3000001907348633,
+    "max": 8
+  },
+  "clientSummary": {
+    "status": "joined",
+    "menu": "play",
+    "metadata": {
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.8078.4 Safari/537.36",
+      "devicePixelRatio": 1,
+      "viewportWidth": 1280,
+      "viewportHeight": 800,
+      "timeOrigin": 1793924117059.4,
+      "clientBuild": "cryptball-v1-3df2b27547b67bdd701a62f9",
+      "clientRevision": "5d4b77678ddd7290ab1927e710c8063ca4990ea3-dirty",
+      "mode": "crypt-dodge",
+      "online": true,
+      "refreshHz": 59.98578457803052,
+      "canvasWidth": 640,
+      "canvasHeight": 400,
+      "inputTiming": "Command application is linked to render submission by session/epoch/generation/sequence; physical captures remain unlinked.",
+      "serverBuild": "cryptball-v1-3df2b27547b67bdd701a62f9"
+    },
+    "measurementFrom": 8607.7,
+    "measurementEnd": 606614.4000000954,
+    "droppedEvents": 207052,
+    "retainedWindow": {
+      "firstAt": 408191.7,
+      "lastAt": 606600.5,
+      "durationMs": 198408.8,
+      "coversMeasurementStart": false
+    },
+    "epochsObserved": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "measuredFrames": 35875,
+    "activeFrames": 34356,
+    "activeFraction": 0.9576585365853658,
+    "framesMs": {
+      "n": 35875,
+      "p50": 16.699999999982538,
+      "p95": 16.70000000006985,
+      "p99": 16.800000000017462,
+      "max": 50
+    },
+    "stepMs": {
+      "n": 34953,
+      "p50": 0.5,
+      "p95": 1.1000001430511475,
+      "p99": 1.3000001907348633,
+      "max": 8
+    },
+    "replayMs": {
+      "n": 3968,
+      "p50": 0.6999998092651367,
+      "p95": 1.2000000476837158,
+      "p99": 1.5,
+      "max": 3.299999952316284
+    },
+    "appWorkMs": {
+      "n": 11902,
+      "p50": 3.4000000953674316,
+      "p95": 4.799999952316284,
+      "p99": 5.599999904632568,
+      "max": 15.799999952316284
+    },
+    "captureToRenderSubmissionMs": {
+      "n": 11346,
+      "p50": 3,
+      "p95": 4.199999809265137,
+      "p99": 4.900000095367432,
+      "max": 8.399999856948853
+    },
+    "commandApplicationToSubmissionMs": {
+      "n": 11348,
+      "p50": 2.6999998092651367,
+      "p95": 3.700000047683716,
+      "p99": 4.5,
+      "max": 7.599999904632568
+    },
+    "commandAllocationToSubmissionMs": {
+      "n": 11348,
+      "p50": 2.9000000953674316,
+      "p95": 4.099999904632568,
+      "p99": 4.8999998569488525,
+      "max": 8.399999856948853
+    },
+    "inputCounts": {
+      "input-capture": 11377,
+      "input-allocated": 11348,
+      "input-applied": 11348,
+      "input-application": 11346,
+      "input-render-submission": 11346,
+      "command-render-submission": 11348
+    },
+    "ownershipCancellations": 71,
+    "healthBaseline": {
+      "at": 8607.7,
+      "counters": {
+        "rttMs": 186.0567284087034,
+        "correctionPx": 0,
+        "ballCorrectionPx": 0,
+        "replayMs": 3.5,
+        "replayedTicks": 18,
+        "snapshotBytes": 5565,
+        "desiredLead": 12,
+        "actualLead": 14,
+        "queuedEdges": 0,
+        "expiredEdges": 0,
+        "resyncRequested": 0,
+        "heartbeats": 64,
+        "predictionDegraded": false,
+        "receivedSeq": 102,
+        "terminalSeq": 95,
+        "timingRejections": 0,
+        "rejectedExpired": 0,
+        "rejectedFuture": 0,
+        "rejectedCancelled": 0,
+        "rejectedSequenceGap": 0,
+        "rejectedCapacity": 0,
+        "rejectedRevision": 0,
+        "botTransitions": 0,
+        "serverDebtMs": 1.1416249999992445,
+        "cosmeticConfirmed": 0,
+        "cosmeticExpired": 0,
+        "capturedInputs": 121,
+        "predictedSteps": 140,
+        "allocatedInputs": 121,
+        "allocationSkips": 0,
+        "historySkips": 0,
+        "lastAppliedSeq": 121,
+        "lastAppliedTick": 144,
+        "lastAppliedAt": 8609
+      }
+    },
+    "recoveryBaseline": {
+      "at": 551677.7999999523,
+      "counters": {
+        "rttMs": 163.21072294558763,
+        "correctionPx": 0,
+        "ballCorrectionPx": 0,
+        "replayMs": 1.2999999523162842,
+        "replayedTicks": 16,
+        "snapshotBytes": 5929,
+        "desiredLead": 9,
+        "actualLead": 12,
+        "queuedEdges": 0,
+        "expiredEdges": 0,
+        "resyncRequested": 0,
+        "heartbeats": 5188,
+        "predictionDegraded": false,
+        "receivedSeq": 6563,
+        "terminalSeq": 6557,
+        "timingRejections": 84,
+        "rejectedExpired": 13,
+        "rejectedFuture": 0,
+        "rejectedCancelled": 0,
+        "rejectedSequenceGap": 0,
+        "rejectedCapacity": 0,
+        "rejectedRevision": 71,
+        "botTransitions": 0,
+        "serverDebtMs": 3.470958999955208,
+        "cosmeticConfirmed": 0,
+        "cosmeticExpired": 0,
+        "capturedInputs": 32016,
+        "predictedSteps": 32250,
+        "allocatedInputs": 31931,
+        "allocationSkips": 85,
+        "historySkips": 0,
+        "lastAppliedSeq": 6573,
+        "lastAppliedTick": 6643,
+        "lastAppliedAt": 551670.2000000477
+      }
+    },
+    "lastNetworkDiagnostics": {
+      "rttMs": 154.04857724892656,
+      "correctionPx": 0,
+      "ballCorrectionPx": 0,
+      "replayMs": 1.5,
+      "replayedTicks": 13,
+      "snapshotBytes": 5804,
+      "desiredLead": 8,
+      "actualLead": 9,
+      "queuedEdges": 0,
+      "expiredEdges": 0,
+      "resyncRequested": 0,
+      "heartbeats": 5705,
+      "predictionDegraded": false,
+      "receivedSeq": 2204,
+      "terminalSeq": 2200,
+      "timingRejections": 84,
+      "rejectedExpired": 13,
+      "rejectedFuture": 0,
+      "rejectedCancelled": 0,
+      "rejectedSequenceGap": 0,
+      "rejectedCapacity": 0,
+      "rejectedRevision": 71,
+      "botTransitions": 0,
+      "serverDebtMs": 5.4298339999624865,
+      "cosmeticConfirmed": 0,
+      "cosmeticExpired": 0,
+      "capturedInputs": 35068,
+      "predictedSteps": 35316,
+      "allocatedInputs": 34983,
+      "allocationSkips": 85,
+      "historySkips": 0,
+      "lastAppliedSeq": 2215,
+      "lastAppliedTick": 2233,
+      "lastAppliedAt": 606601.7999999523
+    },
+    "rejectionMaxima": {
+      "Expired": 13,
+      "Future": 0,
+      "Cancelled": 0,
+      "SequenceGap": 0,
+      "Capacity": 0,
+      "Revision": 71
+    },
+    "recoveryCounterDeltas": {
+      "resyncRequested": 0,
+      "botTransitions": 0,
+      "rejectedSequenceGap": 0,
+      "rejectedExpired": 0,
+      "rejectedFuture": 0,
+      "rejectedCapacity": 0
+    },
+    "postWarmupCounters": {
+      "rejectedExpired": 13,
+      "rejectedRevision": 71,
+      "resyncRequested": 0,
+      "botTransitions": 0,
+      "rejectedSequenceGap": 0,
+      "rejectedFuture": 0,
+      "rejectedCapacity": 0
+    },
+    "retainedSimulationEvents": {
+      "dodge-catch-ready": 91,
+      "dodge-reset": 57,
+      "dodge-possession-warning": 32,
+      "dodge-possession-transfer": 29,
+      "switch": 68,
+      "dodge-throw": 85,
+      "dodge-pass": 25,
+      "pass-complete": 14,
+      "dodge-round-end": 3,
+      "match-end": 2,
+      "whistle": 3,
+      "dash": 17,
+      "dodge-ding": 21,
+      "dodge-catch": 8,
+      "dodge-out": 3
+    },
+    "frameIntervalsOver25ms": 5
+  },
+  "peerSummary": {
+    "status": "joined",
+    "menu": "play",
+    "metadata": {
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.8078.4 Safari/537.36",
+      "devicePixelRatio": 1,
+      "viewportWidth": 1280,
+      "viewportHeight": 800,
+      "timeOrigin": 1793924118760.8,
+      "clientBuild": "cryptball-v1-3df2b27547b67bdd701a62f9",
+      "clientRevision": "5d4b77678ddd7290ab1927e710c8063ca4990ea3-dirty",
+      "mode": "crypt-dodge",
+      "online": true,
+      "refreshHz": 59.972939865877066,
+      "canvasWidth": 640,
+      "canvasHeight": 400,
+      "inputTiming": "Command application is linked to render submission by session/epoch/generation/sequence; physical captures remain unlinked.",
+      "serverBuild": "cryptball-v1-3df2b27547b67bdd701a62f9"
+    },
+    "measurementFrom": 6904.4,
+    "measurementEnd": 604912.2999999523,
+    "droppedEvents": 206835,
+    "retainedWindow": {
+      "firstAt": 406486.5,
+      "lastAt": 604897.1,
+      "durationMs": 198410.59999999998,
+      "coversMeasurementStart": false
+    },
+    "epochsObserved": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "measuredFrames": 35880,
+    "activeFrames": 34364,
+    "activeFraction": 0.9577480490523969,
+    "framesMs": {
+      "n": 35880,
+      "p50": 16.699999999982538,
+      "p95": 16.70000000006985,
+      "p99": 16.800000000017462,
+      "max": 49.90000000002328
+    },
+    "stepMs": {
+      "n": 34967,
+      "p50": 0.10000014305114746,
+      "p95": 0.20000004768371582,
+      "p99": 0.2999999523162842,
+      "max": 1.6999998092651367
+    },
+    "replayMs": {
+      "n": 3969,
+      "p50": 0.10000014305114746,
+      "p95": 0.2999999523162842,
+      "p99": 0.3000001907348633,
+      "max": 0.8999998569488525
+    },
+    "appWorkMs": {
+      "n": 11906,
+      "p50": 0.9000000953674316,
+      "p95": 1.2000000476837158,
+      "p99": 1.5,
+      "max": 9.100000143051147
+    },
+    "captureToRenderSubmissionMs": {
+      "n": 11347,
+      "p50": 0.7999999523162842,
+      "p95": 1,
+      "p99": 1.2999999523162842,
+      "max": 2.4000000953674316
+    },
+    "commandApplicationToSubmissionMs": {
+      "n": 11349,
+      "p50": 0.7000000476837158,
+      "p95": 0.9000000953674316,
+      "p99": 1.1999998092651367,
+      "max": 2.4000000953674316
+    },
+    "commandAllocationToSubmissionMs": {
+      "n": 11349,
+      "p50": 0.7000000476837158,
+      "p95": 1,
+      "p99": 1.2999999523162842,
+      "max": 2.4000000953674316
+    },
+    "inputCounts": {
+      "input-capture": 11375,
+      "input-allocated": 11349,
+      "input-applied": 11349,
+      "input-application": 11347,
+      "input-render-submission": 11347,
+      "command-render-submission": 11349
+    },
+    "ownershipCancellations": 20,
+    "healthBaseline": {
+      "at": 6904.4,
+      "counters": {
+        "rttMs": 177.2978658825006,
+        "correctionPx": 0,
+        "ballCorrectionPx": 0,
+        "replayMs": 0.7000000476837158,
+        "replayedTicks": 15,
+        "snapshotBytes": 5379,
+        "desiredLead": 10,
+        "actualLead": 11,
+        "queuedEdges": 0,
+        "expiredEdges": 0,
+        "resyncRequested": 0,
+        "heartbeats": 54,
+        "predictionDegraded": false,
+        "receivedSeq": 92,
+        "terminalSeq": 91,
+        "timingRejections": 0,
+        "rejectedExpired": 0,
+        "rejectedFuture": 0,
+        "rejectedCancelled": 0,
+        "rejectedSequenceGap": 0,
+        "rejectedCapacity": 0,
+        "rejectedRevision": 0,
+        "botTransitions": 0,
+        "serverDebtMs": 4.8893749999996885,
+        "cosmeticConfirmed": 0,
+        "cosmeticExpired": 0,
+        "capturedInputs": 111,
+        "predictedSteps": 126,
+        "allocatedInputs": 111,
+        "allocationSkips": 0,
+        "historySkips": 0,
+        "lastAppliedSeq": 111,
+        "lastAppliedTick": 142,
+        "lastAppliedAt": 6906.799999952316
+      }
+    },
+    "recoveryBaseline": {
+      "at": 549976.1999998093,
+      "counters": {
+        "rttMs": 178.58041656928452,
+        "correctionPx": 0,
+        "ballCorrectionPx": 0,
+        "replayMs": 0.40000009536743164,
+        "replayedTicks": 16,
+        "snapshotBytes": 5989,
+        "desiredLead": 10,
+        "actualLead": 12,
+        "queuedEdges": 0,
+        "expiredEdges": 0,
+        "resyncRequested": 0,
+        "heartbeats": 5095,
+        "predictionDegraded": false,
+        "receivedSeq": 6565,
+        "terminalSeq": 6558,
+        "timingRejections": 30,
+        "rejectedExpired": 10,
+        "rejectedFuture": 0,
+        "rejectedCancelled": 0,
+        "rejectedSequenceGap": 0,
+        "rejectedCapacity": 0,
+        "rejectedRevision": 20,
+        "botTransitions": 0,
+        "serverDebtMs": 3.470958999955208,
+        "cosmeticConfirmed": 0,
+        "cosmeticExpired": 0,
+        "capturedInputs": 32020,
+        "predictedSteps": 32239,
+        "allocatedInputs": 31944,
+        "allocationSkips": 76,
+        "historySkips": 0,
+        "lastAppliedSeq": 6574,
+        "lastAppliedTick": 6643,
+        "lastAppliedAt": 549967.5999999046
+      }
+    },
+    "lastNetworkDiagnostics": {
+      "rttMs": 152.63539237669306,
+      "correctionPx": 0,
+      "ballCorrectionPx": 0,
+      "replayMs": 0.2999999523162842,
+      "replayedTicks": 12,
+      "snapshotBytes": 5744,
+      "desiredLead": 7,
+      "actualLead": 8,
+      "queuedEdges": 0,
+      "expiredEdges": 0,
+      "resyncRequested": 0,
+      "heartbeats": 5605,
+      "predictionDegraded": false,
+      "receivedSeq": 2204,
+      "terminalSeq": 2201,
+      "timingRejections": 30,
+      "rejectedExpired": 10,
+      "rejectedFuture": 0,
+      "rejectedCancelled": 0,
+      "rejectedSequenceGap": 0,
+      "rejectedCapacity": 0,
+      "rejectedRevision": 20,
+      "botTransitions": 0,
+      "serverDebtMs": 5.4298339999624865,
+      "cosmeticConfirmed": 0,
+      "cosmeticExpired": 0,
+      "capturedInputs": 35071,
+      "predictedSteps": 35303,
+      "allocatedInputs": 34995,
+      "allocationSkips": 76,
+      "historySkips": 0,
+      "lastAppliedSeq": 2215,
+      "lastAppliedTick": 2232,
+      "lastAppliedAt": 604899.2999999523
+    },
+    "rejectionMaxima": {
+      "Expired": 10,
+      "Future": 0,
+      "Cancelled": 0,
+      "SequenceGap": 0,
+      "Capacity": 0,
+      "Revision": 20
+    },
+    "recoveryCounterDeltas": {
+      "resyncRequested": 0,
+      "botTransitions": 0,
+      "rejectedSequenceGap": 0,
+      "rejectedExpired": 0,
+      "rejectedFuture": 0,
+      "rejectedCapacity": 0
+    },
+    "postWarmupCounters": {
+      "rejectedExpired": 10,
+      "rejectedRevision": 20,
+      "resyncRequested": 0,
+      "botTransitions": 0,
+      "rejectedSequenceGap": 0,
+      "rejectedFuture": 0,
+      "rejectedCapacity": 0
+    },
+    "retainedSimulationEvents": {
+      "dodge-catch-ready": 91,
+      "dodge-reset": 57,
+      "dodge-possession-warning": 32,
+      "dodge-possession-transfer": 29,
+      "switch": 68,
+      "dodge-throw": 85,
+      "dodge-pass": 25,
+      "pass-complete": 14,
+      "dodge-round-end": 3,
+      "match-end": 2,
+      "whistle": 3,
+      "dash": 17,
+      "dodge-ding": 21,
+      "dodge-catch": 8,
+      "dodge-out": 3
+    },
+    "frameIntervalsOver25ms": 1
+  },
+  "acceptance": {
+    "requested": false,
+    "passed": null,
+    "failures": [],
+    "scope": "Counters from the captured post-warmup baseline to frozen measurement end; retained timing distributions may cover a shorter window when events were dropped."
+  },
+  "recoveryAcceptance": {
+    "requested": true,
+    "passed": true,
+    "failures": [],
+    "scope": "Five-second settling period after disabling jitter/stalls, then zero new timing rejections or recoveries. Transient expiries during impairment are reported, not hidden."
+  }
+}

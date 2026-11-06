@@ -108,12 +108,15 @@ export class InputScheduler {
   ): { tick: number; command: CommandFrame } | null {
     // The host fixed-step accumulator owns cadence. A second elapsed-time gate
     // loses alternate inputs on ordinary 16/17ms RAF schedules and catch-up.
-    // Safety lead increases move the target forward once, with intermediate held
-    // ticks simulated by the predictor. Decreases slew the host accumulator;
-    // they never drop progress or duplicate an action tick.
+    // A clock correction must restore the configured arrival margin immediately,
+    // not spend seconds slewing from server+1. The predictor simulates skipped
+    // target ticks with held input, then applies the next ordered edge once.
+    // Initial ceiling leaves one fractional tick of phase headroom so normal
+    // alternating render cadence still allocates consecutive logical slots.
+    const safeTick = Math.floor(serverTick) + this.lead;
     const scheduledTick = this.lastTick < 0
-      ? Math.floor(serverTick) + this.lead
-      : Math.max(this.lastTick + 1 + Math.max(0, this.lead - this.allocatedLead), Math.floor(serverTick) + 1);
+      ? Math.ceil(serverTick) + this.lead
+      : Math.max(this.lastTick + 1 + Math.max(0, this.lead - this.allocatedLead), safeTick);
     const tick = Math.max(scheduledTick, predictionTick + 1);
     if (
       tick <= this.lastTick ||

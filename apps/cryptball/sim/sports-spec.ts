@@ -239,6 +239,10 @@ export function groundContactReach(
 export function isCooperativeSport(sportId: SportId): boolean {
   return sportId === "crypt-guardian";
 }
+/** A successful pass can transfer the participant to its receiving athlete. */
+export function supportsPassControlTransfer(sportId: SportId): boolean {
+  return sportId === "cryptball" || sportId === "cryptkick" || sportId === "cryptcheck";
+}
 export function sportHasSpecials(sportId: SportId): boolean {
   return false; // Teams are cosmetic across every activity.
 }

@@ -1,0 +1,17 @@
+{
+  "baseCommit": "5d4b77678ddd7290ab1927e710c8063ca4990ea3",
+  "files": {
+    "apps/cryptball-server/src/model.ts": "0912ab53f4e89431fbb472e01c2764dbcc1ae2df9fd2a7f778a98406f73f5207",
+    "apps/cryptball/build-identity.ts": "93e371ff28e79deff244af1a3b74077eaaf116c034ab3044c69e0f51279427fb",
+    "apps/cryptball/sim/session.ts": "a02f28fbdab6790f37d415191f0f5232d9e000659aa0de690b51180931a7b632",
+    "apps/cryptball/sim/sports-spec.ts": "a0f9535ad1ce547c1f6448f54d6f9c7bf1a290183c0667ad7f015a979639ecc8",
+    "apps/cryptball/src/host.ts": "4ed1f277106432d380dc68912e6281570b7d1e2cc92687700ceda9baccc3f2e4",
+    "apps/cryptball/src/online/confirmed-combat.ts": "1e1733c980e6c9084fce7ff1b51770efcbb3a788ee033e1549da311923651267",
+    "apps/cryptball/src/online/frame-interpolation.ts": "02325653e2b2b974bc1884a653ac34dea5c9cef9fb2b1bd00a38263754c2f7ea",
+    "apps/cryptball/src/online/input-scheduler.ts": "1e4a38e0beba3d0e2c26d32e565dc6569a3792e96333d994071ca324c4efb36e",
+    "apps/cryptball/src/online/performance-diagnostics.ts": "f0f88095fc152f0c566ca56cb57dd57b2a0ee8e81ac48e2454cd70e548e4236c",
+    "apps/cryptball/src/online/poses.ts": "bc6853e329be3b0ae97e2ccb8e0e4d9371e5fd6407d832e658aa92bc477bf1ef",
+    "apps/cryptball/src/online/session.ts": "87ed06bc953d4c97a778d68d0ae40e4c8d6ef62ec8820c9d3fcaaf5f0a1a9dfd",
+    "scripts/cryptball-network-profile.mjs": "6f700401a5a3f973e6ef6a1450d97ad82477d7b4dbdb5870f9ccdefd2b06e53c"
+  }
+}

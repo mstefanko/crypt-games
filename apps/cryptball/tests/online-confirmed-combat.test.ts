@@ -62,3 +62,14 @@ it('Guardian attack danger timing and projectile lifecycle stay authoritative be
   expect(confirmed.guardian!.projectiles[0].x).toBe(256);
   expect(confirmed.guardian!.projectiles[0].lifeTicks).toBe(30);
 });
+
+it('Guardian compact projection detaches nested authority resources without full structured clones',()=>{
+  const authority=createCryptballSession({sportId:'crypt-guardian'}).observe(),g=authority.guardian!,predicted=structuredClone(authority);
+  g.attack={id:1,kind:'shot',targetId:authority.players[0].id,locked:true,released:false,elapsed:2,timing:{tell:10,active:2,recover:10},hits:['original'],shapes:[{kind:'disk',x:0,y:0,radius:10,at:10}]};
+  g.orbs[0].ballToken={id:1,playerId:authority.players[0].id,damage:10,origin:{epoch:1,generation:1,participantId:'owner',seq:1}};
+  const original=structuredClone(authority),draw=confirmedCombatPresentation(predicted,authority),out=draw.guardian!;
+  expect(out.attack).toEqual(g.attack);expect(out.orbs[0].ballToken).toEqual(g.orbs[0].ballToken);
+  out.attack!.timing.tell++;out.attack!.hits.push('changed');out.attack!.shapes[0].x++;
+  out.orbs[0].ballToken!.origin!.seq++;out.orbs[0].ball.x++;
+  expect(authority).toEqual(original);
+});

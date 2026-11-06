@@ -659,6 +659,9 @@ it("preserves intermediate prediction when host consumes an absent correction fi
   expect(previous).not.toBeNull();
   expect(previous!.tick).toBe(client.simulationTick - 1);
   expect(client.takePreviousPrediction()).toBeNull();
+  now += 1000/60;
+  client.step({moveX:1});
+  expect(client.takePreviousPrediction()).toBeNull();
 });
 
 it("composes multiple same-tick reconciliations against the earliest pending baseline", async () => {

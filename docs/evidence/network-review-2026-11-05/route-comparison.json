@@ -1,0 +1,292 @@
+{
+  "baseline": {
+    "sport": "cryptball",
+    "scenario": "route-change",
+    "acceptedAfterWarmup": 1888,
+    "rejectedAfterWarmup": 0,
+    "appliedAfterWarmup": 1860,
+    "pendingAfterWarmup": 28,
+    "botTransitions": 0,
+    "resyncAfterWarmup": 0,
+    "expiryTrace": [],
+    "lastPreChangeAllocation": {
+      "peer": "p0",
+      "kind": "input-allocated",
+      "at": 3984,
+      "fields": {
+        "seq": 239,
+        "tick": 247,
+        "epoch": 1,
+        "generation": 1,
+        "revision": 0,
+        "queuedEdges": 0
+      },
+      "desiredLead": 6,
+      "serverTick": 240
+    },
+    "postChangeRtt": {
+      "peer": "p0",
+      "kind": "rtt",
+      "at": 4994,
+      "fields": {
+        "rttMs": 227
+      },
+      "desiredLead": 10,
+      "serverTick": 300
+    }
+  },
+  "current": {
+    "sport": "cryptball",
+    "scenario": "route-change",
+    "acceptedAfterWarmup": 1860,
+    "rejectedAfterWarmup": 24,
+    "appliedAfterWarmup": 1836,
+    "pendingAfterWarmup": 24,
+    "botTransitions": 0,
+    "resyncAfterWarmup": 0,
+    "expiryTrace": [
+      {
+        "at": 4171,
+        "peer": "p0",
+        "seq": 240,
+        "reason": "expired",
+        "requestedTick": 248,
+        "executionTick": 252,
+        "serverTick": 251
+      },
+      {
+        "at": 4171,
+        "peer": "p1",
+        "seq": 240,
+        "reason": "expired",
+        "requestedTick": 248,
+        "executionTick": 252,
+        "serverTick": 251
+      },
+      {
+        "at": 4171,
+        "peer": "p2",
+        "seq": 240,
+        "reason": "expired",
+        "requestedTick": 248,
+        "executionTick": 252,
+        "serverTick": 251
+      },
+      {
+        "at": 4171,
+        "peer": "p3",
+        "seq": 240,
+        "reason": "expired",
+        "requestedTick": 248,
+        "executionTick": 252,
+        "serverTick": 251
+      },
+      {
+        "at": 4222,
+        "peer": "p0",
+        "seq": 243,
+        "reason": "expired",
+        "requestedTick": 251,
+        "executionTick": 255,
+        "serverTick": 254
+      },
+      {
+        "at": 4222,
+        "peer": "p1",
+        "seq": 243,
+        "reason": "expired",
+        "requestedTick": 251,
+        "executionTick": 255,
+        "serverTick": 254
+      },
+      {
+        "at": 4222,
+        "peer": "p2",
+        "seq": 243,
+        "reason": "expired",
+        "requestedTick": 251,
+        "executionTick": 255,
+        "serverTick": 254
+      },
+      {
+        "at": 4222,
+        "peer": "p3",
+        "seq": 243,
+        "reason": "expired",
+        "requestedTick": 251,
+        "executionTick": 255,
+        "serverTick": 254
+      },
+      {
+        "at": 4320,
+        "peer": "p0",
+        "seq": 249,
+        "reason": "expired",
+        "requestedTick": 257,
+        "executionTick": 261,
+        "serverTick": 260
+      },
+      {
+        "at": 4320,
+        "peer": "p1",
+        "seq": 249,
+        "reason": "expired",
+        "requestedTick": 257,
+        "executionTick": 261,
+        "serverTick": 260
+      },
+      {
+        "at": 4320,
+        "peer": "p2",
+        "seq": 249,
+        "reason": "expired",
+        "requestedTick": 257,
+        "executionTick": 261,
+        "serverTick": 260
+      },
+      {
+        "at": 4320,
+        "peer": "p3",
+        "seq": 249,
+        "reason": "expired",
+        "requestedTick": 257,
+        "executionTick": 261,
+        "serverTick": 260
+      },
+      {
+        "at": 4372,
+        "peer": "p0",
+        "seq": 252,
+        "reason": "expired",
+        "requestedTick": 260,
+        "executionTick": 264,
+        "serverTick": 263
+      },
+      {
+        "at": 4372,
+        "peer": "p1",
+        "seq": 252,
+        "reason": "expired",
+        "requestedTick": 260,
+        "executionTick": 264,
+        "serverTick": 263
+      },
+      {
+        "at": 4372,
+        "peer": "p2",
+        "seq": 252,
+        "reason": "expired",
+        "requestedTick": 260,
+        "executionTick": 264,
+        "serverTick": 263
+      },
+      {
+        "at": 4372,
+        "peer": "p3",
+        "seq": 252,
+        "reason": "expired",
+        "requestedTick": 260,
+        "executionTick": 264,
+        "serverTick": 263
+      },
+      {
+        "at": 4470,
+        "peer": "p0",
+        "seq": 258,
+        "reason": "expired",
+        "requestedTick": 266,
+        "executionTick": 270,
+        "serverTick": 269
+      },
+      {
+        "at": 4470,
+        "peer": "p1",
+        "seq": 258,
+        "reason": "expired",
+        "requestedTick": 266,
+        "executionTick": 270,
+        "serverTick": 269
+      },
+      {
+        "at": 4470,
+        "peer": "p2",
+        "seq": 258,
+        "reason": "expired",
+        "requestedTick": 266,
+        "executionTick": 270,
+        "serverTick": 269
+      },
+      {
+        "at": 4470,
+        "peer": "p3",
+        "seq": 258,
+        "reason": "expired",
+        "requestedTick": 266,
+        "executionTick": 270,
+        "serverTick": 269
+      },
+      {
+        "at": 4539,
+        "peer": "p0",
+        "seq": 262,
+        "reason": "expired",
+        "requestedTick": 270,
+        "executionTick": 274,
+        "serverTick": 273
+      },
+      {
+        "at": 4539,
+        "peer": "p1",
+        "seq": 262,
+        "reason": "expired",
+        "requestedTick": 270,
+        "executionTick": 274,
+        "serverTick": 273
+      },
+      {
+        "at": 4539,
+        "peer": "p2",
+        "seq": 262,
+        "reason": "expired",
+        "requestedTick": 270,
+        "executionTick": 274,
+        "serverTick": 273
+      },
+      {
+        "at": 4539,
+        "peer": "p3",
+        "seq": 262,
+        "reason": "expired",
+        "requestedTick": 270,
+        "executionTick": 274,
+        "serverTick": 273
+      }
+    ],
+    "lastPreChangeAllocation": {
+      "peer": "p0",
+      "kind": "input-allocated",
+      "at": 3984,
+      "fields": {
+        "seq": 238,
+        "tick": 246,
+        "epoch": 1,
+        "generation": 1,
+        "revision": 0,
+        "queuedEdges": 0
+      },
+      "desiredLead": 5,
+      "serverTick": 240
+    },
+    "postChangeRtt": {
+      "peer": "p0",
+      "kind": "rtt",
+      "at": 5000,
+      "fields": {
+        "rttMs": 233
+      },
+      "desiredLead": 9,
+      "serverTick": 300
+    }
+  },
+  "method": "Controlled unit-only allocator comparison under the same scripted route-change fixture; not a browser performance baseline. This predates the finite-cohort drain correction."
+}

@@ -12,6 +12,10 @@ export function createPerformanceDiagnostics(options: {
   const metadata = { ...options.metadata };
   let cursor = 0, dropped = 0, inputId = 0, lastFrame: number | undefined;
   const pending = new Map<number, number>();
+  const allocatedCommands = new Map<string, DiagnosticFields>();
+  const pendingCommands = new Map<string, { fields: DiagnosticFields; appliedAt: number; scope: string }>();
+  const commandTimelines = new Map<string, string>();
+  let activeCommandScope: string | undefined;
   const captures = new Map<number, { eventAt: number; capturedAt: number }>();
   const now = () => performance.now();
   function record(kind: string, fields: DiagnosticFields = {}, at = now()) {
@@ -23,6 +27,34 @@ export function createPerformanceDiagnostics(options: {
   return {
     enabled: options.enabled,
     record,
+    /** Forward actual session events. Physical browser captures remain unlinked. */
+    onlineEvent(event: DiagnosticEvent, scope: string) {
+      record(event.kind, event.fields, event.at);
+      if (!options.enabled) return;
+      const { seq, tick, epoch, generation, revision } = event.fields;
+      if (typeof seq !== 'number' || typeof tick !== 'number') return;
+      const allocationKey = `${scope}:${seq}`;
+      if (event.kind === 'input-allocated') {
+        if (activeCommandScope !== scope) { pendingCommands.clear(); allocatedCommands.clear(); activeCommandScope = scope; }
+        if (typeof epoch !== 'number' || typeof generation !== 'number') return;
+        const timeline = `${epoch}:${generation}`;
+        if (commandTimelines.get(scope) !== timeline) {
+          for (const [key, value] of pendingCommands) if (value.scope === scope) pendingCommands.delete(key);
+          for (const key of allocatedCommands.keys()) if (key.startsWith(`${scope}:`)) allocatedCommands.delete(key);
+          if (commandTimelines.size >= 256) commandTimelines.delete(commandTimelines.keys().next().value!);
+          commandTimelines.set(scope, timeline);
+        }
+        if (allocatedCommands.size >= 256) allocatedCommands.delete(allocatedCommands.keys().next().value!);
+        allocatedCommands.set(allocationKey, { seq, tick, epoch, generation, revision: revision ?? null, allocatedAt: event.at,
+          commandId: `${scope}:${epoch}:${generation}:${seq}`, source: 'predicted-command', physicalEventLinked: false });
+      } else if (event.kind === 'input-applied') {
+        const allocated = allocatedCommands.get(allocationKey);
+        if (!allocated || allocated.tick !== tick) return;
+        allocatedCommands.delete(allocationKey);
+        if (pendingCommands.size >= 256) pendingCommands.delete(pendingCommands.keys().next().value!);
+        pendingCommands.set(String(allocated.commandId), { fields: allocated, appliedAt: event.at, scope });
+      }
+    },
     setMetadata(value: PerformanceMetadata) { Object.assign(metadata, value); },
     captureInput(source: 'physical-event' | 'synthetic', eventAt = now(), capturedAt = now()) {
       if (!options.enabled) return 0;
@@ -42,6 +74,12 @@ export function createPerformanceDiagnostics(options: {
     },
     submittedRender(ids?: readonly number[], at = now()) {
       if (!options.enabled) return;
+      for (const [key, command] of pendingCommands) {
+        record('command-render-submission', { ...command.fields,
+          applicationToSubmissionMs: Math.max(0, at - command.appliedAt),
+          allocationToSubmissionMs: Math.max(0, at - Number(command.fields.allocatedAt)) }, at);
+        pendingCommands.delete(key);
+      }
       for (const id of ids ?? pending.keys()) {
         const appliedAt = pending.get(id);
         if (appliedAt === undefined) continue;

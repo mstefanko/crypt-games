@@ -40,7 +40,7 @@ import { aiCommands } from "./team-ai";
 import { resetSport, stepSport, advanceSportPhase } from "./sports";
 import { configureGuardianPractice } from "./modes/crypt-guardian/index";
 import type { GuardianWeapon } from "./modes/crypt-guardian/types";
-import { isSportId, isCooperativeSport, sportHasSpecials } from "./sports-spec";
+import { isSportId, isCooperativeSport, sportHasSpecials, supportsPassControlTransfer } from "./sports-spec";
 import type { SportId } from "./contract";
 export {
   SPORTS,
@@ -49,6 +49,7 @@ export {
   isSportId,
   isCooperativeSport,
   sportHasSpecials,
+  supportsPassControlTransfer,
   athletesAreAllies,
 } from "./sports-spec";
 export type * from "./contract";
@@ -491,7 +492,7 @@ export function createCryptballSession(
       if (!controller) return undefined;
       const player = state.players.find(p => p.id === controller.playerId);
       return { canSwitch: controller.canSwitch, pending: !!controller.pendingSwitch ||
-        (controller.canSwitch && ["cryptball", "cryptkick", "cryptcheck"].includes(state.sportId) && player?.action?.kind === "pass") };
+        (controller.canSwitch && supportsPassControlTransfer(state.sportId) && player?.action?.kind === "pass") };
     },
     getControllerRevision(id) {
       return state.controllers.find((c) => c.id === id)?.revision;

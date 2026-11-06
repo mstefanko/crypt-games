@@ -34,8 +34,19 @@ const solo = sport === "crypt-guardian" || process.env.PROFILE_PLAY === "solo";
 const seconds = Math.min(600, Math.max(1, Number(process.env.PROFILE_SECONDS ?? 15))),
   rtt = Number(process.env.PROFILE_RTT ?? 150),
   cpu = Number(process.env.PROFILE_CPU ?? 1);
+const impairment = { jitterMs: Number(process.env.PROFILE_JITTER_MS ?? 0),
+  stallRate: Number(process.env.PROFILE_STALL_RATE ?? 0), stallMs: Number(process.env.PROFILE_STALL_MS ?? 150),
+  seed: Number(process.env.PROFILE_SEED ?? 42) };
+const recoverySeconds = Number(process.env.PROFILE_RECOVERY_SECONDS ?? 0);
+const recoveryRequested = process.env.PROFILE_ASSERT_RECOVERY === "1";
+if (!Number.isFinite(recoverySeconds) || recoverySeconds < 0 || (recoverySeconds && (recoverySeconds < 10 || recoverySeconds >= seconds)))
+  throw Error("Recovery tail must be at least ten seconds and shorter than the trial.");
+if ((impairment.jitterMs || impairment.stallRate || recoverySeconds || recoveryRequested) && (solo || process.env.PROFILE_ENDPOINT))
+  throw Error("Stream impairment/recovery requires the local online authority.");
+if (recoveryRequested && !recoverySeconds) throw Error("PROFILE_ASSERT_RECOVERY=1 requires a recovery tail.");
 let server, proxy, vite, browser, peer, peerPage;
 const peerKind = process.env.PROFILE_PEER ?? "browser";
+if (recoveryRequested && peerKind !== "browser") throw Error("Recovery acceptance requires two rendered browser clients.");
 const rematch = process.env.PROFILE_REMATCH === "1";
 const restart = process.env.PROFILE_RESTART === "1" ||
   (sport === "crypt-guardian" && process.env.PROFILE_RESTART !== "0");
@@ -59,7 +70,7 @@ try {
     for (let i = 0; i < 100 && !logs.includes("cryptball_listening"); i++)
       await new Promise((r) => setTimeout(r, 100));
     if (!logs.includes("cryptball_listening")) throw Error(logs);
-    proxy = await createOrderedProxy(2579, rtt / 2, rtt / 2);
+    proxy = await createOrderedProxy(2579, rtt / 2, rtt / 2, impairment);
     endpoint = proxy.endpoint;
   }
   endpoint ??= "http://127.0.0.1:2579";
@@ -238,8 +249,24 @@ try {
     await installTape(page, 0);
     if (peerPage) await installTape(peerPage, 73);
     const deadline = Date.now() + seconds * 1000;
+    let recoveryAt = 0, recoveryCaptured = false, lastProgress = Date.now();
     while (Date.now() < deadline) {
       await page.waitForTimeout(Math.min(500, deadline - Date.now()));
+      if (recoverySeconds && !recoveryAt && Date.now() >= deadline - recoverySeconds * 1000) {
+        proxy.setImpairmentEnabled(false);
+        recoveryAt = Date.now();
+      }
+      if (recoveryAt && !recoveryCaptured && Date.now() - recoveryAt >= 5000) {
+        await Promise.all([page, peerPage].filter(Boolean).map(target => target.evaluate(() => {
+          globalThis.__recoveryBaseline = { at: performance.now(), counters: { ...globalThis.__profileOnline.diagnostics } };
+        })));
+        recoveryCaptured = true;
+      }
+      if (Date.now() - lastProgress >= 60000) {
+        console.log(JSON.stringify({ progressSeconds: Math.round(seconds - (deadline - Date.now()) / 1000), sport,
+          phase: recoveryAt ? "recovery" : "trial", impairmentStats: proxy?.impairmentStats }));
+        lastProgress = Date.now();
+      }
       if (!solo) {
         for (const target of [page, peerPage].filter(Boolean)) {
           const status = await target.evaluate(() => globalThis.__profileOnline.status);
@@ -272,7 +299,7 @@ try {
       const session = globalThis.__profileOnline ?? globalThis.__profileLocal;
       const end = performance.now();
       globalThis.__profileResult = {
-        measurementEnd: end, healthBaseline: globalThis.__healthBaseline,
+        measurementEnd: end, healthBaseline: globalThis.__healthBaseline, recoveryBaseline: globalThis.__recoveryBaseline ?? null,
         lastNetworkDiagnostics: { ...(globalThis.__profileOnline?.diagnostics ?? {}) },
         measurementStart: globalThis.__measurementStart, stepTimes: globalThis.__stepTimes,
         frames: globalThis.__frames, steps: globalThis.__steps, entities: globalThis.__entities,
@@ -312,10 +339,13 @@ try {
         replayMs: dist(events.filter(e => e.kind === "snapshot-replay").map(e => e.fields.durationMs)),
         appWorkMs: dist(events.filter(e => e.kind === "frame").map(e => e.fields.workMs)),
         captureToRenderSubmissionMs: dist(events.filter(e => e.kind === "input-render-submission").map(e => e.fields.captureToSubmissionMs)),
-        inputCounts: Object.fromEntries(["input-capture", "input-allocated", "input-applied", "input-application", "input-render-submission"].map(kind => [kind, events.filter(e => e.kind === kind).length])),
+        commandApplicationToSubmissionMs: dist(events.filter(e => e.kind === "command-render-submission").map(e => e.fields.applicationToSubmissionMs)),
+        commandAllocationToSubmissionMs: dist(events.filter(e => e.kind === "command-render-submission").map(e => e.fields.allocationToSubmissionMs)),
+        inputCounts: Object.fromEntries(["input-capture", "input-allocated", "input-applied", "input-application", "input-render-submission", "command-render-submission"].map(kind => [kind, events.filter(e => e.kind === kind).length])),
         ownershipCancellations: Number.isFinite(client.healthBaseline?.counters.rejectedRevision) && Number.isFinite(client.lastNetworkDiagnostics.rejectedRevision)
           ? client.lastNetworkDiagnostics.rejectedRevision - client.healthBaseline.counters.rejectedRevision : null,
         healthBaseline: client.healthBaseline,
+        recoveryBaseline: client.recoveryBaseline,
         lastNetworkDiagnostics: client.lastNetworkDiagnostics,
         rejectionMaxima: Object.fromEntries(["Expired", "Future", "Cancelled", "SequenceGap", "Capacity", "Revision"].map(reason => [reason, Math.max(0, ...(eventMetrics["input-feedback.rejected" + reason] ?? []))])),
         metricsByEvent: Object.fromEntries(Object.entries(eventMetrics).map(([k, v]) => [k, dist(v)])),
@@ -325,8 +355,9 @@ try {
     const report = {
       variant, sport, play: solo ? "solo" : "online", peerKind: solo ? "none" : peerKind, endpoint: process.env.PROFILE_ENDPOINT ? "cloud" : "local",
       rttAdded: solo || process.env.PROFILE_ENDPOINT ? 0 : rtt, cpu, seconds, rematch, restart, errors,
+      impairment: { ...impairment, recoverySeconds, stats: proxy?.impairmentStats ?? [] },
       limitations: ["Synthetic input to render submission is not physical input-to-photon latency.",
-        "Ordered delay proxy models delay, not packet loss.", "Desktop browser run; actual phone capture required separately.",
+        "Seeded stream jitter/stalls model ordered retransmission delay, not actual packet loss, packet segmentation, or TCP congestion control.", "Desktop browser run; actual phone capture required separately.",
         "Scripted actions do not establish every mode scenario occurred; inspect event annotations.",
         ...(peerKind === "sdk" && !solo ? ["SDK peer drives the fixed-step input clock but omits rendering and full-world prediction; it is not a second device responsiveness measurement."] : [])],
       framesMs: clientSummary.framesMs, stepMs: clientSummary.stepMs,
@@ -360,10 +391,36 @@ try {
     }
     report.acceptance = { requested: healthRequested, passed: healthRequested ? failures.length === 0 : null,
       failures, scope: "Counters from the captured post-warmup baseline to frozen measurement end; retained timing distributions may cover a shorter window when events were dropped." };
+    const recoveryFailures = [];
+    if (recoveryRequested) {
+      if (!peerSummary) recoveryFailures.push("Recovery acceptance requires two rendered clients.");
+      if (errors.length) recoveryFailures.push("Browser errors occurred.");
+      for (const [label, summary] of [["client", clientSummary], ["peer", peerSummary]]) {
+        if (!summary) continue;
+        if (summary.status !== "joined") recoveryFailures.push(`${label}: not joined at completion`);
+        const baseline = summary.recoveryBaseline;
+        if (!baseline || summary.measurementEnd - baseline.at < 4000) recoveryFailures.push(`${label}: missing clean recovery window`);
+        if (!(summary.lastNetworkDiagnostics.allocatedInputs - baseline?.counters.allocatedInputs >= 60))
+          recoveryFailures.push(`${label}: recovery window did not exercise at least sixty inputs`);
+        const deltas = {};
+        for (const key of ["resyncRequested", "botTransitions", "rejectedSequenceGap", "rejectedExpired", "rejectedFuture", "rejectedCapacity"]) {
+          const delta = summary.lastNetworkDiagnostics[key] - baseline?.counters[key];
+          deltas[key] = delta;
+          if (delta !== 0) recoveryFailures.push(`${label}: recovery ${key} delta ${delta}`);
+        }
+        for (const key of ["rejectedSequenceGap", "rejectedFuture", "rejectedCapacity"])
+          if (summary.lastNetworkDiagnostics[key] - summary.healthBaseline?.counters[key] !== 0)
+            recoveryFailures.push(`${label}: ${key} increased during impaired trial`);
+        summary.recoveryCounterDeltas = deltas;
+      }
+    }
+    report.recoveryAcceptance = { requested: recoveryRequested, passed: recoveryRequested ? recoveryFailures.length === 0 : null,
+      failures: recoveryFailures, scope: "Five-second settling period after disabling jitter/stalls, then zero new timing rejections or recoveries. Transient expiries during impairment are reported, not hidden." };
     await writeFile(out, JSON.stringify(report, null, 2) + "\n");
     const compact = summary => { if (!summary) return null; const { metricsByEvent, ...rest } = summary; return rest; };
-    console.log(JSON.stringify({ out, sport, play: report.play, peerKind: report.peerKind, client: compact(clientSummary), peer: compact(peerSummary), acceptance: report.acceptance, errors }));
+    console.log(JSON.stringify({ out, sport, play: report.play, peerKind: report.peerKind, client: compact(clientSummary), peer: compact(peerSummary), acceptance: report.acceptance, recoveryAcceptance: report.recoveryAcceptance, errors }));
     if (healthRequested && failures.length) throw Error(`Profile health acceptance failed; report saved to ${out}: ${failures.join("; ")}`);
+    if (recoveryRequested && recoveryFailures.length) throw Error(`Profile recovery acceptance failed; report saved to ${out}: ${recoveryFailures.join("; ")}`);
   } finally {
     clearInterval(timer);
     await peer?.leave();

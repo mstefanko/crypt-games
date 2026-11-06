@@ -1,5 +1,5 @@
 import { afterEach, expect, it, vi } from "vitest";
-import { OrderedDeliveryQueue } from "../../cryptball-server/tests/ordered-proxy";
+import { OrderedDeliveryQueue, createImpairmentSampler } from "../../cryptball-server/tests/ordered-proxy";
 afterEach(() => vi.useRealTimers());
 it("keeps fractional-time bursts and FIN FIFO with one head timer, even on early wakeup", () => {
   vi.useFakeTimers();
@@ -32,4 +32,32 @@ it("cancels queued deliveries on close", () => {
   vi.runAllTimers();
   expect(deliver).not.toHaveBeenCalled();
   expect(vi.getTimerCount()).toBe(0);
+});
+it("models seeded jitter and two-percent stream stalls without dropping bytes", () => {
+  const options = { jitterMs: 30, stallRate: .02, stallMs: 150, seed: 42 };
+  const a = createImpairmentSampler(options), b = createImpairmentSampler(options);
+  const delays = Array.from({ length: 10000 }, () => a.delay(75));
+  expect(delays).toEqual(Array.from({ length: 10000 }, () => b.delay(75)));
+  expect(Math.min(...delays)).toBeGreaterThanOrEqual(45);
+  expect(Math.max(...delays)).toBeLessThanOrEqual(255);
+  expect(a.stats.stalls).toBeGreaterThan(150);
+  expect(a.stats.stalls).toBeLessThan(250);
+  a.enable(false);
+  expect(a.delay(75)).toBe(75);
+  expect(a.stats.impairedChunks).toBe(10000);
+});
+it("holds subsequent bytes behind a retransmission-style stall and delivers them once", () => {
+  vi.useFakeTimers();
+  let now = 0;
+  const delivered: string[] = [], queue = new OrderedDeliveryQueue(() => now);
+  queue.enqueue(() => delivered.push("stalled"), 200);
+  now = 10;
+  queue.enqueue(() => delivered.push("later"), 50);
+  queue.enqueue(() => delivered.push("FIN"), 50);
+  now = 199; vi.advanceTimersByTime(199);
+  expect(delivered).toEqual([]);
+  now = 200; vi.advanceTimersByTime(1);
+  expect(delivered).toEqual(["stalled", "later", "FIN"]);
+  vi.runAllTimers();
+  expect(delivered).toHaveLength(3);
 });

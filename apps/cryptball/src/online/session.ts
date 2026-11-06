@@ -6,6 +6,7 @@ import { confirmedCombatPresentation } from "./confirmed-combat";
 import { CosmeticLedger } from "./cosmetics";
 import {
   createCryptballSession,
+  supportsPassControlTransfer,
   type CommandFrame,
   type Observation,
   type CryptballEvent,
@@ -234,7 +235,7 @@ export function createOnlineSession(options: OnlineOptions = {}) {
     const rejectedSequences = new Set(snapshot.dispositions
       .filter(disposition => disposition.status === "rejected").map(disposition => disposition.seq));
     const restoredTransfer = session.getControllerTransfer(id);
-    const supportsPassTransfer = ["cryptball", "cryptkick", "cryptcheck"].includes(sportId);
+    const supportsPassTransfer = supportsPassControlTransfer(sportId);
     let replayRevision = nextRevision === undefined ? undefined : nextRevision + (restoredTransfer?.pending ? 1 : 0);
     for (const packet of history)
       if (packet.seq > snapshot.terminalSeq && !rejectedSequences.has(packet.seq) &&
@@ -591,7 +592,7 @@ export function createOnlineSession(options: OnlineOptions = {}) {
         command: outgoing,
       };
       diagnostics.allocatedInputs++;
-      options.onPerformance?.({ kind: "input-allocated", at: now, fields: { seq: packet.seq, tick, epoch, generation, revision: packet.revision, queuedEdges: scheduler.queuedEdges } });
+      options.onPerformance?.({ kind: "input-allocated", at: performance.now(), fields: { seq: packet.seq, tick, epoch, generation, revision: packet.revision, queuedEdges: scheduler.queuedEdges } });
       history.push(packet);
       room.send("input", packet);
       diagnostics.actualLead = tick - clock.tick;

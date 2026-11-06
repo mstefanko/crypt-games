@@ -173,3 +173,27 @@ it("resets an unsampled match timeline without inventing a measured connection c
   clock.checkpoint(3,200,"waiting");
   expect(clock.tick).toBe(3);
 });
+
+it("restores the configured arrival lead immediately after a forward server clock correction", () => {
+  const scheduler = new InputScheduler();
+  scheduler.seed(150);
+  scheduler.capture({strikePressed:true,strikeHeld:true},0,false);
+  expect(scheduler.allocate(100,100,0)?.tick).toBe(107);
+  scheduler.capture({strikeReleased:true},17,false);
+  const corrected=scheduler.allocate(110,110,17,107);
+  expect(corrected?.tick).toBe(117);
+  expect(corrected?.command.strikeReleased).toBe(true);
+  expect(scheduler.allocate(111,111,34,117)).toMatchObject({tick:118});
+  expect(scheduler.queuedEdges).toBe(0);
+});
+
+it("does not consume an action when the corrected safe target exceeds admission bounds", () => {
+  const scheduler = new InputScheduler();
+  scheduler.seed(150);
+  expect(scheduler.allocate(100,100,0)?.tick).toBe(107);
+  scheduler.capture({strikeReleased:true},17,false);
+  expect(scheduler.allocate(130,100,17,107)).toBeNull();
+  expect(scheduler.queuedEdges).toBe(1);
+  expect(scheduler.allocate(130,130,17,107)).toMatchObject({tick:137,command:{strikeReleased:true}});
+  expect(scheduler.queuedEdges).toBe(0);
+});

@@ -1,0 +1,34 @@
+
+> crypt-games@0.0.0 test
+> npm run test:cryptball && npm run test:cryptball:network
+
+
+> crypt-games@0.0.0 test:cryptball
+> vitest run --config vitest.cryptball.config.ts
+
+
+ RUN  v5.0.5 /Users/mstefanko/Documents/New project/crypt-games
+
+
+ Test Files  41 passed (41)
+      Tests  411 passed (411)
+   Start at  19:10:06
+   Duration  7.48s (tests 83%, import 14%, transform 2%, worker 1%)
+
+    Isolate  41 workers spawned · ~90ms startup each (spawn + environment, per file)
+             at least ~1.76s faster with isolate: false — reuses workers across files instead of one per file
+
+
+> crypt-games@0.0.0 test:cryptball:network
+> node apps/cryptball-server/identity.mjs && vitest run --config vitest.cryptball-network.config.ts
+
+Cryptball authority: cryptball-v1-3df2b27547b67bdd701a62f9 (45 source files)
+
+ RUN  v5.0.5 /Users/mstefanko/Documents/New project/crypt-games
+
+
+ Test Files  17 passed (17)
+      Tests  287 passed | 2 skipped (289)
+   Start at  19:10:14
+   Duration  147.43s (tests 100%)
+
