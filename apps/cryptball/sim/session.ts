@@ -484,6 +484,13 @@ export function createCryptballSession(
         p.slideTicks = 0;
       }
     },
+    sampleBallPose() {
+      return { tick: state.tick, sportId: state.sportId, phase: state.phase,
+        score: [...state.score] as [number, number], ball: { ...state.ball },
+        possessionId: state.possessionId, restartTeam: state.restartTeam,
+        restartProtection: state.restartProtection,
+        volley: state.volley ? { ...state.volley } : null };
+    },
     getTick() {
       return state.tick;
     },

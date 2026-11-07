@@ -1,8 +1,10 @@
 // From the repository root, build the server, then run this script with Node.
 // --check <trace.json> reapplies the same rules to previously submitted frames.
-import { spawn } from "node:child_process";
+import { createHash } from "node:crypto";
+import { execFileSync, spawn } from "node:child_process";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
-import { dirname } from "node:path";
+import { dirname, resolve } from "node:path";
+import { pathToFileURL } from "node:url";
 import { setTimeout as delay } from "node:timers/promises";
 import { chromium, expect } from "@playwright/test";
 import { build } from "esbuild";
@@ -17,6 +19,29 @@ const sports = [
 ];
 const impairment = { seed: 42, jitterMs: 20, stallRate: 0.008, stallMs: 90 };
 
+// Minimal independent snapshots distinguish simulation, authority and submitted pose.
+function ballEvidence(state) {
+  if (!state) return null;
+  const b = state.ball;
+  return {
+    tick: state.tick,
+    phase: state.phase,
+    score: state.score.join("-"),
+    x: b.x / 256,
+    y: b.y / 256,
+    z: (b.z ?? 0) / 256,
+    vx: b.vx / 256,
+    vy: b.vy / 256,
+    vz: (b.vz ?? 0) / 256,
+    lastTouch: b.lastTouch,
+    restartTeam: state.restartTeam,
+    protection: state.restartProtection,
+    serving: state.volley?.serving,
+    rally: state.volley?.rally,
+    contactTick: state.volley?.contactTick,
+  };
+}
+
 // Injected after the host submits a render. Keep probes out of the game bundle.
 function recordFrame(
   state,
@@ -26,6 +51,8 @@ function recordFrame(
   frames,
   pendingAuthorityTick,
   covered,
+  evidence,
+  submitted,
 ) {
   if (!frames) return;
   const balls = (state.dodge?.balls ?? [])
@@ -57,8 +84,15 @@ function recordFrame(
     z: (p.z ?? 0) / 256,
     speed: Math.hypot(p.vx, p.vy, p.vz ?? 0) / 256,
   }));
+  const frame = frames.length;
+  const at = performance.now();
+  const stamp = document.getElementById("motion-sync");
+  if (stamp)
+    stamp.textContent = `frame=${frame} at=${at.toFixed(3)} tick=${state.tick}`;
   frames.push({
-    at: performance.now(),
+    frame,
+    at,
+    evidence: { ...evidence, submitted, source: "pre-merge-v1" },
     tick: state.tick,
     ballAlpha: presenter.sprites.get("ball")?.alpha,
     screen,
@@ -67,6 +101,14 @@ function recordFrame(
     controlledId: state.controlledId,
     epoch: online?.lobby?.epoch,
     round: state.dodge?.round ?? state.volley?.rally,
+    serving: state.volley?.serving,
+    serveTeam: state.volley?.serveTeam,
+    serveTicks: state.volley?.serveTicks,
+    restartTeam: state.restartTeam,
+    restartProtection: state.restartProtection,
+    possessionId: state.possessionId,
+    faceoffLead: state.hockey?.faceoffLead,
+    dropSide: state.hockey?.dropSide,
     score: state.score.join("-"),
     covered: Boolean(covered || online?.suspended),
     balls,
@@ -74,22 +116,180 @@ function recordFrame(
   });
 }
 
-function inspect(sport, frames) {
+export function inspect(sport, frames) {
   let playFrames = 0,
     flightPairs = 0,
     heldFrames = 0,
     softenedHandoffs = 0;
   const failures = [],
-    largeSteps = [];
+    largeSteps = [],
+    transitions = [],
+    launchOpportunities = [];
+  let activeLaunch = null;
+  const transitionFields = [
+    "epoch",
+    "round",
+    "score",
+    "phase",
+    "serving",
+    "serveTeam",
+    "restartTeam",
+    "restartProtection",
+    "possessionId",
+    "dropSide",
+    "faceoffLead",
+  ];
+  const classification = (a, b) => {
+    if (a.serving !== b.serving || a.serveTeam !== b.serveTeam)
+      return "serve transition";
+    if (
+      a.restartTeam !== b.restartTeam ||
+      (a.restartProtection === 0 && b.restartProtection > 0) ||
+      JSON.stringify(a.faceoffLead) !== JSON.stringify(b.faceoffLead) ||
+      a.dropSide !== b.dropSide
+    )
+      return "restart transition";
+    if (
+      a.epoch !== b.epoch ||
+      a.round !== b.round ||
+      a.score !== b.score ||
+      a.phase !== b.phase
+    )
+      return "round/score/phase transition";
+    if (a.possessionId !== b.possessionId) return "possession transition";
+    return "continuous play";
+  };
   for (let i = 1; i < frames.length; i++) {
     const prev = frames[i - 1],
       next = frames[i];
+    // Launch checks precede phase filtering, including ready→play. Each launch
+    // owns a 250ms window so a delayed correction cannot evade the edge check.
+    const a = prev.evidence?.submitted,
+      b = next.evidence?.submitted;
+    const speed = (v) => v && Math.hypot(v.vx, v.vy, v.vz);
+    const distance = (x, y) =>
+      x && y ? Math.hypot(y.x - x.x, y.y - x.y, y.z - x.z) : null;
+    const eligible =
+      a &&
+      b &&
+      prev.screen === "play" &&
+      next.screen === "play" &&
+      !prev.covered &&
+      !next.covered &&
+      prev.epoch === next.epoch &&
+      prev.score === next.score &&
+      prev.round === next.round;
+    const serveLaunch =
+      sport === "rift-volley" && a?.serving === true && b?.serving === false;
+    // The actual untouched stationary restart anchor remains valid after the
+    // protection countdown expires. An ordinary possession release cannot arm it.
+    const kickLaunch =
+      sport === "cryptkick" &&
+      a?.lastTouch === null &&
+      a?.restartTeam != null &&
+      speed(a) <= 1 &&
+      speed(b) > 10;
+    const launchEdge = eligible && (serveLaunch || kickLaunch);
+    const reset =
+      !eligible ||
+      (prev.phase !== next.phase &&
+        !(prev.phase === "ready" && next.phase === "play")) ||
+      (!launchEdge &&
+        (a?.lastTouch !== b?.lastTouch ||
+          a?.contactTick !== b?.contactTick ||
+          b?.serving));
+    if (activeLaunch && (reset || next.at - activeLaunch.at > 250))
+      activeLaunch = null;
+    if (launchEdge) {
+      activeLaunch = {
+        frame: i,
+        at: next.at,
+        tick: next.tick,
+        kind: serveLaunch ? "volley serve launch" : "kick restart launch",
+        fromPhase: prev.phase,
+        toPhase: next.phase,
+        visibleJumps: 0,
+        fadedJumps: 0,
+        samples: [],
+        excessive: false,
+      };
+      launchOpportunities.push(activeLaunch);
+    }
+    if (activeLaunch && eligible) {
+      const step = distance(a, b);
+      const seconds = Math.max(0, (next.at - prev.at) / 1000);
+      const allowance = 8 + Math.max(speed(a), speed(b)) * (seconds + 1 / 60);
+      const rawStep = distance(prev.evidence?.raw, next.evidence?.raw);
+      const rawToDrawn = distance(next.evidence?.raw, b);
+      const excessive = step > allowance;
+      const faded = Number.isFinite(next.ballAlpha) && next.ballAlpha < 0.99;
+      const sample = {
+        frame: i,
+        at: next.at,
+        step,
+        allowance,
+        rawStep,
+        rawToDrawn,
+        alpha: next.ballAlpha,
+        classification: excessive
+          ? faded
+            ? "softened fallback"
+            : "visible jump"
+          : "continuous launch",
+        before: prev.evidence,
+        after: next.evidence,
+      };
+      activeLaunch.samples.push(sample);
+      if (excessive) {
+        activeLaunch[faded ? "fadedJumps" : "visibleJumps"]++;
+        if (!faded && !activeLaunch.excessive) {
+          activeLaunch.excessive = true;
+          failures.push({
+            frame: i,
+            kind: "excessive " + activeLaunch.kind,
+            launchFrame: activeLaunch.frame,
+            ...sample,
+          });
+        }
+      }
+    }
+    const category = classification(prev, next);
+    if (category !== "continuous play")
+      transitions.push({
+        frame: i,
+        at: next.at,
+        tick: next.tick,
+        category,
+        changes: Object.fromEntries(
+          transitionFields
+            .filter(
+              (key) => JSON.stringify(prev[key]) !== JSON.stringify(next[key]),
+            )
+            .map((key) => [key, { from: prev[key], to: next[key] }]),
+        ),
+      });
     if (
       [prev, next].some(
         (f) => f.screen !== "play" || f.phase !== "play" || f.covered,
       )
     )
       continue;
+    if (category !== "continuous play") {
+      for (const body of next.bodies ?? []) {
+        const old = (prev.bodies ?? []).find((p) => p.id === body.id);
+        if (!old) continue;
+        const step = Math.hypot(body.x - old.x, body.y - old.y, body.z - old.z);
+        if (step > 12)
+          largeSteps.push({
+            frame: i,
+            at: next.at,
+            tick: next.tick,
+            id: body.id,
+            step,
+            category,
+          });
+      }
+    }
     if (
       prev.epoch !== next.epoch ||
       prev.round !== next.round ||
@@ -154,8 +354,16 @@ function inspect(sport, frames) {
           });
       }
       const travel = Math.max(body.speed, old.speed) * (seconds + 1 / 60);
-      if (step > travel + 12)
-        largeSteps.push({ frame: i, id: body.id, step, travel });
+      if (step > travel + 12 && category === "continuous play")
+        largeSteps.push({
+          frame: i,
+          at: next.at,
+          tick: next.tick,
+          id: body.id,
+          step,
+          travel,
+          category,
+        });
     }
     for (const b of next.balls) {
       if (b.mode !== "hostile-flight" && b.mode !== "friendly-pass") continue;
@@ -196,22 +404,52 @@ function inspect(sport, frames) {
     failures.push({
       kind: "insufficient active play, pending point, or flight coverage",
     });
+  if (
+    ["cryptkick", "rift-volley"].includes(sport) &&
+    !launchOpportunities.length
+  )
+    failures.push({
+      kind: frames.some((f) => f.evidence?.raw && f.evidence?.submitted)
+        ? "insufficient restart/serve launch coverage"
+        : "insufficient historical evidence for restart/serve launch gate",
+    });
   return {
     sport,
     playFrames,
     flightPairs,
     heldFrames,
     softenedHandoffs,
+    evidenceQuality: frames.some((f) => f.evidence?.source === "pre-merge-v1")
+      ? "pre-merge raw, authority and submitted snapshots"
+      : "historical: raw snapshots absent or captured after merge; submitted launch checks only",
+    launchCoverage: {
+      visibleJumps: launchOpportunities.reduce((n, l) => n + l.visibleJumps, 0),
+      fadedJumps: launchOpportunities.reduce((n, l) => n + l.fadedJumps, 0),
+      failingOpportunities: launchOpportunities.filter((l) => l.excessive)
+        .length,
+      kickRestart: launchOpportunities.filter(
+        (l) => l.kind === "kick restart launch",
+      ).length,
+      volleyServe: launchOpportunities.filter(
+        (l) => l.kind === "volley serve launch",
+      ).length,
+    },
+    launchOpportunities,
     failures,
     largeSteps,
+    transitions,
   };
 }
 
 async function collect() {
-  const requested = process.env.MOTION_SPORT;
-  if (requested && !sports.includes(requested))
+  const requested = process.env.MOTION_SPORTS ?? process.env.MOTION_SPORT;
+  const selected = requested
+    ? [...new Set(requested.split(",").map((s) => s.trim()))]
+    : sports;
+  if (selected.some((s) => !sports.includes(s)))
     throw Error("Unknown online sport: " + requested);
-  const selected = requested ? [requested] : sports;
+  const videoDir =
+    process.env.MOTION_VIDEO_DIR && resolve(process.env.MOTION_VIDEO_DIR);
   const port = Number(process.env.MOTION_WEB_PORT ?? 4268);
   const origin = "http://127.0.0.1:" + port;
   const authority = spawn(
@@ -284,11 +522,26 @@ async function collect() {
               const stamp = "observation.stats = { ...authority.stats };";
               if (!code.includes(stamp))
                 throw Error("Missing authoritative observation hook");
-              return code.replace(
-                stamp,
-                stamp +
-                  "if (awaitingTransition) (window.motionPending ??= new WeakMap()).set(observation, authority.tick);",
-              );
+              const entry =
+                "function confirmedObservation(observation: Observation): Observation {";
+              if (!code.includes(entry))
+                throw Error("Missing pre-merge observation hook");
+              return code
+                .replace(
+                  entry,
+                  entry +
+                    "const motionRaw = (" +
+                    ballEvidence.toString() +
+                    ")(observation);",
+                )
+                .replace(
+                  stamp,
+                  stamp +
+                    "if (awaitingTransition) (window.motionPending ??= new WeakMap()).set(observation, authority.tick);" +
+                    "(window.motionEvidence ??= new WeakMap()).set(observation,{raw:motionRaw,authority:(" +
+                    ballEvidence.toString() +
+                    ")(authority)});",
+                );
             }
             if (!id.endsWith("/src/host.ts")) return;
             const submit = "stage.render(0);";
@@ -299,7 +552,9 @@ async function collect() {
               submit +
                 "(" +
                 recordFrame.toString() +
-                ")(state,screen,presenter,online,window.motionFrames,window.motionPending?.get(observation),covered);",
+                ")(state,screen,presenter,online,window.motionFrames,window.motionPending?.get(observation),covered,window.motionEvidence?.get(observation),(" +
+                ballEvidence.toString() +
+                ")(state));",
             );
           },
         },
@@ -317,6 +572,35 @@ async function collect() {
       ],
     });
     const report = {
+      schemaVersion: 3,
+      provenance: {
+        collectedAt: new Date().toISOString(),
+        label: process.env.MOTION_LABEL ?? null,
+        commit: execFileSync("git", ["rev-parse", "HEAD"], {
+          encoding: "utf8",
+        }).trim(),
+        workingTree: execFileSync("git", ["status", "--short"], {
+          encoding: "utf8",
+        }).trim(),
+        trackedDiffSha256: createHash("sha256")
+          .update(
+            execFileSync("git", [
+              "diff",
+              "HEAD",
+              "--",
+              "apps",
+              "packages",
+              "scripts",
+            ]),
+          )
+          .digest("hex"),
+        serverSha256: createHash("sha256")
+          .update(await readFile("dist/cryptball-server/main.mjs"))
+          .digest("hex"),
+        node: process.version,
+        platform: process.platform,
+      },
+      videos: {},
       oneWayDelayMs: 65,
       impairment,
       selected,
@@ -329,6 +613,14 @@ async function collect() {
         for (const name of ["Alpha", "Bravo", "Charlie"]) {
           const page = await browser.newPage({
             viewport: { width: 800, height: 600 },
+            ...(videoDir && name === "Alpha"
+              ? {
+                  recordVideo: {
+                    dir: videoDir,
+                    size: { width: 800, height: 600 },
+                  },
+                }
+              : {}),
           });
           pages.push(page);
           page.on("pageerror", (error) =>
@@ -345,6 +637,7 @@ async function collect() {
         }
         const [host, peer, departing] = pages;
         await expect(host.locator(".lobby-roster")).toContainText("Charlie");
+        await host.evaluate(() => (window.motionFrames = []));
         await host
           .getByRole("button", { name: "Start with bots", exact: true })
           .click();
@@ -356,13 +649,33 @@ async function collect() {
             { timeout: 20000 },
           );
         }
-        await host.evaluate(() => (window.motionFrames = []));
-        for (let i = 0; i < 18; i++) {
+        await host.evaluate((showSync) => {
+          if (showSync) {
+            const stamp = document.createElement("div");
+            stamp.id = "motion-sync";
+            stamp.style.cssText =
+              "position:fixed;top:0;left:0;z-index:999999;background:#000;color:#fff;font:14px monospace;padding:3px;pointer-events:none";
+            document.body.append(stamp);
+          }
+        }, Boolean(videoDir));
+        for (
+          let i = 0;
+          i <
+          Number(
+            process.env.MOTION_STEPS ??
+              (["cryptkick", "rift-volley"].includes(sport) ? 48 : 18),
+          );
+          i++
+        ) {
           const key = ["KeyD", "KeyS", "KeyA", "KeyW"][i % 4];
           await host.keyboard.down(key);
           await host.keyboard.down("KeyJ");
+          // Hold the remote strike across simulation ticks as well; a zero-delay
+          // press can fall entirely between input samples and miss the serve.
+          await peer.keyboard.down("KeyJ");
           await delay(350);
           await host.keyboard.up("KeyJ");
+          await peer.keyboard.up("KeyJ");
           await delay(260);
           await host.keyboard.up(key);
           await peer.keyboard.press(i % 2 ? "KeyK" : "KeyJ");
@@ -370,6 +683,12 @@ async function collect() {
         }
         report.sports[sport] = await host.evaluate(() => window.motionFrames);
         console.log(sport, report.sports[sport].length, "render samples");
+        if (host.video())
+          report.videos[sport] = {
+            path: await host.video().path(),
+            sync: "Read the burned-in frame index to address sports[sport][frame] exactly. Video frames may repeat or omit render samples; do not infer sync from video time alone.",
+            traceTimeOrigin: await host.evaluate(() => performance.timeOrigin),
+          };
       } finally {
         await Promise.all(
           pages.filter((p) => !p.isClosed()).map((p) => p.close()),
@@ -392,19 +711,37 @@ async function collect() {
   }
 }
 
-const offline = process.argv[2] === "--check";
-const file =
-  process.argv[offline ? 3 : 2] ?? ".local-game-tests/matchmaking-motion.json";
-const report = offline
-  ? JSON.parse(await readFile(file, "utf8"))
-  : await collect();
-if (!offline) {
-  await mkdir(dirname(file), { recursive: true });
-  await writeFile(file, JSON.stringify(report));
+if (
+  process.argv[1] &&
+  import.meta.url === pathToFileURL(resolve(process.argv[1])).href
+) {
+  const offline = process.argv[2] === "--check";
+  const file =
+    process.argv[offline ? 3 : 2] ??
+    ".local-game-tests/matchmaking-motion.json";
+  const report = offline
+    ? JSON.parse(await readFile(file, "utf8"))
+    : await collect();
+  if (!offline) {
+    await mkdir(dirname(file), { recursive: true });
+    await writeFile(file, JSON.stringify(report));
+  }
+  const results = (report.selected ?? sports).map((s) =>
+    inspect(s, report.sports[s] ?? []),
+  );
+  console.log(
+    JSON.stringify(
+      {
+        file,
+        provenance: report.provenance,
+        videos: report.videos,
+        results,
+        errors: report.errors,
+      },
+      null,
+      2,
+    ),
+  );
+  if (report.errors.length || results.some((r) => r.failures.length))
+    process.exitCode = 1;
 }
-const results = (report.selected ?? sports).map((s) =>
-  inspect(s, report.sports[s] ?? []),
-);
-console.log(JSON.stringify({ file, results, errors: report.errors }, null, 2));
-if (report.errors.length || results.some((r) => r.failures.length))
-  process.exitCode = 1;

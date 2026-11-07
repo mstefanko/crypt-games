@@ -29,7 +29,6 @@ export const sceneKey = (s: Observation) =>
     s.phase,
     s.score,
     s.volley?.rally,
-    s.volley?.serving,
     s.hockey?.faceoffLead,
     s.dodge?.round,
     s.dodge?.subphase,
@@ -115,7 +114,19 @@ export function extractPoses(s: Observation): PoseFrame {
     ]);
     for (const p of s.guardian.projectiles)
       add(`projectile:${p.id}`, p, [p.attackId]);
-  } else ball("ball:primary", s.ball, [s.possessionId], s.possessionId);
+  } else {
+    // Volley attaches the waiting serve to the first athlete on the serving
+    // team in stepVolley. Keep that ball attached to the rendered server too.
+    const owner = s.volley?.serving
+      ? s.players.find((p) => p.team === s.volley!.serveTeam)?.id
+      : s.possessionId;
+    ball(
+      "ball:primary",
+      s.ball,
+      [s.possessionId, s.volley?.serving, s.volley?.serveTeam],
+      owner,
+    );
+  }
   return { tick: s.tick, key: sceneKey(s), entities };
 }
 /** Copy only modified drawing branches. Authoritative resources and timing are untouched. */

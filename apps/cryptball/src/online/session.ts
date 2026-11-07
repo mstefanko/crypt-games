@@ -1,6 +1,7 @@
 import { multiplayerEndpoint, reconnectAfterReload } from "./connection";
 import type { MusicStamp } from "../audio-music-policy";
 import { Client, type Room } from "@colyseus/sdk";
+import { LateLaunchPresentation } from "./late-launch";
 import { CoveredViewBuffer } from "./covered-view-buffer";
 import { NetworkClock } from "./clock";
 import { InputScheduler, replaySchedule } from "./input-scheduler";
@@ -86,6 +87,7 @@ export function createOnlineSession(options: OnlineOptions = {}) {
   let lastPresentedState: Observation | null = null;
   const pendingTransitions = new WeakSet<Observation>();
   const dodgeFlights = new DodgeFlightPresentation();
+  const lateLaunch = new LateLaunchPresentation();
   let lastPresentedTick: number | null = null;
   let heldPoint: Observation | null = null;
   let rejectedPointFade: { started: number; scene: Observation } | null = null;
@@ -94,6 +96,7 @@ export function createOnlineSession(options: OnlineOptions = {}) {
     heldPoint = null;
     rejectedPointFade = null;
     dodgeFlights.reset();
+    lateLaunch.reset();
     lastPresentedTick = null;
   }
   let remote: Record<string, CommandFrame> = {};
@@ -199,12 +202,15 @@ export function createOnlineSession(options: OnlineOptions = {}) {
     if (!reset && snapshot.tick < lastTick) return;
     previousPrediction = null;
     const started = performance.now();
+    const launchCandidate = !reset && !observer && lateLaunch.candidate(lastPresentedState);
+    const launchSamples: ReturnType<typeof session.sampleBallPose>[] = [];
     const previous = id ? participantObservation(id) : session.observe();
     const previousRevision = id ? session.getControllerRevision(id) : undefined;
     const target = reset || observer ? snapshot.tick : session.getTick();
     // restore() validates into a detached value before mutating live state.
     const restoreStarted = performance.now();
     session.restore(snapshot.checkpoint);
+    if (launchCandidate) launchSamples.push(session.sampleBallPose());
     options.onPerformance?.({ kind: "snapshot-restore", at: performance.now(), fields: { durationMs: performance.now() - restoreStarted, snapshotSeq: snapshot.snapshotSeq } });
     authority = participantObservation(snapshot.participantId);
     const coveredController = snapshot.checkpoint.state.controllers.find(c => c.id === snapshot.participantId);
@@ -324,12 +330,15 @@ export function createOnlineSession(options: OnlineOptions = {}) {
           },
         };
       session.stepParticipants({ ...remote, [id]: replayHeld }, { automaticSwitches: !["crypt-dodge", "crypt-guardian"].includes(sportId) });
+      if (launchCandidate) launchSamples.push(session.sampleBallPose());
       replayHeld = heldCommand(replayHeld, sportId);
     }
     options.onPerformance?.({ kind: "snapshot-replay", at: performance.now(), fields: { durationMs: performance.now() - replayStarted, snapshotSeq: snapshot.snapshotSeq, fromTick: snapshot.tick, toTick: session.getTick(), history: history.length } });
     localHeld = heldCommand(replayHeld, sportId);
     session.drainEvents();
     const current = participantObservation(id);
+    if (lateLaunch.offer(lastPresentedState, launchSamples, performance.now()))
+      rejectedPointFade = { started: performance.now(), scene: current };
     const oldPlayer = previous.players.find(
         (p) => p.id === current.controlledId,
       ),
@@ -729,6 +738,10 @@ export function createOnlineSession(options: OnlineOptions = {}) {
           rejectedPointFade = { started: performance.now(), scene: state };
         heldPoint = null;
       }
+      const launch = lateLaunch.draw(state, performance.now());
+      state = launch.state;
+      if (launch.fade && state.phase === "play" && !state.possessionId && !state.volley?.serving)
+        rejectedPointFade = { started: performance.now(), scene: state };
       state = dodgeFlights.draw(state, authority ?? undefined);
       if (lastPresentedState && state.tick < lastPresentedState.tick)
         state = { ...state, tick: lastPresentedState.tick };

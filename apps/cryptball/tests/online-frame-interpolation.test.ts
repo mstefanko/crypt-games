@@ -300,3 +300,50 @@ it("keeps moving through ordinary Dodge damage and snaps to the sideline on elim
   player.y = 86 * 256;
   expect(frame.draw(state, 32, 0.5).players[0].y).toBe(player.y);
 });
+
+it("keeps Volley serve release local to the ball generation", () => {
+  const f = new FrameInterpolation(),
+    before = createInitialState("match", {}, "rift-volley");
+  before.phase = "play";
+  f.capture(before);
+  const after = structuredClone(before);
+  after.tick++;
+  after.volley!.serving = false;
+  after.players[3].x += 256;
+  after.ball.x += 6 * 256;
+  const drawn = f.draw(after, 16, 0.5);
+  expect(drawn.players[3].x).toBe(before.players[3].x + 128);
+  expect(drawn.ball.x).toBe(after.ball.x);
+  // A same-tick authority correction still smooths athletes at release.
+  const correction = new FrameInterpolation(),
+    corrected = structuredClone(before);
+  corrected.volley!.serving = false;
+  corrected.players[3].x += 256;
+  corrected.ball.x += 6 * 256;
+  correction.correct(before, corrected, 20, "epoch");
+  const reconciled = correction.draw(corrected, 20);
+  expect(reconciled.players[3].x).toBe(before.players[3].x);
+  expect(reconciled.ball.x).toBe(corrected.ball.x);
+});
+it("attaches a waiting Volley serve to its interpolated server on either team", () => {
+  for (const team of [0, 1] as const) {
+    const f = new FrameInterpolation(),
+      state = createInitialState("match", {}, "rift-volley");
+    state.phase = "play";
+    state.volley!.serveTeam = team;
+    const server = state.players.find((p) => p.team === team)!;
+    state.ball.x = server.x + (team === 0 ? 11 : -11) * 256;
+    state.ball.y = server.y;
+    f.capture(state);
+    state.tick++;
+    server.x += 256;
+    server.y += 256;
+    state.ball.x += 256;
+    state.ball.y += 256;
+    const drawn = f.draw(state, 16, 0.5),
+      drawnServer = drawn.players.find((p) => p.id === server.id)!;
+    expect(drawnServer.x).toBe(server.x - 128);
+    expect(drawn.ball.x - drawnServer.x).toBe((team === 0 ? 11 : -11) * 256);
+    expect(drawn.ball.y).toBe(drawnServer.y);
+  }
+});

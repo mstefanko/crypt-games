@@ -250,6 +250,8 @@ export interface State extends Observation {
   goalTeam: Team | null;
   touchTick: number;
 }
+export type BallPoseSample = Pick<State, "tick" | "sportId" | "phase" | "score" | "ball" | "possessionId" | "restartTeam" | "restartProtection" | "volley">;
+
 export interface CryptballSession {
   step(command?: CommandFrame): void;
   /** Prediction may withhold automatic ownership changes until authority confirms a down/out. */
@@ -258,6 +260,8 @@ export interface CryptballSession {
   setParticipantActive(id: string, active: boolean): void;
   observeFor(participantId: string): Observation;
   getTick(): number;
+  /** Detached compact sample for bounded presentation replay, without cloning actors. */
+  sampleBallPose(): BallPoseSample;
   getControllerTransfer(id: string): { canSwitch: boolean; pending: boolean } | undefined;
   getControllerRevision(id: string): number | undefined;
   getPhase(): "ready" | "play" | "goal" | "results";
