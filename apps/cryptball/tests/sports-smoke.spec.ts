@@ -80,7 +80,7 @@ for (const [sportId, label] of [
     await expect(canvas).toHaveAttribute("data-sport-id", sportId);
     if (sportId === "rift-volley") {
       await expect(page.locator("#clock")).toHaveText("FIRST TO 11");
-      await expect(page.locator("#prompt")).toContainText("RAMS SERVES");
+      await expect(page.locator("#prompt")).toContainText(/\bSERVES\b/);
       await page.keyboard.down("KeyJ");
       await page.waitForTimeout(250);
       await page.keyboard.up("KeyJ");

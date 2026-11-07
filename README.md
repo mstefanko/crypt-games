@@ -22,6 +22,14 @@ npm run test:cryptball:online-browser
 
 Browser tests require `npx playwright install chromium` and free test ports. Existing generated artwork is included; optional asset regeneration requires Python/Pillow and the source paths described in the art recipes.
 
+## Match controls
+
+On a laptop, use WASD or the arrows to move and hold and release J or left-click for the primary action. Right-click passes in Cryptkick possession and tackles when defending. K still passes and Shift still defends. Each sport lists its actions under **Settings → Controls**.
+
+On a touchscreen, drag on the left half to move. Tap, hold, or flick on the right half to act, even while standing still. Swap sides in Settings. In hockey, a quick tap passes with the puck or pokes without it. A directional flick now body-checks. In Dodge, touching down empty-handed starts a catch immediately.
+
+Tap or click the scoreboard to pause and reach Settings. Escape also opens the menu. Phones offer a closer landscape frame and a **Continue in portrait** option. In an online match the computer covers your player until you return.
+
 ## Hosting
 
 GitHub stores the complete source. GitHub Pages can host the browser game, but cannot run its Node.js multiplayer service. For online play without leaving your computer on, deploy the service to a cloud host supporting persistent WebSockets, then configure the browser build to connect to it.

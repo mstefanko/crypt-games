@@ -533,6 +533,7 @@ export class CryptballPresenter {
     playerNames: Readonly<Record<string,string>> = {},
     presentationTick = s.tick,
     ballCorrectionAlpha = 1,
+    touchMode = false,
   ) {
     if (!this.loaded || this.disposed || s.sportId === "cryptcheck" && !this.hockeyLoaded || isNewMode(s.sportId) && !this.newLoaded) return;
     for (const [key,label] of this.labels) if (key.startsWith("player-name.")) label.visible = false;
@@ -715,7 +716,9 @@ export class CryptballPresenter {
         else if (!reducedMotion) cp.sprite.y -= Math.round(Math.sin(elapsed/650*Math.PI)*7);
       }
       if (playerNames[p.id]) {
-        const label=this.text(`player-name.${p.id}`,playerNames[p.id]!,foot.x,cp.sprite.y-65,10,0xffffff);
+        const scoreBottom = Number(this.stage.canvas.dataset.scoreBottom ?? 0);
+        const label = this.text(`player-name.${p.id}`, playerNames[p.id]!, foot.x,
+          Math.max(cp.sprite.y - 65, scoreBottom + 7), 10, 0xffffff);
         label.style.dropShadow={color:0x080a13,alpha:1,blur:0,angle:Math.PI/2,distance:2};
         label.visible=true;
       }
@@ -819,7 +822,7 @@ export class CryptballPresenter {
             )
             .stroke({ width: 1, color: colors[p.team], alpha: 0.8 });
         const slideName = s.sportId === "cryptcheck" ? "POKE" : s.sportId === "rift-volley" ? "DIG" : isNewMode(s.sportId) ? "DIVE" : "SLIDE";
-        const slideStatus = this.text("slide-ready", p.slideTicks > 0 ? slideName : p.slideRecovery > 0 ? "RECOVER" : p.slideReady > s.tick ? `${slideName} ${Math.ceil((p.slideReady - s.tick) / 60)}s` : `SHIFT / I · ${slideName}`, VIEW.width - 68, VIEW.height - 12, 8, colors[p.team]);
+        const slideStatus = this.text("slide-ready", p.slideTicks > 0 ? slideName : p.slideRecovery > 0 ? "RECOVER" : p.slideReady > s.tick ? `${slideName} ${Math.ceil((p.slideReady - s.tick) / 60)}s` : touchMode ? `FLICK · ${s.sportId === "cryptcheck" ? "CHECK" : slideName}` : `SHIFT / I · ${slideName}`, VIEW.width - 68, Number(this.stage.canvas.dataset.frameTop ?? 0) + Number(this.stage.canvas.dataset.frameHeight ?? VIEW.height) - 12, 8, colors[p.team]);
         slideStatus.visible = s.phase === "play" && !isNewMode(s.sportId);
         if (p.charging) {
           this.polish

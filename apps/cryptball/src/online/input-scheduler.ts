@@ -53,10 +53,11 @@ export class InputScheduler {
     );
   }
   capture(command: CommandFrame, now: number, slideIsEdge: boolean, sportId: SportId = "cryptball") {
+    const slidePressed = !!command.slide && !this.held.slide;
     this.held = heldCommand(command, sportId);
     if (!slideIsEdge) this.held.slide = command.slide;
     else delete this.held.slide;
-    if (EDGE_KEYS.some((k) => command[k]) || (slideIsEdge && command.slide)) {
+    if (EDGE_KEYS.some((k) => command[k]) || (slideIsEdge ? command.slide : slidePressed)) {
       if (this.edges.length >= NETWORK_LIMITS.unsentEdges) {
         this.overflow++;
         this.edges = [];

@@ -17,7 +17,7 @@ for(const [mode,label] of [['crypt-dodge','Crypt Dodge'],['crypt-guardian','Cryp
   if(mode==='crypt-guardian')await expect(page.locator('#opponent-team')).toHaveCount(0);
   await page.getByRole('button',{name:'Single player',exact:true}).click();await active(page);
   await expect(page.locator('canvas')).toHaveAttribute('data-new-modes-atlas-ready','true');
-  await expect(page.locator('#special-hud')).toBeHidden();
+  await expect(page.locator('#special-hud')).toHaveCount(0);
   await expect(page.locator('canvas')).toHaveAttribute('data-rendered-balls','2');
   await expect(page.locator('.mode-roster span')).toHaveCount(mode==='crypt-guardian'?2:4);
   if(mode==='crypt-dodge'){
@@ -59,10 +59,9 @@ test.describe('new-mode touch targets',()=>{
     const bounds=(await page.locator('canvas').boundingBox())!;
     const move={id:1,x:bounds.x+bounds.width*.15,y:bounds.y+bounds.height*.65};
     await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[move]});
-    const catchButton=page.getByRole('button',{name:'Catch the dodgeball',exact:true});await expect(catchButton).toBeVisible();
+    await expect(page.locator('#mode-action')).toHaveCount(0);
     const before=Number(await game.getAttribute('data-controlled-catch-start'));
-    const rect=(await catchButton.boundingBox())!;expect(rect.width).toBeGreaterThanOrEqual(44);expect(rect.height).toBeGreaterThanOrEqual(44);
-    const action={id:2,x:rect.x+rect.width/2,y:rect.y+rect.height/2};
+    const action={id:2,x:bounds.x+bounds.width*.75,y:bounds.y+bounds.height*.55};
     await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[move,action]});
     await expect.poll(async()=>Number(await game.getAttribute('data-controlled-catch-start'))).toBeGreaterThan(before);
     await page.waitForTimeout(250);await expect(game).toHaveAttribute('data-charging','false');

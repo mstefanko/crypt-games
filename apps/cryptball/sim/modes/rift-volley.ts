@@ -163,7 +163,7 @@ function volleyPoint(s: State, winner: Team, reason: string) {
 }
 type ContactKind = "attack" | "set" | "dig" | "serve";
 /** Actor reach surfaces plus the physical ball radius. Height is center-z. */
-function volleyReach(kind: ContactKind) {
+export function volleyReach(kind: ContactKind) {
   const ballRadius = SPORT_BALL_PROFILES["rift-volley"].radius * F;
   return {
     radius:

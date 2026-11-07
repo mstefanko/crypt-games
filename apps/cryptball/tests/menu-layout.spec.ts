@@ -3,7 +3,7 @@ import { expect, test, type Page } from "@playwright/test";
 // These assertions deliberately avoid scrolling: setup actions must be usable
 // together in the viewport, including short laptops and portrait phones.
 async function expectFittedMenu(page: Page) {
-  await expect(page.getByLabel("Scoreboard", { exact: true })).toBeHidden();
+  await expect(page.getByRole("button", { name: "Pause game", exact: true })).toBeHidden();
   const problems = await page.locator("#overlay").evaluate((overlay) => {
     const issues: string[] = [];
     for (const element of [document.documentElement, document.body, overlay, ...overlay.querySelectorAll<HTMLElement>("*")]) {
@@ -138,7 +138,7 @@ test("portrait setup returns to fitted court and pause resumes play", async ({ p
     if (await resume.isVisible()) await resume.click();
     return page.locator("#overlay").isHidden();
   }, { timeout: 30000 }).toBe(true);
-  await expect(page.getByLabel("Scoreboard", { exact: true })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Pause game", exact: true })).toBeVisible();
   const court = (await page.locator("canvas").boundingBox())!;
   expect(court.width / court.height).toBeCloseTo(1.6, 1);
   expect(court.x).toBeGreaterThanOrEqual(0);
@@ -147,5 +147,5 @@ test("portrait setup returns to fitted court and pause resumes play", async ({ p
   await expect(page.getByRole("button", { name: "Resume", exact: true })).toBeVisible();
   await page.getByRole("button", { name: "Resume", exact: true }).click();
   await expect(page.locator("#overlay")).toBeHidden();
-  await expect(page.getByLabel("Scoreboard", { exact: true })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Pause game", exact: true })).toBeVisible();
 });

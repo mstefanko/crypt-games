@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#111720" />
     <title>Cryptball · Six Teams</title>
   </head>
@@ -16,11 +16,12 @@
       <div id="prompt"></div>
       <section id="overlay" aria-label="Game menu"></section>
       <p id="notice" role="status" aria-live="polite"></p>
-      <div id="tools">
-        <button id="pause-button" aria-label="Pause game">Ⅱ</button
-        ><button id="sound-button" aria-label="Mute sound">Sound on</button>
-      </div>
     </main>
+    <section id="orientation-gate" role="dialog" aria-modal="true" aria-labelledby="orientation-title" hidden>
+      <h2 id="orientation-title">Rotate to play</h2>
+      <p>Turn your phone sideways, then resume when ready.</p>
+      <button id="portrait-continue">Continue in portrait</button>
+    </section>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

@@ -79,8 +79,8 @@ test("hockey poke presses rearm only after release and E commits a separate chec
 });
 
 test.describe("hockey mobile check input", () => {
-  test.use({hasTouch:true});
-  test("Check owns its HUD pointer, preserves movement and cancels drags", async ({page,browserName}) => {
+  test.use({hasTouch:true,screen:{width:844,height:390}});
+  test("right-region flick body-checks while movement remains independent", async ({page,browserName}) => {
     test.skip(browserName !== "chromium","CDP delivers genuine multi-touch input on Chromium");
     await page.setViewportSize({width:844,height:390});
     const cdp = await page.context().newCDPSession(page);
@@ -91,115 +91,65 @@ test.describe("hockey mobile check input", () => {
     const a={id:1,x:canvas.x+canvas.width*.2,y:canvas.y+canvas.height*.4};
     const send = async (type:"touchStart"|"touchMove"|"touchEnd"|"touchCancel",touchPoints:{id:number;x:number;y:number}[]) => cdp.send("Input.dispatchTouchEvent",{type,touchPoints});
     await send("touchStart",[a]);a.x+=40;await send("touchMove",[a]);
-    const check=page.getByRole("button",{name:"Body check",exact:true});
-    await expect(check).toBeVisible();
-    const rect=(await check.boundingBox())!;
-    expect(rect.width).toBeGreaterThanOrEqual(44);expect(rect.height).toBeGreaterThanOrEqual(44);
-    const h={id:2,x:rect.x+rect.width/2,y:rect.y+rect.height/2};
-    await send("touchStart",[a,h]);await send("touchEnd",[h]);
+    await expect(page.locator("#hockey-check")).toHaveCount(0);
+    const h={id:2,x:canvas.x+canvas.width*.72,y:canvas.y+canvas.height*.5};
+    await send("touchStart",[a,h]);h.x+=45;await send("touchMove",[a,h]);
     await expect(page.locator("#game")).toHaveAttribute("data-controlled-action","check");
     await expect(page.locator(".touch-stick")).toBeVisible();
-    await expect(page.locator(".touch-aim")).toBeHidden();
-    await expect(page.locator("#prompt")).toContainText("flick to poke");
-    await hockeyReady(page);
-    // A frame-debt pause cancels pointer roles. Start a fresh movement contact
-    // if the browser needed that normal resume flow during recovery.
-    if (!await page.locator(".touch-stick").isVisible()) {
-      await send("touchEnd",[]);await send("touchStart",[a]);
-    }
-    await send("touchStart",[a,h]);h.x+=20;await send("touchMove",[a,h]);await send("touchEnd",[h]);
-    await hockeyTicks(page,10);
-    await expect(page.locator("#game")).toHaveAttribute("data-controlled-action","idle");
+    await expect(page.locator("#prompt")).toContainText("body-check");
     await send("touchEnd",[]);
+    await page.evaluate(() => document.fullscreenElement ? document.exitFullscreen() : undefined);
     await page.setViewportSize({width:390,height:844});
-    await expect.poll(async()=>{
-      const rect=await check.boundingBox();
-      return !!rect&&rect.x>=0&&rect.x+rect.width<=390;
-    }).toBe(true); // Resize registration occurs on the next browser frame.
-    const portrait=(await check.boundingBox())!;
-    expect(portrait.x).toBeGreaterThanOrEqual(0);expect(portrait.x+portrait.width).toBeLessThanOrEqual(390);
-    expect(portrait.width).toBeGreaterThanOrEqual(44);expect(portrait.height).toBeGreaterThanOrEqual(44);
+    await expect(page.locator("#orientation-gate")).toBeVisible();
     await cdp.detach();
   });
 });
 
 test.describe("default mobile input", () => {
-test.use({ hasTouch: true });
-test("real multi-touch pointers move, hold, isolate HUD contacts and cancel without a release shot", async ({ page, browserName }) => {
-  test.skip(browserName !== "chromium", "CDP delivers genuine multi-touch input on Chromium");
-  await page.setViewportSize({ width: 844, height: 390 });
-  const cdp = await page.context().newCDPSession(page);
-  await cdp.send("Emulation.setTouchEmulationEnabled", { enabled: true, maxTouchPoints: 5 });
-  await practice(page);
-  await page.evaluate(() => {
-    (window as any).controlEvents = [];
-    for (const name of ["pointerdown", "pointerup", "pointercancel", "lostpointercapture", "orientationchange", "blur", "visibilitychange"])
-      window.addEventListener(name, e => (window as any).controlEvents.push({ type: e.type, id: (e as PointerEvent).pointerId, x: (e as PointerEvent).clientX, y: (e as PointerEvent).clientY, at: performance.now() }));
+  test.use({hasTouch:true,screen:{width:844,height:390}});
+  test("regions support solo actions, independent movement, interruption cancellation and score pause", async ({page,browserName}) => {
+    test.skip(browserName !== "chromium", "CDP multi-touch");
+    await page.setViewportSize({width:844,height:390});
+    const cdp = await page.context().newCDPSession(page);
+    await cdp.send("Emulation.setTouchEmulationEnabled",{enabled:true,maxTouchPoints:5});
+    await practice(page);
+    const bounds=(await page.locator("canvas").boundingBox())!;
+    const a={id:1,x:bounds.x+bounds.width*.2,y:bounds.y+bounds.height*.6};
+    const b={id:2,x:bounds.x+bounds.width*.75,y:bounds.y+bounds.height*.5};
+    const send = (type:"touchStart"|"touchMove"|"touchEnd"|"touchCancel",touchPoints:{id:number;x:number;y:number}[]) => cdp.send("Input.dispatchTouchEvent",{type,touchPoints});
+    const game=page.locator("#game");
+    await expect(page.locator("#special-hud, #hockey-check, #mode-action")).toHaveCount(0);
+    await send("touchStart",[b]);
+    await expect(page.locator(".touch-aim")).toHaveAttribute("data-phase","shoot");
+    await expect(game).toHaveAttribute("data-charging","true");
+    await expect(page.locator(".touch-stick")).toBeHidden();
+    await send("touchCancel",[]);
+    await expect(game).toHaveAttribute("data-charging","false");
+    await expect(page.locator(".touch-aim")).toBeHidden();
+    await page.waitForTimeout(350);
+    const before=Number(await game.getAttribute("data-player-x"));
+    await send("touchStart",[a]);a.x+=40;await send("touchMove",[a]);
+    await expect.poll(async()=>Number(await game.getAttribute("data-player-x"))).toBeGreaterThan(before);
+    a.x-=40;await send("touchMove",[a]);
+    await send("touchStart",[a,b]);
+    await expect(game).toHaveAttribute("data-charging","true");
+    await send("touchEnd",[a]);
+    await page.waitForTimeout(80);
+    await expect(game).toHaveAttribute("data-charging","true");
+    await expect(page.locator(".touch-stick")).toBeHidden();
+    await send("touchCancel",[]);
+    await expect(game).toHaveAttribute("data-charging","false");
+    await page.getByRole("button",{name:"Pause game",exact:true}).click();
+    await expect(page.getByRole("heading",{name:"Time out",exact:true})).toBeVisible();
+    await page.getByRole("button",{name:"Resume",exact:true}).click();
+    await page.evaluate(()=>document.fullscreenElement ? document.exitFullscreen() : undefined);
+    await page.setViewportSize({width:390,height:844});
+    await expect(page.locator("#orientation-gate")).toBeVisible();
+    await cdp.detach();
   });
-  const canvas = (await page.locator("canvas").boundingBox())!;
-  const a = { id: 11, x: canvas.x + canvas.width * .2, y: canvas.y + canvas.height * .6 };
-  const b = { id: 22, x: canvas.x + canvas.width * .72, y: canvas.y + canvas.height * .45 };
-  const send = async (type: "touchStart" | "touchMove" | "touchEnd" | "touchCancel", touchPoints: { id: number; x: number; y: number }[]) => cdp.send("Input.dispatchTouchEvent", { type, touchPoints });
-  await page.evaluate(() => {
-    (window as any).courtPointers = [];
-    document.querySelector("canvas")!.addEventListener("pointerdown", e => (window as any).courtPointers.push({ id: (e as PointerEvent).pointerId, type: (e as PointerEvent).pointerType }));
-  });
-  const xBefore = Number(await page.locator("#game").getAttribute("data-player-x"));
-  await send("touchStart", [a]);
-  a.x += 42; await send("touchMove", [a]);
-  await expect.poll(async () => Number(await page.locator("#game").getAttribute("data-player-x"))).toBeGreaterThan(xBefore);
-  // Returning the movement thumb to its origin permits a stationary shot.
-  a.x -= 42; await send("touchMove", [a]);
-  await send("touchStart", [a, b]);
-  try { await expect(page.locator(".touch-aim")).toHaveAttribute("data-phase", "shoot"); }
-  catch (error) { console.log(await page.evaluate(() => (window as any).controlEvents)); throw error; }
-  await expect(page.locator("#game")).toHaveAttribute("data-charging", "true");
-  const card = page.locator('#special-hud > div[data-mine="true"] button');
-  const button = (await card.boundingBox())!;
-  expect(button.width).toBeGreaterThanOrEqual(44); expect(button.height).toBeGreaterThanOrEqual(44);
-  const h = { id: 33, x: button.x + button.width / 2, y: button.y + button.height / 2 };
-  await send("touchStart", [a, b, h]); await send("touchEnd", [h]);
-  await expect(page.locator("#game")).toHaveAttribute("data-charging", "true");
-  await expect(page.locator(".touch-stick")).toBeVisible();
-  const ids = await page.evaluate(() => (window as any).courtPointers as { id: number; type: string }[]);
-  expect(ids).toHaveLength(2); expect(new Set(ids.map(p => p.id)).size).toBe(2); expect(ids.every(p => p.type === "touch")).toBe(true);
-  await send("touchEnd", [a]);
-  await expect(page.locator("#game")).toHaveAttribute("data-charging", "false");
-  await send("touchEnd", []);
-  await expect(page.locator("#game")).toHaveAttribute("data-controlled-action", "idle");
-  await expect(page.locator(".touch-aim")).toBeHidden();
-  await page.screenshot({ path: ".local-game-tests/cryptball-browser/mobile-landscape.png" });
-  // A new contact owns movement, and a second quick tap passes once.
-  await send("touchStart", [a]); await send("touchStart", [a, b]); await send("touchEnd", [b]);
-  await expect(page.locator("#game")).toHaveAttribute("data-controlled-action", "pass");
-  await send("touchEnd", []);
-  await expect(page.locator("#game")).toHaveAttribute("data-controlled-action", "idle");
-  await page.waitForTimeout(350); // avoid the deliberate quick-retouch dash gesture
-  await send("touchStart", [a]);
-  a.x += 40; await send("touchMove", [a]);
-  await send("touchStart", [a, b]);
-  b.y += 50; await send("touchMove", [a, b]);
-  await expect(page.locator("#game")).toHaveAttribute("data-controlled-action", "slide");
-  // The action thumb flick points down while the movement thumb points right.
-  await expect(page.locator("#game")).toHaveAttribute("data-aim", "64");
-  await send("touchEnd", [b]); await send("touchEnd", []);
-  await expect(page.locator("#game")).toHaveAttribute("data-controlled-action", "idle");
-  await page.waitForTimeout(350);
-  await send("touchStart", [a]); await send("touchStart", [a, b]);
-  await expect(page.locator("#game")).toHaveAttribute("data-charging", "true");
-  await send("touchEnd", [b]);
-  await expect(page.locator("#game")).toHaveAttribute("data-controlled-action", "strike");
-  await expect(page.locator(".touch-stick")).toBeVisible();
-  await send("touchEnd", []);
-  await page.setViewportSize({ width: 390, height: 844 });
-  await page.screenshot({ path: ".local-game-tests/cryptball-browser/mobile-portrait.png" });
-  const portraitButton = (await card.boundingBox())!;
-  expect(portraitButton.x).toBeGreaterThanOrEqual(0); expect(portraitButton.x + portraitButton.width).toBeLessThanOrEqual(390);
-  await cdp.detach();
-});
 });
 
-test("mouse button presses aim immediately, middle passes and READY is clickable", async ({ page, browserName }) => {
+test("mouse presses aim immediately, middle explicitly passes and score opens pause", async ({ page, browserName }) => {
   test.skip(browserName !== "chromium");
   await page.setViewportSize({ width: 960, height: 640 });
   await practice(page);
@@ -215,59 +165,23 @@ test("mouse button presses aim immediately, middle passes and READY is clickable
   await page.waitForTimeout(500); // ordinary strike admission/recovery lockout
   await page.mouse.click(x, y, { button: "middle" });
   await expect(page.locator("#game")).toHaveAttribute("data-controlled-action", "pass");
-  const wrapper = page.locator('#special-hud > div[data-mine="true"]');
-  await expect.poll(async () => {
-    const resume = page.getByRole("button", { name: "Resume", exact: true });
-    if (await resume.isVisible()) await resume.click();
-    return wrapper.getAttribute("data-ready");
-  }, { timeout: 60000 }).toBe("true");
-  await wrapper.locator("button").click();
-  await expect(wrapper).toHaveAttribute("data-ready", "false");
-  await expect(wrapper).toHaveAttribute("data-active", "true");
+  await expect(page.locator("#special-hud")).toHaveCount(0);
+  await page.getByRole("button",{name:"Pause game",exact:true}).click();
+  await expect(page.getByRole("heading",{name:"Time out",exact:true})).toBeVisible();
   await cdp.detach();
 });
 
-test.describe("default mobile special input", () => {
-test.use({ hasTouch: true });
-test("touch READY and Flutter follow-up stay isolated while the movement thumb remains down", async ({ page, browserName }) => {
-  test.skip(browserName !== "chromium");
-  test.setTimeout(120000);
-  await page.setViewportSize({ width: 844, height: 390 });
-  const cdp = await page.context().newCDPSession(page);
-  await cdp.send("Emulation.setTouchEmulationEnabled", { enabled: true, maxTouchPoints: 5 });
-  await page.goto("/games/cryptball/");
-  await page.getByRole("button", { name: "Bats", exact: true }).click();
-  await page.getByRole("button", { name: "Practice", exact: true }).click();
-  const wrapper = page.locator('#special-hud > div[data-mine="true"]');
-  await expect.poll(async () => {
-    const resume = page.getByRole("button", { name: "Resume", exact: true });
-    if (await resume.isVisible()) await resume.click();
-    return await page.locator("#overlay").isHidden() && await wrapper.getAttribute("data-ready") === "true";
-  }, { timeout: 90000 }).toBe(true);
-  const canvas = (await page.locator("canvas").boundingBox())!;
-  const a = { id: 1, x: canvas.x + canvas.width * .2, y: canvas.y + canvas.height * .6 };
-  const send = async (type: "touchStart" | "touchMove" | "touchEnd", touchPoints: { id: number; x: number; y: number }[]) => cdp.send("Input.dispatchTouchEvent", { type, touchPoints });
-  await send("touchStart", [a]); a.x += 40; await send("touchMove", [a]);
-  // The local card is on the action side in the default mobile layout.
-  const rect = (await wrapper.locator("button").boundingBox())!;
-  const h = { id: 2, x: rect.x + rect.width / 2, y: rect.y + rect.height / 2 };
-  await send("touchStart", [a, h]); await send("touchEnd", [h]);
-  await expect(wrapper).toHaveAttribute("data-ready", "false");
-  await expect(wrapper).toHaveAttribute("data-active", "true");
-  await expect(wrapper).toContainText("AGAIN");
-  await expect(page.locator(".touch-stick")).toBeVisible();
-  await expect(page.locator(".touch-aim")).toBeHidden();
-  const position = Number(await page.locator("#game").getAttribute("data-player-y"));
-  // Re-aim the movement thumb for the separate second burst, then tap again.
-  a.x -= 40; a.y += 40; await send("touchMove", [a]);
-  await send("touchStart", [a, h]); await send("touchEnd", [h]);
-  await expect(wrapper).not.toContainText("AGAIN");
-  await expect(wrapper).toContainText("ACTIVE");
-  await expect.poll(async () => Number(await page.locator("#game").getAttribute("data-player-y"))).toBeGreaterThan(position);
-  await expect(page.locator(".touch-stick")).toBeVisible();
-  await expect(page.locator("#game")).toHaveAttribute("data-charging", "false");
-  await send("touchEnd", []); await cdp.detach();
-});
+test("handedness and sound are available through Settings and handedness persists", async ({page}) => {
+  await practice(page);
+  await page.getByRole("button",{name:"Pause game",exact:true}).click();
+  await page.getByRole("button",{name:"Settings",exact:true}).click();
+  await page.getByRole("button",{name:"Movement: left half",exact:true}).click();
+  await expect(page.getByRole("button",{name:"Movement: right half",exact:true})).toBeVisible();
+  await page.locator("#overlay").getByRole("button",{name:"Mute sound",exact:true}).click();
+  await expect(page.locator("#overlay").getByRole("button",{name:"Unmute sound",exact:true})).toBeVisible();
+  await page.reload();
+  await page.getByRole("button",{name:"Settings",exact:true}).click();
+  await expect(page.getByRole("button",{name:"Movement: right half",exact:true})).toBeVisible();
 });
 
 test("chorded middle/right buttons register while left is held and release independently", async ({ page }) => {

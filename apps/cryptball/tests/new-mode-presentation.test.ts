@@ -8,6 +8,7 @@ import { guardianIsGuarding } from '../sim/modes/crypt-guardian/boss';
 import { guardianPose, modeStatus } from '../src/new-mode-presentation';
 import { eventCue } from '../src/audio-effects';
 import { CourtTouchControls } from '../src/touch-controls';
+import { resolveCourtAction } from '../src/court-intent';
 import { InputScheduler } from '../src/online/input-scheduler';
 
 const manifest=JSON.parse(readFileSync(new URL('../public/assets/cryptball-new-modes/manifest.json',import.meta.url),'utf8'));
@@ -76,17 +77,17 @@ describe('new mode presentation',()=>{
 
 describe('contextual touch and online held channels',()=>{
   it('catches immediately, permits a committed flick and disarms the same thumb across possession',()=>{
-    const c=new CourtTouchControls();c.setContext({catch:true,revive:false});c.down(1,100,100,0);c.down(2,400,100,1);
+    const c=new CourtTouchControls(intent => resolveCourtAction(createCryptballSession({sportId:'crypt-dodge'}).observe(),intent).press);c.setContext({catch:true,revive:false});c.down(1,100,100,0);c.down(2,400,100,1);
     expect(c.consume(2)).toMatchObject({edges:{strikePressed:true},strikeHeld:false});
     expect(c.consume(300)).toMatchObject({edges:{},strikeHeld:false});
     c.setContext({catch:false,revive:false});expect(c.consume(500).strikeHeld).toBe(false);c.up(2,400,100,510);expect(c.consume(520).edges).toEqual({});
     c.setContext({catch:true,revive:false});c.down(3,400,100,600);c.consume(601);c.movePointer(3,445,100,620);expect(c.consume(621).edges).toEqual({slide:true});
   });
   it('holds revival without releasing a pass, stops on range loss and cancels prepared throws on movement lift',()=>{
-    const c=new CourtTouchControls();c.setContext({catch:false,revive:true});c.down(1,100,100,0);c.down(2,400,100,1);
+    const c=new CourtTouchControls(intent => resolveCourtAction(createCryptballSession({sportId:'crypt-dodge'}).observe(),intent).press);c.setContext({catch:false,revive:true});c.down(1,100,100,0);c.down(2,400,100,1);
     expect(c.consume(2)).toMatchObject({edges:{},passHeld:true,strikeHeld:false});expect(c.consume(2000).passHeld).toBe(true);
     c.setContext({catch:false,revive:false});expect(c.consume(2010)).toMatchObject({edges:{},passHeld:false});c.up(2,400,100,2020);expect(c.consume(2030).edges).toEqual({});
-    c.down(3,400,100,2100);c.consume(2300);c.up(1,100,100,2310);expect(c.consume(2320)).toMatchObject({edges:{cancel:true},strikeHeld:false});
+    c.down(3,400,100,2100);c.consume(2300);c.up(1,100,100,2310);expect(c.consume(2320)).toMatchObject({edges:{},strikeHeld:true});
   });
   it('retains guardian passHeld over repeated network slots and releases it; new slides never repeat',()=>{
     const scheduler=new InputScheduler();scheduler.capture({passHeld:true,slide:true},0,true,'crypt-guardian');
@@ -96,9 +97,9 @@ describe('contextual touch and online held channels',()=>{
   });
 });
 
-it('movement lift cancels an authoritative prepared Dodge throw after release was already consumed',()=>{
-  const c=new CourtTouchControls();c.down(1,100,100,0);c.down(2,400,100,1);c.consume(200);c.up(2,400,100,210);
-  expect(c.consume(211).edges).toEqual({strikeReleased:true});
+it('both-finger lift cancels a prepared Dodge throw inside the grace window',()=>{
+  const c=new CourtTouchControls(intent => resolveCourtAction(createCryptballSession({sportId:'crypt-dodge'}).observe(),intent).press);c.down(1,100,100,0);c.down(2,400,100,1);c.consume(200);c.up(2,400,100,210);
+  expect(c.consume(211).edges).toEqual({});
   c.setContext({catch:false,revive:false,preparedThrow:true});
   c.up(1,100,100,212);expect(c.consume(213).edges).toEqual({cancel:true});
 });

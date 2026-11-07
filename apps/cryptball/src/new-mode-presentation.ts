@@ -18,18 +18,18 @@ export function guardianPose(s: Observation): string {
 export function modeStatus(s: Observation, touch = false) {
   if (s.dodge) {
     const d = s.dodge, mine = d.athletes[s.controlledId];
-    if (!mine?.lives) return 'OUT · Q switches to an eligible surviving ally';
+    if (!mine?.lives) return touch ? 'OUT · TAP AN ALLY RING TO SWITCH' : 'OUT · Q switches to an eligible surviving ally';
     if (d.subphase === 'countdown') return `ROUND ${d.round} · THROWS IN ${Math.max(1, Math.ceil(s.phaseTicks / 60))}`;
     if (d.subphase === 'round-end') return d.roundWinner === 'draw' ? 'DRAWN ROUND · REPLAYING' : `ROUND ${d.round} WON · ${d.roundWinner === 0 ? 'LEFT' : 'RIGHT'} SIDE`;
     if (d.subphase === 'settling') return 'TIME · LAST LIVE THROW';
     if (d.subphase === 'sudden-death') return `SUDDEN DEATH · NEXT DING WINS · ${Math.ceil(d.suddenDeathTicks / 60)}s`;
     const possession = d.possessionDeadline > s.tick ? ` · POSSESSION ${Math.ceil((d.possessionDeadline - s.tick) / 60)}s` : '';
-    return `${d.balls.some(ball => !ball.retired && ball.mode.state === 'held' && ball.mode.holderId === s.controlledId) ? touch ? 'HOLD / RELEASE TO THROW · TAP TO PASS' : 'HOLD J / RELEASE TO THROW · K PASSES' : touch ? 'TAP CATCH · FLICK TO DIVE' : 'J CATCHES · SHIFT DIVES'}${possession}`;
+    return `${d.balls.some(ball => !ball.retired && ball.mode.state === 'held' && ball.mode.holderId === s.controlledId) ? touch ? 'HOLD / RELEASE TO THROW · TAP TO PASS' : 'HOLD J / RELEASE TO THROW · K PASSES' : touch ? 'TAP TO CATCH · FLICK TO DIVE' : 'J CATCHES · SHIFT DIVES'}${possession}`;
   }
   if (s.guardian) {
     const g = s.guardian, mine = g.athletes[s.controlledId];
-    if (mine?.status === 'out') return 'OUT · ONE REVIVE USED · Q switches to an eligible ally';
-    if (mine?.status === 'down') return 'DOWN · AN ALLY CAN HOLD REVIVE NEAR YOUR SOUL';
+    if (mine?.status === 'out') return touch ? 'OUT · TAP AN ALLY RING TO SWITCH' : 'OUT · ONE REVIVE USED · Q switches to an eligible ally';
+    if (mine?.status === 'down') return 'DOWN · AN ALLY CAN REVIVE YOU BY HOLDING NEAR YOUR SOUL';
     const reviving = Object.values(g.athletes).find(p => p.reviveBy === s.controlledId);
     if (reviving) return `REVIVING ${Math.floor(reviving.reviveTicks / 90 * 100)}% · KEEP HOLDING`;
     if (g.ballResetTicks) return 'ORB RETURN · CLEAR THE CENTER LANE';
@@ -38,7 +38,7 @@ export function modeStatus(s: Observation, touch = false) {
       const a = g.attack;
       return `${a.kind.toUpperCase()} · ${a.elapsed < a.timing.tell ? 'TELL' : a.elapsed < a.timing.tell + a.timing.active ? 'ATTACK' : 'RECOVERY'}`;
     }
-    return g.orbs.some(orb=>orb.possessionId===s.controlledId) ? touch ? 'HOLD / RELEASE TO THROW · TAP TO PASS' : 'HOLD J / RELEASE TO THROW · K PASSES' : touch ? 'TAP CATCH · COLLECT LOOSE ORBS · DIVE TO EVADE' : 'J CATCHES · COLLECT LOOSE ORBS · SHIFT DIVES · HOLD K NEAR A SOUL TO REVIVE';
+    return g.orbs.some(orb=>orb.possessionId===s.controlledId) ? touch ? 'HOLD / RELEASE TO THROW · TAP TO PASS' : 'HOLD J / RELEASE TO THROW · K PASSES' : touch ? 'TAP / FLICK TO EVADE · HOLD TO CATCH · HOLD NEAR SOUL TO REVIVE' : 'J CATCHES · COLLECT LOOSE ORBS · SHIFT DIVES · HOLD K NEAR A SOUL TO REVIVE';
   }
   return '';
 }

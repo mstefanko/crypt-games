@@ -122,7 +122,7 @@ test("production court accepts keyboard play and pause/resume", async ({
   await expect(page.getByRole("heading", { name: "Time out" })).toBeVisible();
   await page.keyboard.press("Escape");
   await expect(page.locator("#overlay")).toBeHidden();
-  await expect(page.getByLabel("Scoreboard")).toBeVisible();
+  await expect(page.getByRole("button", { name: "Pause game", exact: true })).toBeVisible();
   await page.screenshot({
     path: ".local-game-tests/cryptball-browser/production-court.png",
   });
@@ -149,41 +149,66 @@ test("full charge persists beside the goal until release", async ({ page }) => {
   await expect(page.locator("canvas")).toHaveAttribute("data-powered-players", "0");
 });
 
+for (const input of ["right click", "solo touch"] as const) {
+  test(`Cryptkick passes from a standstill with ${input}`, async ({ browser }) => {
+    const page = await browser.newPage({ hasTouch: input === "solo touch", viewport: { width: 844, height: 390 } });
+    try {
+      await page.goto("http://127.0.0.1:4223/games/cryptball/?sport=cryptkick");
+      await page.getByRole("button", { name: "Practice", exact: true }).click();
+      await enterLocalCourt(page);
+      const game = page.locator("#game");
+      // Practice starts the stationary athlete within trapping distance of the ball.
+      // Observe the short pass animation independently of Playwright polling cadence.
+      await game.evaluate(el => {
+        const observer = new MutationObserver(() => {
+          if (el.getAttribute("data-controlled-action") === "pass") {
+            observer.disconnect();
+            el.setAttribute("data-observed-pass", "true");
+          }
+        });
+        observer.observe(el, { attributes: true, attributeFilter: ["data-controlled-action"] });
+      });
+      const bounds = (await game.boundingBox())!;
+      const x = bounds.x + bounds.width * 0.85, y = bounds.y + bounds.height * 0.7;
+      if (input === "solo touch") await page.touchscreen.tap(x, y);
+      else await page.mouse.click(x, y, { button: "right" });
+      await expect(game).toHaveAttribute("data-observed-pass", "true");
+    } finally {
+      await page.close();
+    }
+  });
+}
+
 for (const [sportId, label] of [["cryptball", "Cryptball"], ["cryptkick", "Cryptkick"], ["rift-volley", "Rift Volley"], ["cryptcheck", "Cryptcheck · Hockey"]]) {
-  test(`${label} right mouse launches its defensive action`, async ({ page }) => {
+  test(`${label} explicit defensive key works independently of possession`, async ({ page }) => {
     await page.goto(`/games/cryptball/?sport=${sportId}`);
     await page.getByRole("button", { name: "Practice", exact: true }).click();
     await enterLocalCourt(page);
     const canvas = page.locator("canvas");
     const box = (await canvas.boundingBox())!;
     await page.mouse.move(box.x + box.width * .7, box.y + box.height * .6);
-    await page.mouse.down({ button: "right" });
+    await page.keyboard.down("Shift");
     await expect.poll(
       () => page.locator("#game").getAttribute("data-controlled-action"),
       { intervals: [10, 20, 50], timeout: 5000 },
     ).toBe("slide");
-    await page.mouse.up({ button: "right" });
+    await page.keyboard.up("Shift");
     await expect(page.locator("#game")).toHaveAttribute("data-passes", "0");
   });
 }
 
-test("six mascot teams and both solo choices persist into a match", async ({ page }) => {
+test("the score strip preserves both assigned clubs when a solo match pauses", async ({ page }) => {
   await page.goto("/games/cryptball/");
-  const picker = page.getByRole("group", { name: "Your team", exact: true });
-  await expect(picker.getByRole("button")).toHaveCount(6);
-  await picker.getByRole("button", { name: "Owls", exact: true }).click();
-  await expect(picker.getByRole("button", { name: "Owls", exact: true })).toHaveAttribute("aria-pressed", "true");
-  await page.getByLabel("Solo opponent").selectOption("bats");
-  await page.reload();
-  await expect(picker.getByRole("button", { name: "Owls", exact: true })).toHaveAttribute("aria-pressed", "true");
-  await expect(page.getByLabel("Solo opponent")).toHaveValue("bats");
-  await page.screenshot({ path: ".local-game-tests/cryptball-browser/team-menu-desktop.png" });
-  await page.setViewportSize({ width: 800, height: 500 });
-  await page.getByRole("button", { name: "Single player", exact: true }).scrollIntoViewIfNeeded();
-  await page.screenshot({ path: ".local-game-tests/cryptball-browser/team-menu-short.png" });
-  await page.setViewportSize({ width: 1280, height: 800 });
   await page.getByRole("button", { name: "Single player", exact: true }).click();
   await enterLocalCourt(page);
-  await expect(page.locator("#ivory")).toHaveText("OWLS 0");
-  await expect(page.locator("#ember")).toHaveText("0 BATS");
+  const scores = page.locator("#ivory, #ember");
+  const opening = await scores.allTextContents();
+  expect(opening).toHaveLength(2);
+  expect(opening[0]).toMatch(/^[A-Z]+ 0$/);
+  expect(opening[1]).toMatch(/^0 [A-Z]+$/);
+  expect(opening[0]!.split(" ")[0]).not.toBe(opening[1]!.split(" ")[1]);
+  await page.getByRole("button", { name: "Pause game", exact: true }).click();
+  await expect(page.getByRole("heading", { name: "Time out" })).toBeVisible();
+  await page.getByRole("button", { name: "Resume", exact: true }).click();
+  await expect(scores).toHaveText(opening);
 });

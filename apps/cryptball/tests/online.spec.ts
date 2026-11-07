@@ -16,7 +16,11 @@ test("two humans start with bots; menu and reload preserve the running match", a
   browser,
 }) => {
   const contexts = await Promise.all([
-    browser.newContext({ permissions: ["clipboard-read", "clipboard-write"] }),
+    browser.newContext({
+      permissions: ["clipboard-read", "clipboard-write"],
+      hasTouch: true, isMobile: true,
+      viewport: { width: 844, height: 390 }, screen: { width: 844, height: 390 },
+    }),
     browser.newContext({ permissions: ["clipboard-read", "clipboard-write"] }),
   ]);
   const pages = await Promise.all(contexts.map((c) => c.newPage()));
@@ -49,6 +53,17 @@ test("two humans start with bots; menu and reload preserve the running match", a
     await expect(pages[1].locator("#clock")).not.toHaveText(timeBefore!);
     await pages[0].getByRole("button", { name: "Return to play" }).click();
     await expect(pages[0].locator("#overlay")).toBeHidden();
+    await pages[0].evaluate(async () => {
+      if (document.fullscreenElement) await document.exitFullscreen();
+    });
+    await pages[0].setViewportSize({ width: 390, height: 844 });
+    await expect(pages[0].getByRole("dialog", { name: "Rotate to play" })).toBeVisible();
+    const clockDuringRotation = await pages[1].locator("#clock").textContent();
+    await expect(pages[1].locator("#clock")).not.toHaveText(clockDuringRotation!);
+    await pages[0].getByRole("button", { name: "Continue in portrait" }).tap();
+    await expect(pages[0].getByRole("heading", { name: "Computer covering" })).toBeVisible();
+    await pages[0].getByRole("button", { name: "Return to play" }).tap();
+    await enterOnlineCourt(pages[0], "cryptball", "Cryptball");
     await pages[1].reload();
     await chooseOnline(pages[1], "Find a match");
     await enterOnlineCourt(pages[1], "cryptball", "Cryptball");

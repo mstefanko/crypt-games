@@ -1,3 +1,4 @@
+import { COURT_ACTIONS, resolveCourtAction, type CourtAction } from "./court-intent";
 import { FrameInterpolation } from "./online/frame-interpolation";
 import { installPerformanceDiagnostics } from "./online/performance-diagnostics";
 import type { FriendsDirectory, FriendsSession } from "./online/friends";
@@ -26,7 +27,7 @@ import {
   projectCourt,
 } from "./projection";
 import { CryptballPresenter } from "./presenter";
-import { resizeCryptball, fitCryptballScale } from "./viewport";
+import { resizeCryptball, cryptballFrame, fitCryptballScale } from "./viewport";
 import { CryptballAudio } from "./audio";
 import type { CommandFrame, CryptballEvent } from "./contract";
 import type { OnlineSession } from "./online/session";
@@ -47,15 +48,25 @@ export async function mountCryptball() {
   let guardianPractice: { weapon?: "cannon" | "hook" | "maul"; immortal?: boolean } = {};
   let guardianSeed = (Date.now() ^ 0xc7ba11) >>> 0;
   let touchMode = matchMedia("(pointer: coarse)").matches;
-  const controlsText = () => isNewMode(sportId)
-    ? sportId === "crypt-dodge"
-      ? touchMode ? "Drag to move · Empty-handed: tap CATCH or the action thumb to catch immediately · Holding: hold / release to throw, tap to pass · Flick to dive · Lift the movement thumb to cancel a prepared throw"
-        : "WASD / arrows move · J / left mouse catches when empty; hold / release to throw while holding · K passes · Shift / right mouse dives · Space dashes · Q switches eligible allies"
-      : touchMode ? "Drag to move · Collect an orb · Hold / release to throw · Tap to pass · Flick to dive · Hold REVIVE beside a downed ally"
-        : "WASD / arrows move · Collect an orb · Hold / release J to throw · K passes; empty-handed hold K near a soul to revive · Shift dives · Space dashes · Q switches eligible allies"
-    : touchMode
-    ? `Drag one thumb to move · tap with the other to pass · hold / release to shoot · flick to ${sportId === "cryptcheck" ? "poke · tap CHECK to body-check" : "dive"}. Drag the action thumb to aim. Return the movement thumb to its ring to stand still; lifting it cancels a shot. Lift and quickly re-touch near the movement ring, then drag to dash. Tap a teammate ring with the other thumb to switch.`
-    : `WASD / arrows move · J / left mouse ${sport().controls.strike.toLowerCase()} · K / middle mouse ${sport().controls.pass.toLowerCase()} · right mouse / Shift / I ${sport().controls.slide.toLowerCase()}${sportId === "cryptcheck" ? " (one poke per press) · E body-check" : ""} · Space / L ${sport().controls.dash.toLowerCase()} · Q switches`;
+  const touchGuidance: Record<SportId, string> = {
+    cryptball: "Tap to pass a playable ball or slide otherwise. Hold / release to shoot; flick to slide.",
+    cryptkick: "Tap to pass in possession or tackle otherwise. Hold / release to shoot; flick to slide.",
+    cryptcheck: "Tap to pass with the puck or poke without it. Hold / release to shoot; flick to body-check.",
+    "rift-volley": "Tap to serve, set a reachable ball, or dig a low falling ball. Hold / release to attack; flick to dig.",
+    "crypt-dodge": "Empty-handed: touch to catch immediately. Carrying: tap to pass, hold / release to throw. Flick to dive.",
+    "crypt-guardian": "Collect an orb; tap to pass, hold / release to throw. Empty-handed: tap to evade, hold to catch. Hold near a downed ally to revive; flick to escape.",
+  };
+  const secondaryGuidance: Record<SportId, string> = {
+    cryptball: "pass a reachable orb or slide",
+    cryptkick: "pass in possession or tackle",
+    cryptcheck: "push-pass with the puck or poke",
+    "rift-volley": "serve, set, or dig a low falling ball",
+    "crypt-dodge": "pass while carrying or catch",
+    "crypt-guardian": "pass while carrying, hold near a downed ally to revive, or dive",
+  };
+  const controlsText = () => touchMode
+    ? `Drag on the ${prefs.leftHanded ? "right" : "left"} half to move. Use the ${prefs.leftHanded ? "left" : "right"} half for actions, even with one finger. ${touchGuidance[sportId]} Drag the action finger to aim. To dash, lift the movement thumb, touch near its starting ring again, and drag quickly. Tap an ally ring to pass when playable or switch off-ball. Tap the score to pause. Lift both fingers together to cancel a charge.`
+    : `WASD / arrows move · J / left mouse ${sport().controls.strike.toLowerCase()} · K / middle mouse ${sport().controls.pass.toLowerCase()} · Right-click to ${secondaryGuidance[sportId]} · Shift / I ${sport().controls.slide.toLowerCase()}${sportId === "cryptcheck" ? " · E body-check" : ""} · Space / L ${sport().controls.dash.toLowerCase()} · Q switches`;
   const canvas = document.createElement("canvas");
   canvas.setAttribute("aria-label", "Cryptball court");
   canvas.tabIndex = -1;
@@ -63,20 +74,13 @@ export async function mountCryptball() {
   const stage = new PixiStage(canvas),
     presenter = new CryptballPresenter(stage),
     audio = new CryptballAudio((text) => (notice.textContent = text));
-  const checkTrigger = document.createElement("button");
-  checkTrigger.type = "button";
-  checkTrigger.id = "hockey-check";
-  checkTrigger.textContent = "CHECK";
-  checkTrigger.setAttribute("aria-label", "Body check");
-  checkTrigger.hidden = true;
   const modeHud = document.createElement("div"); modeHud.id = "mode-hud"; modeHud.hidden = true;
   const modeSummary = document.createElement("div"); modeSummary.setAttribute("role", "status");
   const bossMeter = document.createElement("progress"); bossMeter.max = 300; bossMeter.setAttribute("aria-label", "Guardian health");
   const roster = document.createElement("div"); roster.className = "mode-roster";
   const rosterCards = Array.from({length:4}, () => { const card = document.createElement("span"); roster.append(card); return card; });
-  const contextTrigger = document.createElement("button"); contextTrigger.type="button"; contextTrigger.id="mode-action";
-  let contextHeld = false, middleHeld = false;
-  modeHud.append(modeSummary, bossMeter, roster, contextTrigger); game.append(modeHud);
+  let middleHeld = false;
+  modeHud.append(modeSummary, bossMeter, roster); game.append(modeHud);
   let online: OnlineSession | null = null;
   let friendsSession: FriendsSession | null = null;
   let directory: FriendsDirectory | null = null;
@@ -109,7 +113,7 @@ export async function mountCryptball() {
   const abort = new AbortController(),
     signal = abort.signal;
   const keys = new Set<string>();
-  const touch = new CourtTouchControls();
+  const touch = new CourtTouchControls(intent => resolveCourtAction(online ? online.rawObserve() : session.observe(), intent).press);
   const touchCues = document.createElement("div");
   touchCues.id = "touch-cues"; touchCues.setAttribute("aria-hidden", "true");
   const moveCue = document.createElement("div"), actionCue = document.createElement("div"), teammateCues = document.createElement("div");
@@ -118,16 +122,16 @@ export async function mountCryptball() {
   touchCues.append(moveCue, actionCue, teammateCues); game.append(touchCues);
   let touchFacing: number | undefined;
   const capturedTouches = new Set<number>();
-  const hudTouches = new Map<number, { trigger: HTMLButtonElement; x: number; y: number; moved: boolean }>();
-  let lastHudTouch = -Infinity;
   const inputMode = (isTouch: boolean) => { touchMode = isTouch; game.dataset.input = isTouch ? "touch" : "pointer"; };
   inputMode(touchMode);
   let pendingEvents: CryptballEvent[] = [];
   let edges: CommandFrame = {},
     pointerHeld = false,
     secondaryHeld = false,
+    secondaryAction: CourtAction | undefined,
     pointerAim: { x: number; y: number } | undefined;
   let prefs = {
+    leftHanded: false,
     music: 0.7,
     effects: 0.8,
     teamId: DEFAULT_TEAM_IDS[0] as TeamId,
@@ -139,6 +143,7 @@ export async function mountCryptball() {
       localStorage.getItem("cryptball-preferences") ?? "null",
     );
     if (p) {
+      if (typeof p.leftHanded === "boolean") prefs.leftHanded = p.leftHanded;
       if (isTeamId(p.teamId)) prefs.teamId = p.teamId;
       if (isTeamId(p.opponentId)) prefs.opponentId = p.opponentId;
       prefs.opponentId = resolveTeamSelection(prefs.teamId, prefs.opponentId)[1];
@@ -156,14 +161,10 @@ export async function mountCryptball() {
     } catch {}
   };
   const cancel = () => {
-    touch.cancel(); touchFacing = undefined; contextHeld = false; middleHeld = false;
+    touch.cancel(); touchFacing = undefined; middleHeld = false;
     for (const id of capturedTouches) releaseTouch(id);
-    for (const [id, value] of hudTouches) {
-      hudTouches.delete(id);
-      if (value.trigger.hasPointerCapture(id)) value.trigger.releasePointerCapture(id);
-    }
     keys.clear();
-    secondaryHeld = false;
+    secondaryHeld = false; secondaryAction = undefined;
     pointerHeld = false;
     pointerAim = undefined;
     edges = {};
@@ -204,6 +205,65 @@ export async function mountCryptball() {
     if (previousPrediction) frameInterpolation.capture(previousPrediction);
     frameInterpolation.capture(observation);
   };
+  const orientationGate = document.querySelector<HTMLElement>("#orientation-gate")!;
+  const touchPhone = matchMedia("(pointer: coarse)").matches && Math.min(window.screen.width, window.screen.height) <= 600;
+  const phonePortrait = matchMedia("(max-width: 600px) and (orientation: portrait)");
+  let portraitAccepted = false;
+  let fullscreenDeclined = false;
+  let gameFullscreen = false;
+  let gameExitingFullscreen = false;
+  function releaseLandscape() {
+    if (!gameFullscreen) return;
+    try { window.screen.orientation?.unlock?.(); } catch {}
+    if (document.fullscreenElement) {
+      gameExitingFullscreen = true;
+      void document.exitFullscreen().catch(() => {}).finally(() => { gameExitingFullscreen = false; gameFullscreen = false; });
+    } else gameFullscreen = false;
+  }
+  function requestLandscape() {
+    if (!touchPhone || fullscreenDeclined || navigator.userActivation?.isActive === false) return;
+    const orientation = window.screen.orientation as ScreenOrientation & { lock?: (value: string) => Promise<void> };
+    // Fullscreen and orientation lock are optional enhancements; Safari falls back to the notice.
+    if (!document.fullscreenElement && document.documentElement.requestFullscreen) {
+      void document.documentElement.requestFullscreen().then(() => {
+        gameFullscreen = true;
+        if (!disposed && !fullscreenDeclined && document.fullscreenElement && ["starting", "play", "pause", "online-lobby", "online-starting"].includes(screen)) return orientation.lock?.("landscape");
+        releaseLandscape();
+      }).catch(() => {});
+    }
+  }
+  function syncOrientation() {
+    if (!phonePortrait.matches) portraitAccepted = false;
+    const blocked = touchPhone && phonePortrait.matches && !portraitAccepted && ["play", "pause", "starting", "online-starting"].includes(screen);
+    const wasHidden = orientationGate.hidden;
+    orientationGate.hidden = !blocked;
+    game.inert = blocked;
+    orientationGate.querySelector("p")!.textContent = online?.spectator
+      ? "Turn your phone sideways. The match continues while your view is paused."
+      : online
+      ? "Turn your phone sideways. The match continues while the computer covers your player. Resume when ready."
+      : "Turn your phone sideways, then resume when ready.";
+    if (blocked && screen === "play") pause();
+    if (blocked && wasHidden) document.querySelector<HTMLButtonElement>("#portrait-continue")!.focus();
+    if (!blocked && !wasHidden) overlay.querySelector<HTMLButtonElement>(".menu-actions button")?.focus();
+  }
+  document.querySelector("#portrait-continue")!.addEventListener("click", () => {
+    portraitAccepted = true;
+    fullscreenDeclined = true;
+    releaseLandscape();
+    syncOrientation();
+    resize();
+    // Rotation never resumes a paused match; the existing Resume action remains explicit.
+    overlay.querySelector<HTMLButtonElement>("button")?.focus();
+  }, { signal });
+  document.addEventListener("fullscreenchange", () => {
+    if (!document.fullscreenElement) {
+      if (gameFullscreen && !gameExitingFullscreen) fullscreenDeclined = true;
+      gameFullscreen = false;
+    }
+    resize();
+  }, { signal });
+  phonePortrait.addEventListener("change", () => { cancel(); syncOrientation(); resize(); }, { signal });
   const lifecycle = new BrowserLifecycle({
     tick,
     interruptionPolicy: "suspend-input",
@@ -244,7 +304,7 @@ export async function mountCryptball() {
       if (online && !covered) state = online.presentFrame(state, observation, sampleTick);
       if (covered) updateHud(state);
       const renderEvents = covered ? pendingEvents.filter(event => event.tick <= covered.tick) : pendingEvents;
-      presenter.render(state, renderEvents, prefs.reducedMotion, Object.fromEntries((online?.lobby?.seats ?? []).map(seat=>[online?.controllerOwners.find(controller=>controller.id===seat.id)?.playerId ?? seat.playerId,seat.name])), covered?.tick ?? online?.presentationTick ?? sampleTick, covered ? 1 : online?.ballCorrectionAlpha(prefs.reducedMotion) ?? 1);
+      presenter.render(state, renderEvents, prefs.reducedMotion, Object.fromEntries((online?.lobby?.seats ?? []).map(seat=>[online?.controllerOwners.find(controller=>controller.id===seat.id)?.playerId ?? seat.playerId,seat.name])), covered?.tick ?? online?.presentationTick ?? sampleTick, covered ? 1 : online?.ballCorrectionAlpha(prefs.reducedMotion) ?? 1, touchMode);
       pendingEvents = covered ? pendingEvents.filter(event => event.tick > covered.tick) : [];
       stage.render(0);
       performanceDiagnostics.submittedRender();
@@ -292,6 +352,7 @@ export async function mountCryptball() {
     b.addEventListener(
       "click",
       () => {
+        if (["Ready", "Start match", "Start with bots", "Play next", "Play again"].includes(label)) requestLandscape();
         void audio.engine.unlock();
         action();
       },
@@ -348,6 +409,7 @@ export async function mountCryptball() {
     return img;
   }
   function title() {
+    releaseLandscape();
     if (friendsSession) {
       const homeUrl = new URL(location.href);
       homeUrl.searchParams.delete("group");
@@ -811,6 +873,7 @@ export async function mountCryptball() {
     } catch {}
   }
   function leaveFriendsCourt() {
+    releaseLandscape();
     rememberCourt();
     onlineJoinGeneration++;
     const old = online;
@@ -1060,6 +1123,14 @@ export async function mountCryptball() {
     }
     if (focusedAction) Array.from(overlay.querySelectorAll<HTMLButtonElement>(".menu-actions button")).find(candidate => candidate.textContent === focusedAction)?.focus();
   }
+  function announcePauseShortcut() {
+    if (notice.textContent || online?.spectator) return;
+    const message = touchMode
+      ? "Tap the score to pause · Controls and sound are in Settings"
+      : "Click the score or press Escape to pause";
+    notice.textContent = message;
+    setTimeout(() => { if (notice.textContent === message) notice.textContent = ""; }, 4500);
+  }
   async function beginOnlinePlay(lobby: Lobby) {
     const generation = onlineJoinGeneration;
     screen = "online-starting";
@@ -1069,6 +1140,7 @@ export async function mountCryptball() {
       if (generation !== onlineJoinGeneration || disposed || !online || screen !== "online-starting") return;
       observation = online.observe();
       screen = "play";
+      announcePauseShortcut();
       overlay.hidden = true;
       onlineLobbyKey = "";
       audio.resetMatch();
@@ -1180,12 +1252,13 @@ export async function mountCryptball() {
     overlay.insertBefore(label,overlay.querySelector(".menu-actions"));overlay.insertBefore(immortalLabel,overlay.querySelector(".menu-actions"));
   }
   async function start(mode: "match" | "practice", newGuardian = false) {
+    requestLandscape();
     onlineJoinGeneration++;
     if (online) {
       void online.leave();
       online = null;
     }
-    notice.textContent = "";
+    announcePauseShortcut();
     if (newGuardian) guardianSeed = (guardianSeed + 0x9e3779b9) >>> 0;
     session = createCryptballSession({ mode, sportId, teamIds: localTeams(), seed: guardianSeed, ...(mode === "practice" && sportId === "crypt-guardian" ? {guardianPractice} : {}) });
     canvas.setAttribute("aria-label", `${sport().label} court`);
@@ -1204,7 +1277,7 @@ export async function mountCryptball() {
     for (const id of capturedTouches) releaseTouch(id);
     edges = {};
     keys.clear();
-    secondaryHeld = false;
+    secondaryHeld = false; secondaryAction = undefined;
     pointerHeld = false;
     pointerAim = undefined;
     screen = "starting";
@@ -1251,6 +1324,8 @@ export async function mountCryptball() {
     ]);
   }
   function resume() {
+    requestLandscape();
+    if (touchPhone && phonePortrait.matches && !portraitAccepted) { syncOrientation(); return; }
     online?.resume();
     screen = "play";
     overlay.hidden = true;
@@ -1263,7 +1338,7 @@ export async function mountCryptball() {
     screen = "help";
     menu(
       "How to play",
-      `${sport().description} ${sport().rules.join(". ")}. ${sport().scoring} ${controlsText()}${touchMode ? " Move and action thumbs can start on either side of the court. Teammate rings appear when switching is available." : ". Aim with the mouse or your last movement direction. Hold the primary action to charge, then release. Q switches to a computer teammate."}${sportId === "cryptcheck" ? " Release movement to coast; move against your glide to brake before reversing. Aim turns your stick independently of your glide." : ""}`,
+      `${sport().description} ${sport().rules.join(". ")}. ${sport().scoring} ${controlsText()}${touchMode ? " Movement and action regions can be swapped in Settings. Teammate rings appear when switching is available." : ". Aim with the mouse or your last movement direction. Hold the primary action to charge, then release. Q switches to a computer teammate."}${sportId === "cryptcheck" ? " Release movement to coast; move against your glide to brake before reversing. Aim turns your stick independently of your glide." : ""}`,
       [
         [
           "Back",
@@ -1305,6 +1380,25 @@ export async function mountCryptball() {
     ]);
     const form = document.createElement("div");
     form.className = "settings";
+    overlay.classList.add("settings-menu");
+    const handed = document.createElement("button");
+    handed.textContent = prefs.leftHanded ? "Movement: right half" : "Movement: left half";
+    handed.addEventListener("click", () => {
+      prefs.leftHanded = !prefs.leftHanded;
+      save();
+      handed.textContent = prefs.leftHanded ? "Movement: right half" : "Movement: left half";
+      instructions.textContent = controlsText();
+    }, { signal });
+    const sound = document.createElement("button");
+    sound.textContent = muted ? "Unmute sound" : "Mute sound";
+    sound.addEventListener("click", () => { muted = !muted; audio.engine.setMuted(muted); void audio.engine.unlock(); sound.textContent = muted ? "Unmute sound" : "Mute sound"; }, { signal });
+    const guide = document.createElement("details");
+    const summary = document.createElement("summary");
+    summary.textContent = "Controls";
+    const instructions = document.createElement("p");
+    guide.addEventListener("toggle", () => { instructions.textContent = controlsText(); }, { signal });
+    guide.append(summary, instructions);
+    form.append(handed, sound, guide);
     for (const key of ["music", "effects"] as const) {
       const label = document.createElement("label");
       label.textContent = key === "music" ? "Music" : "Effects";
@@ -1357,27 +1451,22 @@ export async function mountCryptball() {
     const mine = state.players.find(p=>p.id===state.controlledId);
     const carrying = !!state.dodge?.balls.some(b=>!b.retired && b.mode.holderId===state.controlledId) || !!state.guardian && (state.guardian.orbs?.some(b=>b.possessionId===state.controlledId) ?? state.possessionId===state.controlledId);
     const reviveNear = !carrying && !!state.guardian && !!mine && state.guardian.athletes[mine.id]?.status === "active" && !!reviveTarget(state,mine);
-    touch.setContext({catch:newMode && !reviveNear && !carrying && (!!state.dodge?.athletes[state.controlledId]?.lives || state.guardian?.athletes[state.controlledId]?.status==="active"), revive:reviveNear, preparedThrow:!!state.dodge?.athletes[state.controlledId]?.pendingThrow});
+    touch.setContext({
+      catch: !carrying && !!state.dodge?.athletes[state.controlledId]?.lives,
+      revive: reviveNear,
+      preparedThrow: !!state.dodge?.athletes[state.controlledId]?.pendingThrow,
+    });
     modeSummary.textContent=state.guardian ? `${state.guardian.descriptor.name} · ${state.guardian.descriptor.weapon.toUpperCase()} · ${state.guardian.hp} / ${state.guardian.maxHp} HP` : "3 LIVES · BEST OF THREE";
     bossMeter.hidden=!state.guardian; bossMeter.value=state.guardian?.hp??0;
     while(rosterCards.length>state.players.length) rosterCards.pop()!.remove();
     while(rosterCards.length<state.players.length) { const card=document.createElement("span");roster.append(card);rosterCards.push(card); }
     rosterCards.forEach((card,i)=>{const p=state.players[i]!;const d=state.dodge?.athletes[p.id],a=state.guardian?.athletes[p.id];card.textContent=`${p.id===state.controlledId?"YOU":state.guardian?"ALLY "+(i+1):`P${i+1} ${online?.spectator ? TEAMS[state.teamIds[p.team]].name.toUpperCase() : p.team===mine?.team?"ALLY":"RIVAL"}`} ${d?d.lives?"◆".repeat(d.lives)+"◇".repeat(3-d.lives):"✕ OUT":a?a.status==="active"?"♥".repeat(a.hp)+"♡".repeat(5-a.hp):a.status==="down"?`DOWN ${Math.floor(a.reviveTicks/90*100)}%`:"✕ OUT":""}`;card.dataset.player=p.id;});
-    contextTrigger.hidden=!!online?.spectator || !touchMode || state.sportId==="crypt-dodge" && (!state.dodge?.athletes[state.controlledId]?.lives || carrying) || state.sportId==="crypt-guardian" && (carrying || state.guardian?.athletes[state.controlledId]?.status!=="active");
-    contextTrigger.textContent=reviveNear?"HOLD REVIVE":"CATCH";
-    contextTrigger.setAttribute("aria-label",reviveNear?"Hold to revive nearby ally":state.sportId==="crypt-dodge"?"Catch the dodgeball":"Catch the orb");
-    contextTrigger.disabled=screen!=="play";
-    if (!reviveNear) contextHeld=false;
+
     if(state.dodge){game.dataset.controlledCatch=state.dodge.athletes[state.controlledId]?.catchKind??"none";game.dataset.controlledCatchStart=String(state.dodge.athletes[state.controlledId]?.catchStart??-1); }
     game.dataset.tick = String(state.tick);
     game.dataset.phase = state.phase;
     const controlled = state.players.find((p) => p.id === state.controlledId);
     const skater = controlled && state.sportId === "cryptcheck" ? state.hockey?.skaters[controlled.id] : undefined;
-    const showCheck = !online?.spectator && touchMode && state.sportId === "cryptcheck";
-    if (checkTrigger.parentElement !== game) game.append(checkTrigger);
-    checkTrigger.hidden = !showCheck || screen !== "play";
-    checkTrigger.disabled = screen !== "play";
-    checkTrigger.setAttribute("aria-disabled", String(!!skater?.check || !!skater?.downTicks));
     game.dataset.controlledAction = skater?.downTicks ? "knockdown" : skater?.check ? "check" : controlled?.slideTicks ? "slide" : controlled?.slideRecovery ? "slide-recover" : controlled?.action?.kind ?? "idle";
     game.dataset.passes = String(state.stats.passes);
     game.dataset.controlledId = state.controlledId;
@@ -1425,11 +1514,11 @@ export async function mountCryptball() {
             ? "POINT!"
             : "GOAL!"
           : state.mode === "practice"
-            ? touchMode ? `Drag: move · Other thumb: tap to pass, hold/release to shoot, flick to ${sportId === "cryptcheck" ? "poke · CHECK: body-check" : "dive"}` : practicePrompt
+            ? touchMode ? `Move: ${prefs.leftHanded ? "right" : "left"} half · Action: ${prefs.leftHanded ? "left" : "right"} half · Tap: contextual · Hold/release: shoot · Flick: ${sportId === "cryptcheck" ? "body-check" : "dive"}` : practicePrompt
             : state.volley
               ? state.volley.serving
                 ? `${TEAMS[state.teamIds[state.volley.serveTeam]].name.toUpperCase()} SERVES · ${touchMode ? "HOLD / RELEASE TO ATTACK" : "J / LEFT MOUSE TO ATTACK"}`
-                : `${TEAMS[state.teamIds[state.volley.lastContactTeam === 1 ? 1 : 0]].name.toUpperCase()} · ${state.volley.teamContacts} / 3 CONTACTS · ${touchMode ? "TAP SETS · FLICK DIGS" : "K SETS · SHIFT DIGS"}`
+                : `${TEAMS[state.teamIds[state.volley.lastContactTeam === 1 ? 1 : 0]].name.toUpperCase()} · ${state.volley.teamContacts} / 3 CONTACTS · ${touchMode ? "TAP SETS / LOW BALL DIGS · FLICK DIGS" : "K SETS · SHIFT DIGS"}`
               : " ",
     );
     if (newMode) writeText(prompt, modeStatus(state, touchMode));
@@ -1477,21 +1566,23 @@ export async function mountCryptball() {
         world = unprojectCourt(point.x, point.y);
       aim = aimHeading(world.x - player.x / 256, world.y - player.y / 256);
     } else if (screenMove.x || screenMove.y) aim = aimHeading(move.x, move.y);
+    const passHeld = sportId === "crypt-guardian" && (keys.has("KeyK") || middleHeld || gesture.passHeld || !!secondaryAction?.held.passHeld);
     // Specials deliberately use the movement thumb's direction even while the
     // action thumb is holding independent shot aim.
     session.step({
       ...edges,
       ...gesture.edges,
+      ...secondaryAction?.held,
       moveX: move.x,
       moveY: move.y,
       aim,
       pointerAim: !!pointerAim || gesture.aiming || !!gesture.aim,
       strikeHeld: keys.has("KeyJ") || pointerHeld || gesture.strikeHeld,
-      passHeld: sportId === "crypt-guardian" && (keys.has("KeyK") || middleHeld || contextHeld || gesture.passHeld),
+      passHeld,
       slide:
-        gesture.edges.slide || (["cryptcheck", "crypt-dodge", "crypt-guardian"].includes(sportId) ? !!edges.slide : secondaryHeld || keys.has("KeyI") || keys.has("ShiftLeft") || keys.has("ShiftRight")),
+        gesture.edges.slide || !!edges.slide || secondaryAction?.held.slide || (COURT_ACTIONS[sportId].level && (keys.has("KeyI") || keys.has("ShiftLeft") || keys.has("ShiftRight"))),
     });
-    game.dataset.passHeld=String(sportId === "crypt-guardian" && (keys.has("KeyK") || middleHeld || contextHeld || gesture.passHeld));
+    game.dataset.passHeld = String(passHeld);
     edges = {};
     observation = session.observe();
     capturePresentation();
@@ -1499,7 +1590,7 @@ export async function mountCryptball() {
     if (ownControlSwitched(events, online?.participantId)) {
       touch.disarmAction(); touchFacing = undefined;
       keys.delete("KeyJ");
-      secondaryHeld = false;
+      secondaryHeld = false; secondaryAction = undefined;
       pointerHeld = false;
     }
     pendingEvents.push(...events);
@@ -1510,7 +1601,7 @@ export async function mountCryptball() {
         sportId === "rift-volley"
           ? "K sets the ball high. Q switches control. Stay on your side of the net."
           : sportId === "cryptcheck"
-            ? "K passes. Press Shift / I / right mouse once to poke; E body-checks; Space / L dashes. Move opposite your glide to brake."
+            ? "K passes. Shift / I pokes; right-click passes with the puck or pokes without it; E body-checks; Space / L dashes. Move opposite your glide to brake."
             : "K passes toward your teammate. Q switches control.";
     if (events.some((e) => e.type === "pass"))
       practicePrompt = sportId === "cryptcheck"
@@ -1680,7 +1771,7 @@ export async function mountCryptball() {
       if (e.code === "KeyQ") edges.switch = true;
 
       if (sportId === "cryptcheck" && e.code === "KeyE") edges.check = true;
-      if (["cryptcheck", "crypt-dodge", "crypt-guardian"].includes(sportId) && ["KeyI", "ShiftLeft", "ShiftRight"].includes(e.code)) edges.slide = true;
+      if (["KeyI", "ShiftLeft", "ShiftRight"].includes(e.code)) edges.slide = true;
     },
     { signal },
   );
@@ -1715,7 +1806,12 @@ export async function mountCryptball() {
         e.preventDefault();
         pointerAim = undefined;
         if (!touch.visual.action) touchFacing = observation.players.find(p => p.id === observation.controlledId)?.heading;
-        touch.down(e.pointerId, e.clientX, e.clientY, performance.now(), teammateAt(e.clientX, e.clientY));
+        const bounds = canvas.getBoundingClientRect();
+        // Keep browser edge gestures and the scoreboard band outside the controls.
+        if (e.clientX < 20 || e.clientX > innerWidth - 20 || e.clientY < game.getBoundingClientRect().top + 40) return;
+        const target = teammateAt(e.clientX, e.clientY);
+        const movementHalf = (e.clientX < bounds.left + bounds.width / 2) !== prefs.leftHanded;
+        touch.down(e.pointerId, e.clientX, e.clientY, performance.now(), target, movementHalf ? "move" : "action");
         capturedTouches.add(e.pointerId);
         canvas.setPointerCapture(e.pointerId);
         drawTouchCues(); return;
@@ -1734,7 +1830,10 @@ export async function mountCryptball() {
         edges.strikePressed = true;
       }
       if (e.button === 2) {
-        if (["cryptcheck", "crypt-dodge", "crypt-guardian"].includes(sportId) && !secondaryHeld) edges.slide = true;
+        if (!secondaryHeld) {
+          secondaryAction = resolveCourtAction(online ? online.rawObserve() : session.observe(), "contextual");
+          Object.assign(edges, secondaryAction.press);
+        }
         secondaryHeld = true; pointerAim = { x: e.clientX, y: e.clientY };
       }
       if (e.button === 1) { edges.pass = true; middleHeld=true; }
@@ -1752,7 +1851,7 @@ export async function mountCryptball() {
   );
   window.addEventListener("mouseup", e => {
       if (e.button === 1) middleHeld=false;
-      if (e.button === 2) secondaryHeld = false;
+      if (e.button === 2) { secondaryHeld = false; secondaryAction = undefined; }
       if (e.button === 0) {
         if (screen === "play" && pointerHeld) edges.strikeReleased = true;
         pointerHeld = false;
@@ -1769,52 +1868,12 @@ export async function mountCryptball() {
   canvas.addEventListener("lostpointercapture", (e) => { if (capturedTouches.has(e.pointerId)) cancel(); }, { signal });
   canvas.addEventListener("auxclick", e => { if (screen === "play") e.preventDefault(); }, { signal });
   canvas.addEventListener("contextmenu", (e) => e.preventDefault(), { signal });
-  contextTrigger.addEventListener("pointerdown",e=>{e.preventDefault();e.stopPropagation();if(screen!=="play")return;inputMode(e.pointerType==="touch");void audio.engine.unlock();if(sportId==="crypt-dodge" || !contextTrigger.textContent?.includes("REVIVE"))edges.strikePressed=true;else contextHeld=true;contextTrigger.setPointerCapture(e.pointerId);},{signal});
-  for(const event of ["pointerup","pointercancel","lostpointercapture"])contextTrigger.addEventListener(event,()=>{contextHeld=false;},{signal});
-  contextTrigger.addEventListener("keydown",e=>{if(e.repeat || screen!=="play")return;if(e.code==="Space"||e.code==="Enter"){e.preventDefault();if(sportId==="crypt-dodge" || !contextTrigger.textContent?.includes("REVIVE"))edges.strikePressed=true;else contextHeld=true;}},{signal});
-  contextTrigger.addEventListener("keyup",()=>{contextHeld=false;},{signal});
-  bindHudTrigger(checkTrigger, () => {
-    if (screen !== "play" || sportId !== "cryptcheck") return;
-    void audio.engine.unlock(); edges.check = true;
-    canvas.focus({ preventScroll: true });
-  });
-  function bindHudTrigger(trigger: HTMLButtonElement, activate: () => void) {
-    trigger.addEventListener("pointerdown", e => {
-      e.stopPropagation();
-      if (screen !== "play") return;
-      inputMode(e.pointerType === "touch");
-      if (e.pointerType !== "touch") return;
-      e.preventDefault();
-      if ([...hudTouches.values()].some(contact => contact.trigger === trigger)) return;
-      hudTouches.set(e.pointerId, { trigger, x: e.clientX, y: e.clientY, moved: false });
-      trigger.setPointerCapture(e.pointerId);
-    }, { signal });
-    trigger.addEventListener("pointermove", e => {
-      const contact = hudTouches.get(e.pointerId);
-      if (contact && Math.hypot(e.clientX - contact.x, e.clientY - contact.y) >= 14) contact.moved = true;
-    }, { signal });
-    trigger.addEventListener("pointerup", e => {
-      const contact = hudTouches.get(e.pointerId);
-      if (!contact) return;
-      hudTouches.delete(e.pointerId); lastHudTouch = performance.now();
-      if (trigger.hasPointerCapture(e.pointerId)) trigger.releasePointerCapture(e.pointerId);
-      if (!contact.moved && Math.hypot(e.clientX - contact.x, e.clientY - contact.y) < 14) activate();
-    }, { signal });
-    for (const name of ["pointercancel", "lostpointercapture"])
-      trigger.addEventListener(name, e => { hudTouches.delete((e as PointerEvent).pointerId); }, { signal });
-    trigger.addEventListener("click", e => {
-      // Every touch pointer can activate, including a non-primary thumb. The
-      // subsequent compatibility click must never activate Flutter twice.
-      if ((e as PointerEvent).pointerType === "touch" || e.detail && performance.now() - lastHudTouch < 600) return;
-      activate();
-    }, { signal });
-  }
   function releaseTouch(id: number) {
     capturedTouches.delete(id);
     if (canvas.hasPointerCapture(id)) canvas.releasePointerCapture(id);
   }
   function teammateTargets() {
-    if (!touchMode || !touch.visual.movement || screen !== "play") return [];
+    if (!touchMode || screen !== "play") return [];
     const controlled = observation.players.find(p => p.id === observation.controlledId);
     if (!controlled) return [];
     const bounds = canvas.getBoundingClientRect(), rect = game.getBoundingClientRect();
@@ -1846,44 +1905,47 @@ export async function mountCryptball() {
       cue.style.left = `${p.x}px`; cue.style.top = `${p.y}px`; cue.dataset.player = p.id;
     });
   }
+  const scoreboard = document.querySelector<HTMLElement>("#hud")!;
+  scoreboard.setAttribute("role", "button"); scoreboard.tabIndex = 0;
+  scoreboard.setAttribute("aria-label", "Pause game");
+  scoreboard.setAttribute("aria-describedby", "ivory clock ember");
+  scoreboard.addEventListener("click", () => { if (screen === "play") pause(); }, { signal });
+  scoreboard.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); if (screen === "play") pause(); } }, { signal });
   // BrowserLifecycle already owns blur/orientation cancellation and pause.
-  document.querySelector("#pause-button")!.addEventListener(
-    "click",
-    () => {
-      if (screen === "play") pause();
-      else if (screen === "pause") resume();
-    },
-    { signal },
-  );
-  document.querySelector("#sound-button")!.addEventListener(
-    "click",
-    () => {
-      muted = !muted;
-      audio.engine.setMuted(muted);
-      void audio.engine.unlock();
-      const b = document.querySelector("#sound-button")!;
-      b.textContent = muted ? "Sound off" : "Sound on";
-      b.setAttribute("aria-label", muted ? "Unmute sound" : "Mute sound");
-    },
-    { signal },
-  );
   function resize() {
     const inset = getComputedStyle(document.body);
     const safeX = parseFloat(inset.paddingLeft) + parseFloat(inset.paddingRight);
     const safeY = parseFloat(inset.paddingTop) + parseFloat(inset.paddingBottom);
-    const scale = fitCryptballScale(innerWidth - safeX - (touchMode ? 8 : 32), innerHeight - safeY - (touchMode ? 24 : 64));
-    game.style.width = `${VIEW.width * scale}px`;
-    const courtHeight = VIEW.height * scale;
-    const setupHeight = innerWidth <= 600 && innerHeight > innerWidth
-      ? Math.min(innerHeight - safeY - 24, 760)
-      : Math.max(courtHeight, Math.min(innerHeight - safeY - (touchMode ? 24 : 64), 640));
+    const viewportWidth = Math.min(innerWidth, window.visualViewport?.width ?? innerWidth);
+    const viewportHeight = Math.min(innerHeight, window.visualViewport?.height ?? innerHeight);
+    const width = Math.max(1, viewportWidth - safeX - (touchMode ? 8 : 32));
+    const height = Math.max(1, viewportHeight - safeY - (touchMode ? 24 : 64));
+    const frame = cryptballFrame(width, height, sportId, ["play", "pause", "finishing"].includes(screen));
+    const scale = frame.height === VIEW.height
+      ? fitCryptballScale(width, height)
+      : Math.max(0.1, Math.min(width / frame.width, height / frame.height));
+    game.style.width = `${frame.width * scale}px`;
+    const courtHeight = frame.height * scale;
+    const setupHeight = viewportWidth <= 600 && viewportHeight > viewportWidth
+      ? Math.min(viewportHeight - safeY - 24, 760)
+      : Math.max(courtHeight, Math.min(height, 640));
     game.style.height = `${game.dataset.menu === "setup" ? setupHeight : courtHeight}px`;
-    resizeCryptball(stage, root);
+    game.dataset.frameHeight = String(frame.height);
+    resizeCryptball(stage, root, frame.height, frame.y);
+    // Player names are drawn in game coordinates; the score strip is sized in CSS pixels.
+    const courtBounds = canvas.getBoundingClientRect();
+    const scoreBottom = document.querySelector("#hud")!.getBoundingClientRect().bottom;
+    canvas.dataset.scoreBottom = String((scoreBottom - courtBounds.top) * VIEW.width / courtBounds.width);
+    syncOrientation();
   }
   window.addEventListener("resize", resize, { signal });
+  window.visualViewport?.addEventListener("resize", resize, { signal });
   function dispose() {
     if (disposed) return;
     disposed = true;
+    releaseLandscape();
+    orientationGate.hidden = true;
+    game.inert = false;
     onlineJoinGeneration++;
     if (online) online.disconnectForReload();
     lifecycle.dispose();

@@ -57,6 +57,7 @@ button:active {
   inset: 0;
   display: grid;
   place-items: center;
+  overflow: hidden;
 }
 canvas {
   display: block;
@@ -207,25 +208,13 @@ h2 {
 }
 #notice {
   position: absolute;
+  pointer-events: none;
   bottom: -16px;
   left: 0;
   right: 0;
   text-align: center;
   font-size: 12px;
 }
-#tools {
-  position: absolute;
-  bottom: 8px;
-  left: 8px;
-  display: flex;
-  gap: 5px;
-}
-#tools button {
-  font-size: 10px;
-  padding: 4px 6px;
-  background: #17212dcc;
-}
-
 kbd {
   border: 1px solid #7c8d91;
   padding: 2px 4px;
@@ -341,7 +330,6 @@ kbd {
 #special-hud .special-trigger[aria-disabled="true"] { cursor: default; }
 #special-hud .special-trigger:focus-visible { outline-offset: 2px; }
 #special-hud > div[data-mine="true"] { order: -1; }
-#tools button { min-width: 44px; min-height: 44px; touch-action: manipulation; }
 #touch-cues { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
 .touch-stick, .touch-aim { position: absolute; width: 96px; height: 96px; margin: -48px; border: 1px solid #a6eee55c; border-radius: 50%; background: #15232c35; }
 .touch-stick[hidden], .touch-aim[hidden] { display: none; }
@@ -353,7 +341,6 @@ kbd {
 .touch-teammate { position: absolute; width: 44px; height: 44px; margin: -22px; border: 1px dashed #a6eee55c; border-radius: 50%; }
 #game[data-input="touch"] #prompt { left: 5%; right: 5%; bottom: 2px; font-size: clamp(10px, 1.8vw, 12px); line-height: 1.3; }
 #game[data-input="touch"] #special-hud { bottom: 56px; }
-#game[data-input="touch"] #tools { bottom: 20px; }
 @media (pointer: coarse), (max-width: 700px) {
   body { padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left); }
   #overlay { gap: 8px; padding: 12px; overscroll-behavior: contain; touch-action: pan-y; }
@@ -374,14 +361,9 @@ kbd {
   #game[data-input="touch"] #prompt { bottom: 5px; }
 }
 #game[data-input="touch"] #special-hud > div[data-mine="true"] { order: 1; }
-/* Keep concise mobile teaching beside the 44px menu controls. */
-#game[data-input="touch"] #prompt { left: 128px; right: 8px; bottom: 6px; }
 #game[data-sport="cryptcheck"][data-input="touch"] #special-hud > div[data-mine="true"] { display: flex; max-width: 60%; }
 #game[data-sport="cryptcheck"][data-input="touch"] #special-hud > div[data-mine="false"] { max-width: 33%; }
 #game[data-sport="cryptcheck"][data-input="touch"] #special-hud .special-trigger { min-width: 0; }
-#hockey-check { flex: 0 0 54px; min-width: 44px; min-height: 48px; padding: 5px; border: 0; border-left: 1px solid #67717a; border-radius: 0 4px 4px 0; background: #263441; color: #f2ead7; font-size: 10px; pointer-events: auto; touch-action: manipulation; }
-#hockey-check[hidden] { display: none; }
-#hockey-check[aria-disabled="true"] { opacity: .6; }
 
 /* Setup is a frame-fitting selection screen: identity, teams, then actions. */
 #hud[hidden] { display: none; }
@@ -458,8 +440,6 @@ kbd {
 .lobby-menu .lobby-roster .team-icon { width: 24px; height: 24px; }
 .lobby-menu > .fine { position: absolute; bottom: 39px; font-size: 11px; }
 .lobby-menu .menu-actions > button:not(.primary) { background: #27343c; border-color: #8b7a60; }
-#game[data-menu="setup"] #pause-button { display: none; }
-#game[data-menu="setup"] #tools { bottom: 8px; }
 #game[data-menu="setup"] #prompt { display: none; }
 @media (max-height: 600px) {
   #overlay.setup-menu { padding: 12px 20px 48px; gap: 7px; }
@@ -500,14 +480,11 @@ kbd {
 #mode-hud > progress[hidden] { display: none; }
 .mode-roster { display: flex; justify-content: space-around; gap: 4px; margin-top: 3px; }
 .mode-roster span { padding: 4px 6px; background: #151b28ed; border: 1px solid #6a6b76; }
-#mode-action { position: absolute; right: 4px; bottom: 70px; pointer-events: auto; min-width: 90px; min-height: 50px; touch-action: none; background: #233c45; border-color: #b8eee0; font-weight: bold; }
-#mode-action[hidden] { display: none; }
 .mode-description { max-width: 580px; margin: 6px auto; font-size: 12px; line-height: 1.4; color: #dbcdb6; }
 #game[data-sport="crypt-guardian"] #ivory, #game[data-sport="crypt-guardian"] #ember { background-image: none !important; padding: 0; }
-@media(max-width:600px) { #mode-hud { left: 5px; right: 5px; bottom: 52px; font-size: 9px; } .mode-roster span { padding: 3px; } #mode-action { bottom: 64px; min-width: 82px; } .mode-description { font-size: 10px; margin: 3px auto; } }
+@media(max-width:600px) { #mode-hud { left: 5px; right: 5px; bottom: 52px; font-size: 9px; } .mode-roster span { padding: 3px; } .mode-description { font-size: 10px; margin: 3px auto; } }
 @media(max-height:500px) { #mode-hud { bottom:75px; } }
 .room-entry input { min-width:180px; padding:12px; }
-#hockey-check { position:absolute; right:16px; bottom:96px; z-index:4; }
 
 /* Generated artwork stays above a separate, readable activity nameplate. */
 .visually-hidden { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; border:0; }
@@ -758,9 +735,7 @@ kbd {
   white-space: nowrap;
 }
 #game[data-menu="setup"] #friends-panel { top: auto; bottom: 8px; }
-#game[data-spectator="true"] #touch-cues,
-#game[data-spectator="true"] #hockey-check,
-#game[data-spectator="true"] #mode-action { display: none; }
+#game[data-spectator="true"] #touch-cues { display: none; }
 #overlay.friends-results { justify-content: flex-start; overflow-y: auto; bottom: 58px; }
 #overlay.friends-results > * { flex-shrink: 0; }
 #overlay.friends-results .results-return-window { font-size: 12px; color: #9ce6dd; }
@@ -781,3 +756,22 @@ kbd {
   .friends-court { flex-wrap: wrap; justify-content: center; }
   .friends-court p { flex-basis: 100%; overflow-wrap: anywhere; }
 }
+
+/* Dynamic browser chrome and side notches share one safe layout boundary. */
+html, body { height: 100dvh; overscroll-behavior: none; }
+body { padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left); }
+#orientation-gate { position: fixed; inset: 0; z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px; padding: max(24px, env(safe-area-inset-top)) max(24px, env(safe-area-inset-right)) max(24px, env(safe-area-inset-bottom)) max(24px, env(safe-area-inset-left)); background: #10141cf5; text-align: center; }
+#orientation-gate[hidden] { display: none; }
+
+/* The scoreboard is the touch pause target; all actions belong to the court. */
+#hud[role="button"] { cursor: pointer; pointer-events: auto; min-height: 40px; }
+#hud[role="button"]:focus-visible { outline: 2px solid #f8db87; outline-offset: 3px; }
+
+#overlay.settings-menu {
+  justify-content: safe center;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+}
+.settings summary { cursor: pointer; }
+.settings details p { padding-top: 6px; }
