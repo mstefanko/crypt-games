@@ -1296,3 +1296,101 @@ it("bounds incomplete court hydration and rejects a session left during hydratio
   await client.leave();
   await left;
 });
+
+it.each(["cryptkick", "rift-volley"] as const)("%s renders movement after a confirmed ready countdown without waiting for the play packet", async (sportId) => {
+  const authority = new MatchAuthority("room", true, sportId);
+  for (const id of ["p0", "p1"]) { authority.join(id, id); authority.ready(id); }
+  authority.start();
+  for (let tick = 0; tick < 180; tick++) authority.advance();
+  const checkpoint = authority.session.capture();
+  checkpoint.state.phase = "ready";
+  checkpoint.state.phaseTicks = 2;
+  authority.session.restore(checkpoint);
+  const client = createOnlineSession({ endpoint: "ws://test", sportId });
+  await client.connect("quick");
+  fake.messages.get("lobby")!(authority.lobby());
+  fake.messages.get("snapshot")!(encodeSnapshot(authority.snapshot("p0", [])));
+  const initial = client.presentFrame(client.observe());
+  const interpolation = new FrameInterpolation();
+  for (let frame = 0; frame < 8; frame++) {
+    now += 1000 / 60;
+    client.step(frame ? { moveY: 1 } : {});
+    const source = client.observe();
+    const drawn = client.presentFrame(interpolation.draw(source, now, 0.5), source);
+    expect(drawn.score).toEqual(checkpoint.state.score);
+    if (client.rawObserve().phase === "play") {
+      expect(source.phase).toBe("play");
+      expect(source.phaseTicks).toBe(0);
+      expect(source.players).toEqual(client.rawObserve().players);
+    }
+  }
+  const moved = client.observe();
+  expect(moved.phase).toBe("play");
+  expect(moved.players[0].y).not.toBe(initial.players[0].y);
+  expect(moved.volley?.rally).toBe(checkpoint.state.volley?.rally);
+});
+
+it("keeps other sports behind authoritative phase confirmation at ready expiry", async () => {
+  const authority = new MatchAuthority("room", true, "cryptball");
+  for (const id of ["p0", "p1"]) { authority.join(id, id); authority.ready(id); }
+  authority.start();
+  for (let tick = 0; tick < 180; tick++) authority.advance();
+  const checkpoint = authority.session.capture();
+  checkpoint.state.phase = "ready";
+  checkpoint.state.phaseTicks = 1;
+  authority.session.restore(checkpoint);
+  const client = createOnlineSession({ endpoint: "ws://test", sportId: "cryptball" });
+  await client.connect("quick");
+  fake.messages.get("lobby")!(authority.lobby());
+  fake.messages.get("snapshot")!(encodeSnapshot(authority.snapshot("p0", [])));
+  for (let frame = 0; frame < 5; frame++) {
+    now += 1000 / 60;
+    client.step(frame ? { moveY: 1 } : {});
+  }
+  expect(client.rawObserve().phase).toBe("play");
+  expect(client.observe().phase).toBe("ready");
+  expect(client.observe().players).toEqual(authority.session.observeFor("p0").players);
+});
+
+it("holds the submitted play frame if a predicted point arrives before the countdown's play packet", async () => {
+  const authority = new MatchAuthority("room", true, "rift-volley");
+  for (const id of ["p0", "p1"]) { authority.join(id, id); authority.ready(id); }
+  authority.start();
+  for (let tick = 0; tick < 180; tick++) authority.advance();
+  const checkpoint = authority.session.capture();
+  checkpoint.state.phase = "ready";
+  checkpoint.state.phaseTicks = 1;
+  checkpoint.state.volley!.serving = false;
+  Object.assign(checkpoint.state.ball, { x: -100 * 256, y: 0, z: 20 * 256, vx: 0, vy: 0, vz: -240 * 256 });
+  authority.session.restore(checkpoint);
+  const client = createOnlineSession({ endpoint: "ws://test", sportId: "rift-volley" });
+  await client.connect("quick");
+  fake.messages.get("lobby")!(authority.lobby());
+  fake.messages.get("snapshot")!(encodeSnapshot(authority.snapshot("p0", [])));
+  const interpolation = new FrameInterpolation();
+  const render = () => {
+    const source = client.observe();
+    return client.presentFrame(interpolation.draw(source, now, 0.5), source, source.tick - 0.5);
+  };
+  let lastPlay = render();
+  for (let frame = 0; frame < 20; frame++) {
+    now += 1000 / 60;
+    client.step(frame ? { moveY: 1 } : {});
+    if (client.rawObserve().phase !== "play") break;
+    lastPlay = render();
+  }
+  expect(lastPlay.phase).toBe("play");
+  expect(client.rawObserve().phase).toBe("goal");
+  const clock = client.presentationTick;
+  for (let frame = 0; frame < 3; frame++) {
+    now += 1000 / 60;
+    const held = render();
+    expect(held.phase).toBe("play");
+    expect(held.phaseTicks).toBe(lastPlay.phaseTicks);
+    expect(held.tick).toBe(lastPlay.tick);
+    expect(held.players).toEqual(lastPlay.players);
+    expect(held.ball).toEqual(lastPlay.ball);
+    expect(held.score).toEqual(checkpoint.state.score);
+    expect(client.presentationTick).toBe(clock);
+  }
+});

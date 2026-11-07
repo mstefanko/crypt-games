@@ -479,15 +479,29 @@ export function createOnlineSession(options: OnlineOptions = {}) {
     return a.sportId === b.sportId && a.phase === b.phase &&
       a.volley?.rally === b.volley?.rally && a.score[0] === b.score[0] && a.score[1] === b.score[1];
   }
+  function confirmedReadyStart(view: Observation): boolean {
+    return !!authority &&
+      (view.sportId === "cryptkick" || view.sportId === "rift-volley") &&
+      view.sportId === authority.sportId && authority.phase === "ready" &&
+      authority.phaseTicks > 0 && view.phase === "play" &&
+      view.tick >= authority.tick + authority.phaseTicks &&
+      view.score[0] === authority.score[0] && view.score[1] === authority.score[1] &&
+      view.volley?.rally === authority.volley?.rally;
+  }
   function confirmedObservation(observation: Observation): Observation {
-      // A predicted point must not reveal the next serve before authority confirms it.
-      const awaitingTransition = authority && !sameScoringPhase(observation, authority);
+      // A confirmed ready countdown has a deterministic end tick. Render play
+      // coherently at that tick instead of hiding movement until its packet.
+      const scheduledStart = confirmedReadyStart(observation);
+      // Points and resets still require authority, including after early play.
+      const awaitingTransition = authority && !scheduledStart && !sameScoringPhase(observation, authority);
       if (awaitingTransition) observation = structuredClone(authority!);
       if (authority) {
         observation = confirmedCombatPresentation(observation, authority);
         observation.score = [...authority.score];
-        observation.phase = authority.phase;
-        observation.phaseTicks = authority.phaseTicks;
+        if (!scheduledStart) {
+          observation.phase = authority.phase;
+          observation.phaseTicks = authority.phaseTicks;
+        }
         observation.winner = authority.winner;
         observation.remainingTicks = authority.remainingTicks;
         observation.overtime = authority.overtime;
@@ -715,14 +729,16 @@ export function createOnlineSession(options: OnlineOptions = {}) {
     presentFrame(state: Observation, source: Observation = state, renderTick = state.tick): Observation {
       if (pendingTransitions.has(source)) {
         const held = lastPresentedState;
-        if (held && authority && sameScoringPhase(held, authority) && held.tick >= authority.tick) {
+        const scheduledStart = held && confirmedReadyStart(held);
+        if (held && authority && (sameScoringPhase(held, authority) || scheduledStart) && held.tick >= authority.tick) {
           // Retain animation-driving fields as well as interpolated positions.
           // Clone only while holding; ordinary frames retain their detached view.
           heldPoint = held;
           rejectedPointFade = null;
           const frozen = confirmedCombatPresentation(structuredClone(held), authority);
           return { ...frozen, controlledId: state.controlledId, score: [...state.score],
-            phase: state.phase, phaseTicks: state.phaseTicks, winner: state.winner,
+            phase: scheduledStart ? held.phase : state.phase,
+            phaseTicks: scheduledStart ? held.phaseTicks : state.phaseTicks, winner: state.winner,
             remainingTicks: state.remainingTicks, overtime: state.overtime, stats: { ...state.stats } };
         }
         lastPresentedState = null;
