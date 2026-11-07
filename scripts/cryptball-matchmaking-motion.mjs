@@ -34,6 +34,7 @@ function ballEvidence(state) {
     vy: b.vy / 256,
     vz: (b.vz ?? 0) / 256,
     lastTouch: b.lastTouch,
+    possessionId: state.possessionId,
     restartTeam: state.restartTeam,
     protection: state.restartProtection,
     serving: state.volley?.serving,
@@ -116,7 +117,7 @@ function recordFrame(
   });
 }
 
-export function inspect(sport, frames) {
+export function inspect(sport, frames, scenario) {
   let playFrames = 0,
     flightPairs = 0,
     heldFrames = 0,
@@ -206,6 +207,8 @@ export function inspect(sport, frames) {
         at: next.at,
         tick: next.tick,
         kind: serveLaunch ? "volley serve launch" : "kick restart launch",
+        possessionId: b.possessionId,
+        lastTouch: b.lastTouch,
         fromPhase: prev.phase,
         toPhase: next.phase,
         visibleJumps: 0,
@@ -400,7 +403,14 @@ export function inspect(sport, frames) {
         });
     }
   }
-  if (playFrames < 60 || (sport === "crypt-dodge" ? !flightPairs : !heldFrames))
+  if (
+    playFrames < 60 ||
+    (sport === "crypt-dodge"
+      ? !flightPairs
+      : scenario === "kick-restart"
+        ? false
+        : !heldFrames)
+  )
     failures.push({
       kind: "insufficient active play, pending point, or flight coverage",
     });
@@ -412,6 +422,18 @@ export function inspect(sport, frames) {
       kind: frames.some((f) => f.evidence?.raw && f.evidence?.submitted)
         ? "insufficient restart/serve launch coverage"
         : "insufficient historical evidence for restart/serve launch gate",
+    });
+  if (
+    scenario === "kick-restart" &&
+    !launchOpportunities.some(
+      (l) =>
+        l.kind === "kick restart launch" &&
+        !l.possessionId &&
+        l.lastTouch === "player-2",
+    )
+  )
+    failures.push({
+      kind: "focused fixture did not produce actual remote free kick",
     });
   return {
     sport,
@@ -442,7 +464,13 @@ export function inspect(sport, frames) {
 }
 
 async function collect() {
-  const requested = process.env.MOTION_SPORTS ?? process.env.MOTION_SPORT;
+  const scenario = process.env.MOTION_SCENARIO;
+  if (scenario && scenario !== "kick-restart")
+    throw Error("Unknown motion scenario: " + scenario);
+  const requested =
+    process.env.MOTION_SPORTS ??
+    process.env.MOTION_SPORT ??
+    (scenario === "kick-restart" ? "cryptkick" : undefined);
   const selected = requested
     ? [...new Set(requested.split(",").map((s) => s.trim()))]
     : sports;
@@ -452,19 +480,68 @@ async function collect() {
     process.env.MOTION_VIDEO_DIR && resolve(process.env.MOTION_VIDEO_DIR);
   const port = Number(process.env.MOTION_WEB_PORT ?? 4268);
   const origin = "http://127.0.0.1:" + port;
-  const authority = spawn(
-    process.execPath,
-    ["dist/cryptball-server/main.mjs"],
-    {
-      env: {
-        ...process.env,
-        HOST: "127.0.0.1",
-        PORT: "0",
-        CRYPTBALL_ORIGINS: origin,
-      },
-      stdio: ["ignore", "pipe", "inherit"],
+  let serverEntry = "dist/cryptball-server/main.mjs";
+  if (scenario === "kick-restart") {
+    if (selected.some((s) => s !== "cryptkick"))
+      throw Error("kick-restart requires cryptkick only");
+    serverEntry = ".local-game-tests/kick-restart-authority.mjs";
+    await mkdir(dirname(serverEntry), { recursive: true });
+    await build({
+      entryPoints: ["apps/cryptball-server/src/main.ts"],
+      outfile: serverEntry,
+      bundle: true,
+      platform: "node",
+      target: "node24",
+      format: "esm",
+      external: ["@colyseus/*", "msgpackr", "ws"],
+      plugins: [
+        {
+          name: "restart-fixture",
+          setup(builder) {
+            builder.onLoad(
+              { filter: /\/cryptball-server\/src\/model\.ts$/ },
+              async ({ path }) => {
+                const code = await readFile(path, "utf8");
+                const hook =
+                  "      this.session.restore(checkpoint);\n      for (const p of this.peers.values()) {";
+                const offset = code.indexOf(
+                  hook,
+                  code.indexOf("// New modes retain their opening"),
+                );
+                if (offset < 0)
+                  throw Error("Missing authority start fixture hook");
+                const fixture = `
+      if (this.sportId === "cryptkick") {
+        resetCourt(checkpoint.state, 1);
+        checkpoint.state.phase = "ready";
+        checkpoint.state.phaseTicks = 120;
+        checkpoint.state.score = [1, 0];
+      }
+`;
+                return {
+                  contents:
+                    'import { resetCourt } from "../../cryptball/sim/match";\n' +
+                    code.slice(0, offset) +
+                    fixture +
+                    code.slice(offset),
+                  loader: "ts",
+                };
+              },
+            );
+          },
+        },
+      ],
+    });
+  }
+  const authority = spawn(process.execPath, [serverEntry], {
+    env: {
+      ...process.env,
+      HOST: "127.0.0.1",
+      PORT: "0",
+      CRYPTBALL_ORIGINS: origin,
     },
-  );
+    stdio: ["ignore", "pipe", "inherit"],
+  });
   let proxy, vite, browser;
   try {
     let log = "";
@@ -573,9 +650,14 @@ async function collect() {
     });
     const report = {
       schemaVersion: 3,
+      scenario: scenario ?? "public-matchmaking",
       provenance: {
         collectedAt: new Date().toISOString(),
         label: process.env.MOTION_LABEL ?? null,
+        scenario: scenario ?? "public-matchmaking",
+        fixture: scenario
+          ? "Normal resetCourt(team=1), score 1-0, ready 120 ticks; player-2 remote strikes untouched free ball at default restart position"
+          : null,
         commit: execFileSync("git", ["rev-parse", "HEAD"], {
           encoding: "utf8",
         }).trim(),
@@ -595,7 +677,7 @@ async function collect() {
           )
           .digest("hex"),
         serverSha256: createHash("sha256")
-          .update(await readFile("dist/cryptball-server/main.mjs"))
+          .update(await readFile(serverEntry))
           .digest("hex"),
         node: process.version,
         platform: process.platform,
@@ -658,28 +740,46 @@ async function collect() {
             document.body.append(stamp);
           }
         }, Boolean(videoDir));
-        for (
-          let i = 0;
-          i <
-          Number(
-            process.env.MOTION_STEPS ??
-              (["cryptkick", "rift-volley"].includes(sport) ? 48 : 18),
+        if (scenario === "kick-restart") {
+          await host.waitForFunction(
+            () => {
+              const f = window.motionFrames?.at(-1);
+              return (
+                f?.phase === "play" &&
+                f.score === "1-0" &&
+                f.evidence?.authority?.phase === "play"
+              );
+            },
+            { timeout: 20000 },
           );
-          i++
-        ) {
-          const key = ["KeyD", "KeyS", "KeyA", "KeyW"][i % 4];
-          await host.keyboard.down(key);
-          await host.keyboard.down("KeyJ");
-          // Hold the remote strike across simulation ticks as well; a zero-delay
-          // press can fall entirely between input samples and miss the serve.
           await peer.keyboard.down("KeyJ");
           await delay(350);
-          await host.keyboard.up("KeyJ");
           await peer.keyboard.up("KeyJ");
-          await delay(260);
-          await host.keyboard.up(key);
-          await peer.keyboard.press(i % 2 ? "KeyK" : "KeyJ");
-          if (i === 7) await departing.close();
+          await delay(2000);
+        } else {
+          for (
+            let i = 0;
+            i <
+            Number(
+              process.env.MOTION_STEPS ??
+                (["cryptkick", "rift-volley"].includes(sport) ? 48 : 18),
+            );
+            i++
+          ) {
+            const key = ["KeyD", "KeyS", "KeyA", "KeyW"][i % 4];
+            await host.keyboard.down(key);
+            await host.keyboard.down("KeyJ");
+            // Hold the remote strike across simulation ticks as well; a zero-delay
+            // press can fall entirely between input samples and miss the serve.
+            await peer.keyboard.down("KeyJ");
+            await delay(350);
+            await host.keyboard.up("KeyJ");
+            await peer.keyboard.up("KeyJ");
+            await delay(260);
+            await host.keyboard.up(key);
+            await peer.keyboard.press(i % 2 ? "KeyK" : "KeyJ");
+            if (i === 7) await departing.close();
+          }
         }
         report.sports[sport] = await host.evaluate(() => window.motionFrames);
         console.log(sport, report.sports[sport].length, "render samples");
@@ -727,7 +827,7 @@ if (
     await writeFile(file, JSON.stringify(report));
   }
   const results = (report.selected ?? sports).map((s) =>
-    inspect(s, report.sports[s] ?? []),
+    inspect(s, report.sports[s] ?? [], report.scenario),
   );
   console.log(
     JSON.stringify(

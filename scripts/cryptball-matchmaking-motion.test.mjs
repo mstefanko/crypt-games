@@ -125,3 +125,24 @@ test("historical trace lacking evidence is labeled insufficient", () => {
     ),
   );
 });
+
+test("focused free-kick scenario requires actual remote contact and waives unrelated pending-point coverage", () => {
+  const f = trace("cryptkick");
+  for (const frame of f) {
+    delete frame.pendingAuthorityTick;
+    const b = frame.evidence.submitted;
+    b.possessionId = null;
+    if (b.lastTouch) b.lastTouch = "player-2";
+  }
+  const r = inspect("cryptkick", f, "kick-restart");
+  assert.equal(r.failures.length, 0);
+  for (const frame of f)
+    if (frame.evidence.submitted.lastTouch)
+      frame.evidence.submitted.possessionId = "player-2";
+  assert.ok(
+    inspect("cryptkick", f, "kick-restart").failures.some(
+      (f) =>
+        f.kind === "focused fixture did not produce actual remote free kick",
+    ),
+  );
+});
