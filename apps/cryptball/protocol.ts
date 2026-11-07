@@ -9,8 +9,9 @@ import type {
 import type { CryptballSession } from "./sim/contract";
 import { isSportId } from "./sim/sports-spec";
 export { isSportId };
-// v16 preserves client suspension across kickoff and rematch.
-export const PROTOCOL = 16;
+// v17 adds bounded friends court observers with shared read-only checkpoints.
+export const PROTOCOL = 17;
+export const FRIENDS_OBSERVER_CAP = 8;
 export function resolveSportId(value: unknown): SportId {
   if (value === undefined) return "cryptball";
   if (!isSportId(value))
@@ -137,7 +138,19 @@ export interface Seat {
   active: boolean;
   generation: number;
 }
+export interface Observer {
+  id: string;
+  name: string;
+  connected: boolean;
+  generation: number;
+  queued: boolean;
+}
 export interface Lobby {
+  returning?: string[];
+  resultsTicksRemaining?: number;
+  friends?: boolean;
+  spectators?: Observer[];
+  queue?: string[];
   shuffle?: boolean;
   teamIds: import("./sim/team-identities").TeamSelection;
   sportId: SportId;
@@ -160,6 +173,7 @@ export interface InputPacket {
   command: CommandFrame;
 }
 export interface Snapshot {
+  observer?: boolean;
   snapshotSeq: number;
   serverTime: number;
   serverDebt: number;
@@ -193,6 +207,8 @@ export function decodeSnapshot(bytes: Uint8Array): Snapshot {
   const s = unpack(bytes) as Snapshot;
   if (
     !s ||
+    (s.observer !== undefined && typeof s.observer !== "boolean") ||
+    (s.observer === true && (s.participantId !== "observer" || s.generation !== 1 || s.receivedSeq !== 0 || s.terminalSeq !== 0 || Object.keys(s.remote ?? {}).length !== 0)) ||
     s.version !== PROTOCOL ||
     s.build !== BUILD ||
     !isSportId(s.sportId) ||

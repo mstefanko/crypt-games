@@ -627,3 +627,157 @@ kbd {
   .title-menu h1 { height:64px; width:192px; }
   #overlay.title-menu .sport-selector { min-height:522px; grid-template-rows:repeat(3,140px) 78px; }
 }
+
+.friends-directory .friends-courts {
+  width: min(100%, 660px);
+  display: grid;
+  gap: 12px;
+}
+.friends-sport {
+  border: 1px solid #66748080;
+  border-radius: 12px;
+  padding: 12px;
+  background: #111720e8;
+}
+.friends-sport h3 {
+  font-size: 15px;
+  margin: 0 0 8px;
+}
+.friends-court {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+.friends-court p {
+  font-size: 13px;
+  margin: 0;
+}
+.friends-members {
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+#friends-panel {
+  position: absolute;
+  top: 44px;
+  right: 8px;
+  z-index: 15;
+  max-width: min(360px, calc(100% - 16px));
+  font-size: 13px;
+}
+#friends-panel[hidden] {
+  display: none;
+}
+#friends-panel details {
+  background: #111720f5;
+  border: 1px solid #91a7ba;
+  border-radius: 10px;
+  padding: 9px;
+  max-height: 65vh;
+  overflow: auto;
+  box-shadow: 0 6px 24px #0008;
+}
+#friends-panel summary {
+  cursor: pointer;
+  font-weight: bold;
+  padding: 4px;
+}
+#friends-panel details:not([open]) {
+  overflow: hidden;
+}
+#friends-panel button {
+  font-size: 12px;
+  padding: 7px 10px;
+}
+#friends-panel .friends-sport {
+  margin-top: 8px;
+  padding: 8px;
+}
+.friends-directory .room-entry,
+#overlay .room-entry {
+  flex-wrap: wrap;
+}
+@media (max-width: 600px) {
+  .friends-court {
+    flex-flow: row wrap;
+    justify-content: center;
+    gap: 6px;
+  }
+  .friends-court p { flex-basis: 100%; overflow-wrap: anywhere; }
+  #friends-panel {
+    top: 42px;
+    max-width: calc(100% - 16px);
+  }
+}
+/* Friends lists grow naturally and scroll as one menu on short screens. */
+#overlay.friends-directory {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  overflow-y: auto;
+  overflow-x: hidden;
+  bottom: 60px;
+  padding: 22px 14px 20px;
+  gap: 14px;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+}
+#overlay.friends-directory > * {
+  flex-shrink: 0;
+}
+#overlay.friends-directory h2 {
+  font-size: clamp(22px, 4vw, 28px);
+  line-height: 1.3;
+}
+#overlay.friends-directory > p {
+  width: 100%;
+  max-width: 560px;
+}
+#overlay.friends-directory .menu-actions {
+  width: 100%;
+}
+#overlay.friends-directory .friends-courts {
+  display: flex;
+  flex-direction: column;
+}
+#overlay.friends-directory .friends-sport > button + button {
+  margin-left: 8px;
+  margin-top: 8px;
+}
+#overlay.friends-directory .friends-sport {
+  flex-shrink: 0;
+}
+#friends-panel summary small {
+  display: block;
+  color: #9ce6dd;
+  font-size: 11px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+#game[data-menu="setup"] #friends-panel { top: auto; bottom: 8px; }
+#game[data-spectator="true"] #touch-cues,
+#game[data-spectator="true"] #hockey-check,
+#game[data-spectator="true"] #mode-action { display: none; }
+#overlay.friends-results { justify-content: flex-start; overflow-y: auto; bottom: 58px; }
+#overlay.friends-results > * { flex-shrink: 0; }
+#overlay.friends-results .results-return-window { font-size: 12px; color: #9ce6dd; }
+#game:has(#overlay.friends-results) #friends-panel { top: auto; bottom: 8px; }
+
+#overlay.friends-waiting {
+  grid-template-rows: repeat(4, max-content);
+  align-content: center;
+}
+@media (min-width: 850px) {
+  #overlay.friends-directory .friends-courts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+    width: min(100%, 800px);
+  }
+  .friends-directory .friends-members { grid-column: 1 / -1; }
+  .friends-court { flex-wrap: wrap; justify-content: center; }
+  .friends-court p { flex-basis: 100%; overflow-wrap: anywhere; }
+}

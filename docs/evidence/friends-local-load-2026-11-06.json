@@ -1,0 +1,2618 @@
+{
+  "scope": "Local loopback real WebSockets; scripted SDK controls without browser rendering/prediction; not WAN or hosting qualification",
+  "sports": [
+    "cryptball",
+    "cryptkick",
+    "rift-volley",
+    "cryptcheck",
+    "crypt-dodge"
+  ],
+  "spectators": [
+    8,
+    0,
+    4,
+    8,
+    4
+  ],
+  "requestedDurationMs": 60000,
+  "playerOnlyBaseline": {
+    "work": {
+      "pumpMs": {
+        "count": 3181,
+        "sampleCount": 256,
+        "mean": 0.16545056208740086,
+        "max": 21.972917000000052,
+        "p50": 0.08854100000007747,
+        "p95": 2.053041000000121,
+        "p99": 5.080792000000656
+      },
+      "tickMs": {
+        "count": 1697,
+        "sampleCount": 256,
+        "mean": 0.11976942074249222,
+        "max": 20.229083999999602,
+        "p50": 0.21995799999967858,
+        "p95": 1.3086659999999029,
+        "p99": 4.791583000000173
+      },
+      "encodeMs": {
+        "count": 2276,
+        "sampleCount": 256,
+        "mean": 0.04455369991213546,
+        "max": 2.2454589999999826,
+        "p50": 0.032708000000639004,
+        "p95": 0.29866600000059407,
+        "p99": 0.6313749999999345
+      },
+      "payloadBytes": {
+        "count": 2276,
+        "sampleCount": 256,
+        "mean": 4171.594903339192,
+        "max": 6166,
+        "p50": 4547,
+        "p95": 5523,
+        "p99": 6166
+      },
+      "eventLoopMs": {
+        "sampleCount": 281,
+        "min": 17.94048,
+        "mean": 20.69328353024911,
+        "max": 44.466175,
+        "p95": 22.036479,
+        "p99": 25.493503
+      }
+    },
+    "activePeerFeedback": {
+      "lateReceipts": 0,
+      "rejections": 0,
+      "emptySlots": 1656,
+      "neutralizations": 0,
+      "botTransitions": 0,
+      "sampleCount": 820,
+      "rejectionReasons": {
+        "expired": 0,
+        "future": 0,
+        "capacity": 0,
+        "revision": 0,
+        "inactive": 0,
+        "sequence-gap": 0,
+        "cancelled": 0
+      }
+    },
+    "heartbeats": {
+      "accepted": 0,
+      "rejected": 400
+    },
+    "resync": {
+      "requested": 0,
+      "rejected": 0,
+      "served": 0
+    },
+    "outbound": {
+      "bytes": 9494550,
+      "bufferedPeers": 0,
+      "maxBacklogDurationMs": 0
+    },
+    "rooms": 5,
+    "simulationOverloaded": false,
+    "snapshots": 2276,
+    "bytes": 9494550,
+    "rejected": 0,
+    "droppedSlow": 0,
+    "maxDebtMs": 0
+  },
+  "playerOnlyBytesPerSecond": 1796864.4918991572,
+  "sameIpMembers": 44,
+  "concurrentWebSockets": 88,
+  "before": {
+    "work": {
+      "pumpMs": {
+        "count": 3476,
+        "sampleCount": 256,
+        "mean": 0.20049279516686555,
+        "max": 21.972917000000052,
+        "p50": 0.15275000000019645,
+        "p95": 2.452582999999322,
+        "p99": 3.8732920000002196
+      },
+      "tickMs": {
+        "count": 1874,
+        "sampleCount": 256,
+        "mean": 0.17059028975454096,
+        "max": 20.229083999999602,
+        "p50": 0.3352919999997539,
+        "p95": 2.033625000000029,
+        "p99": 5.765041999999994
+      },
+      "encodeMs": {
+        "count": 2555,
+        "sampleCount": 256,
+        "mean": 0.04593526027397891,
+        "max": 2.2454589999999826,
+        "p50": 0.03766600000017206,
+        "p95": 0.15991699999995035,
+        "p99": 0.3407919999999649
+      },
+      "payloadBytes": {
+        "count": 2644,
+        "sampleCount": 256,
+        "mean": 4215.1270801815435,
+        "max": 6166,
+        "p50": 4117,
+        "p95": 5527,
+        "p99": 5643
+      },
+      "eventLoopMs": {
+        "sampleCount": 308,
+        "min": 17.94048,
+        "mean": 20.825979012987013,
+        "max": 45.154303,
+        "p95": 22.478847,
+        "p99": 30.015487
+      }
+    },
+    "activePeerFeedback": {
+      "lateReceipts": 0,
+      "rejections": 0,
+      "emptySlots": 2128,
+      "neutralizations": 0,
+      "botTransitions": 0,
+      "sampleCount": 1040,
+      "rejectionReasons": {
+        "expired": 0,
+        "future": 0,
+        "capacity": 0,
+        "revision": 0,
+        "inactive": 0,
+        "sequence-gap": 0,
+        "cancelled": 0
+      }
+    },
+    "heartbeats": {
+      "accepted": 0,
+      "rejected": 500
+    },
+    "resync": {
+      "requested": 0,
+      "rejected": 0,
+      "served": 0
+    },
+    "outbound": {
+      "bytes": 11144796,
+      "bufferedPeers": 0,
+      "maxBacklogDurationMs": 0
+    },
+    "rooms": 5,
+    "simulationOverloaded": false,
+    "snapshots": 2644,
+    "bytes": 11144796,
+    "rejected": 0,
+    "droppedSlow": 0,
+    "maxDebtMs": 0
+  },
+  "slowReceiverPausedAtMs": 1.8130000000001019,
+  "playerReconnectMs": 258.9616669999996,
+  "samples": [
+    {
+      "elapsedMs": 5039.072791,
+      "work": {
+        "pumpMs": {
+          "count": 6101,
+          "sampleCount": 256,
+          "mean": 0.29550929880347504,
+          "max": 48.55400000000009,
+          "p50": 0.20245900000008987,
+          "p95": 6.370624999999563,
+          "p99": 12.159707999999227
+        },
+        "tickMs": {
+          "count": 3379,
+          "sampleCount": 256,
+          "mean": 0.25717463953833025,
+          "max": 48.543541999999434,
+          "p50": 0.1955420000012964,
+          "p95": 1.3705829999998969,
+          "p99": 3.129625000001397
+        },
+        "encodeMs": {
+          "count": 4945,
+          "sampleCount": 256,
+          "mean": 0.05585834357937569,
+          "max": 4.9487910000007105,
+          "p50": 0.052625000000261934,
+          "p95": 0.4839589999992313,
+          "p99": 1.4715000000014697
+        },
+        "payloadBytes": {
+          "count": 7013,
+          "sampleCount": 256,
+          "mean": 4557.742620846999,
+          "max": 7760,
+          "p50": 4395,
+          "p95": 6240,
+          "p99": 6299
+        },
+        "eventLoopMs": {
+          "sampleCount": 538,
+          "min": 14.311424,
+          "mean": 21.229050289962824,
+          "max": 70.647807,
+          "p95": 24.133631,
+          "p99": 42.565631
+        }
+      },
+      "activePeerFeedback": {
+        "lateReceipts": 12,
+        "rejections": 1,
+        "emptySlots": 5940,
+        "neutralizations": 0,
+        "botTransitions": 0,
+        "sampleCount": 2878,
+        "rejectionReasons": {
+          "expired": 0,
+          "future": 0,
+          "capacity": 0,
+          "revision": 1,
+          "inactive": 0,
+          "sequence-gap": 0,
+          "cancelled": 0
+        }
+      },
+      "heartbeats": {
+        "accepted": 9,
+        "rejected": 1448
+      },
+      "resync": {
+        "requested": 0,
+        "rejected": 0,
+        "served": 0
+      },
+      "outbound": {
+        "bytes": 31963449,
+        "bufferedPeers": 1,
+        "maxBacklogDurationMs": 448.44487499999923
+      },
+      "rooms": 5,
+      "simulationOverloaded": false,
+      "snapshots": 7013,
+      "bytes": 31963449,
+      "rejected": 1,
+      "droppedSlow": 1,
+      "maxDebtMs": 0
+    },
+    {
+      "elapsedMs": 10006.623916,
+      "work": {
+        "pumpMs": {
+          "count": 8624,
+          "sampleCount": 256,
+          "mean": 0.33546202203153463,
+          "max": 57.58170799999971,
+          "p50": 0.015374999999039574,
+          "p95": 0.562792000000627,
+          "p99": 0.8133330000000569
+        },
+        "tickMs": {
+          "count": 4878,
+          "sampleCount": 256,
+          "mean": 0.2951578741287322,
+          "max": 48.543541999999434,
+          "p50": 0.11820799999986775,
+          "p95": 0.39350000000013097,
+          "p99": 0.5698329999995622
+        },
+        "encodeMs": {
+          "count": 7321,
+          "sampleCount": 256,
+          "mean": 0.06190547834995706,
+          "max": 13.764124999999694,
+          "p50": 0.022499999999126885,
+          "p95": 0.06174999999711872,
+          "p99": 0.10908299999937299
+        },
+        "payloadBytes": {
+          "count": 11359,
+          "sampleCount": 256,
+          "mean": 4668.296328902192,
+          "max": 7874,
+          "p50": 4380,
+          "p95": 6393,
+          "p99": 6395
+        },
+        "eventLoopMs": {
+          "sampleCount": 766,
+          "min": 14.311424,
+          "mean": 21.42441140469974,
+          "max": 123.535359,
+          "p95": 25.804799,
+          "p99": 40.435711
+        }
+      },
+      "activePeerFeedback": {
+        "lateReceipts": 12,
+        "rejections": 1,
+        "emptySlots": 10000,
+        "neutralizations": 0,
+        "botTransitions": 0,
+        "sampleCount": 4839,
+        "rejectionReasons": {
+          "expired": 0,
+          "future": 0,
+          "capacity": 0,
+          "revision": 1,
+          "inactive": 0,
+          "sequence-gap": 0,
+          "cancelled": 0
+        }
+      },
+      "heartbeats": {
+        "accepted": 21,
+        "rejected": 2396
+      },
+      "resync": {
+        "requested": 0,
+        "rejected": 0,
+        "served": 0
+      },
+      "outbound": {
+        "bytes": 53027178,
+        "bufferedPeers": 0,
+        "maxBacklogDurationMs": 448.44487499999923
+      },
+      "rooms": 5,
+      "simulationOverloaded": false,
+      "snapshots": 11359,
+      "bytes": 53027178,
+      "rejected": 1,
+      "droppedSlow": 1,
+      "maxDebtMs": 0
+    },
+    {
+      "elapsedMs": 15006.974624999999,
+      "work": {
+        "pumpMs": {
+          "count": 11489,
+          "sampleCount": 256,
+          "mean": 0.29206406440943555,
+          "max": 57.58170799999971,
+          "p50": 0.05350000000180444,
+          "p95": 0.8945000000021537,
+          "p99": 1.3540830000019923
+        },
+        "tickMs": {
+          "count": 6376,
+          "sampleCount": 256,
+          "mean": 0.26170434096611817,
+          "max": 48.543541999999434,
+          "p50": 0.09979200000088895,
+          "p95": 0.35724999999729334,
+          "p99": 0.9414579999975103
+        },
+        "encodeMs": {
+          "count": 9717,
+          "sampleCount": 256,
+          "mean": 0.055506276422755095,
+          "max": 13.764124999999694,
+          "p50": 0.027249999999185093,
+          "p95": 0.10024999999950523,
+          "p99": 0.1637090000003809
+        },
+        "payloadBytes": {
+          "count": 15755,
+          "sampleCount": 256,
+          "mean": 4725.5474452554745,
+          "max": 7874,
+          "p50": 5103,
+          "p95": 6442,
+          "p99": 6494
+        },
+        "eventLoopMs": {
+          "sampleCount": 1010,
+          "min": 14.311424,
+          "mean": 21.208114693069305,
+          "max": 123.535359,
+          "p95": 24.084479,
+          "p99": 39.387135
+        }
+      },
+      "activePeerFeedback": {
+        "lateReceipts": 12,
+        "rejections": 1,
+        "emptySlots": 13996,
+        "neutralizations": 0,
+        "botTransitions": 0,
+        "sampleCount": 6846,
+        "rejectionReasons": {
+          "expired": 0,
+          "future": 0,
+          "capacity": 0,
+          "revision": 1,
+          "inactive": 0,
+          "sequence-gap": 0,
+          "cancelled": 0
+        }
+      },
+      "heartbeats": {
+        "accepted": 21,
+        "rejected": 3376
+      },
+      "resync": {
+        "requested": 0,
+        "rejected": 0,
+        "served": 0
+      },
+      "outbound": {
+        "bytes": 74451000,
+        "bufferedPeers": 0,
+        "maxBacklogDurationMs": 448.44487499999923
+      },
+      "rooms": 5,
+      "simulationOverloaded": false,
+      "snapshots": 15755,
+      "bytes": 74451000,
+      "rejected": 1,
+      "droppedSlow": 1,
+      "maxDebtMs": 0
+    },
+    {
+      "elapsedMs": 20014.482,
+      "work": {
+        "pumpMs": {
+          "count": 14357,
+          "sampleCount": 256,
+          "mean": 0.2635393095354106,
+          "max": 57.58170799999971,
+          "p50": 0.02824999999938882,
+          "p95": 0.861124999999447,
+          "p99": 1.8394999999982247
+        },
+        "tickMs": {
+          "count": 7879,
+          "sampleCount": 256,
+          "mean": 0.23854603744128783,
+          "max": 48.543541999999434,
+          "p50": 0.10325000000011642,
+          "p95": 0.3479169999991427,
+          "p99": 0.5819999999985157
+        },
+        "encodeMs": {
+          "count": 12121,
+          "sampleCount": 256,
+          "mean": 0.05138096015179456,
+          "max": 13.764124999999694,
+          "p50": 0.027000000001862645,
+          "p95": 0.11629199999879347,
+          "p99": 0.24683400000139954
+        },
+        "payloadBytes": {
+          "count": 20159,
+          "sampleCount": 256,
+          "mean": 4758.68272235726,
+          "max": 7946,
+          "p50": 4805,
+          "p95": 6535,
+          "p99": 6622
+        },
+        "eventLoopMs": {
+          "sampleCount": 1253,
+          "min": 14.311424,
+          "mean": 21.082736370311252,
+          "max": 123.535359,
+          "p95": 23.379967,
+          "p99": 36.732927
+        }
+      },
+      "activePeerFeedback": {
+        "lateReceipts": 12,
+        "rejections": 1,
+        "emptySlots": 18004,
+        "neutralizations": 0,
+        "botTransitions": 0,
+        "sampleCount": 8842,
+        "rejectionReasons": {
+          "expired": 0,
+          "future": 0,
+          "capacity": 0,
+          "revision": 1,
+          "inactive": 0,
+          "sequence-gap": 0,
+          "cancelled": 0
+        }
+      },
+      "heartbeats": {
+        "accepted": 21,
+        "rejected": 4356
+      },
+      "resync": {
+        "requested": 0,
+        "rejected": 0,
+        "served": 0
+      },
+      "outbound": {
+        "bytes": 95930285,
+        "bufferedPeers": 0,
+        "maxBacklogDurationMs": 448.44487499999923
+      },
+      "rooms": 5,
+      "simulationOverloaded": false,
+      "snapshots": 20159,
+      "bytes": 95930285,
+      "rejected": 1,
+      "droppedSlow": 1,
+      "maxDebtMs": 0
+    },
+    {
+      "elapsedMs": 25007.456374999998,
+      "work": {
+        "pumpMs": {
+          "count": 17208,
+          "sampleCount": 256,
+          "mean": 0.24325806996744065,
+          "max": 57.58170799999971,
+          "p50": 0.053583000000799075,
+          "p95": 0.5808749999996508,
+          "p99": 1.6078749999978754
+        },
+        "tickMs": {
+          "count": 9378,
+          "sampleCount": 256,
+          "mean": 0.2218975110897847,
+          "max": 48.543541999999434,
+          "p50": 0.08720899999752874,
+          "p95": 0.2675839999974414,
+          "p99": 0.6867080000010901
+        },
+        "encodeMs": {
+          "count": 14521,
+          "sampleCount": 256,
+          "mean": 0.04830473094139834,
+          "max": 13.764124999999694,
+          "p50": 0.022333000000799075,
+          "p95": 0.07679099999950267,
+          "p99": 0.19183300000076997
+        },
+        "payloadBytes": {
+          "count": 24559,
+          "sampleCount": 256,
+          "mean": 4785.746691640539,
+          "max": 7946,
+          "p50": 4538,
+          "p95": 6613,
+          "p99": 6622
+        },
+        "eventLoopMs": {
+          "sampleCount": 1497,
+          "min": 14.311424,
+          "mean": 20.985140499666,
+          "max": 123.535359,
+          "p95": 22.478847,
+          "p99": 34.701311
+        }
+      },
+      "activePeerFeedback": {
+        "lateReceipts": 12,
+        "rejections": 1,
+        "emptySlots": 22000,
+        "neutralizations": 0,
+        "botTransitions": 0,
+        "sampleCount": 10842,
+        "rejectionReasons": {
+          "expired": 0,
+          "future": 0,
+          "capacity": 0,
+          "revision": 1,
+          "inactive": 0,
+          "sequence-gap": 0,
+          "cancelled": 0
+        }
+      },
+      "heartbeats": {
+        "accepted": 21,
+        "rejected": 5336
+      },
+      "resync": {
+        "requested": 0,
+        "rejected": 0,
+        "served": 0
+      },
+      "outbound": {
+        "bytes": 117533153,
+        "bufferedPeers": 0,
+        "maxBacklogDurationMs": 448.44487499999923
+      },
+      "rooms": 5,
+      "simulationOverloaded": false,
+      "snapshots": 24559,
+      "bytes": 117533153,
+      "rejected": 1,
+      "droppedSlow": 1,
+      "maxDebtMs": 0
+    },
+    {
+      "elapsedMs": 30007.936958000002,
+      "work": {
+        "pumpMs": {
+          "count": 20041,
+          "sampleCount": 256,
+          "mean": 0.23032676288606746,
+          "max": 57.58170799999971,
+          "p50": 0.03879199999937555,
+          "p95": 0.4992500000007567,
+          "p99": 1.0666249999994761
+        },
+        "tickMs": {
+          "count": 10878,
+          "sampleCount": 256,
+          "mean": 0.20993071400993282,
+          "max": 48.543541999999434,
+          "p50": 0.10887499999807915,
+          "p95": 0.28754200000548735,
+          "p99": 0.5628749999959837
+        },
+        "encodeMs": {
+          "count": 16921,
+          "sampleCount": 256,
+          "mean": 0.04670415400982366,
+          "max": 13.764124999999694,
+          "p50": 0.023000000001047738,
+          "p95": 0.07604200000059791,
+          "p99": 0.18699999999807915
+        },
+        "payloadBytes": {
+          "count": 28959,
+          "sampleCount": 256,
+          "mean": 4796.157360406091,
+          "max": 7946,
+          "p50": 4385,
+          "p95": 6632,
+          "p99": 7221
+        },
+        "eventLoopMs": {
+          "sampleCount": 1739,
+          "min": 14.311424,
+          "mean": 20.93849761932145,
+          "max": 123.535359,
+          "p95": 22.200319,
+          "p99": 34.045951
+        }
+      },
+      "activePeerFeedback": {
+        "lateReceipts": 12,
+        "rejections": 1,
+        "emptySlots": 26004,
+        "neutralizations": 0,
+        "botTransitions": 0,
+        "sampleCount": 12842,
+        "rejectionReasons": {
+          "expired": 0,
+          "future": 0,
+          "capacity": 0,
+          "revision": 1,
+          "inactive": 0,
+          "sequence-gap": 0,
+          "cancelled": 0
+        }
+      },
+      "heartbeats": {
+        "accepted": 21,
+        "rejected": 6336
+      },
+      "resync": {
+        "requested": 0,
+        "rejected": 0,
+        "served": 0
+      },
+      "outbound": {
+        "bytes": 138891921,
+        "bufferedPeers": 0,
+        "maxBacklogDurationMs": 448.44487499999923
+      },
+      "rooms": 5,
+      "simulationOverloaded": false,
+      "snapshots": 28959,
+      "bytes": 138891921,
+      "rejected": 1,
+      "droppedSlow": 1,
+      "maxDebtMs": 0
+    },
+    {
+      "elapsedMs": 35009.522000000004,
+      "work": {
+        "pumpMs": {
+          "count": 22809,
+          "sampleCount": 256,
+          "mean": 0.2314711781314327,
+          "max": 57.58170799999971,
+          "p50": 0.05720800000563031,
+          "p95": 0.5104589999973541,
+          "p99": 0.9667090000002645
+        },
+        "tickMs": {
+          "count": 12378,
+          "sampleCount": 256,
+          "mean": 0.21208796065600868,
+          "max": 48.543541999999434,
+          "p50": 0.09070799999608425,
+          "p95": 0.25083299999823794,
+          "p99": 0.44454099999711616
+        },
+        "encodeMs": {
+          "count": 19321,
+          "sampleCount": 256,
+          "mean": 0.046989949743824776,
+          "max": 13.764124999999694,
+          "p50": 0.024999999994179234,
+          "p95": 0.08608299999468727,
+          "p99": 0.24404199999844423
+        },
+        "payloadBytes": {
+          "count": 33359,
+          "sampleCount": 256,
+          "mean": 4806.1594472256365,
+          "max": 8121,
+          "p50": 4408,
+          "p95": 6608,
+          "p99": 6610
+        },
+        "eventLoopMs": {
+          "sampleCount": 1979,
+          "min": 12.304384,
+          "mean": 20.933699783729153,
+          "max": 123.535359,
+          "p95": 22.265855,
+          "p99": 33.816575
+        }
+      },
+      "activePeerFeedback": {
+        "lateReceipts": 12,
+        "rejections": 1,
+        "emptySlots": 30004,
+        "neutralizations": 0,
+        "botTransitions": 0,
+        "sampleCount": 14842,
+        "rejectionReasons": {
+          "expired": 0,
+          "future": 0,
+          "capacity": 0,
+          "revision": 1,
+          "inactive": 0,
+          "sequence-gap": 0,
+          "cancelled": 0
+        }
+      },
+      "heartbeats": {
+        "accepted": 21,
+        "rejected": 7296
+      },
+      "resync": {
+        "requested": 0,
+        "rejected": 0,
+        "served": 0
+      },
+      "outbound": {
+        "bytes": 160328673,
+        "bufferedPeers": 0,
+        "maxBacklogDurationMs": 448.44487499999923
+      },
+      "rooms": 5,
+      "simulationOverloaded": false,
+      "snapshots": 33359,
+      "bytes": 160328673,
+      "rejected": 1,
+      "droppedSlow": 1,
+      "maxDebtMs": 0
+    },
+    {
+      "elapsedMs": 40016.678333,
+      "work": {
+        "pumpMs": {
+          "count": 25616,
+          "sampleCount": 256,
+          "mean": 0.22810256710648577,
+          "max": 57.58170799999971,
+          "p50": 0.029625000002852175,
+          "p95": 0.9086669999960577,
+          "p99": 1.6187080000017886
+        },
+        "tickMs": {
+          "count": 13879,
+          "sampleCount": 256,
+          "mean": 0.20784027386699705,
+          "max": 48.543541999999434,
+          "p50": 0.11512499999662396,
+          "p95": 0.42483399999764515,
+          "p99": 1.363666999997804
+        },
+        "encodeMs": {
+          "count": 21721,
+          "sampleCount": 256,
+          "mean": 0.04710662616824896,
+          "max": 13.764124999999694,
+          "p50": 0.030624999999417923,
+          "p95": 0.10954100000526523,
+          "p99": 0.3413750000036089
+        },
+        "payloadBytes": {
+          "count": 37759,
+          "sampleCount": 256,
+          "mean": 4812.535210148574,
+          "max": 8176,
+          "p50": 4799,
+          "p95": 6584,
+          "p99": 6584
+        },
+        "eventLoopMs": {
+          "sampleCount": 2220,
+          "min": 12.304384,
+          "mean": 20.91607455135135,
+          "max": 123.535359,
+          "p95": 22.216703,
+          "p99": 33.816575
+        }
+      },
+      "activePeerFeedback": {
+        "lateReceipts": 12,
+        "rejections": 1,
+        "emptySlots": 34008,
+        "neutralizations": 0,
+        "botTransitions": 0,
+        "sampleCount": 16842,
+        "rejectionReasons": {
+          "expired": 0,
+          "future": 0,
+          "capacity": 0,
+          "revision": 1,
+          "inactive": 0,
+          "sequence-gap": 0,
+          "cancelled": 0
+        }
+      },
+      "heartbeats": {
+        "accepted": 21,
+        "rejected": 8276
+      },
+      "resync": {
+        "requested": 0,
+        "rejected": 0,
+        "served": 0
+      },
+      "outbound": {
+        "bytes": 181716517,
+        "bufferedPeers": 0,
+        "maxBacklogDurationMs": 448.44487499999923
+      },
+      "rooms": 5,
+      "simulationOverloaded": false,
+      "snapshots": 37759,
+      "bytes": 181716517,
+      "rejected": 1,
+      "droppedSlow": 1,
+      "maxDebtMs": 0
+    },
+    {
+      "elapsedMs": 45025.719333,
+      "work": {
+        "pumpMs": {
+          "count": 28410,
+          "sampleCount": 256,
+          "mean": 0.22622570922209528,
+          "max": 57.58170799999971,
+          "p50": 0.05287500000122236,
+          "p95": 0.9342500000057044,
+          "p99": 1.4306250000008731
+        },
+        "tickMs": {
+          "count": 15382,
+          "sampleCount": 256,
+          "mean": 0.20719284189311699,
+          "max": 56.00033300000359,
+          "p50": 0.10879099999874597,
+          "p95": 0.3957079999963753,
+          "p99": 0.6066670000000158
+        },
+        "encodeMs": {
+          "count": 24117,
+          "sampleCount": 256,
+          "mean": 0.046819787908966175,
+          "max": 13.764124999999694,
+          "p50": 0.026792000004206784,
+          "p95": 0.15679200000158744,
+          "p99": 0.3769170000014128
+        },
+        "payloadBytes": {
+          "count": 42155,
+          "sampleCount": 256,
+          "mean": 4817.685517732179,
+          "max": 8176,
+          "p50": 4393,
+          "p95": 6618,
+          "p99": 6618
+        },
+        "eventLoopMs": {
+          "sampleCount": 2461,
+          "min": 12.304384,
+          "mean": 20.901917958553433,
+          "max": 123.535359,
+          "p95": 22.216703,
+          "p99": 32.538623
+        }
+      },
+      "activePeerFeedback": {
+        "lateReceipts": 12,
+        "rejections": 1,
+        "emptySlots": 38032,
+        "neutralizations": 0,
+        "botTransitions": 0,
+        "sampleCount": 18826,
+        "rejectionReasons": {
+          "expired": 0,
+          "future": 0,
+          "capacity": 0,
+          "revision": 1,
+          "inactive": 0,
+          "sequence-gap": 0,
+          "cancelled": 0
+        }
+      },
+      "heartbeats": {
+        "accepted": 21,
+        "rejected": 9256
+      },
+      "resync": {
+        "requested": 0,
+        "rejected": 0,
+        "served": 0
+      },
+      "outbound": {
+        "bytes": 203089533,
+        "bufferedPeers": 0,
+        "maxBacklogDurationMs": 448.44487499999923
+      },
+      "rooms": 5,
+      "simulationOverloaded": false,
+      "snapshots": 42155,
+      "bytes": 203089533,
+      "rejected": 1,
+      "droppedSlow": 1,
+      "maxDebtMs": 0
+    },
+    {
+      "elapsedMs": 50015.474708,
+      "work": {
+        "pumpMs": {
+          "count": 31119,
+          "sampleCount": 256,
+          "mean": 0.22651410395577037,
+          "max": 79.12016700000095,
+          "p50": 0.018499999998311978,
+          "p95": 0.7963339999987511,
+          "p99": 2.699000000000524
+        },
+        "tickMs": {
+          "count": 16879,
+          "sampleCount": 256,
+          "mean": 0.2087713011434381,
+          "max": 79.10845799999515,
+          "p50": 0.10491599999659229,
+          "p95": 0.7525830000013229,
+          "p99": 2.4993329999997513
+        },
+        "encodeMs": {
+          "count": 26503,
+          "sampleCount": 256,
+          "mean": 0.047620515262443326,
+          "max": 18.147209000002476,
+          "p50": 0.025915999998687766,
+          "p95": 0.08933399999659741,
+          "p99": 0.4002089999994496
+        },
+        "payloadBytes": {
+          "count": 46535,
+          "sampleCount": 256,
+          "mean": 4825.611109917267,
+          "max": 8176,
+          "p50": 4565,
+          "p95": 6601,
+          "p99": 6601
+        },
+        "eventLoopMs": {
+          "sampleCount": 2696,
+          "min": 12.304384,
+          "mean": 20.92778122255193,
+          "max": 123.535359,
+          "p95": 22.200319,
+          "p99": 32.538623
+        }
+      },
+      "activePeerFeedback": {
+        "lateReceipts": 12,
+        "rejections": 1,
+        "emptySlots": 42000,
+        "neutralizations": 4,
+        "botTransitions": 0,
+        "sampleCount": 20762,
+        "rejectionReasons": {
+          "expired": 0,
+          "future": 0,
+          "capacity": 0,
+          "revision": 1,
+          "inactive": 0,
+          "sequence-gap": 0,
+          "cancelled": 0
+        }
+      },
+      "heartbeats": {
+        "accepted": 31,
+        "rejected": 10210
+      },
+      "resync": {
+        "requested": 0,
+        "rejected": 0,
+        "served": 0
+      },
+      "outbound": {
+        "bytes": 224559813,
+        "bufferedPeers": 0,
+        "maxBacklogDurationMs": 448.44487499999923
+      },
+      "rooms": 5,
+      "simulationOverloaded": false,
+      "snapshots": 46535,
+      "bytes": 224559813,
+      "rejected": 1,
+      "droppedSlow": 1,
+      "maxDebtMs": 0
+    },
+    {
+      "elapsedMs": 55015.938541,
+      "work": {
+        "pumpMs": {
+          "count": 33960,
+          "sampleCount": 256,
+          "mean": 0.22467042482332136,
+          "max": 79.12016700000095,
+          "p50": 0.02262499999778811,
+          "p95": 0.9651669999948354,
+          "p99": 1.280417000001762
+        },
+        "tickMs": {
+          "count": 18378,
+          "sampleCount": 256,
+          "mean": 0.2046279181630181,
+          "max": 79.10845799999515,
+          "p50": 0.17291699999623233,
+          "p95": 0.36704099999769824,
+          "p99": 0.5299999999988358
+        },
+        "encodeMs": {
+          "count": 28903,
+          "sampleCount": 256,
+          "mean": 0.04862010372627531,
+          "max": 18.147209000002476,
+          "p50": 0.062249999995401595,
+          "p95": 0.12008399999467656,
+          "p99": 0.16029100000014296
+        },
+        "payloadBytes": {
+          "count": 50935,
+          "sampleCount": 256,
+          "mean": 4834.7743398449,
+          "max": 8176,
+          "p50": 4810,
+          "p95": 6633,
+          "p99": 6635
+        },
+        "eventLoopMs": {
+          "sampleCount": 2940,
+          "min": 12.304384,
+          "mean": 20.895784402721088,
+          "max": 123.535359,
+          "p95": 22.151167,
+          "p99": 31.457279
+        }
+      },
+      "activePeerFeedback": {
+        "lateReceipts": 12,
+        "rejections": 1,
+        "emptySlots": 45196,
+        "neutralizations": 4,
+        "botTransitions": 0,
+        "sampleCount": 22358,
+        "rejectionReasons": {
+          "expired": 0,
+          "future": 0,
+          "capacity": 0,
+          "revision": 1,
+          "inactive": 0,
+          "sequence-gap": 0,
+          "cancelled": 0
+        }
+      },
+      "heartbeats": {
+        "accepted": 31,
+        "rejected": 10994
+      },
+      "resync": {
+        "requested": 0,
+        "rejected": 0,
+        "served": 0
+      },
+      "outbound": {
+        "bytes": 246259231,
+        "bufferedPeers": 0,
+        "maxBacklogDurationMs": 448.44487499999923
+      },
+      "rooms": 5,
+      "simulationOverloaded": false,
+      "snapshots": 50935,
+      "bytes": 246259231,
+      "rejected": 1,
+      "droppedSlow": 1,
+      "maxDebtMs": 0
+    },
+    {
+      "elapsedMs": 60014.989499999996,
+      "work": {
+        "pumpMs": {
+          "count": 36827,
+          "sampleCount": 256,
+          "mean": 0.22409165014797902,
+          "max": 79.12016700000095,
+          "p50": 0.02241600000706967,
+          "p95": 1.0838750000111759,
+          "p99": 1.648125000006985
+        },
+        "tickMs": {
+          "count": 19879,
+          "sampleCount": 256,
+          "mean": 0.2023927937018867,
+          "max": 79.10845799999515,
+          "p50": 0.19174999999813735,
+          "p95": 0.41758400000981055,
+          "p99": 0.8982499999983702
+        },
+        "encodeMs": {
+          "count": 31303,
+          "sampleCount": 256,
+          "mean": 0.04979076548573908,
+          "max": 18.147209000002476,
+          "p50": 0.059999999997671694,
+          "p95": 0.11879200000839774,
+          "p99": 0.23549999999522697
+        },
+        "payloadBytes": {
+          "count": 55335,
+          "sampleCount": 256,
+          "mean": 4840.419752417096,
+          "max": 8176,
+          "p50": 5011,
+          "p95": 6631,
+          "p99": 6853
+        },
+        "eventLoopMs": {
+          "sampleCount": 3183,
+          "min": 12.304384,
+          "mean": 20.865208017593467,
+          "max": 123.535359,
+          "p95": 22.102015,
+          "p99": 30.867455
+        }
+      },
+      "activePeerFeedback": {
+        "lateReceipts": 12,
+        "rejections": 1,
+        "emptySlots": 40005,
+        "neutralizations": 0,
+        "botTransitions": 0,
+        "sampleCount": 19805,
+        "rejectionReasons": {
+          "expired": 0,
+          "future": 0,
+          "capacity": 0,
+          "revision": 1,
+          "inactive": 0,
+          "sequence-gap": 0,
+          "cancelled": 0
+        }
+      },
+      "heartbeats": {
+        "accepted": 31,
+        "rejected": 11778
+      },
+      "resync": {
+        "requested": 0,
+        "rejected": 0,
+        "served": 0
+      },
+      "outbound": {
+        "bytes": 267844627,
+        "bufferedPeers": 0,
+        "maxBacklogDurationMs": 448.44487499999923
+      },
+      "rooms": 5,
+      "simulationOverloaded": false,
+      "snapshots": 55335,
+      "bytes": 267844627,
+      "rejected": 1,
+      "droppedSlow": 1,
+      "maxDebtMs": 0
+    }
+  ],
+  "progress": [
+    {
+      "sportId": "cryptball",
+      "observer": false,
+      "phase": "playing",
+      "epoch": 1,
+      "snapshots": 1326,
+      "terminalProgress": 1243,
+      "rematches": 0,
+      "errors": []
+    },
+    {
+      "sportId": "cryptball",
+      "observer": false,
+      "phase": "playing",
+      "epoch": 1,
+      "snapshots": 1326,
+      "terminalProgress": 1243,
+      "rematches": 0,
+      "errors": []
+    },
+    {
+      "sportId": "cryptball",
+      "observer": false,
+      "phase": "playing",
+      "epoch": 1,
+      "snapshots": 1326,
+      "terminalProgress": 1243,
+      "rematches": 0,
+      "errors": []
+    },
+    {
+      "sportId": "cryptball",
+      "observer": false,
+      "phase": "playing",
+      "epoch": 1,
+      "snapshots": 1326,
+      "terminalProgress": 1243,
+      "rematches": 0,
+      "errors": []
+    },
+    {
+      "sportId": "cryptkick",
+      "observer": false,
+      "phase": "playing",
+      "epoch": 1,
+      "snapshots": 1321,
+      "terminalProgress": 1236,
+      "rematches": 0,
+      "errors": []
+    },
+    {
+      "sportId": "cryptkick",
+      "observer": false,
+      "phase": "playing",
+      "epoch": 1,
+      "snapshots": 1325,
+      "terminalProgress": 1241,
+      "rematches": 0,
+      "errors": []
+    },
+    {
+      "sportId": "cryptkick",
+      "observer": false,
+      "phase": "playing",
+      "epoch": 1,
+      "snapshots": 1325,
+      "terminalProgress": 1241,
+      "rematches": 0,
+      "errors": []
+    },
+    {
+      "sportId": "cryptkick",
+      "observer": false,
+      "phase": "playing",
+      "epoch": 1,
+      "snapshots": 1325,
+      "terminalProgress": 1241,
+      "rematches": 0,
+      "errors": []
+    },
+    {
+      "sportId": "rift-volley",
+      "observer": false,
+      "phase": "countdown",
+      "epoch": 2,
+      "snapshots": 1323,
+      "terminalProgress": 1037,
+      "rematches": 1,
+      "errors": []
+    },
+    {
+      "sportId": "rift-volley",
+      "observer": false,
+      "phase": "countdown",
+      "epoch": 2,
+      "snapshots": 1323,
+      "terminalProgress": 1036,
+      "rematches": 1,
+      "errors": []
+    },
+    {
+      "sportId": "rift-volley",
+      "observer": false,
+      "phase": "countdown",
+      "epoch": 2,
+      "snapshots": 1323,
+      "terminalProgress": 1036,
+      "rematches": 1,
+      "errors": []
+    },
+    {
+      "sportId": "rift-volley",
+      "observer": false,
+      "phase": "countdown",
+      "epoch": 2,
+      "snapshots": 1323,
+      "terminalProgress": 1036,
+      "rematches": 1,
+      "errors": []
+    },
+    {
+      "sportId": "cryptcheck",
+      "observer": false,
+      "phase": "playing",
+      "epoch": 1,
+      "snapshots": 1323,
+      "terminalProgress": 1245,
+      "rematches": 0,
+      "errors": []
+    },
+    {
+      "sportId": "cryptcheck",
+      "observer": false,
+      "phase": "playing",
+      "epoch": 1,
+      "snapshots": 1323,
+      "terminalProgress": 1245,
+      "rematches": 0,
+      "errors": []
+    },
+    {
+      "sportId": "cryptcheck",
+      "observer": false,
+      "phase": "playing",
+      "epoch": 1,
+      "snapshots": 1323,
+      "terminalProgress": 1245,
+      "rematches": 0,
+      "errors": []
+    },
+    {
+      "sportId": "cryptcheck",
+      "observer": false,
+      "phase": "playing",
+      "epoch": 1,
+      "snapshots": 1323,
+      "terminalProgress": 1245,
+      "rematches": 0,
+      "errors": []
+    },
+    {
+      "sportId": "crypt-dodge",
+      "observer": false,
+      "phase": "playing",
+      "epoch": 1,
+      "snapshots": 1321,
+      "terminalProgress": 1245,
+      "rematches": 0,
+      "errors": []
+    },
+    {
+      "sportId": "crypt-dodge",
+      "observer": false,
+      "phase": "playing",
+      "epoch": 1,
+      "snapshots": 1321,
+      "terminalProgress": 1245,
+      "rematches": 0,
+      "errors": []
+    },
+    {
+      "sportId": "crypt-dodge",
+      "observer": false,
+      "phase": "playing",
+      "epoch": 1,
+      "snapshots": 1321,
+      "terminalProgress": 1244,
+      "rematches": 0,
+      "errors": []
+    },
+    {
+      "sportId": "crypt-dodge",
+      "observer": false,
+      "phase": "playing",
+      "epoch": 1,
+      "snapshots": 1321,
+      "terminalProgress": 1244,
+      "rematches": 0,
+      "errors": []
+    },
+    {
+      "sportId": "cryptball",
+      "observer": true,
+      "phase": "playing",
+      "epoch": 1,
+      "snapshots": 1207,
+      "terminalProgress": 0,
+      "rematches": 0,
+      "errors": []
+    },
+    {
+      "sportId": "cryptball",
+      "observer": true,
+      "phase": "playing",
+      "epoch": 1,
+      "snapshots": 1207,
+      "terminalProgress": 0,
+      "rematches": 0,
+      "errors": []
+    },
+    {
+      "sportId": "cryptball",
+      "observer": true,
+      "phase": "playing",
+      "epoch": 1,
+      "snapshots": 1207,
+      "terminalProgress": 0,
+      "rematches": 0,
+      "errors": []
+    },
+    {
+      "sportId": "cryptball",
+      "observer": true,
+      "phase": "playing",
+      "epoch": 1,
+      "snapshots": 1207,
+      "terminalProgress": 0,
+      "rematches": 0,
+      "errors": []
+    },
+    {
+      "sportId": "cryptball",
+      "observer": true,
+      "phase": "playing",
+      "epoch": 1,
+      "snapshots": 1206,
+      "terminalProgress": 0,
+      "rematches": 0,
+      "errors": []
+    },
+    {
+      "sportId": "cryptball",
+      "observer": true,
+      "phase": "playing",
+      "epoch": 1,
+      "snapshots": 1206,
+      "terminalProgress": 0,
+      "rematches": 0,
+      "errors": []
+    },
+    {
+      "sportId": "cryptball",
+      "observer": true,
+      "phase": "playing",
+      "epoch": 1,
+      "snapshots": 1206,
+      "terminalProgress": 0,
+      "rematches": 0,
+      "errors": []
+    },
+    {
+      "sportId": "cryptball",
+      "observer": true,
+      "phase": "playing",
+      "epoch": 1,
+      "snapshots": 1206,
+      "terminalProgress": 0,
+      "rematches": 0,
+      "errors": []
+    },
+    {
+      "sportId": "rift-volley",
+      "observer": true,
+      "phase": "countdown",
+      "epoch": 2,
+      "snapshots": 1204,
+      "terminalProgress": 0,
+      "rematches": 1,
+      "errors": []
+    },
+    {
+      "sportId": "rift-volley",
+      "observer": true,
+      "phase": "countdown",
+      "epoch": 2,
+      "snapshots": 1203,
+      "terminalProgress": 0,
+      "rematches": 1,
+      "errors": []
+    },
+    {
+      "sportId": "rift-volley",
+      "observer": true,
+      "phase": "countdown",
+      "epoch": 2,
+      "snapshots": 1203,
+      "terminalProgress": 0,
+      "rematches": 1,
+      "errors": []
+    },
+    {
+      "sportId": "rift-volley",
+      "observer": true,
+      "phase": "countdown",
+      "epoch": 2,
+      "snapshots": 1203,
+      "terminalProgress": 0,
+      "rematches": 1,
+      "errors": []
+    },
+    {
+      "sportId": "cryptcheck",
+      "observer": true,
+      "phase": "playing",
+      "epoch": 1,
+      "snapshots": 1204,
+      "terminalProgress": 0,
+      "rematches": 0,
+      "errors": []
+    },
+    {
+      "sportId": "cryptcheck",
+      "observer": true,
+      "phase": "playing",
+      "epoch": 1,
+      "snapshots": 1203,
+      "terminalProgress": 0,
+      "rematches": 0,
+      "errors": []
+    },
+    {
+      "sportId": "cryptcheck",
+      "observer": true,
+      "phase": "playing",
+      "epoch": 1,
+      "snapshots": 1203,
+      "terminalProgress": 0,
+      "rematches": 0,
+      "errors": []
+    },
+    {
+      "sportId": "cryptcheck",
+      "observer": true,
+      "phase": "playing",
+      "epoch": 1,
+      "snapshots": 1203,
+      "terminalProgress": 0,
+      "rematches": 0,
+      "errors": []
+    },
+    {
+      "sportId": "cryptcheck",
+      "observer": true,
+      "phase": "playing",
+      "epoch": 1,
+      "snapshots": 1203,
+      "terminalProgress": 0,
+      "rematches": 0,
+      "errors": []
+    },
+    {
+      "sportId": "cryptcheck",
+      "observer": true,
+      "phase": "playing",
+      "epoch": 1,
+      "snapshots": 1203,
+      "terminalProgress": 0,
+      "rematches": 0,
+      "errors": []
+    },
+    {
+      "sportId": "cryptcheck",
+      "observer": true,
+      "phase": "playing",
+      "epoch": 1,
+      "snapshots": 1203,
+      "terminalProgress": 0,
+      "rematches": 0,
+      "errors": []
+    },
+    {
+      "sportId": "cryptcheck",
+      "observer": true,
+      "phase": "playing",
+      "epoch": 1,
+      "snapshots": 1202,
+      "terminalProgress": 0,
+      "rematches": 0,
+      "errors": []
+    },
+    {
+      "sportId": "crypt-dodge",
+      "observer": true,
+      "phase": "playing",
+      "epoch": 1,
+      "snapshots": 1199,
+      "terminalProgress": 0,
+      "rematches": 0,
+      "errors": []
+    },
+    {
+      "sportId": "crypt-dodge",
+      "observer": true,
+      "phase": "playing",
+      "epoch": 1,
+      "snapshots": 1199,
+      "terminalProgress": 0,
+      "rematches": 0,
+      "errors": []
+    },
+    {
+      "sportId": "crypt-dodge",
+      "observer": true,
+      "phase": "playing",
+      "epoch": 1,
+      "snapshots": 1199,
+      "terminalProgress": 0,
+      "rematches": 0,
+      "errors": []
+    },
+    {
+      "sportId": "crypt-dodge",
+      "observer": true,
+      "phase": "playing",
+      "epoch": 1,
+      "snapshots": 90,
+      "terminalProgress": 0,
+      "rematches": 0,
+      "errors": [],
+      "closeCode": 4001
+    },
+    {
+      "sportId": "crypt-dodge",
+      "observer": true,
+      "phase": "playing",
+      "epoch": 1,
+      "snapshots": 1091,
+      "terminalProgress": 0,
+      "rematches": 0,
+      "errors": []
+    }
+  ],
+  "slowRecovery": {
+    "droppedAfterMs": 5439.314875000001,
+    "closeCode": 4001,
+    "firstFrameMs": 19.407375000000684
+  },
+  "elapsedMs": 60491.287,
+  "after": {
+    "work": {
+      "pumpMs": {
+        "count": 37101,
+        "sampleCount": 256,
+        "mean": 0.22420468440202845,
+        "max": 79.12016700000095,
+        "p50": 0.023832999999285676,
+        "p95": 1.0385419999947771,
+        "p99": 1.3272500000020955
+      },
+      "tickMs": {
+        "count": 20022,
+        "sampleCount": 256,
+        "mean": 0.20230805733691323,
+        "max": 79.10845799999515,
+        "p50": 0.19237499999871943,
+        "p95": 0.42475000000558794,
+        "p99": 0.6800829999992857
+      },
+      "encodeMs": {
+        "count": 31539,
+        "sampleCount": 256,
+        "mean": 0.04988488316053371,
+        "max": 18.147209000002476,
+        "p50": 0.05666600000404287,
+        "p95": 0.1058329999941634,
+        "p99": 0.13749999999708962
+      },
+      "payloadBytes": {
+        "count": 55771,
+        "sampleCount": 256,
+        "mean": 4839.735400118341,
+        "max": 8176,
+        "p50": 4407,
+        "p95": 6601,
+        "p99": 6789
+      },
+      "eventLoopMs": {
+        "sampleCount": 3207,
+        "min": 12.304384,
+        "mean": 20.862028951668226,
+        "max": 123.535359,
+        "p95": 22.085631,
+        "p99": 30.867455
+      }
+    },
+    "activePeerFeedback": {
+      "lateReceipts": 12,
+      "rejections": 1,
+      "emptySlots": 40305,
+      "neutralizations": 0,
+      "botTransitions": 0,
+      "sampleCount": 19965,
+      "rejectionReasons": {
+        "expired": 0,
+        "future": 0,
+        "capacity": 0,
+        "revision": 1,
+        "inactive": 0,
+        "sequence-gap": 0,
+        "cancelled": 0
+      }
+    },
+    "heartbeats": {
+      "accepted": 31,
+      "rejected": 11858
+    },
+    "resync": {
+      "requested": 0,
+      "rejected": 0,
+      "served": 0
+    },
+    "outbound": {
+      "bytes": 269916883,
+      "bufferedPeers": 0,
+      "maxBacklogDurationMs": 448.44487499999923
+    },
+    "rooms": 5,
+    "simulationOverloaded": false,
+    "snapshots": 55771,
+    "bytes": 269916883,
+    "rejected": 1,
+    "droppedSlow": 1,
+    "maxDebtMs": 0
+  },
+  "measured": {
+    "bytesPerSecond": 4277840.658275299,
+    "snapshots": 53127,
+    "actualEncodes": 28984
+  },
+  "clients": [
+    {
+      "sportId": "cryptball",
+      "observer": false,
+      "snapshots": 1336,
+      "bytes": 5932112,
+      "errors": [],
+      "firstFrameMs": 5.511750000000006,
+      "checkpointSpacingMs": {
+        "count": 1335,
+        "p50": 51.1148749999993,
+        "p95": 57.179792000002635,
+        "p99": 71.17458299999998,
+        "max": 123.47599999999875
+      },
+      "seatedFrames": 1336,
+      "terminalProgress": 1253,
+      "rematches": 0
+    },
+    {
+      "sportId": "cryptball",
+      "observer": false,
+      "snapshots": 1336,
+      "bytes": 5932134,
+      "errors": [],
+      "firstFrameMs": 2.1718329999999924,
+      "checkpointSpacingMs": {
+        "count": 1335,
+        "p50": 51.088958000000275,
+        "p95": 57.255083999996714,
+        "p99": 71.15937499999927,
+        "max": 123.41545799999949
+      },
+      "seatedFrames": 1336,
+      "terminalProgress": 1253,
+      "rematches": 0
+    },
+    {
+      "sportId": "cryptball",
+      "observer": false,
+      "snapshots": 1336,
+      "bytes": 5932266,
+      "errors": [],
+      "firstFrameMs": 4.022082999999952,
+      "checkpointSpacingMs": {
+        "count": 1335,
+        "p50": 51.10895800000435,
+        "p95": 57.20483299999978,
+        "p99": 71.15683400000125,
+        "max": 123.27454200000102
+      },
+      "seatedFrames": 1336,
+      "terminalProgress": 1253,
+      "rematches": 0
+    },
+    {
+      "sportId": "cryptball",
+      "observer": false,
+      "snapshots": 1336,
+      "bytes": 5932400,
+      "errors": [],
+      "firstFrameMs": 3.5503340000000208,
+      "checkpointSpacingMs": {
+        "count": 1335,
+        "p50": 51.12199999999575,
+        "p95": 57.137290999999095,
+        "p99": 71.33225000000039,
+        "max": 123.27945799999907
+      },
+      "seatedFrames": 1336,
+      "terminalProgress": 1253,
+      "rematches": 0
+    },
+    {
+      "sportId": "cryptkick",
+      "observer": false,
+      "snapshots": 1330,
+      "bytes": 5836144,
+      "errors": [],
+      "firstFrameMs": 2.4899999999998954,
+      "checkpointSpacingMs": {
+        "count": 1329,
+        "p50": 50.902249999999185,
+        "p95": 56.040625000001455,
+        "p99": 65.49779199999466,
+        "max": 258.09741699999904
+      },
+      "seatedFrames": 1330,
+      "terminalProgress": 1245,
+      "rematches": 0
+    },
+    {
+      "sportId": "cryptkick",
+      "observer": false,
+      "snapshots": 1334,
+      "bytes": 5853988,
+      "errors": [],
+      "firstFrameMs": 3.824375000000032,
+      "checkpointSpacingMs": {
+        "count": 1333,
+        "p50": 50.871625000001586,
+        "p95": 55.849207999999635,
+        "p99": 65.43791700000293,
+        "max": 150.50529200000165
+      },
+      "seatedFrames": 1334,
+      "terminalProgress": 1250,
+      "rematches": 0
+    },
+    {
+      "sportId": "cryptkick",
+      "observer": false,
+      "snapshots": 1334,
+      "bytes": 5854120,
+      "errors": [],
+      "firstFrameMs": 1.7559590000000753,
+      "checkpointSpacingMs": {
+        "count": 1333,
+        "p50": 50.88037499999882,
+        "p95": 55.959790999997495,
+        "p99": 65.4754169999942,
+        "max": 150.5606670000052
+      },
+      "seatedFrames": 1334,
+      "terminalProgress": 1250,
+      "rematches": 0
+    },
+    {
+      "sportId": "cryptkick",
+      "observer": false,
+      "snapshots": 1334,
+      "bytes": 5854194,
+      "errors": [],
+      "firstFrameMs": 5.071708000000058,
+      "checkpointSpacingMs": {
+        "count": 1333,
+        "p50": 50.89929100000154,
+        "p95": 55.967249999997875,
+        "p99": 65.43575000000419,
+        "max": 150.58404200000223
+      },
+      "seatedFrames": 1334,
+      "terminalProgress": 1250,
+      "rematches": 0
+    },
+    {
+      "sportId": "rift-volley",
+      "observer": false,
+      "snapshots": 1333,
+      "bytes": 5684272,
+      "errors": [],
+      "firstFrameMs": 2.4674999999999727,
+      "checkpointSpacingMs": {
+        "count": 1332,
+        "p50": 50.8559580000001,
+        "p95": 56.08770799999911,
+        "p99": 69.11945899999955,
+        "max": 166.52904200000194
+      },
+      "seatedFrames": 1333,
+      "terminalProgress": 1037,
+      "rematches": 1
+    },
+    {
+      "sportId": "rift-volley",
+      "observer": false,
+      "snapshots": 1333,
+      "bytes": 5684347,
+      "errors": [],
+      "firstFrameMs": 7.720584000000031,
+      "checkpointSpacingMs": {
+        "count": 1332,
+        "p50": 50.838457999998354,
+        "p95": 56.0144999999975,
+        "p99": 67.99995799999942,
+        "max": 166.52404099999694
+      },
+      "seatedFrames": 1333,
+      "terminalProgress": 1036,
+      "rematches": 1
+    },
+    {
+      "sportId": "rift-volley",
+      "observer": false,
+      "snapshots": 1333,
+      "bytes": 5684479,
+      "errors": [],
+      "firstFrameMs": 11.18633299999999,
+      "checkpointSpacingMs": {
+        "count": 1332,
+        "p50": 50.840541999998095,
+        "p95": 56.08854199999769,
+        "p99": 67.77133299999969,
+        "max": 166.75137499999983
+      },
+      "seatedFrames": 1333,
+      "terminalProgress": 1036,
+      "rematches": 1
+    },
+    {
+      "sportId": "rift-volley",
+      "observer": false,
+      "snapshots": 1333,
+      "bytes": 5684613,
+      "errors": [],
+      "firstFrameMs": 1.8825829999999542,
+      "checkpointSpacingMs": {
+        "count": 1332,
+        "p50": 50.859582999997656,
+        "p95": 56.13883299999725,
+        "p99": 67.06658299999981,
+        "max": 167.8993330000012
+      },
+      "seatedFrames": 1333,
+      "terminalProgress": 1036,
+      "rematches": 1
+    },
+    {
+      "sportId": "cryptcheck",
+      "observer": false,
+      "snapshots": 1333,
+      "bytes": 6833197,
+      "errors": [],
+      "firstFrameMs": 4.020833000000039,
+      "checkpointSpacingMs": {
+        "count": 1332,
+        "p50": 51.04491699999926,
+        "p95": 55.88862499999959,
+        "p99": 65.43741699999919,
+        "max": 113.0419579999998
+      },
+      "seatedFrames": 1333,
+      "terminalProgress": 1255,
+      "rematches": 0
+    },
+    {
+      "sportId": "cryptcheck",
+      "observer": false,
+      "snapshots": 1333,
+      "bytes": 6833337,
+      "errors": [],
+      "firstFrameMs": 2.027584000000047,
+      "checkpointSpacingMs": {
+        "count": 1332,
+        "p50": 51.02212500000314,
+        "p95": 56.004916999998386,
+        "p99": 65.3611660000006,
+        "max": 113.08733299999949
+      },
+      "seatedFrames": 1333,
+      "terminalProgress": 1255,
+      "rematches": 0
+    },
+    {
+      "sportId": "cryptcheck",
+      "observer": false,
+      "snapshots": 1333,
+      "bytes": 6833350,
+      "errors": [],
+      "firstFrameMs": 6.8954590000000735,
+      "checkpointSpacingMs": {
+        "count": 1332,
+        "p50": 50.97016699999949,
+        "p95": 56.28450000000157,
+        "p99": 67.19524999999703,
+        "max": 134.7913750000007
+      },
+      "seatedFrames": 1333,
+      "terminalProgress": 1255,
+      "rematches": 0
+    },
+    {
+      "sportId": "cryptcheck",
+      "observer": false,
+      "snapshots": 1333,
+      "bytes": 6833484,
+      "errors": [],
+      "firstFrameMs": 2.634375000000091,
+      "checkpointSpacingMs": {
+        "count": 1332,
+        "p50": 50.95512500000041,
+        "p95": 56.3495000000039,
+        "p99": 67.83733299999949,
+        "max": 135.15708299999824
+      },
+      "seatedFrames": 1333,
+      "terminalProgress": 1255,
+      "rematches": 0
+    },
+    {
+      "sportId": "crypt-dodge",
+      "observer": false,
+      "snapshots": 1331,
+      "bytes": 8602027,
+      "errors": [],
+      "firstFrameMs": 1.8217089999999416,
+      "checkpointSpacingMs": {
+        "count": 1330,
+        "p50": 51.00091699999757,
+        "p95": 56.51954200000182,
+        "p99": 66.54554199999984,
+        "max": 147.16729199999827
+      },
+      "seatedFrames": 1331,
+      "terminalProgress": 1255,
+      "rematches": 0
+    },
+    {
+      "sportId": "crypt-dodge",
+      "observer": false,
+      "snapshots": 1331,
+      "bytes": 8602165,
+      "errors": [],
+      "firstFrameMs": 1.761000000000081,
+      "checkpointSpacingMs": {
+        "count": 1330,
+        "p50": 50.96833300000435,
+        "p95": 56.606040999999095,
+        "p99": 67.17799999999988,
+        "max": 146.67154200000004
+      },
+      "seatedFrames": 1331,
+      "terminalProgress": 1255,
+      "rematches": 0
+    },
+    {
+      "sportId": "crypt-dodge",
+      "observer": false,
+      "snapshots": 1331,
+      "bytes": 8602294,
+      "errors": [],
+      "firstFrameMs": 1.4764169999999694,
+      "checkpointSpacingMs": {
+        "count": 1330,
+        "p50": 50.93420799999876,
+        "p95": 56.60187500000029,
+        "p99": 67.13779199999954,
+        "max": 146.53499999999985
+      },
+      "seatedFrames": 1331,
+      "terminalProgress": 1254,
+      "rematches": 0
+    },
+    {
+      "sportId": "crypt-dodge",
+      "observer": false,
+      "snapshots": 1331,
+      "bytes": 8602422,
+      "errors": [],
+      "firstFrameMs": 0.9156249999999773,
+      "checkpointSpacingMs": {
+        "count": 1330,
+        "p50": 50.93549999999959,
+        "p95": 56.6162089999998,
+        "p99": 67.13020799999958,
+        "max": 146.4319579999992
+      },
+      "seatedFrames": 1331,
+      "terminalProgress": 1254,
+      "rematches": 0
+    },
+    {
+      "sportId": "cryptball",
+      "observer": true,
+      "snapshots": 1217,
+      "bytes": 5124955,
+      "errors": [],
+      "firstFrameMs": 13.440625000000182,
+      "checkpointSpacingMs": {
+        "count": 1216,
+        "p50": 51.118124999999054,
+        "p95": 57.04999999999927,
+        "p99": 71.14837500000067,
+        "max": 123.51566699999967
+      },
+      "seatedFrames": 0,
+      "terminalProgress": 0,
+      "rematches": 0
+    },
+    {
+      "sportId": "cryptball",
+      "observer": true,
+      "snapshots": 1217,
+      "bytes": 5124955,
+      "errors": [],
+      "firstFrameMs": 2.231707999999344,
+      "checkpointSpacingMs": {
+        "count": 1216,
+        "p50": 51.111041000000114,
+        "p95": 57.036040999999386,
+        "p99": 71.3525840000002,
+        "max": 123.55308299999888
+      },
+      "seatedFrames": 0,
+      "terminalProgress": 0,
+      "rematches": 0
+    },
+    {
+      "sportId": "cryptball",
+      "observer": true,
+      "snapshots": 1217,
+      "bytes": 5124955,
+      "errors": [],
+      "firstFrameMs": 0.7620840000008684,
+      "checkpointSpacingMs": {
+        "count": 1216,
+        "p50": 51.093332999997074,
+        "p95": 57.02970800000003,
+        "p99": 73.37079199999971,
+        "max": 123.58487500000047
+      },
+      "seatedFrames": 0,
+      "terminalProgress": 0,
+      "rematches": 0
+    },
+    {
+      "sportId": "cryptball",
+      "observer": true,
+      "snapshots": 1217,
+      "bytes": 5124955,
+      "errors": [],
+      "firstFrameMs": 3.089875000000575,
+      "checkpointSpacingMs": {
+        "count": 1216,
+        "p50": 51.07325000000128,
+        "p95": 56.927042000002984,
+        "p99": 73.27729200000067,
+        "max": 126.25124999999389
+      },
+      "seatedFrames": 0,
+      "terminalProgress": 0,
+      "rematches": 0
+    },
+    {
+      "sportId": "cryptball",
+      "observer": true,
+      "snapshots": 1216,
+      "bytes": 5121169,
+      "errors": [],
+      "firstFrameMs": 1.9683749999994689,
+      "checkpointSpacingMs": {
+        "count": 1215,
+        "p50": 51.039082999996026,
+        "p95": 57.06616600000052,
+        "p99": 73.43908300000112,
+        "max": 126.04404100000102
+      },
+      "seatedFrames": 0,
+      "terminalProgress": 0,
+      "rematches": 0
+    },
+    {
+      "sportId": "cryptball",
+      "observer": true,
+      "snapshots": 1216,
+      "bytes": 5121177,
+      "errors": [],
+      "firstFrameMs": 2.791957999999795,
+      "checkpointSpacingMs": {
+        "count": 1215,
+        "p50": 51.0422499999986,
+        "p95": 57.081458000000566,
+        "p99": 72.40670800000044,
+        "max": 125.90499999999884
+      },
+      "seatedFrames": 0,
+      "terminalProgress": 0,
+      "rematches": 0
+    },
+    {
+      "sportId": "cryptball",
+      "observer": true,
+      "snapshots": 1216,
+      "bytes": 5121177,
+      "errors": [],
+      "firstFrameMs": 2.9367080000001806,
+      "checkpointSpacingMs": {
+        "count": 1215,
+        "p50": 51.03229199999623,
+        "p95": 57.26933300000019,
+        "p99": 74.36812499999905,
+        "max": 125.65054200000304
+      },
+      "seatedFrames": 0,
+      "terminalProgress": 0,
+      "rematches": 0
+    },
+    {
+      "sportId": "cryptball",
+      "observer": true,
+      "snapshots": 1216,
+      "bytes": 5121177,
+      "errors": [],
+      "firstFrameMs": 7.8339160000004995,
+      "checkpointSpacingMs": {
+        "count": 1215,
+        "p50": 51.00724999999511,
+        "p95": 57.26929100000052,
+        "p99": 74.40324999999939,
+        "max": 125.82095800000388
+      },
+      "seatedFrames": 0,
+      "terminalProgress": 0,
+      "rematches": 0
+    },
+    {
+      "sportId": "rift-volley",
+      "observer": true,
+      "snapshots": 1214,
+      "bytes": 4868678,
+      "errors": [],
+      "firstFrameMs": 6.4768749999993815,
+      "checkpointSpacingMs": {
+        "count": 1213,
+        "p50": 50.86362499999814,
+        "p95": 56.07737500000076,
+        "p99": 66.45420800000284,
+        "max": 167.981832999998
+      },
+      "seatedFrames": 0,
+      "terminalProgress": 0,
+      "rematches": 1
+    },
+    {
+      "sportId": "rift-volley",
+      "observer": true,
+      "snapshots": 1213,
+      "bytes": 4864767,
+      "errors": [],
+      "firstFrameMs": 3.4896669999998267,
+      "checkpointSpacingMs": {
+        "count": 1212,
+        "p50": 50.849834000000556,
+        "p95": 56.14708299999984,
+        "p99": 66.49029100000189,
+        "max": 168.1459160000013
+      },
+      "seatedFrames": 0,
+      "terminalProgress": 0,
+      "rematches": 1
+    },
+    {
+      "sportId": "rift-volley",
+      "observer": true,
+      "snapshots": 1213,
+      "bytes": 4864761,
+      "errors": [],
+      "firstFrameMs": 2.5784169999997175,
+      "checkpointSpacingMs": {
+        "count": 1212,
+        "p50": 50.849874999999884,
+        "p95": 56.40537499999846,
+        "p99": 66.05291600000055,
+        "max": 168.29045800000313
+      },
+      "seatedFrames": 0,
+      "terminalProgress": 0,
+      "rematches": 1
+    },
+    {
+      "sportId": "rift-volley",
+      "observer": true,
+      "snapshots": 1213,
+      "bytes": 4864761,
+      "errors": [],
+      "firstFrameMs": 3.7625419999994847,
+      "checkpointSpacingMs": {
+        "count": 1212,
+        "p50": 50.85154099999636,
+        "p95": 56.37354200000118,
+        "p99": 65.0472920000002,
+        "max": 168.32520800000202
+      },
+      "seatedFrames": 0,
+      "terminalProgress": 0,
+      "rematches": 1
+    },
+    {
+      "sportId": "cryptcheck",
+      "observer": true,
+      "snapshots": 1214,
+      "bytes": 5954025,
+      "errors": [],
+      "firstFrameMs": 1.5267080000003261,
+      "checkpointSpacingMs": {
+        "count": 1213,
+        "p50": 51.01195800000278,
+        "p95": 56.44875000000047,
+        "p99": 67.70512500000041,
+        "max": 135.28570899999613
+      },
+      "seatedFrames": 0,
+      "terminalProgress": 0,
+      "rematches": 0
+    },
+    {
+      "sportId": "cryptcheck",
+      "observer": true,
+      "snapshots": 1213,
+      "bytes": 5949254,
+      "errors": [],
+      "firstFrameMs": 4.380333999999493,
+      "checkpointSpacingMs": {
+        "count": 1212,
+        "p50": 51.02375000000029,
+        "p95": 56.559667000001355,
+        "p99": 67.7972920000002,
+        "max": 135.29829100000643
+      },
+      "seatedFrames": 0,
+      "terminalProgress": 0,
+      "rematches": 0
+    },
+    {
+      "sportId": "cryptcheck",
+      "observer": true,
+      "snapshots": 1213,
+      "bytes": 5949254,
+      "errors": [],
+      "firstFrameMs": 2.381583999999748,
+      "checkpointSpacingMs": {
+        "count": 1212,
+        "p50": 51.01199999999881,
+        "p95": 56.535250000000815,
+        "p99": 67.70216600000003,
+        "max": 135.39054199999373
+      },
+      "seatedFrames": 0,
+      "terminalProgress": 0,
+      "rematches": 0
+    },
+    {
+      "sportId": "cryptcheck",
+      "observer": true,
+      "snapshots": 1213,
+      "bytes": 5949253,
+      "errors": [],
+      "firstFrameMs": 2.3590830000002825,
+      "checkpointSpacingMs": {
+        "count": 1212,
+        "p50": 50.992417000001296,
+        "p95": 56.61641700000109,
+        "p99": 67.69029199999932,
+        "max": 135.4140419999967
+      },
+      "seatedFrames": 0,
+      "terminalProgress": 0,
+      "rematches": 0
+    },
+    {
+      "sportId": "cryptcheck",
+      "observer": true,
+      "snapshots": 1213,
+      "bytes": 5949253,
+      "errors": [],
+      "firstFrameMs": 1.252958000000035,
+      "checkpointSpacingMs": {
+        "count": 1212,
+        "p50": 50.98033399999986,
+        "p95": 56.75325000000157,
+        "p99": 67.65479199999936,
+        "max": 136.05145799999445
+      },
+      "seatedFrames": 0,
+      "terminalProgress": 0,
+      "rematches": 0
+    },
+    {
+      "sportId": "cryptcheck",
+      "observer": true,
+      "snapshots": 1213,
+      "bytes": 5949253,
+      "errors": [],
+      "firstFrameMs": 0.9062089999997625,
+      "checkpointSpacingMs": {
+        "count": 1212,
+        "p50": 50.981791000005614,
+        "p95": 56.93995800000266,
+        "p99": 67.78345799999988,
+        "max": 139.59020900000178
+      },
+      "seatedFrames": 0,
+      "terminalProgress": 0,
+      "rematches": 0
+    },
+    {
+      "sportId": "cryptcheck",
+      "observer": true,
+      "snapshots": 1213,
+      "bytes": 5949251,
+      "errors": [],
+      "firstFrameMs": 23.754249999999956,
+      "checkpointSpacingMs": {
+        "count": 1212,
+        "p50": 50.98279200000252,
+        "p95": 56.94437499999913,
+        "p99": 68.0922500000006,
+        "max": 139.90066600000137
+      },
+      "seatedFrames": 0,
+      "terminalProgress": 0,
+      "rematches": 0
+    },
+    {
+      "sportId": "cryptcheck",
+      "observer": true,
+      "snapshots": 1212,
+      "bytes": 5944480,
+      "errors": [],
+      "firstFrameMs": 8.470000000000255,
+      "checkpointSpacingMs": {
+        "count": 1211,
+        "p50": 50.96862500000134,
+        "p95": 56.873334000003524,
+        "p99": 68.06554099999994,
+        "max": 141.07066699999996
+      },
+      "seatedFrames": 0,
+      "terminalProgress": 0,
+      "rematches": 0
+    },
+    {
+      "sportId": "crypt-dodge",
+      "observer": true,
+      "snapshots": 1209,
+      "bytes": 7594074,
+      "errors": [],
+      "firstFrameMs": 9.098917000000256,
+      "checkpointSpacingMs": {
+        "count": 1208,
+        "p50": 50.92729200000031,
+        "p95": 56.562166000001525,
+        "p99": 66.6116669999974,
+        "max": 146.1630409999998
+      },
+      "seatedFrames": 0,
+      "terminalProgress": 0,
+      "rematches": 0
+    },
+    {
+      "sportId": "crypt-dodge",
+      "observer": true,
+      "snapshots": 1209,
+      "bytes": 7594066,
+      "errors": [],
+      "firstFrameMs": 3.4947089999996024,
+      "checkpointSpacingMs": {
+        "count": 1208,
+        "p50": 50.881790999999794,
+        "p95": 56.55408300000272,
+        "p99": 66.70433400000184,
+        "max": 145.0476660000004
+      },
+      "seatedFrames": 0,
+      "terminalProgress": 0,
+      "rematches": 0
+    },
+    {
+      "sportId": "crypt-dodge",
+      "observer": true,
+      "snapshots": 1209,
+      "bytes": 7594066,
+      "errors": [],
+      "firstFrameMs": 3.6857920000002196,
+      "checkpointSpacingMs": {
+        "count": 1208,
+        "p50": 50.91991699999926,
+        "p95": 56.54770899999858,
+        "p99": 66.66970800000126,
+        "max": 144.2368750000005
+      },
+      "seatedFrames": 0,
+      "terminalProgress": 0,
+      "rematches": 0
+    },
+    {
+      "sportId": "crypt-dodge",
+      "observer": true,
+      "snapshots": 90,
+      "bytes": 535319,
+      "closeCode": 4001,
+      "errors": [],
+      "firstFrameMs": 2.607833000000028,
+      "checkpointSpacingMs": {
+        "count": 89,
+        "p50": 0.06695899999976973,
+        "p95": 0.9164999999993597,
+        "p99": 5347.445208,
+        "max": 5347.445208
+      },
+      "seatedFrames": 0,
+      "terminalProgress": 0,
+      "rematches": 0
+    },
+    {
+      "sportId": "crypt-dodge",
+      "observer": true,
+      "snapshots": 1101,
+      "bytes": 6950503,
+      "errors": [],
+      "firstFrameMs": 19.407375000000684,
+      "checkpointSpacingMs": {
+        "count": 1100,
+        "p50": 50.968916000005265,
+        "p95": 56.379124999999476,
+        "p99": 63.30766600000061,
+        "max": 127.1317080000008
+      },
+      "seatedFrames": 0,
+      "terminalProgress": 0,
+      "rematches": 0
+    }
+  ],
+  "firstFrameMs": {
+    "count": 45,
+    "p50": 2.9367080000001806,
+    "p95": 13.440625000000182,
+    "p99": 23.754249999999956,
+    "max": 23.754249999999956
+  },
+  "slowRecovered": true,
+  "status": "complete",
+  "measurementNotes": [
+    "Work p95 and p99 values describe the most recent bounded server window of 256 observations. The event-loop histogram covers the running process.",
+    "The fixture uses a Python loopback TCP relay to pause a real viewer. Only that viewer should hit the 64 KiB backlog guard.",
+    "The SDK load generator drives authoritative gameplay inputs. The browser suite separately covers rendering, control, promotion, and reload."
+  ]
+}

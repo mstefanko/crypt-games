@@ -13,6 +13,8 @@ import type {
 } from "@onepage/cryptball/sim";
 import {
   BUILD,
+  FRIENDS_OBSERVER_CAP,
+  type Observer,
   NETWORK_LIMITS,
   emptyRejectionReasons,
   type InputDisposition,
@@ -50,6 +52,8 @@ interface Peer extends Seat {
 export class MatchAuthority {
   session: CryptballSession;
   peers = new Map<string, Peer>();
+  observers = new Map<string, Observer>();
+  queue: string[] = [];
   phase: RoomPhase = "waiting";
   epoch = 1;
   countdown = 0;
@@ -65,12 +69,24 @@ export class MatchAuthority {
     readonly privateRoom = false,
     public sportId: SportId = "cryptball",
     readonly shuffle = false,
+    readonly friends = false,
+    readonly watcherCapacity = friends ? FRIENDS_OBSERVER_CAP : 0,
   ) {
     resolveSportId(sportId);
     let seed = 2166136261;
-    for (const char of roomId) seed = Math.imul(seed ^ char.charCodeAt(0), 16777619);
+    for (const char of roomId)
+      seed = Math.imul(seed ^ char.charCodeAt(0), 16777619);
     this.encounterSeed = seed >>> 0 || 1;
-    this.session = createCryptballSession({ sportId, teamIds: [TEAM_IDS[this.encounterSeed%6]!, TEAM_IDS[(this.encounterSeed%6+1+(this.encounterSeed>>>8)%5)%6]!], seed: sportId === "crypt-guardian" ? this.encounterSeed : undefined });
+    this.session = createCryptballSession({
+      sportId,
+      teamIds: [
+        TEAM_IDS[this.encounterSeed % 6]!,
+        TEAM_IDS[
+          ((this.encounterSeed % 6) + 1 + ((this.encounterSeed >>> 8) % 5)) % 6
+        ]!,
+      ],
+      seed: sportId === "crypt-guardian" ? this.encounterSeed : undefined,
+    });
   }
   get seatOrder() {
     return this.sportId === "crypt-guardian" ? [0, 1] : ROSTER.seatOrder;
@@ -96,7 +112,29 @@ export class MatchAuthority {
     for (const p of this.peers.values()) p.ready = false;
     return true;
   }
-  join(id: string, name: string, preferredTeamId?: unknown) {
+  private admitsAsObserver(intent?: string) {
+    return this.friends && (intent === "watch" || intent === "queue" ||
+      this.phase !== "waiting" || this.peers.size >= this.capacity);
+  }
+  canJoin(intent?: string) {
+    if (this.phase === "closing") return false;
+    return this.admitsAsObserver(intent)
+      ? this.observers.size < this.watcherCapacity
+      : this.phase === "waiting" && this.peers.size < this.capacity;
+  }
+  admit(id: string, name: string, preferredTeamId?: unknown, intent?: string) {
+    if (!this.friends) return this.join(id, name, preferredTeamId);
+    if (!this.canJoin(intent)) throw Error("Court is full");
+    if (!this.admitsAsObserver(intent)) return this.join(id, name, preferredTeamId);
+    const observer: Observer = {
+      id, name: name.slice(0, 24), connected: true, generation: 1, queued: false,
+    };
+    this.observers.set(id, observer);
+    this.lobbyRevision++;
+    if (intent === "queue") this.playNext(id);
+    return this.peers.get(id) ?? observer;
+  }
+  join(id: string, name: string, preferredTeamId?: unknown): Peer {
     this.lobbyRevision++;
     if (preferredTeamId !== undefined && !isTeamId(preferredTeamId))
       throw Error("Unknown team.");
@@ -186,6 +224,7 @@ export class MatchAuthority {
     );
   }
   ready(id: string) {
+    if (this.friends) return;
     this.lobbyRevision++;
     const p = this.peers.get(id);
     if (p) p.ready = true;
@@ -196,7 +235,20 @@ export class MatchAuthority {
     return [...this.peers.values()].filter((p) => p.connected && p.ready)
       .length;
   }
-  start() {
+  start(id?: string) {
+    if (id !== undefined && !this.peers.get(id)?.connected) return false;
+    if (this.friends) {
+      if (
+        !id ||
+        this.phase !== "waiting" ||
+        [...this.peers.values()].filter((p) => p.connected).length < 2
+      )
+        return false;
+      this.lobbyRevision++;
+      this.phase = "countdown";
+      this.countdown = 180;
+      return true;
+    }
     this.lobbyRevision++;
     if (
       this.phase !== "waiting" ||
@@ -210,27 +262,52 @@ export class MatchAuthority {
   }
   drop(id: string) {
     this.lobbyRevision++;
+    const observer = this.observers.get(id);
+    if (observer) {
+      observer.connected = false;
+      return;
+    }
     const p = this.peers.get(id);
     if (!p) return;
     p.connected = false;
     this.suspend(id, true);
-    if (this.phase === "countdown") {
+    if (
+      this.phase === "countdown" &&
+      (!this.friends ||
+        [...this.peers.values()].filter((p) => p.connected).length < 2)
+    ) {
       this.phase = "waiting";
       this.countdown = 0;
     }
   }
   remove(id: string) {
     this.lobbyRevision++;
+    const wasPlayer = this.peers.has(id);
+    this.observers.delete(id);
+    this.queue = this.queue.filter((key) => key !== id);
     this.peers.delete(id);
-    if (this.phase === "countdown") {
+    if (
+      this.phase === "countdown" &&
+      (!this.friends ||
+        [...this.peers.values()].filter((p) => p.connected).length < 2)
+    ) {
       this.phase = "waiting";
       this.countdown = 0;
     }
-    if (this.phase === "waiting") this.assign();
-    else this.session.setParticipantActive(id, false);
+    if (this.phase === "waiting" && wasPlayer) {
+      this.assign();
+      this.seatWaitingQueue();
+    } else if (wasPlayer) this.session.setParticipantActive(id, false);
   }
   reconnect(id: string) {
     this.lobbyRevision++;
+    const observer = this.observers.get(id);
+    if (observer) {
+      observer.connected = true;
+      observer.generation++;
+      this.seatWaitingQueue();
+      return this.peers.get(id) ?? observer;
+    }
     const p = this.peers.get(id);
     if (!p) throw Error("Seat expired");
     p.connected = true;
@@ -320,20 +397,28 @@ export class MatchAuthority {
     const currentRevision = this.session.getControllerRevision(id);
     const transfer = this.session.getControllerTransfer(id);
     const supportsPassTransfer = supportsPassControlTransfer(this.sportId);
-    let queuedRevision = currentRevision === undefined ? undefined : currentRevision +
-      (transfer?.pending ? 1 : 0);
+    let queuedRevision =
+      currentRevision === undefined
+        ? undefined
+        : currentRevision + (transfer?.pending ? 1 : 0);
     // Prediction can already own the next athlete while its ordered switch is
     // still in flight. Admit only revisions justified by earlier queued switch
     // intentions; exact ownership is checked again at execution. A failed switch
     // therefore never authorizes the following command to control another player.
     for (const queued of p.queue)
-      if (queued.revision === queuedRevision &&
+      if (
+        queued.revision === queuedRevision &&
           (queued.command.switch || (supportsPassTransfer && transfer?.canSwitch && queued.command.pass)) &&
-          queued.epoch === this.epoch && queued.generation === p.generation)
+        queued.epoch === this.epoch &&
+        queued.generation === p.generation
+      )
         queuedRevision = queuedRevision! + 1;
-    const staleRevision = currentRevision !== undefined && v.revision < currentRevision;
-    const admissibleRevision = currentRevision !== undefined &&
-      v.revision >= currentRevision && v.revision <= queuedRevision!;
+    const staleRevision =
+      currentRevision !== undefined && v.revision < currentRevision;
+    const admissibleRevision =
+      currentRevision !== undefined &&
+      v.revision >= currentRevision &&
+      v.revision <= queuedRevision!;
     if (
       v.epoch !== this.epoch ||
       v.generation !== p.generation ||
@@ -409,8 +494,11 @@ export class MatchAuthority {
             : undefined;
     if (reason) {
       // An expired release cancels unsafe held charge at current time, never shoots late.
-      if (v.command.strikeReleased || v.command.cancel ||
-          (this.sportId === "crypt-guardian" && v.command.passHeld === false)) {
+      if (
+        v.command.strikeReleased ||
+        v.command.cancel ||
+        (this.sportId === "crypt-guardian" && v.command.passHeld === false)
+      ) {
         for (const queued of p.queue) this.terminal(p, queued.seq, "cancelled");
         p.queue = [];
         p.safetyCancel = true;
@@ -424,11 +512,34 @@ export class MatchAuthority {
     p.queue.push({ ...v, executionTick });
     return true;
   }
+  playNext(id: string) {
+    const observer = this.observers.get(id);
+    if (!this.friends || !observer?.connected || observer.queued) return false;
+    observer.queued = true;
+    this.queue.push(id);
+    this.seatWaitingQueue();
+    this.lobbyRevision++;
+    return true;
+  }
+  // A waiting court is already assembling its next match. Once countdown
+  // starts, only the results transition is allowed to assign a different seat.
+  private seatWaitingQueue() {
+    if (!this.friends || this.phase !== "waiting") return;
+    for (const id of this.queue) {
+      if (this.peers.size >= this.capacity) break;
+      const observer = this.observers.get(id);
+      if (!observer?.connected) continue;
+      this.observers.delete(id);
+      this.join(id, observer.name);
+    }
+    this.queue = this.queue.filter(id => this.observers.has(id));
+  }
   rematch(id: string) {
     this.lobbyRevision++;
     const p = this.peers.get(id);
-    if (!p || this.phase !== "results") return;
+    if (!p?.connected || this.phase !== "results") return;
     p.rematch = true;
+    if (this.friends) return;
     if (
       [...this.peers.values()]
         .filter((x) => x.connected)
@@ -438,16 +549,24 @@ export class MatchAuthority {
         if (!peer.connected) this.peers.delete(key);
       this.epoch++;
       if (this.shuffle) {
-        const modes: SportId[] = ["cryptball","cryptkick","rift-volley","cryptcheck","crypt-dodge"];
+        const modes: SportId[] = [
+          "cryptball",
+          "cryptkick",
+          "rift-volley",
+          "cryptcheck",
+          "crypt-dodge",
+        ];
         // A seeded coprime stride visits all five activities before repeating.
-        const stride = 1 + this.encounterSeed % 4;
-        this.sportId = modes[(modes.indexOf(this.sportId)+stride)%modes.length]!;
+        const stride = 1 + (this.encounterSeed % 4);
+        this.sportId =
+          modes[(modes.indexOf(this.sportId) + stride) % modes.length]!;
       }
       this.phase = "waiting";
       this.session = createCryptballSession({
         sportId: this.sportId,
         teamIds: this.teamIds,
-        seed: this.sportId === "crypt-guardian" ? this.encounterSeed : undefined,
+        seed:
+          this.sportId === "crypt-guardian" ? this.encounterSeed : undefined,
       });
       const checkpoint = this.session.capture();
       checkpoint.state.epoch = this.epoch;
@@ -475,13 +594,61 @@ export class MatchAuthority {
       this.assign();
     }
   }
+  private nextFriendsMatch() {
+    const chosen = [
+      ...this.queue.filter((id) => this.observers.get(id)?.connected),
+      ...[...this.peers.values()]
+        .filter((p) => p.connected && p.rematch)
+        .map((p) => p.id),
+    ].slice(0, this.capacity);
+    const names = new Map(
+      [...this.observers.values(), ...this.peers.values()].map((p) => [
+        p.id,
+        p.name,
+      ]),
+    );
+    for (const id of chosen) this.observers.delete(id);
+    for (const peer of this.peers.values()) {
+      if (
+        peer.connected &&
+        peer.rematch &&
+        !chosen.includes(peer.id) &&
+        this.observers.size < this.watcherCapacity
+      )
+        this.observers.set(peer.id, {
+          id: peer.id,
+          name: peer.name,
+          connected: true,
+          generation: peer.generation + 1,
+          queued: false,
+        });
+    }
+    this.peers.clear();
+    this.queue = this.queue.filter(
+      (id) => !chosen.includes(id) && this.observers.has(id),
+    );
+    this.epoch++;
+    this.phase = "waiting";
+    this.session = createCryptballSession({
+      sportId: this.sportId,
+      teamIds: this.teamIds,
+      seed: this.epoch,
+    });
+    for (const id of chosen) this.join(id, names.get(id)!);
+    const checkpoint = this.session.capture();
+    checkpoint.state.epoch = this.epoch;
+    this.session.restore(checkpoint);
+    this.assign();
+    this.lobbyRevision++;
+  }
   advance() {
     this.tick++;
     if (this.phase === "countdown" && --this.countdown <= 0) {
       this.phase = "playing";
       this.session = createCryptballSession({
         teamIds: this.teamIds,
-        seed: this.sportId === "crypt-guardian" ? this.encounterSeed : this.epoch,
+        seed:
+          this.sportId === "crypt-guardian" ? this.encounterSeed : this.epoch,
         sportId: this.sportId,
       });
       this.session.setParticipants(
@@ -495,7 +662,9 @@ export class MatchAuthority {
       const checkpoint = this.session.capture();
       checkpoint.state.epoch = this.epoch;
       // New modes retain their opening possession/guardian wake tells.
-      if (!["cryptcheck", "crypt-dodge", "crypt-guardian"].includes(this.sportId)) {
+      if (
+        !["cryptcheck", "crypt-dodge", "crypt-guardian"].includes(this.sportId)
+      ) {
         checkpoint.state.phase = "play";
         checkpoint.state.phaseTicks = 0;
       }
@@ -510,6 +679,14 @@ export class MatchAuthority {
       }
     }
     if (this.phase !== "playing") {
+      if (
+        this.friends &&
+        this.phase === "results" &&
+        this.tick - this.resultsAt >= 600
+      ) {
+        this.nextFriendsMatch();
+        return;
+      }
       if (this.phase === "results" && this.tick - this.resultsAt > 3600)
         this.phase = "closing";
       return;
@@ -578,11 +755,17 @@ export class MatchAuthority {
         : heldCommand(cmd, this.sportId);
       commands[p.id] = cmd;
     }
-    const revisions = new Map([...this.peers.values()].map(peer =>
-      [peer.id, this.session.getControllerRevision(peer.id)]));
+    const revisions = new Map(
+      [...this.peers.values()].map((peer) => [
+        peer.id,
+        this.session.getControllerRevision(peer.id),
+      ]),
+    );
     this.session.stepParticipants(commands);
     for (const peer of this.peers.values()) {
-      if (revisions.get(peer.id) !== this.session.getControllerRevision(peer.id)) {
+      if (
+        revisions.get(peer.id) !== this.session.getControllerRevision(peer.id)
+      ) {
         // Held state belongs to the athlete/revision that admitted it. The new
         // athlete receives only a fresh command bearing its exact revision.
         peer.held = {};
@@ -631,8 +814,58 @@ export class MatchAuthority {
       events,
     };
   }
+  observerSnapshot(
+    events: Snapshot["events"],
+    checkpoint = this.session.capture(),
+    serverTime = performance.now(),
+    serverDebt = 0,
+  ): Snapshot {
+    return {
+      observer: true,
+      snapshotSeq: ++this.snapshotSeq,
+      serverTime,
+      serverDebt,
+      phase: this.phase,
+      receivedSeq: 0,
+      terminalSeq: 0,
+      dispositions: [],
+      feedback: {
+        sampleSeq: 0,
+        sampleCount: 0,
+        minimumMargin: 0,
+        lowMargin: 0,
+        lateReceipts: 0,
+        rejections: 0,
+        rejectionReasons: emptyRejectionReasons(),
+        emptySlots: 0,
+        neutralizations: 0,
+        botTransitions: 0,
+      },
+      sportId: this.sportId,
+      version: PROTOCOL,
+      build: BUILD,
+      epoch: this.epoch,
+      tick: checkpoint.state.tick,
+      ack: 0,
+      generation: 1,
+      participantId: "observer",
+      remote: {},
+      checkpoint,
+      events,
+    };
+  }
+  get resultsTicksRemaining() {
+    return this.friends && this.phase === "results"
+      ? Math.max(0, 600 - (this.tick - this.resultsAt))
+      : 0;
+  }
   lobby(): Lobby {
     return {
+      returning: this.friends ? [...this.peers.values()].filter(p => p.connected && p.rematch).map(p => p.id) : undefined,
+      resultsTicksRemaining: this.friends ? this.resultsTicksRemaining : undefined,
+      friends: this.friends,
+      spectators: [...this.observers.values()].map((p) => ({ ...p })),
+      queue: [...this.queue],
       shuffle: this.shuffle,
       teamIds: this.teamIds,
       sportId: this.sportId,

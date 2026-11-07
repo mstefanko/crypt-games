@@ -1,0 +1,68 @@
+{
+  "status": "complete",
+  "scope": "Local loopback real WebSockets; scripted SDK controls without browser rendering/prediction; not WAN or hosting qualification",
+  "sports": [
+    "cryptball",
+    "cryptkick",
+    "rift-volley",
+    "cryptcheck",
+    "crypt-dodge"
+  ],
+  "spectators": [
+    8,
+    0,
+    4,
+    8,
+    4
+  ],
+  "sameIpMembers": 44,
+  "concurrentWebSockets": 88,
+  "elapsedMs": 1800723.765583,
+  "slowRecovery": {
+    "droppedAfterMs": 5294.817333,
+    "closeCode": 4001,
+    "firstFrameMs": 2.0132080000003043
+  },
+  "firstFrameMs": {
+    "count": 45,
+    "p50": 1.0043749999999818,
+    "p95": 2.420959000000039,
+    "p99": 3.0320839999999976,
+    "max": 3.0320839999999976
+  },
+  "measured": {
+    "bytesPerSecond": 4265950.233912169,
+    "snapshots": 1584191,
+    "actualEncodes": 864124
+  },
+  "buildScope": "30-minute integration build during implementation. The 60-second release report exercises the final server separately.",
+  "rematchesPerPlayer": {
+    "minimum": 3,
+    "maximum": 28
+  },
+  "sampleCount": 360,
+  "courtsInEverySample": 5,
+  "clientErrors": 0,
+  "slowDrops": 1,
+  "maxDebtAboveThresholdMs": 0,
+  "maxSampledBotTransitions": 0,
+  "maxPayloadBytes": 8244,
+  "eventLoopMs": {
+    "sampleCount": 87783,
+    "min": 8.76544,
+    "mean": 20.57960214219154,
+    "max": 171.180031,
+    "p95": 21.676031,
+    "p99": 22.609919
+  },
+  "finalRollingTickMs": {
+    "count": 541936,
+    "sampleCount": 256,
+    "mean": 0.14834235652186364,
+    "max": 129.07112500001676,
+    "p50": 0.12679199990816414,
+    "p95": 0.3736250000074506,
+    "p99": 0.5590839998330921
+  },
+  "worstSampledRollingTickP99Ms": 6.875583999906667
+}

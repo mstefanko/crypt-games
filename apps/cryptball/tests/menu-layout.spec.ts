@@ -102,7 +102,7 @@ for (const viewport of [{ width: 1280, height: 800 }, { width: 800, height: 500 
     await expectFittedMenu(page);
     await page.getByRole("button", { name: "Play with friends", exact: true }).click();
     await expectFittedMenu(page);
-    await expect(page.getByRole("button", { name: "Join room", exact: true })).toBeInViewport({ ratio: 1 });
+    await expect(page.getByRole("button", { name: "Continue", exact: true })).toBeInViewport({ ratio: 1 });
     await page.getByRole("button", {name:"Back",exact:true}).click();
     await expect(page.getByRole("heading", {name:"Play online",exact:true})).toBeVisible();
     await page.getByRole("button", {name:"Back",exact:true}).click();

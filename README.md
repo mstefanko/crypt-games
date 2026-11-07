@@ -11,7 +11,7 @@ npm ci
 npm run dev
 ```
 
-Open http://127.0.0.1:4223/games/cryptball/. The command starts both the browser game and multiplayer service. Competitive online matches require at least two ready humans. Guardian is solo only.
+Open http://127.0.0.1:4223/games/cryptball/. The command starts both the browser game and multiplayer service. Choose **Play online → Play with friends**, enter your name and copy the lobby link. Group members can start any of five sports with two players, open another court, watch, or queue for the next match. Guardian is solo only.
 
 ```sh
 npm run build
@@ -32,4 +32,4 @@ The shared libraries retain their original `@onepage` package names. This snapsh
 
 ## Current validation status
 
-The standalone browser/server builds, typecheck, and 386 offline tests pass. Multiplayer validation currently has failures, including matchmaking and a special-action checkpoint expectation reproduced in the original workspace. Public online launch needs those failures investigated and a real WSS/two-device playtest. See [packaging validation](docs/hosting-validation/README.md).
+See the [friends lobby implementation and verification](docs/crypt-games-friends-lobby-implementation-plan-2026-11-06.md) for the current multiplayer checks. The [packaging validation](docs/hosting-validation/README.md) records the earlier source extraction. Hosting and two-device playtesting are covered in the [deployment guide](docs/HOSTING.md).

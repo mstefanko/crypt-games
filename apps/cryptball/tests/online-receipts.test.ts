@@ -403,6 +403,7 @@ it("interrupts explicitly when an encoded checkpoint exceeds the wire limit", as
     debt: 0,
     resync: new Map(),
     backlogSince: new Map(),
+    slowDropped: new Set(),
   });
   const interruptions: unknown[] = [];
   room.broadcast = (...args: unknown[]) => interruptions.push(args);

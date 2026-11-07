@@ -2,6 +2,7 @@ import { Room, type Client } from "@colyseus/core";
 import {
   BUILD,
   PROTOCOL,
+  FRIENDS_OBSERVER_CAP,
   NETWORK_LIMITS,
   encodeSnapshot,
   resolveSportId,
@@ -12,6 +13,16 @@ import {
 import { ROSTER } from "@onepage/cryptball/sim";
 import { MatchAuthority } from "./model";
 import { work } from "./metrics";
+import {
+  authorizeFriendsCreation,
+  consumeCourtTicket,
+  canCreateCourt,
+  type CourtIntent,
+} from "./friends";
+const watcherCapacity = Number(process.env.CRYPTBALL_FRIENDS_VIEWERS_PER_COURT ?? FRIENDS_OBSERVER_CAP);
+if (!Number.isInteger(watcherCapacity) || watcherCapacity < 0 || watcherCapacity > FRIENDS_OBSERVER_CAP)
+  throw Error(`CRYPTBALL_FRIENDS_VIEWERS_PER_COURT must be an integer from 0 to ${FRIENDS_OBSERVER_CAP}`);
+
 export const service = {
   draining: false,
   overloaded: false,
@@ -41,6 +52,14 @@ export class CryptballRoom extends Room {
   maxClients: number = ROSTER.playerCount;
   maxMessagesPerSecond = 100;
   authority!: MatchAuthority;
+  groupKey?: string;
+  private memberClients = new Map<string, Client>();
+  membersInCourt() {
+    return [...this.memberClients].map(([memberId, client]) => ({
+      memberId,
+      sessionId: client.sessionId,
+    }));
+  }
   private last = 0;
   private debt = 0;
   private emptyAt: number | null = null;
@@ -49,31 +68,38 @@ export class CryptballRoom extends Room {
   private stableSince = 0;
   private resync = new Map<string, { at: number; request: ResyncRequest }>();
   private backlogSince = new Map<string, number>();
+  private slowDropped = new Set<string>();
   async onCreate(options: {
     private?: boolean;
+    groupKey?: string;
+    friendsCreationKey?: string;
     shuffle?: boolean;
     build?: string;
     protocol?: number;
     sportId?: unknown;
   }) {
-    if (
-      service.draining ||
-      service.overloaded ||
-      service.rooms.size >= service.maxRooms
-    )
-      throw Error("Service unavailable");
+    const friends = this.roomName === "friends-court";
+    if (friends && !authorizeFriendsCreation(options))
+      throw Error("Join through your friends lobby");
+    if (!canCreateCourt(friends)) throw Error("Service unavailable");
     if (options.build !== BUILD || options.protocol !== PROTOCOL)
       throw Error("Refresh to update Cryptball");
     const sportId = resolveSportId(options.sportId);
-    if (sportId === "crypt-guardian") throw Error("Crypt Guardian is solo only for now.");
+    if (sportId === "crypt-guardian")
+      throw Error("Crypt Guardian is solo only for now.");
+    this.groupKey = friends ? options.groupKey : undefined;
     this.authority = new MatchAuthority(
       this.roomId,
       options.private === true,
       sportId,
-      options.shuffle === true,
+      friends ? false : options.shuffle === true,
+      friends,
+      friends ? watcherCapacity : 0,
     );
-    this.maxClients = this.authority.capacity;
+    this.maxClients =
+      this.authority.capacity + this.authority.watcherCapacity;
     this.seatReservationTimeout = 10;
+    service.rooms.add(this);
     await this.setPrivate(options.private === true);
     await this.setMetadata({
       shuffle: options.shuffle === true,
@@ -82,7 +108,6 @@ export class CryptballRoom extends Room {
       protocol: PROTOCOL,
       createdAt: Date.now(),
     });
-    service.rooms.add(this);
     this.onMessage("ping", (c, v) => {
       if (validatePing(v))
         c.send("pong", {
@@ -130,7 +155,11 @@ export class CryptballRoom extends Room {
       this.sendLobby();
     });
     this.onMessage("ready", (c) => this.authority.ready(c.sessionId));
-    this.onMessage("start", () => this.authority.start());
+    this.onMessage("start", (c) => this.authority.start(c.sessionId));
+    this.onMessage("play-next", (c) => {
+      this.authority.playNext(c.sessionId);
+      this.sendLobby();
+    });
     this.onMessage("rematch", (c) => {
       this.authority.rematch(c.sessionId);
       this.sendLobby(); // Announce playlist/epoch changes before new checkpoints.
@@ -145,7 +174,14 @@ export class CryptballRoom extends Room {
   }
   onAuth(
     _client: Client,
-    options: { build?: string; protocol?: number; sportId?: unknown },
+    options: {
+      build?: string;
+      protocol?: number;
+      sportId?: unknown;
+      admissionTicket?: string;
+      groupKey?: string;
+      memberId?: string;
+    },
   ) {
     if (
       service.draining ||
@@ -160,23 +196,53 @@ export class CryptballRoom extends Room {
       throw Error(
         "This room plays a different sport. Select its sport to join.",
       );
+    if (this.groupKey) {
+      const ticket = consumeCourtTicket(options, this.roomId);
+      if (!ticket) throw Error("Return to your friends lobby to join");
+      if (!this.authority.canJoin(ticket.intent))
+        throw Error("This court is full. Choose another court.");
+      return ticket;
+    }
     return true;
   }
   onJoin(
     client: Client,
-    options: { name?: unknown; preferredTeamId?: unknown },
+    options: {
+      name?: unknown;
+      preferredTeamId?: unknown;
+      intent?: CourtIntent;
+    },
   ) {
-    this.authority.join(
+    const ticket = this.groupKey
+      ? (client.auth as { memberId: string; name: string; intent: CourtIntent })
+      : undefined;
+    this.authority.admit(
       client.sessionId,
-      typeof options.name === "string" ? options.name : "Guest",
+      ticket?.name ??
+        (typeof options.name === "string" ? options.name : "Guest"),
       options.preferredTeamId,
+      ticket?.intent ?? options.intent,
     );
+    // Commit the transfer only after destination admission succeeds.
+    if (ticket) {
+      for (const room of service.rooms) {
+        const old = room.memberClients.get(ticket.memberId);
+        if (old) {
+          room.authority.remove(old.sessionId);
+          room.memberClients.delete(ticket.memberId);
+          old.leave(4000, "Switched court");
+          room.sendLobby();
+        }
+      }
+      this.memberClients.set(ticket.memberId, client);
+    }
     this.sendLobby();
     this.sendSnapshot(client, []);
   }
-  async onDrop(client: Client) {
+  async onDrop(client: Client, code?: number) {
     this.authority.drop(client.sessionId);
     this.sendLobby();
+    if (code === 4000 || code === 4001 || code === 4002) return;
     try {
       await this.allowReconnection(client, 15);
     } catch {
@@ -184,11 +250,18 @@ export class CryptballRoom extends Room {
     }
   }
   onReconnect(client: Client) {
+    this.slowDropped.delete(client.sessionId);
+    for (const [memberId, previous] of this.memberClients)
+      if (previous.sessionId === client.sessionId)
+        this.memberClients.set(memberId, client);
     this.authority.reconnect(client.sessionId);
     this.sendLobby();
     this.sendSnapshot(client, []);
   }
   onLeave(client: Client) {
+    this.slowDropped.delete(client.sessionId);
+    for (const [memberId, c] of this.memberClients)
+      if (c.sessionId === client.sessionId) this.memberClients.delete(memberId);
     this.resync.delete(client.sessionId);
     this.backlogSince.delete(client.sessionId);
     service.peerOutbound.delete(`${this.roomId}:${client.sessionId}`);
@@ -199,6 +272,7 @@ export class CryptballRoom extends Room {
     for (const key of service.peerOutbound.keys())
       if (key.startsWith(`${this.roomId}:`)) service.peerOutbound.delete(key);
     service.rooms.delete(this);
+    if (service.rooms.size === 0) service.overloaded = false;
   }
   private resumePeer(client: Client) {
     // Lifecycle transitions use the next regular broadcast, including in the lobby.
@@ -235,6 +309,14 @@ export class CryptballRoom extends Room {
         this.debt -= 1000 / 60;
         const tickStarted = performance.now();
         this.authority.advance();
+        if (this.authority.friends) {
+          for (const client of this.clients)
+            if (
+              !this.authority.peers.has(client.sessionId) &&
+              !this.authority.observers.has(client.sessionId)
+            )
+              client.leave(4002, "Back to friends lobby");
+        }
         work.tickMs.observe(performance.now() - tickStarted);
         snapshotDue ||= this.authority.tick % 3 === 0;
       }
@@ -242,18 +324,48 @@ export class CryptballRoom extends Room {
         // Capture only the newest state after catch-up; drain once to retain every event.
         const events = this.authority.session.drainEvents();
         const checkpoint = this.authority.session.capture();
-        for (const c of this.clients) this.sendSnapshot(c, events, checkpoint);
+        let observerBytes: Uint8Array | undefined;
+        if (this.authority.observers.size) {
+          try {
+            const started = performance.now();
+            observerBytes = encodeSnapshot(
+              this.authority.observerSnapshot(
+                events,
+                checkpoint,
+                now,
+                this.debt,
+              ),
+            );
+            work.encodeMs.observe(performance.now() - started);
+          } catch {
+            this.authority.phase = "closing";
+            this.broadcast(
+              "interrupted",
+              "Match checkpoint exceeded its limit.",
+            );
+            void this.disconnect();
+            return;
+          }
+        }
+        for (const c of this.clients)
+          this.sendSnapshot(c, events, checkpoint, observerBytes);
       }
       const phase = this.authority.phase;
       if (
-        phase === "countdown" ||
-        phase === "playing" ||
-        phase === "results" ||
+        (!this.authority.friends &&
+          (phase === "countdown" ||
+            phase === "playing" ||
+            phase === "results")) ||
         service.draining
       ) {
         if (!this.locked) void this.lock();
       } else if (this.locked) void this.unlock();
-      if (![...this.authority.peers.values()].some((p) => p.connected)) {
+      if (
+        ![
+          ...this.authority.peers.values(),
+          ...this.authority.observers.values(),
+        ].some((p) => p.connected)
+      ) {
         this.emptyAt ??= now;
         if (now - this.emptyAt > 16000) {
           void this.disconnect();
@@ -273,35 +385,53 @@ export class CryptballRoom extends Room {
     client: Client,
     events: Parameters<MatchAuthority["snapshot"]>[1],
     checkpoint?: ReturnType<MatchAuthority["session"]["capture"]>,
+    observerBytes?: Uint8Array,
   ) {
-    if (!this.authority.peers.has(client.sessionId)) return;
+    if (this.slowDropped.has(client.sessionId)) return;
+    const observer = this.authority.observers.has(client.sessionId);
+    if (!observer && !this.authority.peers.has(client.sessionId)) return;
     const pending = pendingBytes(client);
     if (pending > 0) {
       if (!this.backlogSince.has(client.sessionId))
         this.backlogSince.set(client.sessionId, performance.now());
     } else this.backlogSince.delete(client.sessionId);
     if (pending > 65536) {
+      this.slowDropped.add(client.sessionId);
       service.droppedSlow++;
-      client.leave(4001, "Connection too slow; reconnect");
+      client.leave(4001, "Connection too slow; return to the lobby");
       return;
     }
     try {
-      const snapshot = this.authority.snapshot(
-        client.sessionId,
-        events,
-        checkpoint,
-        performance.now(),
-        this.debt,
-      );
+      const snapshot = observer
+        ? observerBytes
+          ? undefined
+          : this.authority.observerSnapshot(
+              events,
+              checkpoint,
+              performance.now(),
+              this.debt,
+            )
+        : this.authority.snapshot(
+            client.sessionId,
+            events,
+            checkpoint,
+            performance.now(),
+            this.debt,
+          );
       const request = this.resync.get(client.sessionId);
-      if (request && request.request.id >= 0) {
+      if (snapshot && request && request.request.id >= 0) {
         snapshot.resyncId = request.request.id;
         service.resyncServed++;
         request.request = { ...request.request, id: -1 };
       }
-      const encodeStarted = performance.now();
-      const bytes = encodeSnapshot(snapshot);
-      work.encodeMs.observe(performance.now() - encodeStarted);
+      let bytes: Uint8Array;
+      if (observer && observerBytes) {
+        bytes = observerBytes;
+      } else {
+        const encodeStarted = performance.now();
+        bytes = encodeSnapshot(snapshot!);
+        work.encodeMs.observe(performance.now() - encodeStarted);
+      }
       work.payloadBytes.observe(bytes.byteLength);
       service.snapshots++;
       service.bytes += bytes.byteLength;
@@ -324,7 +454,7 @@ export class CryptballRoom extends Room {
     }
   }
   private sendLobby(force = true) {
-    const dirtyKey = `${this.authority.lobbyRevision}:${this.authority.phase}:${Math.ceil(this.authority.countdown / 15)}`;
+    const dirtyKey = `${this.authority.lobbyRevision}:${this.authority.phase}:${Math.ceil(this.authority.countdown / 15)}:${Math.ceil(this.authority.resultsTicksRemaining / 60)}`;
     if (!force && dirtyKey === this.lobbyDirtyKey) return;
     this.lobbyDirtyKey = dirtyKey;
     const lobby = this.authority.lobby(),

@@ -5,6 +5,9 @@ const fake = vi.hoisted(() => ({
   sent: [] as [string, unknown][],
   joins: [] as Record<string, unknown>[],
   reconnects: [] as string[],
+  rejectReservation: false,
+  reconnectFailures: 0,
+  leaves: 0,
 }));
 vi.mock("@colyseus/sdk", () => {
   const room = {
@@ -19,17 +22,22 @@ vi.mock("@colyseus/sdk", () => {
     onLeave: () => {},
     onError: () => {},
     send: (type: string, data: unknown) => fake.sent.push([type, data]),
-    leave: async () => {},
+    leave: async () => { fake.leaves++; },
     connection: { close: () => {} },
   };
   return {
     Client: class {
+      async consumeSeatReservation() {
+        if (fake.rejectReservation) throw Error("Court filled while connecting");
+        return room;
+      }
       async joinOrCreate(_name: string, options: Record<string, unknown>) {
         fake.joins.push(options);
         return room;
       }
       async reconnect(token: string) {
         fake.reconnects.push(token);
+        if (fake.reconnectFailures-- > 0) throw Error("seat reservation expired");
         return room;
       }
       async joinById(_code: string, options: Record<string, unknown>) {
@@ -53,6 +61,9 @@ beforeEach(() => {
   fake.sent.length = 0;
   fake.joins.length = 0;
   fake.reconnects.length = 0;
+  fake.rejectReservation = false;
+  fake.reconnectFailures = 0;
+  fake.leaves = 0;
   const storage = new Map<string, string>();
   vi.stubGlobal("sessionStorage", {
     getItem: (key: string) => storage.get(key) ?? null,
@@ -1076,4 +1087,72 @@ it("does not reset a playing checkpoint or send control messages on duplicate re
   client.resume();
   expect(fake.sent.at(-1)?.[0]).toBe("resume");
   expect(client.suspended).toBe(false);
+});
+
+it("renders shared spectator checkpoints without control or outbound play traffic, then adopts a seat", async () => {
+  const authority = new MatchAuthority("room", true, "cryptball", false, true);
+  authority.join("a", "A"); authority.join("b", "B");
+  authority.start("a");
+  for (let i = 0; i < 180; i++) authority.advance();
+  authority.admit("p0", "Viewer", undefined, "watch");
+  const client = createOnlineSession({ endpoint: "ws://test" });
+  await client.connect("quick");
+  fake.messages.get("lobby")!(authority.lobby());
+  fake.messages.get("snapshot")!(encodeSnapshot(authority.observerSnapshot([])));
+  expect(client.spectator).toBe(true);
+  expect(client.observe().controlledId).toBe("");
+  const tick = client.simulationTick;
+  fake.sent.length = 0;
+  now += 10000;
+  client.step({ moveX: 1, strikeHeld: true });
+  client.update(); client.suspend(); client.resume();
+  expect(client.simulationTick).toBe(tick);
+  expect(fake.sent).toEqual([]);
+  for (let i = 0; i < 60; i++) authority.advance();
+  fake.messages.get("snapshot")!(encodeSnapshot(authority.observerSnapshot([])));
+  expect(client.simulationTick).toBe(authority.session.getTick());
+  expect(client.observe().controlledId).toBe("");
+
+  const next = new MatchAuthority("room", true, "cryptball", false, true);
+  next.join("p0", "Viewer"); next.join("b", "B"); next.start("p0");
+  for (let i = 0; i < 180; i++) next.advance();
+  fake.messages.get("lobby")!(next.lobby());
+  fake.messages.get("snapshot")!(encodeSnapshot(next.snapshot("p0", [])));
+  expect(client.spectator).toBe(false);
+  expect(client.observe().controlledId).toBe(next.session.observeFor("p0").controlledId);
+});
+
+it("a rejected destination reservation leaves the independent source session playable", async () => {
+  const authority = new MatchAuthority("room", true);
+  authority.join("p0", "Player"); authority.join("b", "Other");
+  authority.ready("p0"); authority.ready("b");
+  authority.start(); for (let i = 0; i < 180; i++) authority.advance();
+  const source = createOnlineSession({ endpoint: "ws://test" });
+  await source.connect("quick");
+  fake.messages.get("lobby")!(authority.lobby());
+  fake.messages.get("snapshot")!(encodeSnapshot(authority.snapshot("p0", [])));
+  source.step({});
+  const destination = createOnlineSession({ endpoint: "ws://test" });
+  fake.rejectReservation = true;
+  await expect(destination.connectReservation({} as Parameters<typeof destination.connectReservation>[0])).rejects.toThrow("Court filled");
+  expect(source.status).toBe("joined");
+  expect(fake.leaves).toBe(0);
+  const before = source.simulationTick;
+  now += 17; source.step({moveX: 1});
+  expect(source.simulationTick).toBeGreaterThan(before);
+  expect(fake.sent.some(([type]) => type === "input")).toBe(true);
+});
+
+it("retries court-token recovery while the server is still processing the previous transport close", async () => {
+  const authority = new MatchAuthority("room", true);
+  authority.join("p0", "Player");
+  const source = createOnlineSession({ endpoint: "ws://test" });
+  await source.connect("quick");
+  fake.messages.get("lobby")!(authority.lobby());
+  fake.messages.get("snapshot")!(encodeSnapshot(authority.snapshot("p0", [])));
+  const restored = createOnlineSession({ endpoint: "ws://test" });
+  fake.reconnectFailures = 1;
+  await expect(restored.reconnectCourt("room")).resolves.toBe(true);
+  expect(fake.reconnects).toEqual(["room:secret", "room:secret"]);
+  expect(fake.joins).toHaveLength(1);
 });

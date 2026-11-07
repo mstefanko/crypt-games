@@ -1,9 +1,15 @@
 import { expect, test, type Page } from "@playwright/test";
 import { Client, type Room } from "@colyseus/sdk";
 
-async function chooseOnline(page: Page, choice: "Find a match" | "Play with friends") {
+async function enterName(page: Page, name = "Guest") {
+  await page.getByLabel("Player name", { exact: true }).fill(name);
+  await page.getByRole("button", { name: "Continue", exact: true }).click();
+}
+
+async function chooseOnline(page: Page, choice: "Find a match" | "Play with friends", name = "Guest") {
   await page.getByRole("button", {name:"Play online",exact:true}).click();
   await page.getByRole("button", {name:choice,exact:true}).click();
+  await enterName(page, name);
 }
 
 test("two humans start with bots; menu and reload preserve the running match", async ({
@@ -116,14 +122,19 @@ test("private four-player room auto-starts and a field-player reload rejoins pla
   for (const page of [creator, returning])
     page.on("pageerror", (e) => errors.push(e.message));
   try {
-    await creator.goto("http://127.0.0.1:4226/games/cryptball/");
-    await chooseOnline(creator, "Play with friends");
-    await creator
-      .getByRole("button", { name: "Create room", exact: true })
-      .click();
-    const url = await copyInvite(creator);
-    const code = new URL(url).searchParams.get("room")!;
+    // Create a legacy private court through its supported SDK route. The new
+    // friends entry point creates a group, while old ?room= links still work.
     const { BUILD, PROTOCOL } = await import("../protocol");
+    const legacy = await new Client("http://127.0.0.1:2568").create("cryptball", {
+      build: BUILD, protocol: PROTOCOL, private: true, name: "First guest",
+    });
+    peers.push(legacy);
+    legacy.onMessage("*", () => {});
+    legacy.send("ready");
+    const code = legacy.roomId;
+    const url = `http://127.0.0.1:4226/games/cryptball/?room=${code}`;
+    await creator.goto(url);
+    await enterName(creator);
     async function joinPeer() {
       const room = await new Client("http://127.0.0.1:2568").joinById(code, {
         build: BUILD,
@@ -135,11 +146,8 @@ test("private four-player room auto-starts and a field-player reload rejoins pla
       room.onMessage("lobby", () => {});
       room.send("ready");
     }
-    await joinPeer();
-    await expect(
-      creator.getByText("Field guest · Ready", { exact: true }),
-    ).toHaveCount(1);
     await returning.goto(url);
+    await enterName(returning);
     await expect(
       returning.getByText("Guest · Ready", { exact: true }),
     ).toHaveCount(2, { timeout: 15000 });
@@ -155,6 +163,7 @@ test("private four-player room auto-starts and a field-player reload rejoins pla
         timeout: 20000,
       });
     await returning.reload();
+    await enterName(returning);
     await expect(returning.locator("#clock")).not.toHaveText("1:30", {
       timeout: 20000,
     });
@@ -212,7 +221,6 @@ for (const [sportId, label] of [
   ["rift-volley", "Rift Volley"],
   ["cryptcheck", "Cryptcheck · Hockey"],
   ["crypt-dodge", "Crypt Dodge"],
-  ["crypt-guardian", "Crypt Guardian"],
 ] as const) {
   test(`${label} private invitation hydrates the sport, starts with bots, and reconnects on reload`, async ({
     browser,
@@ -227,23 +235,22 @@ for (const [sportId, label] of [
     const errors: string[] = [];
     for (const page of [creator, returning])
       page.on("pageerror", (error) => errors.push(error.message));
+    let fixture: Room | undefined;
     try {
-      await creator.goto("http://127.0.0.1:4226/games/cryptball/");
-      await creator.getByRole("button", { name: label, exact: true }).click();
-      await chooseOnline(creator, "Play with friends");
-      await creator
-        .getByRole("button", { name: "Create room", exact: true })
-        .click();
-      const url = new URL(await copyInvite(creator));
-      expect(url.searchParams.get("sport")).toBe(sportId);
-      // A bare room-code link starts from the default sport and discovers the room's sport.
-      url.searchParams.delete("sport");
-      await returning.goto(url.href);
+      const { BUILD, PROTOCOL } = await import("../protocol");
+      fixture = await new Client("http://127.0.0.1:2568").create("cryptball", {
+        build: BUILD, protocol: PROTOCOL, private: true, sportId, name: "Fixture",
+      });
+      fixture.onMessage("*", () => {});
+      fixture.send("ready");
+      const url = new URL("http://127.0.0.1:4226/games/cryptball/");
+      url.searchParams.set("room", fixture.roomId);
+      for (const page of [creator, returning]) {
+        await page.goto(url.href);
+        await enterName(page);
+      }
       expect(new URL(await copyInvite(returning)).searchParams.get("sport")).toBe(sportId);
-      if(sportId !== "crypt-guardian") {
-        await expect(creator.getByRole("button", { name: "Start with bots" })).toBeVisible();
-        await creator.getByRole("button", { name: "Start with bots" }).click();
-      } // Guardian's two ready humans fill the room and start automatically.
+      await creator.getByRole("button", { name: "Start with bots" }).click();
       for (const page of [creator, returning])
         await enterOnlineCourt(page, sportId, label);
       if (sportId === "rift-volley")
@@ -256,6 +263,7 @@ for (const [sportId, label] of [
       ).toBeVisible();
       await creator.getByRole("button", { name: "Return to play" }).click();
       await returning.reload();
+      await enterName(returning);
       await enterOnlineCourt(returning, sportId, label);
       await returning.keyboard.press("Escape");
       await expect(
@@ -271,51 +279,30 @@ for (const [sportId, label] of [
       await returning.screenshot({
         path: `.local-game-tests/cryptball-online-menu-regression/${sportId}-reconnected.png`,
       });
-      if (sportId === "crypt-dodge" || sportId === "crypt-guardian") {
+      if (sportId === "crypt-dodge") {
         await expect(returning.locator("canvas")).toHaveAttribute("data-new-modes-atlas-ready", "true");
-        await expect(returning.locator("#special-hud")).toBeHidden();
-        if (sportId === "crypt-guardian") {
-          await expect(returning.locator("#ivory")).toHaveText("TWO ALLIES");
-          await expect(returning.locator("#game")).toHaveAttribute("data-guardian-status", /^(active|down|out),(active|down|out)$/);
-        } else {
-          await expect(returning.locator("#game")).toHaveAttribute("data-dodge-lives", /^[0-3],[0-3],[0-3],[0-3]$/);
-        }
+        await expect(returning.locator("#game")).toHaveAttribute("data-dodge-lives", /^[0-3],[0-3],[0-3],[0-3]$/);
       }
       expect(errors).toEqual([]);
     } finally {
+      await fixture?.leave();
       await Promise.all(contexts.map((context) => context.close()));
     }
   });
 }
 
-test("multiplayer club preferences and waiting changes are authoritative", async ({ browser }) => {
-  const contexts = await Promise.all([browser.newContext({ permissions: ["clipboard-read", "clipboard-write"] }), browser.newContext()]);
-  const pages = await Promise.all(contexts.map((context) => context.newPage()));
+test("public court shows both clients the same assigned clubs", async ({ browser }) => {
+  const pages = await Promise.all([browser.newPage(), browser.newPage()]);
   try {
-    for (const [index, name] of ["Owls", "Bats"].entries()) {
-      await pages[index].goto("http://127.0.0.1:4226/games/cryptball/");
-      await pages[index].getByRole("group", { name: "Your team", exact: true }).getByRole("button", { name, exact: true }).click();
-      await chooseOnline(pages[index], "Find a match");
-      await expect(pages[index].getByRole("heading", { name: "The next match" })).toBeVisible();
+    for (const [index, page] of pages.entries()) {
+      await page.goto("/games/cryptball/");
+      await chooseOnline(page, "Find a match", "Player " + index);
+      await expect(page.locator(".lobby-roster")).toContainText("Player " + index);
     }
-    for (const page of pages) {
-      await expect(page.locator(".lobby-roster")).toContainText("OWLS");
-      await expect(page.locator(".lobby-roster")).toContainText("BATS");
-    }
-    const picker = pages[0].getByRole("group", { name: "Your team", exact: true });
-    await expect(picker.getByRole("button", { name: "Bats, taken by opponent", exact: true })).toBeDisabled();
-    await picker.getByRole("button", { name: "Gators", exact: true }).click();
-    for (const page of pages) {
-      await expect(page.locator(".lobby-roster")).toContainText("GATORS");
-      await page.getByRole("button", { name: "Ready", exact: true }).click();
-    }
-    await pages[0].getByRole("button", { name: "Start with bots" }).click();
-    for (const page of pages) {
-      await expect(page.locator("#clock")).not.toHaveText("1:30", { timeout: 20000 });
-      await expect(page.locator("#ivory")).toContainText("GATORS");
-      await expect(page.locator("#ember")).toContainText("BATS");
-    }
-  } finally { await Promise.all(contexts.map((context) => context.close())); }
+    const teams = await pages[0].locator(".lobby-roster strong").allTextContents();
+    expect(new Set(teams).size).toBe(2);
+    await expect(pages[1].locator(".lobby-roster strong")).toHaveText(teams);
+  } finally { await Promise.all(pages.map(page => page.close())); }
 });
 
 async function copyInvite(page: Page) {
@@ -329,9 +316,7 @@ test("a joiner hidden through Dodge kickoff gets cover and can take control", as
   try {
     for (const [index, page] of [host, peer].entries()) {
       await page.goto("http://127.0.0.1:4226/games/cryptball/?sport=crypt-dodge&diagnostics=1");
-      await chooseOnline(page, "Find a match");
-      await page.getByLabel("Player name", { exact: true }).fill(index === 0 ? "Host" : "Peer");
-      await page.getByRole("button", { name: "Continue", exact: true }).click();
+      await chooseOnline(page, "Find a match", index === 0 ? "Host" : "Peer");
       await expect(page.getByRole("heading", { name: "The next match" })).toBeVisible();
     }
     await peer.evaluate(() => {

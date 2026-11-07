@@ -34,6 +34,7 @@ async function visit(path) {
 }
 await visit(resolve(root, "apps/cryptball/sim/session.ts"));
 await visit(resolve(root, "apps/cryptball/protocol.ts"));
+await visit(resolve(root, "apps/cryptball/friends-protocol.ts"));
 const hash = createHash("sha256");
 for (const [path, source] of [...sources].sort(([a], [b]) => a < b ? -1 : a > b ? 1 : 0)) {
   hash.update(relative(root, path)); hash.update("\0"); hash.update(source); hash.update("\0");

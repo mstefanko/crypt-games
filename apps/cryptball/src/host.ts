@@ -1,6 +1,8 @@
 import { FrameInterpolation } from "./online/frame-interpolation";
 import { installPerformanceDiagnostics } from "./online/performance-diagnostics";
-import { BUILD } from "../protocol";
+import type { FriendsDirectory, FriendsSession } from "./online/friends";
+import { BUILD, PROTOCOL } from "../protocol";
+import type { CourtIntent } from "../friends-protocol";
 import { PixiStage } from "@onepage/game-runtime/pixi";
 import { BrowserLifecycle } from "@onepage/game-runtime/browser/lifecycle";
 import {
@@ -76,6 +78,18 @@ export async function mountCryptball() {
   let contextHeld = false, middleHeld = false;
   modeHud.append(modeSummary, bossMeter, roster, contextTrigger); game.append(modeHud);
   let online: OnlineSession | null = null;
+  let friendsSession: FriendsSession | null = null;
+  let directory: FriendsDirectory | null = null;
+  let watcherRetry = 0;
+  let courtRequest = 0;
+  let transferringCourt: OnlineSession | null = null;
+  let courtAdmission: Promise<void> = Promise.resolve();
+  let restoringGroupCourt = false;
+  const rememberedCourtKey = (key: string) => `cryptball-friends-court:${BUILD}:${PROTOCOL}:${key}`;
+  const friendsPanel = document.createElement("aside");
+  friendsPanel.id = "friends-panel"; friendsPanel.hidden = true;
+  friendsPanel.setAttribute("aria-label", "Friends and courts"); game.append(friendsPanel);
+
   let onlineJoinGeneration = 0;
   let onlineLobbyKey = "";
   let session: Pick<
@@ -290,7 +304,7 @@ export async function mountCryptball() {
     eyebrow = "CRYPTBALL",
   ) {
     overlay.className = "";
-    game.dataset.menu = ["title", "online-lobby", "online-choice"].includes(screen) ? "setup" : "other";
+    game.dataset.menu = ["title", "online-lobby", "online-choice", "friends", "friends-directory"].includes(screen) ? "setup" : "other";
     document.querySelector<HTMLElement>("#hud")!.hidden = !["play", "pause", "results"].includes(screen);
     if (screen !== "loading") resize();
     overlay.hidden = false;
@@ -332,6 +346,14 @@ export async function mountCryptball() {
     return img;
   }
   function title() {
+    if (friendsSession) {
+      const homeUrl = new URL(location.href);
+      homeUrl.searchParams.delete("group");
+      history.replaceState(null, "", homeUrl);
+      rememberCourt();
+      void friendsSession.leave(); friendsSession = null;
+    }
+    directory = null; friendsPanel.hidden = true;
     prefs.teamId = TEAM_IDS[Math.floor(Math.random()*TEAM_IDS.length)]!;
     prefs.opponentId = resolveTeamSelection(prefs.teamId, TEAM_IDS[Math.floor(Math.random()*TEAM_IDS.length)]!)[1];
     onlineJoinGeneration++;
@@ -436,7 +458,7 @@ export async function mountCryptball() {
   }
   function onlineChoices() {
     screen = "online-choice";
-    menu("Play online", "Play remotely with other players. Find a public match or invite friends to a private room.", [
+    menu("Play online", "Play remotely with other players. Find a public match or share a friends lobby.", [
       ["Find a match", () => joinOnline("quick")],
       ["Play with friends", friends],
       ["Back", title],
@@ -455,53 +477,487 @@ export async function mountCryptball() {
       ["Back", title],
     ]);
   }
-  function friends() {
+  function friends(groupKey?: string) {
     screen = "friends";
     menu(
-      "Play with friends",
-      `${sport().label} · Create a private court or enter a room code or invite link. Everyone in a room plays the same sport.`,
-      [
-        ["Create room", () => joinOnline("private")],
-        ["Back", onlineChoices],
-      ],
+      "Your name",
+      "Shown in the lobby and above your athlete. Up to 24 characters.",
+      [["Back", onlineChoices]],
     );
-    const modeLabel=document.createElement("label"); modeLabel.textContent="Room activity ";
-    const modes=document.createElement("select"); modes.setAttribute("aria-label","Room activity");
-    for(const id of SPORT_IDS.filter(id=>id!=="crypt-guardian")) {
-      const option=document.createElement("option");option.value=id;option.textContent=SPORTS[id].label;modes.append(option);
-    }
-    const shuffleOption=document.createElement("option");shuffleOption.value="shuffle";shuffleOption.textContent="Crypt Shuffle · new activity each match";modes.append(shuffleOption);
-    modes.value=shuffle?"shuffle":sportId; modes.addEventListener("change",()=>{shuffle=modes.value==="shuffle"; if(shuffle)sportId="cryptball";else if(isSportId(modes.value)) sportId=modes.value;},{signal});
-    modeLabel.append(modes);overlay.append(modeLabel);
     const form = document.createElement("form");
     form.className = "room-entry";
-    const input = document.createElement("input");
-    input.placeholder = "Room code or invite link";
-    input.maxLength = 2048;
-    input.setAttribute("aria-label", "Room code or invite link");
-    input.autocomplete = "off";
+    const name = document.createElement("input");
+    name.required = true;
+    name.maxLength = 24;
+    name.value = playerName;
+    name.placeholder = "Player name";
+    name.setAttribute("aria-label", "Player name");
     const submit = document.createElement("button");
     submit.type = "submit";
-    submit.textContent = "Join room";
-    form.append(input, submit);
+    submit.textContent = groupKey ? "Join group" : "Continue";
+    form.append(name, submit);
+    overlay.append(form);
+    name.focus();
     form.addEventListener(
       "submit",
       (e) => {
         e.preventDefault();
-        const value = input.value.trim();
-        if (!value) return;
-        let code = value;
-        try {
-          const invite = new URL(value);
-          const invitedSport = invite.searchParams.get("sport");
-          if (isSportId(invitedSport)) sportId = invitedSport;
-          code = invite.searchParams.get("room") ?? value;
-        } catch {}
-        void joinOnline("join", code);
+        playerName = name.value.trim();
+        if (!playerName) return;
+        void enterFriends(groupKey);
       },
       { signal },
     );
-    overlay.append(form);
+  }
+  async function enterFriends(groupKey?: string) {
+    try {
+      sessionStorage.setItem("cryptball-friends-name", playerName);
+    } catch {}
+    screen = "friends-connecting";
+    menu("Joining your friends", "Connecting to the group…", [["Cancel", title]]);
+    const generation = ++onlineJoinGeneration;
+    let firstDirectory = true;
+    try {
+      const { createFriendsSession } = await import("./online/friends");
+      if (generation !== onlineJoinGeneration || disposed) return;
+      const next = createFriendsSession(
+        (value) => {
+          if (friendsSession !== next) return;
+          directory = value;
+          const url = new URL(location.href);
+          url.searchParams.delete("room");
+          url.searchParams.delete("sport");
+          url.searchParams.set("group", value.groupKey);
+          history.replaceState(null, "", url);
+          if (!online) renderDirectory();
+          renderFriendsPanel();
+          if (firstDirectory && restoringGroupCourt) {
+            firstDirectory = false;
+            restoringGroupCourt = false;
+            try {
+              const saved = JSON.parse(
+                sessionStorage.getItem(rememberedCourtKey(value.groupKey)) ??
+                  "null",
+              );
+              if (
+                saved &&
+                isSportId(saved.sportId) &&
+                typeof saved.courtId === "string"
+              )
+                void joinFriendsCourt(
+                  saved.sportId,
+                  saved.courtId,
+                  saved.intent === "watch" ? "watch" : "play",
+                  false,
+                  false,
+                  true,
+                );
+            } catch {}
+          }
+        },
+        (message) => {
+          if (friendsSession === next) notice.textContent = message;
+        },
+      );
+      friendsSession = next;
+      await next.connect(playerName, groupKey);
+      if (friendsSession !== next || disposed) {
+        await next.leave();
+        return;
+      }
+    } catch (error) {
+      if (generation === onlineJoinGeneration) {
+        if (
+          error instanceof Error &&
+          error.message.includes("group session expired")
+        ) {
+          restoringGroupCourt = false;
+          friends(groupKey);
+          notice.textContent = error.message;
+          return;
+        }
+        screen = "friends-error";
+        menu(
+          "Group unavailable",
+          String(error instanceof Error ? error.message : error),
+          [
+            ["Retry", () => friends(groupKey)],
+            ["Back", title],
+          ],
+        );
+      }
+    }
+  }
+  function directoryContents(container: HTMLElement) {
+    if (!directory) return;
+    const roster = document.createElement("p");
+    roster.className = "friends-members";
+    const inCourts = new Set(directory.courts.flatMap(court =>
+      [...court.participants, ...court.watchers].map(member => member.memberId)));
+    const browsing = directory.members.filter(member => !inCourts.has(member.memberId));
+    if (browsing.length) {
+      roster.textContent = `In the lobby · ${browsing.map(member => member.name).join(", ")}`;
+      container.append(roster);
+    }
+    const sports = SPORT_IDS.filter(id => id !== "crypt-guardian").map(id => {
+      const courts = directory!.courts.filter(court => court.sportId === id);
+      const needsOne = courts.some(court => court.phase === "waiting" &&
+        court.participants.filter(player => player.connected).length === 1);
+      return { id, courts, priority: needsOne ? 0 : courts.length ? 1 : 2 };
+    });
+    // A Slack arrival should see the person waiting for an opponent first.
+    for (const { id, courts } of sports.sort((a, b) => a.priority - b.priority)) {
+      const section = document.createElement("section");
+      section.className = "friends-sport";
+      section.dataset.lobbyScope = id;
+      const heading = document.createElement("h3");
+      heading.textContent = SPORTS[id].label;
+      section.append(heading);
+      for (const court of courts) {
+        const row = document.createElement("div");
+        row.className = "friends-court";
+        row.dataset.lobbyScope = court.courtId;
+        const description = document.createElement("p");
+        const present = court.participants.filter(
+          (player) => player.connected,
+        ).length;
+        const waiting = court.phase === "waiting";
+        const status =
+          waiting && present < 2 ? `Needs ${2 - present}` : court.phase;
+        const names = court.participants.map((player) =>
+          player.connected ? player.name : `${player.name} (reconnecting)`,
+        );
+        description.textContent = [
+          `Court ${court.number}`,
+          status,
+          `${present}/${court.capacity} players`,
+          ...names,
+          ...(court.watchers.length ? [`Watching · ${court.watchers.map(w => w.name).join(", ")}`] : []),
+        ].join(" · ");
+        row.append(description);
+        if (online?.lobby?.roomId === court.courtId) {
+          const current = document.createElement("span");
+          current.textContent = "Your court";
+          row.append(current);
+        } else if (court.phase !== "closing") {
+          if (waiting && court.participants.length < court.capacity) {
+            row.append(
+              button(
+                "Join court",
+                () => void joinFriendsCourt(id, court.courtId, "play"),
+              ),
+            );
+          }
+          if (court.watcherCapacity > 0) {
+          const watch = button(
+            "Watch",
+            () => void joinFriendsCourt(id, court.courtId, "watch"),
+          );
+          watch.disabled = court.spectators >= court.watcherCapacity;
+          if (watch.disabled) watch.textContent = "Viewing full";
+          row.append(watch);
+          if (!waiting && !watch.disabled) {
+            row.append(
+              button(
+                "Play next",
+                () => void joinFriendsCourt(id, court.courtId, "queue"),
+              ),
+            );
+          }
+          }
+        }
+        section.append(row);
+      }
+      if (courts.length) {
+        section.append(
+          button(
+            `New ${SPORTS[id].label} court`,
+            () => void joinFriendsCourt(id, undefined, "play", true),
+          ),
+        );
+      } else {
+        section.append(
+          button(`Play ${SPORTS[id].label}`, () => void joinFriendsCourt(id)),
+        );
+      }
+      container.append(section);
+    }
+  }
+  function rememberFocus(container: HTMLElement) {
+    const active = document.activeElement;
+    if (!(active instanceof HTMLButtonElement) || !container.contains(active))
+      return null;
+    return { text: active.textContent, scope: active.closest<HTMLElement>("[data-lobby-scope]")?.dataset.lobbyScope };
+  }
+  function restoreFocus(container: HTMLElement, focus: ReturnType<typeof rememberFocus>) {
+    if (!focus) return;
+    const candidates = container.querySelectorAll<HTMLButtonElement>("button");
+    Array.from(candidates).find(action =>
+      action.textContent === focus.text &&
+      action.closest<HTMLElement>("[data-lobby-scope]")?.dataset.lobbyScope === focus.scope
+    )?.focus({ preventScroll: true });
+  }
+  function renderDirectory() {
+    if (!directory) return;
+    const focus = rememberFocus(overlay);
+    screen = "friends-directory";
+    menu("Friends lobby", "", [
+      ["Copy lobby link", copyGroupInvite],
+      ["Leave group", title],
+    ]);
+    overlay.className = "setup-menu friends-directory";
+    const contents = document.createElement("div");
+    contents.className = "friends-courts";
+    directoryContents(contents);
+    overlay.append(contents);
+    restoreFocus(overlay, focus);
+  }
+  function copyGroupInvite() {
+    const url = new URL(location.href);
+    url.search = "";
+    url.hash = "";
+    if (directory) url.searchParams.set("group", directory.groupKey);
+    void navigator.clipboard
+      .writeText(url.href)
+      .then(() => {
+        notice.textContent = "Group invite copied";
+      })
+      .catch(() => {
+        notice.textContent = url.href;
+      });
+  }
+  function renderFriendsPanel() {
+    const focus = rememberFocus(friendsPanel);
+    const summaryFocused =
+      document.activeElement === friendsPanel.querySelector("summary");
+    const wasOpen = friendsPanel.querySelector("details")?.open ?? false;
+    friendsPanel.replaceChildren();
+    friendsPanel.hidden = !friendsSession || !online;
+    if (friendsPanel.hidden) return;
+    const details = document.createElement("details");
+    details.open = wasOpen;
+    const summary = document.createElement("summary");
+    summary.textContent = "Friends & courts";
+    details.append(summary);
+    details.addEventListener(
+      "toggle",
+      () => {
+        if (details.open) cancel();
+      },
+      { signal },
+    );
+    details.append(button("Copy lobby link", copyGroupInvite));
+    details.append(button("Leave court", leaveFriendsCourt));
+    if (online?.spectator) {
+      const watching = document.createElement("p");
+      watching.textContent = "Watching · read only";
+      watching.className = "watching-status";
+      details.append(watching);
+    }
+    game.dataset.spectator = String(online?.spectator ?? false);
+    const queued = !!online?.lobby?.spectators?.find(
+      (viewer) => viewer.id === online?.participantId,
+    )?.queued;
+    summary.textContent = online?.spectator
+      ? queued
+        ? "Watching · Queued for next match"
+        : "Watching · Friends & courts"
+      : "Friends & courts";
+    if (queued && notice.textContent?.includes("Requesting"))
+      notice.textContent =
+        "Queued for the next match. This match remains watch only.";
+    const elsewhere = directory?.courts.find(court =>
+      court.courtId !== online?.lobby?.roomId && (court.participants.length || court.watchers.length));
+    if (elsewhere) {
+      const activity = document.createElement("small");
+      const names = [...elsewhere.participants, ...elsewhere.watchers].map(person => person.name);
+      activity.textContent = `${SPORTS[elsewhere.sportId].label} · ${names.join(", ")}`;
+      summary.append(activity);
+    }
+    if (online?.spectator)
+      details.append(
+        button(
+          online.lobby?.spectators?.find(
+            (viewer) => viewer.id === online?.participantId,
+          )?.queued
+            ? "Queued for next match"
+            : "Play next",
+          () => {
+            online?.playNext();
+            notice.textContent = "Requesting a place in the next match…";
+          },
+        ),
+      );
+    if (queued)
+      Array.from(details.querySelectorAll<HTMLButtonElement>("button"))
+        .find((action) => action.textContent === "Queued for next match")
+        ?.setAttribute("disabled", "");
+    directoryContents(details);
+    friendsPanel.append(details);
+    restoreFocus(friendsPanel, focus);
+    if (summaryFocused) summary.focus();
+  }
+  function rememberCourt(lobby?: Lobby) {
+    if (!directory) return;
+    const key = rememberedCourtKey(directory.groupKey);
+    try {
+      if (!lobby) sessionStorage.removeItem(key);
+      else sessionStorage.setItem(key, JSON.stringify({
+        sportId: lobby.sportId, courtId: lobby.roomId,
+        intent: lobby.seats.some(seat => seat.id === online?.participantId) ? "play" : "watch",
+      }));
+    } catch {}
+  }
+  function leaveFriendsCourt() {
+    rememberCourt();
+    onlineJoinGeneration++;
+    const old = online;
+    online = null;
+    void old?.leave();
+    cancel();
+    lifecycle.pause();
+    friendsPanel.hidden = true;
+    renderDirectory();
+  }
+  async function joinFriendsCourt(
+    id: SportId,
+    courtId?: string,
+    intent: CourtIntent = "play",
+    newCourt = false,
+    recovering = false,
+    restore = false,
+  ) {
+    if (!friendsSession) return;
+    const request = ++courtRequest;
+    let generation = onlineJoinGeneration;
+    if (!recovering) watcherRetry = 0;
+    let next: OnlineSession | null = null;
+    const owner = friendsSession;
+    const current = () =>
+      generation === onlineJoinGeneration &&
+      request === courtRequest &&
+      friendsSession === owner &&
+      !disposed;
+    const source = online;
+    try {
+      const reservation = restore
+        ? null
+        : await friendsSession.court(id, courtId, intent, newCourt);
+      if (generation !== onlineJoinGeneration || request !== courtRequest) return;
+      if (!source) notice.textContent = "Opening court…";
+      const { createOnlineSession } = await import("./online/session");
+      if (!current()) return;
+      next = createOnlineSession({
+        name: playerName,
+        sportId: id,
+        autoReady: false,
+        groupKey: directory?.groupKey,
+        onStatus: (status) => {
+          if (online !== next || generation !== onlineJoinGeneration) return;
+          if (status === "reconnecting")
+            notice.textContent = online?.spectator
+              ? "Reconnecting your view…"
+              : "Reconnecting — computer covering your player…";
+          else if (status === "joined") notice.textContent = "";
+        },
+        onCourtLeave: (code) => {
+          if (online !== next || generation !== onlineJoinGeneration) return;
+          if (code === 4000 && transferringCourt === online) return;
+          const retryCourt = online?.lobby?.roomId;
+          const wasWatching = online?.spectator;
+          const wasReturning = online?.lobby?.returning?.includes(
+            online.participantId,
+          );
+          online = null;
+          lifecycle.pause();
+          friendsPanel.hidden = true;
+          renderDirectory();
+          if (code === 4001 && wasWatching && retryCourt && watcherRetry < 3) {
+            const retry = ++watcherRetry;
+            notice.textContent = `Reconnecting your view… (${retry}/3)`;
+            setTimeout(() => {
+              if (generation === onlineJoinGeneration && friendsSession)
+                void joinFriendsCourt(id, retryCourt, "watch", false, true);
+            }, retry * 1000);
+          } else {
+            rememberCourt();
+            notice.textContent =
+              code === 4002
+                ? wasReturning
+                  ? "The next lineup filled. You have returned to your friends lobby."
+                  : "The 10-second return window ended without Play again. You have returned to your friends lobby."
+                : "Back in your friends lobby. Choose a court to reconnect.";
+          }
+        },
+        onLobby: (value) => {
+          if (online === next && generation === onlineJoinGeneration) {
+            renderLobby(value);
+            if (screen === "results" && value.phase === "results") showResults();
+            renderFriendsPanel();
+            rememberCourt(value);
+          }
+        },
+        onError: (message) => {
+          if (online === next && generation === onlineJoinGeneration)
+            notice.textContent = message;
+        },
+      });
+      const candidate = next;
+      const previousAdmission = courtAdmission;
+      let releaseAdmission!: () => void;
+      courtAdmission = new Promise((resolve) => {
+        releaseAdmission = resolve;
+      });
+      await previousAdmission;
+      try {
+        if (!current()) {
+          await candidate.leave();
+          return;
+        }
+        transferringCourt = source;
+        if (!restore || !courtId || !(await candidate.reconnectCourt(courtId))) {
+          await candidate.connectReservation(
+            reservation ?? (await owner.court(id, courtId, intent)),
+          );
+        }
+        if (!current()) {
+          await candidate.leave();
+          return;
+        }
+        if (candidate.status === "left" || candidate.status === "interrupted")
+          throw Error("The destination court disconnected. Please choose again.");
+        generation = ++onlineJoinGeneration;
+        online = candidate;
+        session = candidate;
+        sportId = id;
+        shuffle = false;
+        onlineLobbyKey = "";
+        lifecycle.pause();
+        screen = "online-connecting";
+        menu("Opening court", "Connecting to your friends…", []);
+        if (source && source !== candidate) void source.leave();
+      } finally {
+        transferringCourt = null;
+        releaseAdmission();
+      }
+      if (next.lobby) rememberCourt(next.lobby);
+      if (generation !== onlineJoinGeneration) {
+        await next.leave();
+        return;
+      }
+      if (next.lobby) renderLobby(next.lobby);
+      renderFriendsPanel();
+      lifecycle.resume();
+      await audio.engine.unlock();
+    } catch (error) {
+      if (next && online !== next) void next.leave();
+      if (current()) {
+        if (restore && !online) rememberCourt();
+        notice.textContent =
+          error instanceof Error ? error.message : String(error);
+        if (!online) renderDirectory();
+      }
+    }
   }
   function renderLobby(lobby: Lobby) {
     if (!online || screen === "online-error") return;
@@ -526,26 +982,30 @@ export async function mountCryptball() {
     const seat = lobby.seats.find((seat) => seat.id === online?.participantId);
     const canStart =
       lobby.phase === "waiting" &&
+      (!friendsSession || !!seat) &&
       lobby.seats.length >= (sportId === "crypt-guardian" ? 1 : 2) &&
-      lobby.seats.every((s) => s.ready && s.connected);
+      (friendsSession ? lobby.seats.filter(seat => seat.connected).length >= 2 : lobby.seats.every(s => s.ready && s.connected));
     menu(
       lobby.phase === "countdown"
         ? `Starting in ${Math.ceil(lobby.countdown / 60)}`
-        : "The next match",
-      lobby.private
+        : friendsSession ? lobby.seats.filter(seat => seat.connected).length < 2 ? "Needs 1 more player" : "Ready to start" : "The next match",
+      friendsSession
+        ? `${sport().label} · 2 versus 2`
+        : lobby.private
         ? `${shuffle ? "Shuffle · " : ""}${sport().label} · Private court ${lobby.roomId} · ${sportId === "crypt-guardian" ? "2 allies versus the guardian" : "2 versus 2"}`
         : `${shuffle ? "Shuffle · " : ""}${sport().label} · Public court · ${sportId === "crypt-guardian" ? "2 allies versus the guardian" : "2 versus 2"}`,
       [
-        ...(lobby.phase === "waiting" && seat
+        ...(!seat && friendsSession ? [[lobby.spectators?.find(viewer => viewer.id === online?.participantId)?.queued ? "Queued for next match" : "Play next", () => online?.playNext()] as [string, () => void]] : []),
+        ...(!friendsSession && lobby.phase === "waiting" && seat
           ? [[seat.ready ? "Ready ✓" : "Ready", () => online?.ready()] as [string, () => void]] : []),
         ...(canStart
-          ? [["Start with bots", () => online?.start()] as [string, () => void]]
+          ? [[friendsSession ? "Start match" : "Start with bots", () => online?.start()] as [string, () => void]]
           : []),
-        ["Leave", title],
+        ["Leave", friendsSession ? leaveFriendsCourt : title],
       ],
       `ONLINE · ${sport().label.toUpperCase()}`,
     );
-    overlay.className = "setup-menu lobby-menu";
+    overlay.className = friendsSession ? "setup-menu lobby-menu friends-waiting" : "setup-menu lobby-menu";
     const readyButton = overlay.querySelector<HTMLButtonElement>(".menu-actions button");
     if (seat?.ready && readyButton?.textContent === "Ready ✓") readyButton.disabled = true;
     const roster = document.createElement("div");
@@ -563,14 +1023,14 @@ export async function mountCryptball() {
         const row = document.createElement("p");
         const seat = seats[n];
         row.textContent = seat
-          ? `${seat.name} · ${seat.connected ? (seat.ready ? "Ready" : "Not ready") : "Reconnecting"}`
+          ? `${seat.name}${seat.connected ? (friendsSession ? "" : seat.ready ? " · Ready" : " · Not ready") : " · Reconnecting"}`
           : "Computer teammate";
         column.append(row);
       }
       roster.append(column);
     }
     overlay.insertBefore(roster, overlay.lastChild);
-    if (lobby.private) {
+    if (lobby.private && !friendsSession) {
       const link = new URL(location.href);
       link.searchParams.set("room", lobby.roomId);
       link.searchParams.set("sport", lobby.sportId);
@@ -613,6 +1073,7 @@ export async function mountCryptball() {
   let playerName = "";
   let shuffle = false;
   async function joinOnline(kind: "quick" | "private" | "join", code?: string) {
+    if (kind !== "join") shuffle = false;
     if (sportId === "crypt-guardian" && kind !== "join") {
       onlineFailure("Crypt Guardian is a solo activity for now."); return;
     }
@@ -682,12 +1143,12 @@ export async function mountCryptball() {
   function showOnlinePause() {
     screen = "pause";
     menu(
-      "Computer covering",
+      online?.spectator ? "Watching paused" : "Computer covering",
       "The online match continues while you are away.",
       [
         ["Return to play", resume],
         ["Settings", () => settings("pause")],
-        ["Leave match", title],
+        [friendsSession ? "Leave court" : "Leave match", friendsSession ? leaveFriendsCourt : title],
       ],
     );
   }
@@ -870,8 +1331,9 @@ export async function mountCryptball() {
     if (node.textContent !== text) node.textContent = text;
   };
   function updateHud(state = observation) {
-    touchCues.hidden = screen !== "play";
+    touchCues.hidden = screen !== "play" || !!online?.spectator;
     game.dataset.sport = state.sportId;
+    game.dataset.spectator = String(!!online?.spectator);
     const newMode = isNewMode(state.sportId);
     modeHud.hidden = !newMode || !["play", "starting"].includes(screen);
     modeHud.dataset.mode=state.sportId;
@@ -883,8 +1345,8 @@ export async function mountCryptball() {
     bossMeter.hidden=!state.guardian; bossMeter.value=state.guardian?.hp??0;
     while(rosterCards.length>state.players.length) rosterCards.pop()!.remove();
     while(rosterCards.length<state.players.length) { const card=document.createElement("span");roster.append(card);rosterCards.push(card); }
-    rosterCards.forEach((card,i)=>{const p=state.players[i]!;const d=state.dodge?.athletes[p.id],a=state.guardian?.athletes[p.id];card.textContent=`${p.id===state.controlledId?"YOU":state.guardian?"ALLY "+(i+1):`P${i+1} ${p.team===mine?.team?"ALLY":"RIVAL"}`} ${d?d.lives?"◆".repeat(d.lives)+"◇".repeat(3-d.lives):"✕ OUT":a?a.status==="active"?"♥".repeat(a.hp)+"♡".repeat(5-a.hp):a.status==="down"?`DOWN ${Math.floor(a.reviveTicks/90*100)}%`:"✕ OUT":""}`;card.dataset.player=p.id;});
-    contextTrigger.hidden=!touchMode || state.sportId==="crypt-dodge" && (!state.dodge?.athletes[state.controlledId]?.lives || carrying) || state.sportId==="crypt-guardian" && (carrying || state.guardian?.athletes[state.controlledId]?.status!=="active");
+    rosterCards.forEach((card,i)=>{const p=state.players[i]!;const d=state.dodge?.athletes[p.id],a=state.guardian?.athletes[p.id];card.textContent=`${p.id===state.controlledId?"YOU":state.guardian?"ALLY "+(i+1):`P${i+1} ${online?.spectator ? TEAMS[state.teamIds[p.team]].name.toUpperCase() : p.team===mine?.team?"ALLY":"RIVAL"}`} ${d?d.lives?"◆".repeat(d.lives)+"◇".repeat(3-d.lives):"✕ OUT":a?a.status==="active"?"♥".repeat(a.hp)+"♡".repeat(5-a.hp):a.status==="down"?`DOWN ${Math.floor(a.reviveTicks/90*100)}%`:"✕ OUT":""}`;card.dataset.player=p.id;});
+    contextTrigger.hidden=!!online?.spectator || !touchMode || state.sportId==="crypt-dodge" && (!state.dodge?.athletes[state.controlledId]?.lives || carrying) || state.sportId==="crypt-guardian" && (carrying || state.guardian?.athletes[state.controlledId]?.status!=="active");
     contextTrigger.textContent=reviveNear?"HOLD REVIVE":"CATCH";
     contextTrigger.setAttribute("aria-label",reviveNear?"Hold to revive nearby ally":state.sportId==="crypt-dodge"?"Catch the dodgeball":"Catch the orb");
     contextTrigger.disabled=screen!=="play";
@@ -894,7 +1356,7 @@ export async function mountCryptball() {
     game.dataset.phase = state.phase;
     const controlled = state.players.find((p) => p.id === state.controlledId);
     const skater = controlled && state.sportId === "cryptcheck" ? state.hockey?.skaters[controlled.id] : undefined;
-    const showCheck = touchMode && state.sportId === "cryptcheck";
+    const showCheck = !online?.spectator && touchMode && state.sportId === "cryptcheck";
     if (checkTrigger.parentElement !== game) game.append(checkTrigger);
     checkTrigger.hidden = !showCheck || screen !== "play";
     checkTrigger.disabled = screen !== "play";
@@ -967,6 +1429,7 @@ export async function mountCryptball() {
       if (online.lobby) renderLobby(online.lobby);
       observeMusic();
       if (screen !== "play") {
+        if (observation.phase === "results" && screen !== "results" && online.lobby?.phase === "results") showResults();
         pendingEvents.push(...online.drainEvents());
         updateHud();
         return;
@@ -986,7 +1449,7 @@ export async function mountCryptball() {
     const magnitude = keyboardMoving ? 1 : Math.min(1, Math.hypot(screenMove.x, screenMove.y));
     const move = { x: direction.x * magnitude, y: direction.y * magnitude };
     const state = online ? online.rawObserve() : observation,
-      player = state.players.find((p) => p.id === state.controlledId)!;
+      player = state.players.find((p) => p.id === state.controlledId) ?? state.players[0]!;
     let aim: number | undefined;
     if (gesture.aim) {
       const v = screenVectorToWorld(gesture.aim.x, gesture.aim.y);
@@ -1044,43 +1507,106 @@ export async function mountCryptball() {
     }
   }
   function showResults() {
-    screen="results";
-      const s = observation;
-      menu(
-        s.guardian ? s.guardian.outcome === "victory" ? "Guardian defeated" : "The crypt claims the party" : s.winner === "draw"
+    const focus = rememberFocus(overlay);
+    screen = "results";
+    const s = observation;
+    const queued = !!online?.lobby?.spectators?.find(
+      (viewer) => viewer.id === online?.participantId,
+    )?.queued;
+    const returning = !!online?.lobby?.returning?.includes(online.participantId);
+    if ((queued || returning) && notice.textContent?.includes("Requesting"))
+      notice.textContent = queued
+        ? "Your next-match queue request is confirmed."
+        : "Your return request is confirmed.";
+    menu(
+      s.guardian
+        ? s.guardian.outcome === "victory"
+          ? "Guardian defeated"
+          : "The crypt claims the party"
+        : s.winner === "draw"
           ? "A worthy draw"
           : `${TEAMS[s.teamIds[s.winner === 1 ? 1 : 0]].name} take the crown`,
-        s.guardian ? `${s.guardian.descriptor.name} · ${s.guardian.hp} HP remains · ${Math.floor(s.guardian.elapsed / 60)} seconds` : `${s.score[0]} — ${s.score[1]}${s.dodge ? " rounds" : ""}`,
+      s.guardian
+        ? `${s.guardian.descriptor.name} · ${s.guardian.hp} HP remains · ${Math.floor(s.guardian.elapsed / 60)} seconds`
+        : `${s.score[0]} — ${s.score[1]}${s.dodge ? " rounds" : ""}`,
+      [
         [
-          [
-            s.guardian ? "Retry Guardian" : shuffle ? "Next activity" : "Rematch",
-            () => {
-              if (online) {
-                onlineLobbyKey = "";
-                screen = "online-lobby";
-                online.rematch();
-              } else {
-                if(shuffle) {
-                  const modes: SportId[]=SPORT_IDS.filter(id=>id!=="crypt-guardian");
-                  sportId=modes[(modes.indexOf(sportId)+1)%modes.length]!;
-                }
-                void start(s.guardian ? s.mode : "match");
+          online?.spectator
+            ? queued
+              ? "Queued for next match"
+              : "Play next"
+            : friendsSession
+              ? returning
+                ? "Returning next match"
+                : "Play again"
+              : s.guardian
+                ? "Retry Guardian"
+                : shuffle
+                  ? "Next activity"
+                  : "Rematch",
+          () => {
+            if (online) {
+              onlineLobbyKey = "";
+              if (!friendsSession) screen = "online-lobby";
+              if (online.spectator) online.playNext();
+              else online.rematch();
+              if (friendsSession)
+                notice.textContent = "Requesting a place in the next match…";
+            } else {
+              if (shuffle) {
+                const modes: SportId[] = SPORT_IDS.filter(
+                  (id) => id !== "crypt-guardian",
+                );
+                sportId = modes[(modes.indexOf(sportId) + 1) % modes.length]!;
               }
-            },
-          ],
-          ...(s.guardian && !online ? [["New Guardian", () => start(s.mode, true)] as [string, () => void]] : []),
-          ["Title", title],
+              void start(s.guardian ? s.mode : "match");
+            }
+          },
         ],
-        s.mode === "practice" && isNewMode(sportId) ? "PRACTICE COMPLETE · UNSCORED" : sportId === "rift-volley" ? "MATCH COMPLETE" : "FULL TIME",
+        ...(s.guardian && !online
+          ? [["New Guardian", () => start(s.mode, true)] as [string, () => void]]
+          : []),
+        [
+          friendsSession ? "Leave court" : "Title",
+          friendsSession ? leaveFriendsCourt : title,
+        ],
+      ],
+      s.mode === "practice" && isNewMode(sportId)
+        ? "PRACTICE COMPLETE · UNSCORED"
+        : sportId === "rift-volley"
+          ? "MATCH COMPLETE"
+          : "FULL TIME",
+    );
+    if (friendsSession) {
+      const window = document.createElement("p");
+      window.className = "results-return-window";
+      const seconds = Math.ceil(
+        (online?.lobby?.resultsTicksRemaining ?? 600) / 60,
       );
-      const stats = document.createElement("p");
-      stats.className = "fine";
-      const teamName = TEAMS[s.teamIds[s.players.find((p) => p.id === s.controlledId)?.team ?? 0]].name.toUpperCase();
-      stats.textContent = s.guardian ? `${s.stats.shots} orb strikes · ${s.stats.passes} ally passes · Seed ${s.guardian.descriptor.seed}` : s.dodge ? `${s.stats.shots} throws · ${s.stats.passes} passes · Best of three rounds` :
-        sportId === "rift-volley"
-          ? `${teamName} · ${s.stats.shots} attacks · ${s.stats.goals} points · ${s.stats.passes} sets`
-          : `${teamName} · ${s.stats.shots} shots · ${s.stats.goals} goals · ${s.stats.passes} completed passes`;
-      overlay.append(stats);
+      window.textContent = `${seconds}s remaining in the 10-second return window. ${online?.spectator ? (queued ? "Your next-match place is queued." : "Play next joins the queue for the next match.") : returning ? "Your return request is confirmed. Queued watchers take priority." : "Choose Play again to request another match; otherwise you return to the friends lobby."}`;
+      overlay.append(window);
+      const action = overlay.querySelector<HTMLButtonElement>(
+        ".menu-actions button",
+      );
+      if (action && (queued || returning)) action.disabled = true;
+    }
+    const stats = document.createElement("p");
+    stats.className = "fine";
+    const teamName =
+      TEAMS[
+        s.teamIds[s.players.find((p) => p.id === s.controlledId)?.team ?? 0]
+      ].name.toUpperCase();
+    stats.textContent = online?.spectator
+      ? `${TEAMS[s.teamIds[0]].name} versus ${TEAMS[s.teamIds[1]].name} · Match watched`
+      : s.guardian
+        ? `${s.stats.shots} orb strikes · ${s.stats.passes} ally passes · Seed ${s.guardian.descriptor.seed}`
+        : s.dodge
+          ? `${s.stats.shots} throws · ${s.stats.passes} passes · Best of three rounds`
+          : sportId === "rift-volley"
+            ? `${teamName} · ${s.stats.shots} attacks · ${s.stats.goals} points · ${s.stats.passes} sets`
+            : `${teamName} · ${s.stats.shots} shots · ${s.stats.goals} goals · ${s.stats.passes} completed passes`;
+    overlay.append(stats);
+    restoreFocus(overlay, focus);
   }
   const movement = new Set([
     "KeyW",
@@ -1119,6 +1645,7 @@ export async function mountCryptball() {
         presenter.setDebug(debug);
         return;
       }
+      if (friendsPanel.querySelector("details")?.open) return;
       if (screen !== "play" || !playKeys.has(e.code) && !(sportId === "cryptcheck" && e.code === "KeyE")) return;
       if (
         e.target instanceof HTMLElement &&
@@ -1164,7 +1691,7 @@ export async function mountCryptball() {
   canvas.addEventListener(
     "pointerdown",
     (e) => {
-      if (screen !== "play") return;
+      if (screen !== "play" || friendsPanel.querySelector("details")?.open) return;
       void audio.engine.unlock();
       inputMode(e.pointerType === "touch");
       if (e.pointerType === "touch") {
@@ -1345,6 +1872,8 @@ export async function mountCryptball() {
     lifecycle.dispose();
     abort.abort();
     performanceDiagnostics.dispose();
+    friendsSession?.disconnectForReload();
+    friendsPanel.remove();
     modeHud.remove();
     touchCues.remove();
     presenter.dispose();
@@ -1363,8 +1892,15 @@ export async function mountCryptball() {
     audio.volumes(prefs.music, prefs.effects);
     title();
     lifecycle.schedule();
+    const group = new URL(location.href).searchParams.get("group");
+    if (group) {
+      try { playerName = sessionStorage.getItem("cryptball-friends-name") ?? ""; } catch {}
+      let membership = false;
+      try { membership = !!sessionStorage.getItem(`cryptball-friends:${BUILD}:${PROTOCOL}:${group}`); } catch {}
+      if (playerName && membership) { restoringGroupCourt = true; void enterFriends(group); } else friends(group);
+    }
     const invite = new URL(location.href).searchParams.get("room");
-    if (invite) void joinOnline("join", invite);
+    if (!group && invite) void joinOnline("join", invite);
   } catch (error) {
     notice.textContent = String(error);
     menu("The gates are stuck", "A required asset failed to load.", [

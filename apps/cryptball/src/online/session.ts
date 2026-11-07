@@ -1,3 +1,4 @@
+import { multiplayerEndpoint, reconnectAfterReload } from "./connection";
 import type { MusicStamp } from "../audio-music-policy";
 import { Client, type Room } from "@colyseus/sdk";
 import { CoveredViewBuffer } from "./covered-view-buffer";
@@ -36,6 +37,7 @@ export type OnlineStatus =
   | "interrupted"
   | "left";
 export interface OnlineOptions {
+  groupKey?: string;
   autoReady?: boolean;
   name?: string;
   shuffle?: boolean;
@@ -47,15 +49,10 @@ export interface OnlineOptions {
   onPerformance?: (event: { kind: string; at: number; fields: Record<string, string | number | boolean | null> }) => void;
   onLobby?: (lobby: Lobby) => void;
   onError?: (message: string) => void;
+  onCourtLeave?: (code: number) => void;
 }
 export function createOnlineSession(options: OnlineOptions = {}) {
-  const local = typeof location !== "undefined" && ["localhost", "127.0.0.1", "[::1]"].includes(location.hostname);
-  if (!options.endpoint && !import.meta.env.VITE_CRYPTBALL_SERVER && !local)
-    throw Error("Online play is not configured for this website yet. Solo and Practice are available.");
-  const endpoint =
-    options.endpoint ??
-    import.meta.env.VITE_CRYPTBALL_SERVER ??
-    `${location.protocol === "https:" ? "wss:" : "ws:"}//${location.hostname}:2567`;
+  const endpoint = multiplayerEndpoint(options.endpoint);
   let sportId = resolveSportId(options.sportId);
   let discoveringSport = false;
   const client = new Client(endpoint);
@@ -79,6 +76,7 @@ export function createOnlineSession(options: OnlineOptions = {}) {
     lastFeedbackSampleSeq = -1;
   const coveredView = new CoveredViewBuffer();
   let authorityCovered = false;
+  let observer = false;
   const clock = new NetworkClock();
   const scheduler = new InputScheduler();
   const recovery = new Recovery();
@@ -127,7 +125,8 @@ export function createOnlineSession(options: OnlineOptions = {}) {
     lastAppliedTick: 0,
     lastAppliedAt: 0,
   };
-  const storageBase = `cryptball-reconnect:v${PROTOCOL}:${BUILD}:${endpoint}`;
+  const storageBase = `cryptball-reconnect:v${PROTOCOL}:${BUILD}:${endpoint}` +
+    (options.groupKey ? `:friends:${options.groupKey}` : "");
   const saved = (code?: string) => {
     try {
       return sessionStorage.getItem(
@@ -138,13 +137,12 @@ export function createOnlineSession(options: OnlineOptions = {}) {
     }
   };
   let persisted: { token: string; sport: typeof sportId; roomId?: string } | undefined;
-  const save = (token: string | null) => {
-    const roomId = room?.roomId;
+  const save = (token: string | null, roomId = room?.roomId) => {
     if (token && persisted?.token === token && persisted.sport === sportId && persisted.roomId === roomId) return;
     persisted = undefined;
     try {
-      const keys = [`${storageBase}:${sportId}`];
-      if (room) keys.push(`${storageBase}:room:${room.roomId}`);
+      const keys = options.groupKey ? [] : [`${storageBase}:${sportId}`];
+      if (roomId) keys.push(`${storageBase}:room:${roomId}`);
       for (const key of keys) {
         if (token) sessionStorage.setItem(key, token);
         else sessionStorage.removeItem(key);
@@ -173,24 +171,29 @@ export function createOnlineSession(options: OnlineOptions = {}) {
     if (authoritativeSport !== sportId)
       throw Error("Snapshot sport does not match this room");
   }
+  function participantObservation(participant: string): Observation {
+    if (session.getControllerRevision(participant) !== undefined) return session.observeFor(participant);
+    const view = session.observe(); view.controlledId = ""; return view;
+  }
   function adopt(snapshot: Snapshot) {
+    observer = snapshot.observer === true;
     acceptSport(snapshot.sportId);
     const hadAuthority = epoch > 0;
     const reset =
-      snapshot.epoch !== epoch || snapshot.generation !== generation;
+      snapshot.epoch !== epoch || snapshot.generation !== generation || snapshot.participantId !== id;
     const controlCheckpoint = reset || snapshot.phase !== lastCheckpointPhase;
     if (!reset && snapshot.snapshotSeq <= lastSnapshotSeq) return;
     if (!reset && snapshot.tick < lastTick) return;
     previousPrediction = null;
     const started = performance.now();
-    const previous = id ? session.observeFor(id) : session.observe();
+    const previous = id ? participantObservation(id) : session.observe();
     const previousRevision = id ? session.getControllerRevision(id) : undefined;
-    const target = reset ? snapshot.tick : session.getTick();
+    const target = reset || observer ? snapshot.tick : session.getTick();
     // restore() validates into a detached value before mutating live state.
     const restoreStarted = performance.now();
     session.restore(snapshot.checkpoint);
     options.onPerformance?.({ kind: "snapshot-restore", at: performance.now(), fields: { durationMs: performance.now() - restoreStarted, snapshotSeq: snapshot.snapshotSeq } });
-    authority = session.observeFor(snapshot.participantId);
+    authority = participantObservation(snapshot.participantId);
     const coveredController = snapshot.checkpoint.state.controllers.find(c => c.id === snapshot.participantId);
     authorityCovered = !coveredController?.active;
     if (suspended || authorityCovered)
@@ -311,7 +314,7 @@ export function createOnlineSession(options: OnlineOptions = {}) {
     options.onPerformance?.({ kind: "snapshot-replay", at: performance.now(), fields: { durationMs: performance.now() - replayStarted, snapshotSeq: snapshot.snapshotSeq, fromTick: snapshot.tick, toTick: session.getTick(), history: history.length } });
     localHeld = heldCommand(replayHeld, sportId);
     session.drainEvents();
-    const current = session.observeFor(id);
+    const current = participantObservation(id);
     const oldPlayer = previous.players.find(
         (p) => p.id === current.controlledId,
       ),
@@ -351,6 +354,7 @@ export function createOnlineSession(options: OnlineOptions = {}) {
       }
     });
     while (seen.size > 2048) seen.delete(seen.values().next().value!);
+    if (observer && events.length > 256) events.splice(0, events.length - 256);
     if (events.length > 256) {
       events.length = 0;
       fail("Match event backlog exceeded its limit. Please rejoin.");
@@ -363,7 +367,7 @@ export function createOnlineSession(options: OnlineOptions = {}) {
     const rejoined = status !== "joined";
     if (rejoined) setStatus("joined");
     lastCheckpointPhase = snapshot.phase;
-    if (rejoined || controlCheckpoint)
+    if (!observer && (rejoined || controlCheckpoint))
       room?.send(suspended ? "suspend" : "resume");
   }
   function bind(next: Room) {
@@ -437,7 +441,8 @@ export function createOnlineSession(options: OnlineOptions = {}) {
       neutralLatch = true;
       save(next.reconnectionToken);
     });
-    next.onLeave(() => {
+    next.onLeave((code) => {
+      if (options.onCourtLeave && status !== "left") { setStatus("left"); options.onCourtLeave(code); return; }
       if (status !== "left" && status !== "interrupted")
         fail("Match interrupted. Please join again or play Solo.");
     });
@@ -465,7 +470,7 @@ export function createOnlineSession(options: OnlineOptions = {}) {
       return observation;
   }
   function update() {
-    if (!room || status !== "joined" || suspended) return;
+    if (!room || status !== "joined" || suspended || observer) return;
     const now = performance.now();
     const interval =
       now - joinedAt < 2000 || recovery.pending || lobby?.phase === "countdown"
@@ -503,6 +508,26 @@ export function createOnlineSession(options: OnlineOptions = {}) {
     }
   }
   return {
+    async reconnectCourt(code: string) {
+      const token = saved(code);
+      if (!token) return false;
+      discoveringSport = true;
+      try {
+        bind(await reconnectAfterReload(client, token));
+        return true;
+      } catch {
+        save(null, code);
+        return false;
+      }
+    },
+    async connectReservation(reservation: Parameters<Client["consumeSeatReservation"]>[0]) {
+      setStatus("connecting");
+      discoveringSport = true;
+      const next = await client.consumeSeatReservation(reservation);
+      bind(next);
+      return next.roomId;
+    },
+    playNext() { room?.send("play-next"); },
     async connect(kind: "quick" | "private" | "join", code?: string) {
       setStatus("connecting");
       discoveringSport = kind === "join";
@@ -551,6 +576,7 @@ export function createOnlineSession(options: OnlineOptions = {}) {
       update();
       if (
         status !== "joined" ||
+        observer ||
         suspended ||
         lobby?.phase !== "playing" ||
         lobby.epoch !== epoch ||
@@ -629,7 +655,7 @@ export function createOnlineSession(options: OnlineOptions = {}) {
           ...remote,
           [id]: t === tick ? predicted : localHeld,
         }, { automaticSwitches: !["crypt-dodge", "crypt-guardian"].includes(sportId) });
-        if (t === tick - 1) previousPrediction = confirmedObservation(session.observeFor(id));
+        if (t === tick - 1) previousPrediction = confirmedObservation(participantObservation(id));
         diagnostics.predictedSteps++;
         if (t === tick) {
           diagnostics.lastAppliedSeq = packet.seq;
@@ -645,7 +671,7 @@ export function createOnlineSession(options: OnlineOptions = {}) {
           events.push({ ...event, predicted: true });
     },
     observe(): Observation {
-      return confirmedObservation(id ? session.observeFor(id) : session.observe());
+      return confirmedObservation(id ? participantObservation(id) : session.observe());
     },
     coveredObservation(now: number) {
       return suspended || authorityCovered ? coveredView.draw(now) : null;
@@ -678,7 +704,7 @@ export function createOnlineSession(options: OnlineOptions = {}) {
     get predictionRate() { return scheduler.predictionRate(clock.fractionalTick); },
     get simulationTick() { return session.getTick(); },
     rawObserve(): Observation {
-      return id ? session.observeFor(id) : session.observe();
+      return id ? participantObservation(id) : session.observe();
     },
     drainEvents() {
       return events.splice(0);
@@ -690,6 +716,7 @@ export function createOnlineSession(options: OnlineOptions = {}) {
       if (lobby?.phase === "waiting") room?.send("team", { teamId });
     },
     get controllerOwners() { return authoritativeControllers.map(c=>({...c})); },
+    get spectator() { return observer || !!lobby && !lobby.seats.some(seat => seat.id === room?.sessionId); },
     get participantId() {
       return room?.sessionId ?? id;
     },
@@ -719,7 +746,7 @@ export function createOnlineSession(options: OnlineOptions = {}) {
       localHeld = {};
       neutralLatch = true;
       history = [];
-      if (status === "joined") room?.send("suspend");
+      if (!observer && status === "joined") room?.send("suspend");
     },
     resume() {
       if (!suspended) return;
@@ -735,7 +762,7 @@ export function createOnlineSession(options: OnlineOptions = {}) {
       localHeld = {};
       neutralLatch = true;
       history = [];
-      if (status === "joined") room?.send(suspended ? "suspend" : "resume");
+      if (!observer && status === "joined") room?.send(suspended ? "suspend" : "resume");
     },
     disconnectForReload() {
       history = [];
