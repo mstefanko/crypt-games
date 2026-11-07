@@ -423,18 +423,21 @@ export function inspect(sport, frames, scenario) {
         ? "insufficient restart/serve launch coverage"
         : "insufficient historical evidence for restart/serve launch gate",
     });
-  if (
-    scenario === "kick-restart" &&
-    !launchOpportunities.some(
-      (l) =>
-        l.kind === "kick restart launch" &&
-        !l.possessionId &&
-        l.lastTouch === "player-2",
+  if (scenario === "kick-restart") {
+    const freeKick = launchOpportunities.find(
+      (launch) => !launch.possessionId && launch.lastTouch === "player-2",
+    );
+    if (!freeKick)
+      failures.push({
+        kind: "focused fixture did not produce actual remote free kick",
+      });
+    else if (
+      !freeKick.samples.some((sample) => sample.rawStep > sample.allowance)
     )
-  )
-    failures.push({
-      kind: "focused fixture did not produce actual remote free kick",
-    });
+      failures.push({
+        kind: "remote free kick did not exercise a late prediction correction",
+      });
+  }
   return {
     sport,
     playFrames,
@@ -750,12 +753,41 @@ async function collect() {
                 f.evidence?.authority?.phase === "play"
               );
             },
+            undefined,
             { timeout: 20000 },
           );
-          await peer.keyboard.down("KeyJ");
-          await delay(350);
-          await peer.keyboard.up("KeyJ");
-          await delay(2000);
+          for (const remote of [peer, departing]) {
+            await remote.evaluate(() => (window.motionFrames = []));
+            await remote.waitForFunction(
+              () => window.motionFrames?.at(-1)?.phase === "play",
+            );
+          }
+          const remoteIds = await Promise.all(
+            [peer, departing].map((page) =>
+              page.evaluate(() => window.motionFrames.at(-1).controlledId),
+            ),
+          );
+          const striker = [peer, departing][remoteIds.indexOf("player-2")];
+          if (!striker)
+            throw Error(
+              "Restart athlete is not controlled by either remote browser: " +
+                remoteIds,
+            );
+          for (let attempt = 0; attempt < 3; attempt++) {
+            await striker.keyboard.down("KeyJ");
+            await delay(350);
+            await striker.keyboard.up("KeyJ");
+            await delay(350);
+            if (
+              await host.evaluate(() =>
+                window.motionFrames.some(
+                  (f) => f.evidence?.authority?.lastTouch === "player-2",
+                ),
+              )
+            )
+              break;
+          }
+          await delay(1500);
         } else {
           for (
             let i = 0;
@@ -771,10 +803,12 @@ async function collect() {
             await host.keyboard.down("KeyJ");
             // Hold the remote strike across simulation ticks as well; a zero-delay
             // press can fall entirely between input samples and miss the serve.
-            await peer.keyboard.down("KeyJ");
+            if (["cryptkick", "rift-volley"].includes(sport))
+              await peer.keyboard.down("KeyJ");
             await delay(350);
             await host.keyboard.up("KeyJ");
-            await peer.keyboard.up("KeyJ");
+            if (["cryptkick", "rift-volley"].includes(sport))
+              await peer.keyboard.up("KeyJ");
             await delay(260);
             await host.keyboard.up(key);
             await peer.keyboard.press(i % 2 ? "KeyK" : "KeyJ");

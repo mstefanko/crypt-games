@@ -134,6 +134,14 @@ test("focused free-kick scenario requires actual remote contact and waives unrel
     b.possessionId = null;
     if (b.lastTouch) b.lastTouch = "player-2";
   }
+  assert.ok(
+    inspect("cryptkick", f, "kick-restart").failures.some(
+      (f) =>
+        f.kind ===
+        "remote free kick did not exercise a late prediction correction",
+    ),
+  );
+  for (const frame of f.slice(10)) frame.evidence.raw.x += 60;
   const r = inspect("cryptkick", f, "kick-restart");
   assert.equal(r.failures.length, 0);
   for (const frame of f)
