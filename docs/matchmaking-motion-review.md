@@ -46,3 +46,35 @@ The first implementation still rewound Volley when the authority described a ser
 The general displacement probe also found a 60-world-unit Cryptkick ball step and two roughly 50–58-unit Volley steps as a stationary ball started moving. Those are candidates to inspect around serve or restart synchronization. Two other Volley jumps, 39 and 45 units, occurred as a predicted point was rejected and the same rally resumed. These motivated the short opacity transition described above. A focused Volley replay exercised two rejected points. In both, the submitted ball sprite started at 25% opacity and returned to full opacity eight submitted frames later. The positional correction remains measurable.
 
 The friends test covered countdown cancellation when the second player left, replacing that player and starting the match, cutting both ends of the replacement's court TCP connection, recovering the same controlled ID after reload, and removing a disconnected queued spectator. The role-fallback browser scenario separately deleted the saved court token and verified that Play next actually queued the resulting watcher.
+
+## Follow-up on the first moving ball
+
+A second three-browser investigation separated the real move to a restart formation from the first movement after placement. The host logged the predicted ball before presentation changes, the latest server checkpoint and the submitted ball after interpolation. The video carries the index of the corresponding trace sample. Distances include height and use world units.
+
+On the reference client at `bd6ec5c`, Rift Volley frame 586 went from a waiting ball to a position 50.5 units away. The incoming checkpoint at 399 still had a waiting server. Reconciliation produced a contact at 401 and replayed it through tick 413. Cryptkick frame 399 exposed a different path. The local predictor advanced a dribble by 1.3 units while the submitted ball moved 25.6 units from the ready formation to the player. The earlier 60.4-unit free-ball trace lacked prediction and checkpoint provenance.
+
+The client captures compact ball samples during reconciliation of a waiting Volley serve or untouched protected-side Cryptkick placement. A short continuous path can play back at double speed until it rejoins live presentation. Incomplete approaches can use the existing 120 ms free-ball fade. Volley separates the serve marker from the scene-wide interpolation key and attaches the waiting ball to the drawn server. When a confirmed Kick or Volley countdown reaches its scheduled end, the renderer can present play on the same score and rally, including attached dribbles. A speculative point still freezes the submitted play frame.
+
+### Reproduce
+
+From the Crypt Games root, build the authority and run the probe on the desired client revision.
+
+```sh
+npm run build:cryptball:server
+MOTION_SPORTS=cryptkick,rift-volley MOTION_STEPS=48 MOTION_LABEL=sample \
+  MOTION_VIDEO_DIR=.local-game-tests/launch-video \
+  node scripts/cryptball-matchmaking-motion.mjs .local-game-tests/launch.json
+node scripts/cryptball-matchmaking-motion.mjs --check .local-game-tests/launch.json
+node --test scripts/cryptball-matchmaking-motion.test.mjs
+```
+
+For a comparison against `bd6ec5c`, copy the current probe into that checkout before running it. Install dependencies locally in each worktree so its workspace packages and generated build identities match. The launch gate follows the first 250 ms or until the contact or scene changes. It counts failing opportunities once, distinguishes visible steps from faded corrections, and requires launch coverage. Ordinary point, held-frame and Dodge checks remain available.
+
+| Sampled host | Reference, jumps / opportunities | Corrected at 572ce0c |
+| --- | ---: | ---: |
+| Cryptkick | 1 / 4 | 0 / 3 |
+| Rift Volley | 2 / 6 | 0 / 6 |
+
+The two runs recorded 110 and 109 induced stalls, respectively. All nine corrected launches stayed within the displacement allowance at full opacity. In corrected Volley frame 587 the raw prediction advanced 46.9 units, while the submitted ball advanced 0.9 units. Its largest step within the window was 8.2 units. A separate intermediate Volley capture had two faded discontinuities in eleven serves. Counts describe the recorded host in local proxy runs. Frame times, rally outcomes and opportunity counts vary.
+
+For the free-ball mechanism, set `MOTION_SCENARIO=kick-restart` instead of choosing sports. This probe builds an instrumented authority in the ignored test directory. It starts in the standard team-1 restart formation at 1–0 with a 120-tick ready period and uses three browsers. The browser controlling player 2 strikes the untouched ball through the normal input path. The host remains neutral. Coverage requires the remote touch, no possession and a large raw correction. The reference host stepped 56.0 units (raw 60.2) on frame 356. The corrected host stepped 8.9 units (raw 91.2) on frame 374. Its maximum was 12.3 units within the launch window. Both selected launches were fully opaque.
