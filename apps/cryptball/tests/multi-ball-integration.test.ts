@@ -3,7 +3,7 @@ import { pack, unpack } from 'msgpackr';
 import { MatchAuthority } from '../../cryptball-server/src/model';
 import { encodeSnapshot, decodeSnapshot } from '../protocol';
 import { createCryptballSession } from '../sim/session';
-import { confirmedCombatPresentation } from '../src/online/confirmed-combat';
+import { confirmedCombatPresentation, DodgeFlightPresentation } from '../src/online/confirmed-combat';
 import { athleteAnimation } from '../src/animation';
 import { guardianDeflectionCues, maulApproachLift, modeStatus } from '../src/new-mode-presentation';
 
@@ -55,4 +55,134 @@ it('warns for secondary-orb deflection independently and lands the maul at conta
   expect(guardianDeflectionCues(state)).toEqual([{id:'guardian-1',x:state.guardian!.orbs[1].ball.x,y:state.guardian!.orbs[1].ball.y,z:state.guardian!.orbs[1].ball.z,until:95}]);
   state.tick=95;expect(guardianDeflectionCues(state)).toEqual([]);
   expect(maulApproachLift(0)).toBe(0);expect(maulApproachLift(.5)).toBe(30);expect(maulApproachLift(1)).toBeCloseTo(0);
+});
+
+for (const flight of ["friendly-pass", "hostile-flight"] as const)
+  it(`keeps the predicted terminal pose for the same confirmed ${flight}`, () => {
+    const authority = createCryptballSession({
+      sportId: "crypt-dodge",
+    }).observe();
+    const known = authority.dodge!.balls[1];
+    known.mode.state = flight;
+    known.mode.holderId = null;
+    known.mode.throwId = 9;
+    known.mode.releaseTick = 12;
+    known.physical.x = 1000;
+    const predicted = structuredClone(authority),
+      local = predicted.dodge!.balls[1];
+    local.mode.state = "dead-loose";
+    local.physical.x = 8000;
+    const draw = confirmedCombatPresentation(predicted, authority);
+    expect(draw.dodge!.balls[1].physical.x).toBe(8000);
+    expect(draw.dodge!.balls[1].mode.state).toBe(flight);
+    expect(authority.dodge!.balls[1].physical.x).toBe(1000);
+    // A different release, throw, holder or reset is a distinct authoritative generation.
+    for (const change of [
+      () => {
+        local.mode.releaseTick++;
+      },
+      () => {
+        local.mode.throwId++;
+      },
+      () => {
+        local.mode.holderId = "other";
+      },
+      () => {
+        local.mode.state = "reset";
+      },
+    ]) {
+      const saved = structuredClone(local.mode);
+      change();
+      expect(
+        confirmedCombatPresentation(predicted, authority).dodge!.balls[1]
+          .physical.x,
+      ).toBe(1000);
+      local.mode = saved;
+    }
+  });
+
+it("holds final flight frames across checkpoint rewinds until prediction catches up or authority confirms contact", () => {
+  const state = createCryptballSession({ sportId: "crypt-dodge" }).observe();
+  const ball = state.dodge!.balls[1];
+  ball.mode.state = "hostile-flight";
+  ball.mode.holderId = null;
+  ball.mode.throwId = 5;
+  ball.mode.releaseTick = 50;
+  ball.physical.x = 1000;
+  ball.physical.vx = -100;
+  const presentation = new DodgeFlightPresentation();
+  presentation.draw(state);
+  ball.physical.x = -13000;
+  presentation.draw(state);
+  // The first reset/catch fallback and subsequent prediction frames behind the held point stay held.
+  for (const x of [1000, -5000, -12000]) {
+    ball.physical.x = x;
+    const drawn = presentation.draw(state);
+    expect(drawn.dodge!.balls[1].physical.x).toBe(-13000);
+    expect(drawn.dodge!.balls[1].mode.state).toBe("hostile-flight");
+    expect(ball.physical.x).toBe(x);
+  }
+  ball.physical.x = -14000;
+  expect(presentation.draw(state).dodge!.balls[1].physical.x).toBe(-14000);
+  ball.mode.state = "reset";
+  ball.physical.x = 26000;
+  expect(presentation.draw(state).dodge!.balls[1].physical.x).toBe(26000);
+  ball.mode.state = "hostile-flight";
+  ball.mode.throwId++;
+  expect(presentation.draw(state).dodge!.balls[1].physical.x).toBe(26000);
+});
+
+for (const contact of ["held", "reset"] as const)
+  it(`does not rewind or publish predicted ${contact} during a confirmed flight`, () => {
+    const authority = createCryptballSession({
+      sportId: "crypt-dodge",
+    }).observe();
+    const known = authority.dodge!.balls[1];
+    known.mode.state = "hostile-flight";
+    known.mode.holderId = null;
+    known.mode.throwId = 5;
+    known.mode.releaseTick = 50;
+    known.physical.x = 1000;
+    known.physical.vx = -100;
+    const predicted = structuredClone(authority),
+      local = predicted.dodge!.balls[1];
+    local.physical.x = -13000;
+    const view = new DodgeFlightPresentation();
+    view.draw(confirmedCombatPresentation(predicted, authority));
+    local.mode.state = contact;
+    local.mode.holderId = contact === "held" ? "player-1" : null;
+    local.physical.x = 26000;
+    const held = view.draw(confirmedCombatPresentation(predicted, authority));
+    expect(held.dodge!.balls[1].physical.x).toBe(-13000);
+    expect(held.dodge!.balls[1].mode.state).toBe("hostile-flight");
+    known.mode.state = contact;
+    known.mode.holderId = local.mode.holderId;
+    known.physical.x = 26000;
+    const confirmed = view.draw(
+      confirmedCombatPresentation(predicted, authority),
+    );
+    expect(confirmed.dodge!.balls[1].mode.state).toBe(contact);
+    expect(confirmed.dodge!.balls[1].physical.x).toBe(26000);
+  });
+
+it("releases a speculative flight hold when authority catches up or confirms a changed direction", () => {
+  for (const changedDirection of [false, true]) {
+    const state = createCryptballSession({ sportId: "crypt-dodge" }).observe();
+    state.tick = 100;
+    const ball = state.dodge!.balls[1];
+    ball.mode.state = "hostile-flight";
+    ball.mode.holderId = null;
+    ball.physical.x = -1000;
+    ball.physical.vx = -100;
+    const authority = structuredClone(state);
+    authority.tick = 90;
+    const view = new DodgeFlightPresentation();
+    view.draw(state, authority);
+    state.tick = 101;
+    ball.physical.x = 1000;
+    expect(view.draw(state, authority).dodge!.balls[1].physical.x).toBe(-1000);
+    if (changedDirection) authority.dodge!.balls[1].physical.vx = 100;
+    else authority.tick = 100;
+    expect(view.draw(state, authority).dodge!.balls[1].physical.x).toBe(1000);
+  }
 });

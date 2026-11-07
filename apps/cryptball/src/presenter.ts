@@ -532,9 +532,11 @@ export class CryptballPresenter {
     reducedMotion = false,
     playerNames: Readonly<Record<string,string>> = {},
     presentationTick = s.tick,
+    ballCorrectionAlpha = 1,
   ) {
     if (!this.loaded || this.disposed || s.sportId === "cryptcheck" && !this.hockeyLoaded || isNewMode(s.sportId) && !this.newLoaded) return;
     for (const [key,label] of this.labels) if (key.startsWith("player-name.")) label.visible = false;
+    if (ballCorrectionAlpha < 1) this.history.length = 0;
     const renderTime = performance.now();
     this.renderDelta = Math.max(0,Math.min(50,renderTime-this.lastRenderTime));
     this.lastRenderTime = renderTime;
@@ -906,7 +908,7 @@ export class CryptballPresenter {
     );
     const ballShadow = this.sprites.get("ball.shadow")!;
     ballShadow.scale.set(visual.shadowScale + Math.min(height, 80) / 300, .65 * visual.radius / 3);
-    ballShadow.alpha = Math.max(.3, .8 - height / 160);
+    ballShadow.alpha = Math.max(.3, .8 - height / 160) * ballCorrectionAlpha;
     ballShadow.visible = !s.dodge?.balls[0].retired;
     if (s.sportId === "rift-volley") this.paintLanding(s);
     if (!reducedMotion && speed > 45 && !s.dodge?.balls[0].retired)
@@ -925,6 +927,7 @@ export class CryptballPresenter {
       ball.y - visual.groundLift - height,
     );
     orb.visible = !s.dodge?.balls[0].retired;
+    orb.alpha = ballCorrectionAlpha;
     orb.tint=s.dodge?.ball.state === "hostile-flight" && s.dodge.ball.powered ? 0xffb65e : 0xffffff;
     const holderId = s.dodge?.ball.state === "held" ? s.dodge.ball.holderId : s.guardian ? s.possessionId : null;
     if (holderId) {

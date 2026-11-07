@@ -9,7 +9,7 @@ function usePredictedBallPose(local: DodgeMode, known: DodgeMode) {
   // The confirmed throw has reached a surface or athlete in the prediction.
   // Reusing the older airborne position here would replay its approach.
   return (
-    known.state === "hostile-flight" &&
+    (known.state === "hostile-flight" || known.state === "friendly-pass") &&
     local.state === "dead-loose" &&
     local.releaseTick === known.releaseTick
   );
@@ -43,7 +43,8 @@ export function confirmedCombatPresentation(
         balls: a.balls.map((known) => {
           const local = p.balls.find((b) => b.id === known.id);
           const physical =
-            local && local.retired === known.retired &&
+            local &&
+            local.retired === known.retired &&
             usePredictedBallPose(local.mode, known.mode)
               ? local.physical
               : known.physical;
@@ -70,9 +71,7 @@ export function confirmedCombatPresentation(
         const confirmedOut = a.athletes[player.id].lives === 0;
         return {
           ...player,
-          ...(predictedOut !== confirmedOut
-            ? { x: known.x, y: known.y }
-            : {}),
+          ...(predictedOut !== confirmedOut ? { x: known.x, y: known.y } : {}),
           immunityTicks: known.immunityTicks,
           staggerTicks: known.staggerTicks,
         };
@@ -167,4 +166,97 @@ export function confirmedCombatPresentation(
     };
   }
   return predicted;
+}
+
+/** Runs once on the submitted frame, never while prediction replays. Confirmed
+ * contact modes release the hold; an unconfirmed catch/reset cannot rewind an
+ * already drawn flight back to an older checkpoint. No trajectory is invented. */
+export class DodgeFlightPresentation {
+  private scene = "";
+  private flights = new Map<
+    string,
+    {
+      key: string;
+      physical: NonNullable<Observation["dodge"]>["balls"][number]["physical"];
+      vx: number;
+      vy: number;
+      tick: number;
+    }
+  >();
+  reset() {
+    this.scene = "";
+    this.flights.clear();
+  }
+  draw(state: Observation, authority?: Observation): Observation {
+    if (!state.dodge) {
+      this.reset();
+      return state;
+    }
+    const scene = JSON.stringify([
+      state.sportId,
+      state.phase,
+      state.score,
+      state.dodge.round,
+      state.dodge.subphase,
+    ]);
+    if (scene !== this.scene) {
+      this.flights.clear();
+      this.scene = scene;
+    }
+    let changed = false;
+    const balls = state.dodge.balls.map((ball) => {
+      if (
+        ball.retired ||
+        (ball.mode.state !== "hostile-flight" &&
+          ball.mode.state !== "friendly-pass")
+      ) {
+        this.flights.delete(ball.id);
+        return ball;
+      }
+      const key = JSON.stringify([
+        ball.mode.state,
+        ball.mode.throwId,
+        ball.mode.releaseTick,
+        ball.mode.holderId,
+      ]);
+      let prior = this.flights.get(ball.id);
+      const p = ball.physical;
+      // Once authority has reached the held render tick, its corrected path wins.
+      // A changed authoritative direction also ends the speculative hold.
+      const known = authority?.dodge?.balls.find((b) => b.id === ball.id);
+      if (
+        prior &&
+        authority &&
+        (authority.tick >= prior.tick ||
+          (known &&
+            known.mode.throwId === ball.mode.throwId &&
+            known.physical.vx * prior.vx + known.physical.vy * prior.vy < 0))
+      )
+        prior = undefined;
+      if (
+        prior?.key === key &&
+        (p.x - prior.physical.x) * prior.vx +
+          (p.y - prior.physical.y) * prior.vy <
+          0
+      ) {
+        changed = true;
+        return { ...ball, physical: { ...prior.physical } };
+      }
+      this.flights.set(ball.id, {
+        key,
+        physical: { ...p },
+        vx: prior?.key === key ? prior.vx : p.vx,
+        vy: prior?.key === key ? prior.vy : p.vy,
+        tick: state.tick,
+      });
+      return ball;
+    });
+    return changed
+      ? {
+          ...state,
+          ball: { ...balls[0].physical },
+          dodge: { ...state.dodge, balls },
+        }
+      : state;
+  }
 }

@@ -48,6 +48,7 @@ vi.mock("@colyseus/sdk", () => {
   };
 });
 import { createOnlineSession } from "../src/online/session";
+import { FrameInterpolation } from "../src/online/frame-interpolation";
 import { MatchAuthority } from "../../cryptball-server/src/model";
 import { encodeSnapshot, PROTOCOL } from "../protocol";
 import { createCryptballSession, SPORT_IDS } from "../sim/session";
@@ -313,6 +314,110 @@ it("waits for authoritative rally confirmation before displaying a predicted poi
   expect(client.observe().score).toEqual(checkpoint.state.score);
   expect(client.observe().ball.x).toBe(checkpoint.state.ball.x);
   expect(client.observe().ball.z).toBe(checkpoint.state.ball.z);
+});
+
+it.each([[false, "expiry"], [true, "confirmation"], [true, "reduced"], [true, "ownership"], [true, "reset"]] as const)("holds the last rendered pre-point position through delayed confirmation (markers: %s, fade: %s)", async (differentMarkers, fadeEnd) => {
+  const authority = new MatchAuthority("room", true, "rift-volley");
+  for (const id of ["p0", "p1"]) { authority.join(id, "Guest"); authority.ready(id); }
+  authority.start();
+  for (let tick = 0; tick < 180; tick++) authority.advance();
+  const checkpoint = authority.session.capture();
+  Object.assign(checkpoint.state.ball, { x: -100 * 256, y: 0, z: 20 * 256, vx: 0, vy: 0, vz: -240 * 256 });
+  checkpoint.state.volley!.serving = false;
+  authority.session.restore(checkpoint);
+  const client = createOnlineSession({ endpoint: "ws://test", sportId: "rift-volley" });
+  await client.connect("quick");
+  fake.messages.get("lobby")!(authority.lobby());
+  fake.messages.get("snapshot")!(encodeSnapshot(authority.snapshot("p0", [])));
+  const interpolation = new FrameInterpolation();
+  let spoofMarkers = differentMarkers;
+  const render = () => {
+    const source = client.observe();
+    let drawn = interpolation.draw(source, now, 0.5);
+    // A predicted serve release or automatic control switch may lead authority
+    // within the same phase, score and rally. Neither changes the court epoch.
+    if (spoofMarkers && client.rawObserve().phase === "play")
+      drawn = { ...drawn, controlledId: drawn.players[1].id,
+        volley: { ...drawn.volley!, serving: !checkpoint.state.volley!.serving } };
+    return client.presentFrame(drawn, source, source.tick - 0.5);
+  };
+  let lastPlay = render();
+  for (let frame = 0; frame < 20; frame++) {
+    now += 1000 / 60;
+    client.step({ moveY: 1 });
+    if (client.rawObserve().phase !== "play") break;
+    lastPlay = render();
+  }
+  expect(client.rawObserve().phase).toBe("goal");
+  expect(lastPlay.ball.z).not.toBe(checkpoint.state.ball.z);
+  expect(lastPlay.ball.z).not.toBe(client.rawObserve().ball.z);
+  const drawnTick = client.presentationTick;
+  const held = render();
+  expect(held.tick).toBe(lastPlay.tick);
+  expect(client.presentationTick).toBe(drawnTick);
+  expect(held.phase).toBe("play");
+  expect([held.ball.x, held.ball.y, held.ball.z]).toEqual([lastPlay.ball.x, lastPlay.ball.y, lastPlay.ball.z]);
+  expect(held.players.map(p => [p.x, p.y])).toEqual(lastPlay.players.map(p => [p.x, p.y]));
+  expect(held.players).toEqual(lastPlay.players);
+  // Consumers cannot mutate the cached view, and undrawn replay projections
+  // cannot substitute their intermediate state for the last rendered frame.
+  held.ball.x = 123456;
+  fake.messages.get("snapshot")!(encodeSnapshot(authority.snapshot("p0", [])));
+  expect(render().ball.z).toEqual(lastPlay.ball.z);
+  expect(client.ballCorrectionAlpha()).toBe(1);
+  expect(client.observe().score).toEqual(checkpoint.state.score);
+
+  // If authority passes the held frame without awarding a point, the old
+  // cache must expire even if replay still predicts a point.
+  spoofMarkers = false;
+  const rejected = authority.session.capture();
+  rejected.state.tick = lastPlay.tick + 1;
+  rejected.state.ball.z = 6 * 256;
+  rejected.state.ball.x = -20 * 256;
+  authority.session.restore(rejected);
+  fake.messages.get("snapshot")!(encodeSnapshot(authority.snapshot("p0", [])));
+  expect(client.observe().tick).toBeGreaterThanOrEqual(rejected.state.tick);
+  expect(render().ball.z).not.toEqual(lastPlay.ball.z);
+  expect(client.ballCorrectionAlpha()).toBe(0.25);
+  now += 60;
+  expect(client.ballCorrectionAlpha()).toBeCloseTo(0.625);
+  if (fadeEnd === "expiry") {
+    now += 61;
+    expect(client.ballCorrectionAlpha()).toBe(1);
+  } else if (fadeEnd === "reduced") {
+    expect(client.ballCorrectionAlpha(true)).toBe(1);
+    expect(client.ballCorrectionAlpha()).toBe(1);
+  } else if (fadeEnd === "ownership") {
+    const source = client.observe();
+    client.presentFrame({ ...source, possessionId: source.players[0].id });
+    expect(client.ballCorrectionAlpha()).toBe(1);
+  } else if (fadeEnd === "reset") {
+    client.suspend();
+    expect(client.ballCorrectionAlpha()).toBe(1);
+    client.resume();
+  }
+  expect(client.observe().score).toEqual(checkpoint.state.score);
+
+  const confirmed = authority.session.capture();
+  confirmed.state.tick = client.rawObserve().tick + 1;
+  confirmed.state.score[0]++;
+  confirmed.state.phase = "goal";
+  confirmed.state.ball.x = 12 * 256;
+  authority.session.restore(confirmed);
+  fake.messages.get("snapshot")!(encodeSnapshot(authority.snapshot("p0", [])));
+  expect(client.observe().phase).toBe("goal");
+  expect(client.observe().score).toEqual(confirmed.state.score);
+  expect(client.observe().ball.x).toBe(confirmed.state.ball.x);
+  render();
+  expect(client.ballCorrectionAlpha()).toBe(1);
+
+  // A new generation may legitimately return to the same pre-point score.
+  authority.session.restore(checkpoint);
+  const reset = authority.snapshot("p0", []);
+  reset.generation++;
+  fake.messages.get("snapshot")!(encodeSnapshot(reset));
+  expect(client.observe().score).toEqual(checkpoint.state.score);
+  expect(client.observe().ball).toEqual(authority.session.observeFor("p0").ball);
 });
 
 it("snaps a new authoritative rally into place and keeps visual height nonnegative", async () => {
@@ -1155,4 +1260,39 @@ it("retries court-token recovery while the server is still processing the previo
   await expect(restored.reconnectCourt("room")).resolves.toBe(true);
   expect(fake.reconnects).toEqual(["room:secret", "room:secret"]);
   expect(fake.joins).toHaveLength(1);
+});
+
+it("waits for both court metadata and an authoritative role before reporting admission", async () => {
+  const authority = new MatchAuthority("room", true, "cryptball", false, true);
+  authority.join("a", "A"); authority.join("b", "B"); authority.start("a");
+  authority.admit("p0", "Viewer", undefined, "watch");
+  const client = createOnlineSession({ endpoint: "ws://test" });
+  await client.connect("quick");
+  let settled = false;
+  const ready = client.waitForCourtReady().then(() => { settled = true; });
+  fake.messages.get("lobby")!(authority.lobby());
+  await Promise.resolve();
+  expect(settled).toBe(false);
+  fake.messages.get("snapshot")!(encodeSnapshot(authority.observerSnapshot([])));
+  fake.messages.get("lobby")!({ ...authority.lobby(), epoch: authority.lobby().epoch + 1 });
+  await new Promise(resolve => setTimeout(resolve, 30));
+  expect(settled).toBe(false);
+  fake.messages.get("lobby")!({ ...authority.lobby(), seats: [{ id: "p0" }] });
+  await new Promise(resolve => setTimeout(resolve, 30));
+  expect(settled).toBe(false);
+  fake.messages.get("lobby")!(authority.lobby());
+  await ready;
+  expect(client.spectator).toBe(true);
+  expect(client.observe().controlledId).toBe("");
+});
+
+it("bounds incomplete court hydration and rejects a session left during hydration", async () => {
+  const client = createOnlineSession({ endpoint: "ws://test" });
+  await client.connect("quick");
+  const timeout = expect(client.waitForCourtReady(10)).rejects.toThrow("did not synchronize");
+  now = 11;
+  await timeout;
+  const left = expect(client.waitForCourtReady()).rejects.toThrow("disconnected");
+  await client.leave();
+  await left;
 });

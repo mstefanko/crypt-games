@@ -5,7 +5,7 @@ import { CoveredViewBuffer } from "./covered-view-buffer";
 import { NetworkClock } from "./clock";
 import { InputScheduler, replaySchedule } from "./input-scheduler";
 import { Recovery } from "./recovery";
-import { confirmedCombatPresentation } from "./confirmed-combat";
+import { confirmedCombatPresentation, DodgeFlightPresentation } from "./confirmed-combat";
 import { CosmeticLedger } from "./cosmetics";
 import {
   createCryptballSession,
@@ -83,6 +83,19 @@ export function createOnlineSession(options: OnlineOptions = {}) {
   let presentationCorrection: { before: Observation; after: Observation; reset: boolean; key: string } | null = null;
   const cosmetics = new CosmeticLedger();
   let previousPrediction: Observation | null = null;
+  let lastPresentedState: Observation | null = null;
+  const pendingTransitions = new WeakSet<Observation>();
+  const dodgeFlights = new DodgeFlightPresentation();
+  let lastPresentedTick: number | null = null;
+  let heldPoint: Observation | null = null;
+  let rejectedPointFade: { started: number; scene: Observation } | null = null;
+  function resetPresented() {
+    lastPresentedState = null;
+    heldPoint = null;
+    rejectedPointFade = null;
+    dodgeFlights.reset();
+    lastPresentedTick = null;
+  }
   let remote: Record<string, CommandFrame> = {};
   let localHeld: CommandFrame = {};
   let lastCheckpointPhase: Snapshot["phase"] | undefined;
@@ -264,6 +277,8 @@ export function createOnlineSession(options: OnlineOptions = {}) {
     const pendingOwnership = replayRevision === previousRevision;
     const ownershipReset = (previousRevision === nextRevision && previous.controlledId !== authority.controlledId) ||
       (previousRevision !== nextRevision && !pendingOwnership);
+    if (reset) resetPresented();
+    else if (ownershipReset) dodgeFlights.reset();
     if (ownershipReset) {
       localHeld = {};
       neutralLatch = true;
@@ -432,6 +447,7 @@ export function createOnlineSession(options: OnlineOptions = {}) {
       presentationCorrection = null;
       previousPrediction = null;
       cosmetics.reset();
+      resetPresented();
       localHeld = {};
       neutralLatch = true;
       setStatus("reconnecting");
@@ -448,14 +464,15 @@ export function createOnlineSession(options: OnlineOptions = {}) {
     });
     if (options.autoReady !== false) next.send("ready");
   }
+  // Serve state and controller switches can change within one rally. They do
+  // not invalidate a submitted court pose while a point is unconfirmed.
+  function sameScoringPhase(a: Observation, b: Observation): boolean {
+    return a.sportId === b.sportId && a.phase === b.phase &&
+      a.volley?.rally === b.volley?.rally && a.score[0] === b.score[0] && a.score[1] === b.score[1];
+  }
   function confirmedObservation(observation: Observation): Observation {
       // A predicted point must not reveal the next serve before authority confirms it.
-      const awaitingTransition =
-        authority &&
-        (observation.phase !== authority.phase ||
-          observation.volley?.rally !== authority.volley?.rally ||
-          observation.score[0] !== authority.score[0] ||
-          observation.score[1] !== authority.score[1]);
+      const awaitingTransition = authority && !sameScoringPhase(observation, authority);
       if (awaitingTransition) observation = structuredClone(authority!);
       if (authority) {
         observation = confirmedCombatPresentation(observation, authority);
@@ -467,6 +484,7 @@ export function createOnlineSession(options: OnlineOptions = {}) {
         observation.overtime = authority.overtime;
         observation.stats = { ...authority.stats };
       }
+      if (awaitingTransition) pendingTransitions.add(observation);
       return observation;
   }
   function update() {
@@ -508,6 +526,17 @@ export function createOnlineSession(options: OnlineOptions = {}) {
     }
   }
   return {
+    async waitForCourtReady(timeoutMs = 10000) {
+      const deadline = performance.now() + timeoutMs;
+      while (!lobby || status !== "joined" || lobby.epoch !== epoch ||
+        observer === lobby.seats.some(seat => seat.id === room?.sessionId)) {
+        if (status === "left" || status === "interrupted")
+          throw Error("The destination court disconnected. Please choose again.");
+        if (performance.now() >= deadline)
+          throw Error("The destination court did not synchronize. Please choose again.");
+        await new Promise(resolve => setTimeout(resolve, 25));
+      }
+    },
     async reconnectCourt(code: string) {
       const token = saved(code);
       if (!token) return false;
@@ -673,6 +702,47 @@ export function createOnlineSession(options: OnlineOptions = {}) {
     observe(): Observation {
       return confirmedObservation(id ? participantObservation(id) : session.observe());
     },
+    /** Final render boundary: retain the detached submitted view after interpolation. */
+    presentFrame(state: Observation, source: Observation = state, renderTick = state.tick): Observation {
+      if (pendingTransitions.has(source)) {
+        const held = lastPresentedState;
+        if (held && authority && sameScoringPhase(held, authority) && held.tick >= authority.tick) {
+          // Retain animation-driving fields as well as interpolated positions.
+          // Clone only while holding; ordinary frames retain their detached view.
+          heldPoint = held;
+          rejectedPointFade = null;
+          const frozen = confirmedCombatPresentation(structuredClone(held), authority);
+          return { ...frozen, controlledId: state.controlledId, score: [...state.score],
+            phase: state.phase, phaseTicks: state.phaseTicks, winner: state.winner,
+            remainingTicks: state.remainingTicks, overtime: state.overtime, stats: { ...state.stats } };
+        }
+        lastPresentedState = null;
+      }
+      if (rejectedPointFade && (state.possessionId || state.volley?.serving || !sameScoringPhase(rejectedPointFade.scene, state))) rejectedPointFade = null;
+      if (heldPoint) {
+        // A rejected point can hand the free ball back at a distant corrected
+        // position. Fade its appearance briefly; never draw a false trajectory.
+        if (sameScoringPhase(heldPoint, state) && state.phase === "play" &&
+            !state.possessionId && !state.volley?.serving && !heldPoint.possessionId && !state.dodge && !state.guardian &&
+            Math.hypot(state.ball.x - heldPoint.ball.x, state.ball.y - heldPoint.ball.y,
+              state.ball.z - heldPoint.ball.z) > 24 * 256)
+          rejectedPointFade = { started: performance.now(), scene: state };
+        heldPoint = null;
+      }
+      state = dodgeFlights.draw(state, authority ?? undefined);
+      if (lastPresentedState && state.tick < lastPresentedState.tick)
+        state = { ...state, tick: lastPresentedState.tick };
+      lastPresentedTick = Math.max(lastPresentedTick ?? renderTick, renderTick);
+      lastPresentedState = state;
+      return state;
+    },
+    get presentationTick() { return lastPresentedTick; },
+    ballCorrectionAlpha(reducedMotion = false) {
+      if (!rejectedPointFade) return 1;
+      const progress = (performance.now() - rejectedPointFade.started) / 120;
+      if (reducedMotion || progress >= 1) { rejectedPointFade = null; return 1; }
+      return 0.25 + 0.75 * Math.max(0, progress);
+    },
     coveredObservation(now: number) {
       return suspended || authorityCovered ? coveredView.draw(now) : null;
     },
@@ -743,6 +813,7 @@ export function createOnlineSession(options: OnlineOptions = {}) {
       presentationCorrection = null;
       previousPrediction = null;
       cosmetics.reset();
+      resetPresented();
       localHeld = {};
       neutralLatch = true;
       history = [];
@@ -759,6 +830,7 @@ export function createOnlineSession(options: OnlineOptions = {}) {
       presentationCorrection = null;
       previousPrediction = null;
       cosmetics.reset();
+      resetPresented();
       localHeld = {};
       neutralLatch = true;
       history = [];

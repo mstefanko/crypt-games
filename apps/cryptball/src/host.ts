@@ -238,11 +238,13 @@ export async function mountCryptball() {
       const interpolateFrame = screen === "play" && !lifecycle.paused;
       if (!interpolateFrame) frameInterpolation.reset();
       const covered = ["play", "pause", "settings"].includes(screen) ? online?.coveredObservation(time) : null;
-      const state = covered?.state ?? (interpolateFrame
+      let state = covered?.state ?? (interpolateFrame
         ? frameInterpolation.drawCaptured(observation, time, alpha) : observation);
+      const sampleTick = covered?.tick ?? (interpolateFrame ? Math.max(0, observation.tick - 1 + alpha) : observation.tick);
+      if (online && !covered) state = online.presentFrame(state, observation, sampleTick);
       if (covered) updateHud(state);
       const renderEvents = covered ? pendingEvents.filter(event => event.tick <= covered.tick) : pendingEvents;
-      presenter.render(state, renderEvents, prefs.reducedMotion, Object.fromEntries((online?.lobby?.seats ?? []).map(seat=>[online?.controllerOwners.find(controller=>controller.id===seat.id)?.playerId ?? seat.playerId,seat.name])), covered?.tick ?? (interpolateFrame ? Math.max(0, observation.tick - 1 + alpha) : observation.tick));
+      presenter.render(state, renderEvents, prefs.reducedMotion, Object.fromEntries((online?.lobby?.seats ?? []).map(seat=>[online?.controllerOwners.find(controller=>controller.id===seat.id)?.playerId ?? seat.playerId,seat.name])), covered?.tick ?? online?.presentationTick ?? sampleTick, covered ? 1 : online?.ballCorrectionAlpha(prefs.reducedMotion) ?? 1);
       pendingEvents = covered ? pendingEvents.filter(event => event.tick > covered.tick) : [];
       stage.render(0);
       performanceDiagnostics.submittedRender();
@@ -920,6 +922,7 @@ export async function mountCryptball() {
             reservation ?? (await owner.court(id, courtId, intent)),
           );
         }
+        await candidate.waitForCourtReady();
         if (!current()) {
           await candidate.leave();
           return;
@@ -938,6 +941,15 @@ export async function mountCryptball() {
         if (source && source !== candidate) void source.leave();
       } finally {
         transferringCourt = null;
+        // Admission can remove the source on the server before the destination
+        // finishes hydrating. Never leave that dead source on screen.
+        if (online === source && source && (source.status === "left" || source.status === "interrupted")) {
+          online = null;
+          rememberCourt();
+          lifecycle.pause();
+          friendsPanel.hidden = true;
+          renderDirectory();
+        }
         releaseAdmission();
       }
       if (next.lobby) rememberCourt(next.lobby);
@@ -947,6 +959,11 @@ export async function mountCryptball() {
       }
       if (next.lobby) renderLobby(next.lobby);
       renderFriendsPanel();
+      if (restore && intent === "play" && next.spectator) {
+        notice.textContent = "Your player seat could not be restored. You are watching. Choose Play next to join the next-match queue.";
+        const details = friendsPanel.querySelector("details");
+        if (details) details.open = true;
+      }
       lifecycle.resume();
       await audio.engine.unlock();
     } catch (error) {

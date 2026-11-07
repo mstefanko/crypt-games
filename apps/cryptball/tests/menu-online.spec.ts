@@ -112,6 +112,8 @@ test("a shared friends link admits named players, starts Dodge and lets a third 
       "data-controlled-id",
       "",
     );
+    const guestControlledId = await guest.locator("#game").getAttribute("data-controlled-id");
+    expect(guestControlledId).toBeTruthy();
     await guest.reload();
     await expect(guest.locator("#game")).toHaveAttribute(
       "data-sport",
@@ -126,6 +128,23 @@ test("a shared friends link admits named players, starts Dodge and lets a third 
       "data-tick",
       /^[1-9]\d*$/,
     );
+    await expect(guest.locator("#game")).toHaveAttribute("data-controlled-id", guestControlledId!);
+    // An expired/missing seat token must settle as a watcher before success is shown.
+    await guest.evaluate(() => {
+      for (const key of Object.keys(sessionStorage))
+        if (key.startsWith("cryptball-reconnect:")) sessionStorage.removeItem(key);
+    });
+    await guest.reload();
+    await expect(guest.locator("#game")).toHaveAttribute("data-spectator", "true", { timeout: 15000 });
+    await expect(guest.locator("#game")).toHaveAttribute("data-controlled-id", "");
+    await expect(guest.locator("#notice")).toContainText("Your player seat could not be restored");
+    const guestPanel = guest.locator("#friends-panel");
+    const playNext = guestPanel.getByRole("button", { name: "Play next", exact: true });
+    await expect(playNext).toBeVisible();
+    await playNext.click();
+    await expect(guestPanel.locator("summary")).toContainText("Queued");
+    await expect(guest.locator("#game")).toHaveAttribute("data-spectator", "true");
+    await expect(guest.locator("#game")).toHaveAttribute("data-controlled-id", "");
     expect(errors).toEqual([]);
   } finally {
     await Promise.all([host, guest, viewer].map((page) => page.close()));
